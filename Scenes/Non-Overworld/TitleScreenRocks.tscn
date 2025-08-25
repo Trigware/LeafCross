@@ -1,0 +1,65 @@
+[gd_scene load_steps=14 format=3 uid="uid://bb58e3bq7qq7j"]
+
+[ext_resource type="Script" uid="uid://jqx4or2t2nmm" path="res://Scripts/Globals/LogoRocks.gd" id="1_ckcno"]
+[ext_resource type="Texture2D" uid="uid://crigp7usfv3am" path="res://Textures/Logo/Rocks/Rock1.png" id="1_km2ut"]
+[ext_resource type="Texture2D" uid="uid://44x7r3psm32h" path="res://Textures/Logo/Rocks/Rock2.png" id="2_ckcno"]
+[ext_resource type="Texture2D" uid="uid://ngeb08c21nbc" path="res://Textures/Logo/Rocks/Rock3.png" id="3_jhiw5"]
+[ext_resource type="Texture2D" uid="uid://bxqgf6kgo3pmb" path="res://Textures/Logo/Rocks/Rock4.png" id="4_mxpcq"]
+[ext_resource type="Texture2D" uid="uid://dya8njbbnuvuv" path="res://Textures/Logo/Rocks/Rock5.png" id="5_0fswg"]
+[ext_resource type="Texture2D" uid="uid://dydgyotvbcj05" path="res://Textures/Logo/Rocks/Rock6.png" id="6_ae2hq"]
+[ext_resource type="Texture2D" uid="uid://bh83ojmys0uk3" path="res://Textures/Logo/Rocks/Rock7.png" id="7_0lwmd"]
+[ext_resource type="Texture2D" uid="uid://fihnehxqfrpr" path="res://Textures/Logo/Rocks/Rock8.png" id="8_simkp"]
+[ext_resource type="Texture2D" uid="uid://dohh2qmd44fe4" path="res://Textures/Logo/Rocks/Rock9.png" id="9_226cm"]
+[ext_resource type="Texture2D" uid="uid://dpk04pxac1pdo" path="res://Textures/Logo/Rocks/Rock10.png" id="10_nry1u"]
+[ext_resource type="Texture2D" uid="uid://b2neplvbtkr4v" path="res://Textures/Logo/Rocks/Rock11.png" id="11_y6vo6"]
+[ext_resource type="Texture2D" uid="uid://bphy7wapwfm6e" path="res://Textures/Logo/Rocks/Rock12.png" id="12_0q8v6"]
+
+[node name="Rocks" type="Node2D"]
+script = ExtResource("1_ckcno")
+
+[node name="Rock1" type="Sprite2D" parent="."]
+texture = ExtResource("1_km2ut")
+
+[node name="Rock2" type="Sprite2D" parent="."]
+position = Vector2(-4.12698, -13.0159)
+texture = ExtResource("2_ckcno")
+
+[node name="Rock3" type="Sprite2D" parent="."]
+position = Vector2(-2.22224, -26.3492)
+texture = ExtResource("3_jhiw5")
+
+[node name="Rock4" type="Sprite2D" parent="."]
+position = Vector2(-2.5397, -40)
+texture = ExtResource("4_mxpcq")
+
+[node name="Rock5" type="Sprite2D" parent="."]
+position = Vector2(0.952362, -51.4286)
+texture = ExtResource("5_0fswg")
+
+[node name="Rock6" type="Sprite2D" parent="."]
+position = Vector2(16.8254, -55.2381)
+texture = ExtResource("6_ae2hq")
+
+[node name="Rock7" type="Sprite2D" parent="."]
+position = Vector2(30.4762, -50.7937)
+texture = ExtResource("7_0lwmd")
+
+[node name="Rock8" type="Sprite2D" parent="."]
+position = Vector2(33.9682, -40)
+texture = ExtResource("8_simkp")
+
+[node name="Rock9" type="Sprite2D" parent="."]
+position = Vector2(26.0317, -29.8413)
+texture = ExtResource("9_226cm")
+
+[node name="Rock10" type="Sprite2D" parent="."]
+position = Vector2(14.9206, -25.7143)
+texture = ExtResource("10_nry1u")
+
+[node name="Rock11" type="Sprite2D" parent="."]
+position = Vector2(23.8095, -15.5556)
+texture = ExtResource("11_y6vo6")
+
+[node name="Rock12" type="Sprite2D" parent="."]
+position = Vector2(30.7936, -2.5397)
+texture = ExtResource("12_0q8v6")

@@ -1,0 +1,140 @@
+[gd_scene load_steps=12 format=4 uid="uid://c8vj3cwoy76i1"]
+
+[ext_resource type="Script" uid="uid://bfo312wgsexbh" path="res://Scripts/Overworld/Player.gd" id="1_ctcok"]
+[ext_resource type="Texture2D" uid="uid://cq1qc8nh1tdeu" path="res://Textures/Other/weirdforest.png" id="1_s3goe"]
+[ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="2_8lvve"]
+[ext_resource type="Texture2D" uid="uid://bt1cev0o1dw5d" path="res://Textures/Other/Light Rect.png" id="3_s3goe"]
+[ext_resource type="SpriteFrames" uid="uid://bqnq6bo7koaey" path="res://Spriteframes/Player.tres" id="4_s3goe"]
+[ext_resource type="Script" uid="uid://en7tex0nebj2" path="res://Scripts/Overworld/GlowingMushroom.gd" id="4_s7wd7"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7xrvl"]
+resource_name = "Weird Forest"
+texture = ExtResource("1_s3goe")
+separation = Vector2i(4, 4)
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:0/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+5:0/0 = 0
+6:1/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+7:1/0 = 0
+8:0/0 = 0
+8:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, -6.16871, -4.68227, -16, 16)
+8:1/0 = 0
+8:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, -2.7499, 6.31735, 16, 16, -16, 16)
+9:0/0 = 0
+9:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, 2.15533, -5.87142)
+9:1/0 = 0
+9:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(4.68227, 4.97956, 16, -16, 16, 16, -16, 16)
+10:1/0 = 0
+10:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+10:0/0 = 0
+11:0/0 = 0
+11:1/0 = 0
+12:0/0 = 0
+12:1/0 = 0
+13:0/0 = 0
+13:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-14.6414, -16, 0.0743217, -14.1955, -3.93906, -1.26347, -5.87142, 0.222965, -11.0739, 0.520252)
+13:0/0/physics_layer_0/polygon_1/points = PackedVector2Array(3.19584, 12.1145, 7.95243, 11.9658, 12.5604, 0.966185, 8.10108, -3.79041, 2.60126, -2.30397, -1.11483, 2.45262, 1.41212, 6.16871)
+13:1/0 = 0
+13:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-11.3712, 3.04719, -9.14158, -3.49312, 0.371609, -1.11483, -1.85804, 11.2226, -8.24972, 12.2631)
+13:1/0/physics_layer_0/polygon_1/points = PackedVector2Array(10.628, -16, 14.4928, -10.9253, 11.2226, -0.817539, 5.1282, 0.0743217, 2.45262, -7.65514, 0.0743217, -10.0334, 3.64177, -16)
+
+[sub_resource type="TileSet" id="TileSet_s3goe"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_7xrvl")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7xrvl"]
+size = Vector2(73.3886, 63.91)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s3goe"]
+size = Vector2(48, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s7wd7"]
+size = Vector2(10.3333, 3)
+
+[node name="World" type="Node2D"]
+
+[node name="Tilemap" type="Node2D" parent="."]
+scale = Vector2(1.688, 1.688)
+
+[node name="Ground" type="TileMapLayer" parent="Tilemap"]
+tile_map_data = PackedByteArray("AAD+/wAAAAAAAAAAAAD+/wEAAAAAAAEAAAD//wAAAAABAAAAAAD//wEAAAABAAEAAAAAAAAAAAACAAAAAAAAAAEAAAACAAEAAAABAAAAAAADAAAAAAABAAEAAAADAAEAAAD/////AAAEAAAAAAAAAP//AAAEAAAAAAACAAAAAAAEAAAAAAACAAEAAAAEAAAAAAD//wIAAAAEAAAAAAAAAAIAAAAEAAAAAAABAAIAAAAEAAAAAAD9/wAAAAAEAAAAAAD+////AAAEAAAAAAABAP//AAAEAAAAAAACAAIAAAAEAAAAAAD9////AAAEAAAAAAD+//7/AAAEAAAAAAABAP7/AAAEAAAAAAACAP//AAAEAAAAAAD9/wIAAAAEAAAAAAD+/wMAAAAFAAAAAAABAAMAAAAEAAEAAAD///7/AAAEAAEAAAD//wMAAAAEAAAAAAAAAAMAAAAEAAAAAAD+//3/AAAKAAAAAAABAP3/AAAKAAAAAAD///3/AAAKAAAAAAAAAP3/AAAKAAAAAAD+/wQAAAAKAAAAAAD//wQAAAAKAAAAAAAAAAQAAAAKAAAAAAABAAQAAAAKAAAAAAD8////AAAGAAAAAAD8/wAAAAAEAAEAAAD8/wEAAAAEAAEAAAD8/wIAAAAGAAEAAAACAP7/AAAHAAAAAAD9//7/AAAGAAAAAAD9/wMAAAAGAAEAAAACAAMAAAAHAAEAAAADAP//AAAEAAAAAAADAAIAAAAEAAAAAAADAAAAAAAEAAAAAAADAAEAAAAEAAAAAAAEAAAAAAAEAAAAAAAEAAEAAAAEAAAAAAAFAAAAAAAEAAAAAAAFAAEAAAAEAAAAAAAEAP//AAANAAAAAAAFAP//AAAEAAAAAAAEAAIAAAAEAAAAAAAFAAIAAAANAAEAAAACAAQAAAAKAAAAAAADAP7/AAAKAAAAAAAEAP7/AAAKAAAAAAAFAP7/AAAKAAAAAAACAP3/AAAJAAAAAAADAAMAAAAKAAAAAAAEAAMAAAAKAAAAAAAFAAMAAAAKAAAAAAAGAP//AAAHAAAAAAAGAAIAAAAHAAEAAAAHAAIAAAAKAAAAAAAHAP//AAAKAAAAAAAGAAAAAAAEAAAAAAAGAAEAAAAEAAAAAAAHAAEAAAALAAEAAAAHAAAAAAALAAAAAAD9/wEAAAAEAAAAAAD+/wIAAAAEAAAAAAAAAP7/AAAEAAAAAAABAPz/AAAKAAEAAAAAAPz/AAAKAAEAAAD///z/AAAKAAEAAAD+//z/AAAKAAEAAAACAPz/AAAKAAEAAAADAP3/AAAKAAEAAAAEAP3/AAAKAAEAAAAFAP3/AAAKAAEAAAADAPz/AAAKAAEAAAAGAP7/AAAJAAAAAAAGAP3/AAAKAAEAAAAHAP7/AAAKAAEAAAD9//3/AAAIAAAAAAD9//z/AAAKAAEAAAD8//3/AAAKAAEAAAD8//7/AAAIAAAAAAD7//7/AAAKAAEAAAD7////AAAIAAAAAAD7/wAAAAAKAAAAAAD7/wEAAAAKAAAAAAD7/wIAAAAIAAEAAAD8/wMAAAAIAAEAAAD9/wQAAAAIAAEAAAD7/wMAAAAKAAEAAAD8/wQAAAAKAAEAAAD9/wUAAAAKAAEAAAD+/wUAAAAKAAEAAAD//wUAAAAKAAEAAAAAAAUAAAAKAAEAAAABAAUAAAAKAAEAAAACAAUAAAAKAAEAAAADAAQAAAAJAAEAAAADAAUAAAAKAAEAAAAEAAQAAAAKAAEAAAAFAAQAAAAKAAEAAAAGAAMAAAAJAAEAAAAGAAQAAAAKAAEAAAAHAAMAAAAKAAEAAAAIAAAAAAAMAAAAAAAIAAEAAAAMAAEAAAAJAAAAAAAMAAAAAAAJAAEAAAAMAAEAAAAKAAAAAAAMAAAAAAAKAAEAAAAMAAEAAAAJAP//AAAKAAEAAAAKAP//AAAKAAEAAAAIAP7/AAAKAAEAAAAIAAIAAAAJAAEAAAAJAAIAAAAKAAEAAAAKAAIAAAAKAAEAAAAIAAMAAAAKAAEAAAAIAP//AAAJAAAAAAD7//3/AAAKAAEAAAD8//z/AAAKAAEAAAD7/wQAAAAKAAEAAAD8/wUAAAAKAAEAAAAEAAUAAAAKAAEAAAAEAPz/AAAKAAEAAAAHAAQAAAAKAAEAAAAHAP3/AAAKAAEAAAAJAAMAAAAKAAEAAAAJAP7/AAAKAAEAAAD6/wAAAAAKAAEAAAD6/wIAAAAKAAEAAAD6/wEAAAAKAAEAAAD6////AAAKAAEAAAD6//7/AAAKAAEAAAD6/wMAAAAKAAEAAAALAP//AAAKAAEAAAALAAIAAAAKAAEAAAAMAP//AAAKAAEAAAAMAAIAAAAKAAEAAAALAAAAAAAMAAAAAAALAAEAAAAMAAEAAAAMAAAAAAAEAAAAAAAMAAEAAAAEAAAAAAA=")
+tile_set = SubResource("TileSet_s3goe")
+
+[node name="Room Change" type="Area2D" parent="Tilemap"]
+metadata/room_name = "first_bridge"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tilemap/Room Change"]
+position = Vector2(379.775, 32.0261)
+shape = SubResource("RectangleShape2D_7xrvl")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="Tilemap"]
+color = Color(0.65, 0.65, 0.65, 1)
+
+[node name="Lights" type="Node" parent="Tilemap"]
+
+[node name="Transition Light" type="PointLight2D" parent="Tilemap/Lights"]
+position = Vector2(540, 54.5)
+scale = Vector2(0.652344, 0.841797)
+blend_mode = 1
+texture = ExtResource("3_s3goe")
+
+[node name="Start Light" type="PointLight2D" parent="Tilemap/Lights"]
+scale = Vector2(1.688, 1.688)
+color = Color(0.975333, 1, 0.96, 1)
+energy = 1.5
+blend_mode = 2
+texture = ExtResource("2_8lvve")
+texture_scale = 1.2
+
+[node name="Mushroom Light" type="PointLight2D" parent="Tilemap/Lights"]
+position = Vector2(231, -34)
+scale = Vector2(0.169984, 0.169984)
+color = Color(0.2, 1, 0.826667, 1)
+texture = ExtResource("2_8lvve")
+
+[node name="Mushroom Light2" type="PointLight2D" parent="Tilemap/Lights"]
+position = Vector2(312, 127)
+scale = Vector2(0.169984, 0.169984)
+color = Color(0.2, 1, 0.826667, 1)
+texture = ExtResource("2_8lvve")
+
+[node name="Mushroom Interactions" type="Area2D" parent="Tilemap"]
+script = ExtResource("4_s7wd7")
+
+[node name="Interaction" type="CollisionShape2D" parent="Tilemap/Mushroom Interactions"]
+position = Vector2(143.365, -17.7725)
+shape = SubResource("RectangleShape2D_s3goe")
+
+[node name="Interaction2" type="CollisionShape2D" parent="Tilemap/Mushroom Interactions"]
+position = Vector2(180.687, 78.1991)
+shape = SubResource("RectangleShape2D_s3goe")
+
+[node name="Player" type="CharacterBody2D" parent="." groups=["Player"]]
+scale = Vector2(2.85, 2.85)
+script = ExtResource("1_ctcok")
+
+[node name="Player Animations" type="AnimatedSprite2D" parent="Player"]
+modulate = Color(0.8, 0.8, 0.8, 1)
+sprite_frames = ExtResource("4_s3goe")
+animation = &"xdaforgeWalkDown"
+
+[node name="Player Collider" type="CollisionShape2D" parent="Player"]
+position = Vector2(0.5, 17)
+shape = SubResource("RectangleShape2D_s7wd7")
+
+[node name="Camera" type="Camera2D" parent="Player"]
+position = Vector2(0.5, 17)
+offset = Vector2(0, 35)

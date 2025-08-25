@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://liebhejx35kc"]
+
+[ext_resource type="FontFile" uid="uid://dtieujefikmhs" path="res://Fonts/Undertale Font.ttf" id="1_fr2fc"]
+[ext_resource type="LabelSettings" uid="uid://my8rqlfwkpgd" path="res://Label Settings/OutlinedText.tres" id="2_ewge6"]
+
+[node name="Label Template" type="Label"]
+offset_left = 491.0
+offset_top = 402.0
+offset_right = 647.0
+offset_bottom = 463.0
+scale = Vector2(1.5, 1.5)
+theme_override_fonts/font = ExtResource("1_fr2fc")
+theme_override_font_sizes/font_size = 48
+text = "Czech"
+label_settings = ExtResource("2_ewge6")
+vertical_alignment = 1

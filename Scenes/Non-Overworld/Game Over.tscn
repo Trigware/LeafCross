@@ -1,0 +1,71 @@
+[gd_scene load_steps=7 format=3 uid="uid://ct1j1mlh01gam"]
+
+[ext_resource type="Script" uid="uid://blrsaq88fhru3" path="res://Scripts/Globals/GameOver.gd" id="1_q22i0"]
+[ext_resource type="SpriteFrames" uid="uid://dtxtm5aypllnv" path="res://Spriteframes/LeafDisintegration.tres" id="2_3e4dc"]
+[ext_resource type="Texture2D" uid="uid://baak5gxkhkwwj" path="res://Textures/Other/GameOver.png" id="3_gxl35"]
+[ext_resource type="Texture2D" uid="uid://816ne26yw738" path="res://Textures/Other/GameOverSelector.png" id="4_mrrvj"]
+[ext_resource type="FontFile" uid="uid://dtieujefikmhs" path="res://Fonts/Undertale Font.ttf" id="5_mrrvj"]
+[ext_resource type="LabelSettings" uid="uid://my8rqlfwkpgd" path="res://Label Settings/OutlinedText.tres" id="6_kc57y"]
+
+[node name="GameOver" type="CanvasLayer"]
+script = ExtResource("1_q22i0")
+
+[node name="Leaf" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 2)
+sprite_frames = ExtResource("2_3e4dc")
+animation = &"new_animation"
+
+[node name="Image" type="TextureRect" parent="."]
+offset_right = 1440.0
+offset_bottom = 648.0
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("3_gxl35")
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
+
+[node name="Selector" type="TextureRect" parent="."]
+modulate = Color(0.403922, 0.658824, 0.407843, 1)
+offset_left = 120.0
+offset_top = 275.0
+offset_right = 504.0
+offset_bottom = 491.0
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("4_mrrvj")
+stretch_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="Options" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Retry" type="Label" parent="Options"]
+modulate = Color(0.4026, 0.66, 0.40689, 1)
+layout_mode = 0
+anchor_left = 0.249999
+anchor_right = 0.25
+offset_left = 440.0
+offset_top = 400.0
+offset_right = 596.0
+offset_bottom = 464.0
+scale = Vector2(1.35, 1.35)
+theme_override_fonts/font = ExtResource("5_mrrvj")
+theme_override_font_sizes/font_size = 64
+text = "Retry"
+label_settings = ExtResource("6_kc57y")
+metadata/_edit_use_anchors_ = true
+
+[node name="Restart Battle" type="Label" parent="Options"]
+layout_mode = 0
+offset_left = 450.0
+offset_top = 465.0
+offset_right = 756.0
+offset_bottom = 529.0
+scale = Vector2(1.35, 1.35)
+theme_override_fonts/font = ExtResource("5_mrrvj")
+theme_override_font_sizes/font_size = 64
+text = "Restart Battle"
+label_settings = ExtResource("6_kc57y")
+metadata/_edit_use_anchors_ = true

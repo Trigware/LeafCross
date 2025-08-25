@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bhkg7d1r5ia7u"
+path="res://.godot/imported/NailSwing.wav-8d77152e5f9fddf0fe6cdac6fecdede1.sample"
+
+[deps]
+
+source_file="res://Audio/SFX/General Gameplay/NailSwing.wav"
+dest_files=["res://.godot/imported/NailSwing.wav-8d77152e5f9fddf0fe6cdac6fecdede1.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

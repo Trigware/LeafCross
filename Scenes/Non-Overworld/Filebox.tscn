@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8b7e4tyv4f8x"]
+
+[ext_resource type="Script" uid="uid://bi77wd1ao2ect" path="res://Scripts/Globals/FileBox.gd" id="1_7ual3"]
+[ext_resource type="FontFile" uid="uid://dtieujefikmhs" path="res://Fonts/Undertale Font.ttf" id="1_12k6e"]
+[ext_resource type="Texture2D" uid="uid://dqed4nfgn4io6" path="res://Textures/Other/TextBox.png" id="1_ncix6"]
+
+[node name="Filebox" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_7ual3")
+
+[node name="Filebox Texture" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 13.0
+offset_right = 1162.0
+offset_bottom = 170.0
+texture = ExtResource("1_ncix6")
+stretch_mode = 5
+
+[node name="Labels" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="playerName" type="Label" parent="Labels"]
+layout_mode = 0
+offset_left = 286.0
+offset_top = 52.0
+offset_right = 1386.0
+offset_bottom = 148.0
+scale = Vector2(0.4, 0.4)
+theme_override_fonts/font = ExtResource("1_12k6e")
+theme_override_font_sizes/font_size = 96
+text = "[PLAYER NAME]"
+
+[node name="PlayTime" type="Label" parent="Labels"]
+layout_mode = 0
+offset_left = 573.0
+offset_top = 52.0
+offset_right = 1365.0
+offset_bottom = 148.0
+scale = Vector2(0.4, 0.4)
+theme_override_fonts/font = ExtResource("1_12k6e")
+theme_override_font_sizes/font_size = 96
+text = "[PLAY TIME]"
+horizontal_alignment = 2
+
+[node name="currentRoom" type="Label" parent="Labels"]
+layout_mode = 0
+offset_left = 286.0
+offset_top = 96.0
+offset_right = 1386.0
+offset_bottom = 192.0
+scale = Vector2(0.4, 0.4)
+theme_override_fonts/font = ExtResource("1_12k6e")
+theme_override_font_sizes/font_size = 96
+text = "[CURRENT ROOM]"

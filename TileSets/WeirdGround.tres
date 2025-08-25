@@ -1,0 +1,63 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://j4ql01hhxi04"]
+
+[ext_resource type="Texture2D" uid="uid://bkp38qminby3n" path="res://Spritesheets/weirdforest.png" id="1_2ksws"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_04p34"]
+resource_name = "Weird Environment"
+texture = ExtResource("1_2ksws")
+separation = Vector2i(4, 4)
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:0/0 = 0
+6:1/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+7:1/0 = 0
+8:0/0 = 0
+8:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, -6.16871, -4.68227, -16, 16)
+8:1/0 = 0
+8:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, -2.7499, 6.31735, 16, 16, -16, 16)
+9:0/0 = 0
+9:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, 2.15533, -5.87142)
+9:1/0 = 0
+9:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(4.68227, 4.97956, 16, -16, 16, 16, -16, 16)
+10:1/0 = 0
+10:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+10:0/0 = 0
+11:0/0 = 0
+11:1/0 = 0
+12:0/0 = 0
+12:1/0 = 0
+13:0/0 = 0
+13:1/0 = 0
+5:0/0 = 0
+5:1/0 = 0
+4:1/0 = 0
+14:0/0 = 0
+15:0/0 = 0
+15:1/0 = 0
+14:1/0 = 0
+16:0/0 = 0
+16:1/0 = 0
+17:1/0 = 0
+17:0/0 = 0
+18:0/0 = 0
+18:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, -1.13911, -8.06136, -10.0767, 1.40197, -16, 16)
+18:1/0 = 0
+18:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, -8.38557, -0.771088, 7.4217, 11.3735, 16, 16, -16, 16, -16, 16)
+19:1/0 = 0
+19:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, 16, -16, 16, -3.18073, 11.1808, 7.42171, 3.08435, 16, -16)
+19:0/0 = 0
+19:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, -16, 16, 16, 9.15665, -2.50603, -2.21687, -9.25304, -16, -16, 16, -16)
+
+[resource]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_04p34")

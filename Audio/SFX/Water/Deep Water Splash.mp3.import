@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b3p620csvwmov"
+path="res://.godot/imported/Deep Water Splash.mp3-9dfdc2da4d62a5e5063bc885a40d2fb9.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/Water/Deep Water Splash.mp3"
+dest_files=["res://.godot/imported/Deep Water Splash.mp3-9dfdc2da4d62a5e5063bc885a40d2fb9.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

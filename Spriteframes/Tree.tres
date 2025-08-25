@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://bp0v5kr2ilye2"]
+
+[ext_resource type="Texture2D" uid="uid://cd04lsrxu5yi2" path="res://Spritesheets/Mystery Tree.png" id="1_ppakv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nusi1"]
+atlas = ExtResource("1_ppakv")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mk6pb"]
+atlas = ExtResource("1_ppakv")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kk88g"]
+atlas = ExtResource("1_ppakv")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8abv"]
+atlas = ExtResource("1_ppakv")
+region = Rect2(384, 0, 128, 128)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nusi1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mk6pb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kk88g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8abv")
+}],
+"loop": true,
+"name": &"Tree",
+"speed": 3.0
+}]

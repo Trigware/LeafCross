@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfnkhmvr2atv5"]
+
+[ext_resource type="Script" uid="uid://r3p08x5fthby" path="res://Scripts/Overworld/SaveMenu.gd" id="1_2nqcm"]
+[ext_resource type="Texture2D" uid="uid://d3hk5n14y8778" path="res://Textures/Other/Savebox.png" id="2_npqhh"]
+
+[node name="Save Menu" type="CanvasLayer"]
+script = ExtResource("1_2nqcm")
+
+[node name="Saveboxes" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Current Save" type="TextureRect" parent="Saveboxes"]
+layout_mode = 0
+offset_left = 511.0
+offset_top = 25.0
+offset_right = 1127.0
+offset_bottom = 201.0
+texture = ExtResource("2_npqhh")

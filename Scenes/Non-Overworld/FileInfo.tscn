@@ -1,0 +1,64 @@
+[gd_scene load_steps=6 format=3 uid="uid://crnbdskhtichk"]
+
+[ext_resource type="Texture2D" uid="uid://d3jjtddre28pr" path="res://Textures/Title Screen/SaveFile Textbox.png" id="1_c1etc"]
+[ext_resource type="Script" uid="uid://xx26ajpg6q1p" path="res://Scenes/Non-Overworld/FileInfo.gd" id="1_qc03f"]
+[ext_resource type="FontFile" uid="uid://dil43sbwcg2uc" path="res://Fonts/Leafcross Font.png" id="2_2qwml"]
+[ext_resource type="Texture2D" uid="uid://curegqeexf75q" path="res://Textures/Title Screen/SaveFile Icons.png" id="3_qc03f"]
+[ext_resource type="Texture2D" uid="uid://bwivc86ry0h4a" path="res://Textures/Title Screen/SaveFile Plus.png" id="4_2qwml"]
+
+[node name="File Info" type="Node2D"]
+script = ExtResource("1_qc03f")
+
+[node name="Main Sprite" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.74902)
+texture = ExtResource("1_c1etc")
+
+[node name="Icons" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-40, 0)
+texture = ExtResource("3_qc03f")
+
+[node name="Player Name" type="Label" parent="Icons"]
+offset_left = 11.0
+offset_top = -29.0
+offset_right = 98.0
+offset_bottom = -10.0
+theme_override_fonts/font = ExtResource("2_2qwml")
+theme_override_font_sizes/font_size = 12
+text = "NAME"
+vertical_alignment = 1
+
+[node name="Current Location" type="Label" parent="Icons"]
+offset_left = 11.0
+offset_top = -9.0
+offset_right = 181.0
+offset_bottom = 14.0
+theme_override_constants/line_spacing = -2
+theme_override_fonts/font = ExtResource("2_2qwml")
+theme_override_font_sizes/font_size = 10
+text = "AREA:
+LOCATION"
+
+[node name="Playtime" type="Label" parent="Icons"]
+offset_left = 11.0
+offset_top = 11.0
+offset_right = 71.0
+offset_bottom = 34.0
+theme_override_fonts/font = ExtResource("2_2qwml")
+text = "PLAYTIME"
+
+[node name="Plus" type="Sprite2D" parent="."]
+position = Vector2(0, -4)
+texture = ExtResource("4_2qwml")
+
+[node name="New Game" type="Label" parent="Plus"]
+offset_left = -52.0
+offset_top = 25.0
+offset_right = 55.0
+offset_bottom = 48.0
+theme_override_colors/font_shadow_color = Color(0.4, 0.4, 0.4, 1)
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("2_2qwml")
+theme_override_font_sizes/font_size = 12
+text = "New Game"
+horizontal_alignment = 1

@@ -1,0 +1,61 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://b6j4xcs3tqgoq"]
+
+[ext_resource type="Texture2D" uid="uid://cgd8jhy2gg306" path="res://Spritesheets/WeirdEnvironment.png" id="1_jjono"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_brkrn"]
+resource_name = "Weird Environment"
+texture = ExtResource("1_jjono")
+texture_region_size = Vector2i(32, 32)
+0:0/animation_speed = 3.0
+0:0/animation_mode = 1
+0:0/animation_frame_0/duration = 1.0
+0:0/animation_frame_1/duration = 1.0
+0:0/animation_frame_2/duration = 1.0
+0:0/animation_frame_3/duration = 1.0
+0:0/0 = 0
+0:1/animation_columns = 4
+0:1/animation_speed = 4.0
+0:1/animation_frame_0/duration = 1.0
+0:1/animation_frame_1/duration = 1.0
+0:1/animation_frame_2/duration = 1.0
+0:1/animation_frame_3/duration = 1.0
+0:1/0 = 0
+0:2/animation_columns = 4
+0:2/animation_speed = 6.0
+0:2/animation_frame_0/duration = 1.0
+0:2/animation_frame_1/duration = 1.0
+0:2/animation_frame_2/duration = 1.0
+0:2/animation_frame_3/duration = 1.0
+0:2/0 = 0
+0:4/0 = 0
+0:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8.3251, 0.812204, -11.6754, -1.01526, -12.3861, -5.88848, -14.7212, -8.02052, -14.7212, -10.4571, -10.8632, -14.2136, -5.38085, -14.9243, -2.03051, -12.0815, -1.21831, -9.03577, -2.43661, -6.49763, -3.75645, -5.5839, -4.16255, -0.913729, -5.27933, 0.507629, -8.3251, 0.812204)
+0:4/0/physics_layer_0/polygon_1/points = PackedVector2Array(2.74119, 12.9953, -0.101525, 10.8632, -1.82746, 5.88848, -3.75644, 3.24882, -1.52288, -0.812204, 2.84272, -3.14729, 6.80221, -2.43661, 9.44188, 0.710679, 9.84798, 4.3656, 7.20831, 6.09153, 6.59916, 9.34035, 6.29458, 12.0815, 2.74119, 13.0968)
+0:3/animation_columns = 4
+0:3/animation_speed = 5.0
+0:3/animation_frame_0/duration = 1.0
+0:3/animation_frame_1/duration = 1.0
+0:3/animation_frame_2/duration = 1.0
+0:3/animation_frame_3/duration = 1.0
+0:3/0 = 0
+1:4/0 = 0
+1:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-0.203051, 8.32509, -0.812204, 8.32509, -3.24882, 6.09153, -4.87323, 0.710679, -7.41137, -1.42136, -6.80221, -4.26407, -2.74119, -7.41137, 3.9595, -7.81747, 6.39611, -3.85797, 7.41137, -0.812204, 4.16255, 0.91373, 4.16255, 5.68543, 1.82746, 8.02052, -0.203051, 8.42662)
+2:4/0 = 0
+3:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:6/0 = 0
+0:6/0 = 0
+1:8/0 = 0
+2:8/0 = 0
+
+[resource]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_brkrn")

@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://6hq01nojje0y"]
+
+[ext_resource type="Script" uid="uid://gio061ico1sg" path="res://Scripts/Text System/BaseNPC.gd" id="1_tdvfm"]
+[ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="2_fo5tq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xs5w8"]
+size = Vector2(14, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7fgga"]
+size = Vector2(46.949, 48.0569)
+
+[node name="NPC" type="Area2D"]
+script = ExtResource("1_tdvfm")
+itemCount = 1
+
+[node name="Sprite" type="Sprite2D" parent="."]
+
+[node name="Light" type="PointLight2D" parent="."]
+visible = false
+scale = Vector2(0.158592, 0.158592)
+texture = ExtResource("2_fo5tq")
+
+[node name="Static Body" type="StaticBody2D" parent="."]
+scale = Vector2(0.158592, 0.158592)
+
+[node name="Collider" type="CollisionShape2D" parent="Static Body"]
+scale = Vector2(6.30549, 6.30549)
+shape = SubResource("RectangleShape2D_xs5w8")
+
+[node name="Trigger Zone" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7fgga")
+debug_color = Color(0.913725, 0.729412, 0, 0.419608)

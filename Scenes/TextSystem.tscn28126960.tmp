@@ -1,0 +1,110 @@
+[gd_scene load_steps=5 format=3 uid="uid://du0a3gegqn6y2"]
+
+[ext_resource type="Script" uid="uid://b5tin5y0hevrv" path="res://Scripts/Text System/TextSystem.gd" id="1_tetb0"]
+[ext_resource type="FontFile" uid="uid://dtieujefikmhs" path="res://Fonts/Undertale Font.ttf" id="2_7t2e0"]
+[ext_resource type="Texture2D" uid="uid://dqed4nfgn4io6" path="res://Textures/Other/TextBox.png" id="3_rbnke"]
+[ext_resource type="Texture2D" uid="uid://cisan1lvsodoq" path="res://Textures/Other/Leaf.png" id="4_o07hf"]
+
+[node name="TextSystem" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tetb0")
+
+[node name="TypewritterTimer" type="Timer" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Textbox" type="TextureRect" parent="CanvasLayer"]
+visible = false
+modulate = Color(1, 1, 1, 0.862745)
+offset_left = 72.0
+offset_top = 325.0
+offset_right = 296.0
+offset_bottom = 389.0
+scale = Vector2(4.5, 4.5)
+texture = ExtResource("3_rbnke")
+
+[node name="Choicer" type="Control" parent="CanvasLayer/Textbox"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Leaf" type="TextureRect" parent="CanvasLayer/Textbox/Choicer"]
+layout_mode = 0
+offset_left = 105.0
+offset_top = 29.0
+offset_right = 145.0
+offset_bottom = 69.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("4_o07hf")
+
+[node name="Choice A" type="Label" parent="CanvasLayer/Textbox/Choicer"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 18.0
+offset_right = 301.0
+offset_bottom = 194.0
+scale = Vector2(0.221, 0.221)
+theme_override_fonts/font = ExtResource("2_7t2e0")
+theme_override_font_sizes/font_size = 48
+text = "Choice A"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Choice B" type="Label" parent="CanvasLayer/Textbox/Choicer"]
+layout_mode = 0
+offset_left = 131.0
+offset_top = 18.0
+offset_right = 398.0
+offset_bottom = 194.0
+scale = Vector2(0.221, 0.221)
+theme_override_fonts/font = ExtResource("2_7t2e0")
+theme_override_font_sizes/font_size = 48
+text = "Choice B"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Choice C" type="Label" parent="CanvasLayer/Textbox/Choicer"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 17.0
+offset_right = 878.0
+offset_bottom = 65.0
+scale = Vector2(0.221, 0.221)
+theme_override_fonts/font = ExtResource("2_7t2e0")
+theme_override_font_sizes/font_size = 48
+text = "Choice C"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Choice D" type="Label" parent="CanvasLayer/Textbox/Choicer"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 46.0
+offset_right = 878.0
+offset_bottom = 94.0
+scale = Vector2(0.221, 0.221)
+theme_override_fonts/font = ExtResource("2_7t2e0")
+theme_override_font_sizes/font_size = 48
+text = "Choice D"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Text" type="RichTextLabel" parent="CanvasLayer"]
+offset_left = 150.0
+offset_top = 410.0
+offset_right = 1302.0
+offset_bottom = 1058.0
+theme_override_fonts/normal_font = ExtResource("2_7t2e0")
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+scroll_active = false

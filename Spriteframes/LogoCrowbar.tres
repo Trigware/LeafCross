@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://cn6csuociylx5"]
+
+[ext_resource type="Texture2D" uid="uid://tdipuwuhkrbb" path="res://Textures/Title Screen/Logo Crowbar.png" id="1_s5oae"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ic0mi"]
+atlas = ExtResource("1_s5oae")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p5vng"]
+atlas = ExtResource("1_s5oae")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ov7b5"]
+atlas = ExtResource("1_s5oae")
+region = Rect2(100, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_47ypj"]
+atlas = ExtResource("1_s5oae")
+region = Rect2(150, 0, 50, 50)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ic0mi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p5vng")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ov7b5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_47ypj")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]

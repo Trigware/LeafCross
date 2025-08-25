@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfnd25cgsmifd"]
+
+[ext_resource type="Texture2D" uid="uid://6ksiaidsbxpx" path="res://Textures/Weird Forest/Street Lamp.png" id="1_ma27g"]
+[ext_resource type="PackedScene" uid="uid://dwwrihbghedg3" path="res://Scenes/NPC Derivation/Layered NPC.tscn" id="1_yswtr"]
+[ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="3_omavs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_omavs"]
+size = Vector2(24.6667, 10)
+
+[node name="Street Lamp" type="Node2D"]
+
+[node name="Layered NPC" parent="." instance=ExtResource("1_yswtr")]
+scale = Vector2(1.5, 1.5)
+npcID = 13
+set_only_at_start = true
+
+[node name="Layered Manager" parent="Layered NPC" index="0" node_paths=PackedStringArray("treeSprite")]
+treeSprite = NodePath("../Sprite")
+
+[node name="Collider" parent="Layered NPC/Layered Manager/Static Body" index="0"]
+position = Vector2(1, 46.3333)
+shape = SubResource("RectangleShape2D_omavs")
+
+[node name="Collider" parent="Layered NPC/Layered Manager/Trigger Area" index="0"]
+position = Vector2(2.33333, -18)
+
+[node name="Trigger Zone" parent="Layered NPC" index="1"]
+position = Vector2(0.666666, 45)
+
+[node name="Sprite" type="Sprite2D" parent="Layered NPC"]
+texture = ExtResource("1_ma27g")
+
+[node name="Light" type="PointLight2D" parent="."]
+color = Color(1, 0.86, 0.4, 1)
+energy = 3.0
+range_item_cull_mask = 5
+texture = ExtResource("3_omavs")
+
+[editable path="Layered NPC"]

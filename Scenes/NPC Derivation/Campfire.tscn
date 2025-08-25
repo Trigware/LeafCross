@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://biyswys7vhg4i"]
+
+[ext_resource type="Texture2D" uid="uid://ccoxhj8vgsvc7" path="res://Textures/Weird Forest/Campfire.png" id="2_h71cq"]
+[ext_resource type="PackedScene" uid="uid://c14x3rqt38ua5" path="res://Scenes/Game Mechanics/Mushrooms/Fire.tscn" id="3_h71cq"]
+[ext_resource type="PackedScene" uid="uid://dwwrihbghedg3" path="res://Scenes/NPC Derivation/Layered NPC.tscn" id="6_3u7do"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4oil"]
+size = Vector2(66, 26.6666)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lsgda"]
+size = Vector2(152, 121.333)
+
+[node name="Campfire" type="Node2D"]
+scale = Vector2(1.5, 1.5)
+
+[node name="Wood" type="Sprite2D" parent="."]
+texture = ExtResource("2_h71cq")
+
+[node name="Fire" parent="." instance=ExtResource("3_h71cq")]
+
+[node name="Sprite" parent="Fire" index="2"]
+light_color = Color(0.16, 0.725333, 0.8, 1)
+
+[node name="Layered NPC" parent="." instance=ExtResource("6_3u7do")]
+npcID = 14
+item = null
+itemCount = null
+itemColor = null
+removeStaticBody = null
+autoTrigger = null
+deleteAfterTalk = null
+ignoreDirections = null
+disable_placeholder_interactions = null
+deactivated_at_start = null
+save_menu = null
+override_id_from_parent = null
+interactionCountForeverOne = null
+
+[node name="Layered Manager" parent="Layered NPC" index="0" node_paths=PackedStringArray("treeSprite")]
+treeSprite = NodePath("../../Fire")
+
+[node name="Collider" parent="Layered NPC/Layered Manager/Static Body" index="0"]
+position = Vector2(-2.33333, 22.6666)
+shape = SubResource("RectangleShape2D_g4oil")
+debug_color = Color(0.71, 0.118333, 0, 0.419608)
+
+[node name="Collider" parent="Layered NPC/Layered Manager/Trigger Area" index="0"]
+position = Vector2(-0.333332, -33.5833)
+
+[node name="Trigger Zone" parent="Layered NPC" index="1"]
+position = Vector2(0, 0)
+shape = SubResource("RectangleShape2D_lsgda")
+
+[editable path="Fire"]
+[editable path="Layered NPC"]

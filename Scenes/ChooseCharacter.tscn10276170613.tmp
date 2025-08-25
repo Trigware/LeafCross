@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://3f2iijurxqrx"]
+
+[ext_resource type="Texture2D" uid="uid://cythgtt1rmc2k" path="res://Textures/Logo.png" id="1_25nma"]
+[ext_resource type="Script" uid="uid://wsmbkqrd0bad" path="res://Scenes/ChooseCharacter.gd" id="1_ja7pu"]
+
+[node name="ChooseCharacter" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ja7pu")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 1)
+
+[node name="Logo" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 116.0
+offset_top = 171.0
+offset_right = 1036.0
+offset_bottom = 427.0
+texture = ExtResource("1_25nma")
+
+[node name="EventsTimer" type="Timer" parent="."]

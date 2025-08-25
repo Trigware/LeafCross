@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://baylrovxip3b7"]
+
+[ext_resource type="Script" uid="uid://c3uvawwpmws6" path="res://Scripts/Globals/LogoEye.gd" id="1_44wvr"]
+[ext_resource type="Texture2D" uid="uid://dhkfpsd8jm7da" path="res://Textures/Title Screen/Logo Eye Bounds.png" id="1_r30o5"]
+[ext_resource type="Texture2D" uid="uid://tnpclkb1vp0f" path="res://Textures/Title Screen/Eye Center.png" id="3_ku6hq"]
+[ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="4_m3yyu"]
+
+[node name="Eye" type="Node2D"]
+script = ExtResource("1_44wvr")
+
+[node name="Top" type="Sprite2D" parent="."]
+position = Vector2(0, -25)
+texture = ExtResource("1_r30o5")
+
+[node name="Bottom" type="Sprite2D" parent="."]
+position = Vector2(0, 25)
+rotation = 3.14159
+texture = ExtResource("1_r30o5")
+
+[node name="Eye Center" type="Sprite2D" parent="."]
+texture = ExtResource("3_ku6hq")
+
+[node name="Light" type="PointLight2D" parent="."]
+color = Color(1, 0, 0, 1)
+energy = 0.0
+texture = ExtResource("4_m3yyu")

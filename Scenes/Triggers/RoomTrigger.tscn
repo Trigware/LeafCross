@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://4jtg4hfhy0k0"]
+
+[ext_resource type="Script" uid="uid://crwma5vxuc78k" path="res://Scripts/Overworld/RoomTrigger.gd" id="1_fqrvk"]
+[ext_resource type="Texture2D" uid="uid://bt1cev0o1dw5d" path="res://Textures/Other/Light Rect.png" id="1_ghubt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fqrvk"]
+size = Vector2(213, 112)
+
+[node name="Room Trigger" type="Area2D"]
+script = ExtResource("1_fqrvk")
+
+[node name="Trigger Shape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_fqrvk")
+
+[node name="Obstruction" type="PointLight2D" parent="."]
+blend_mode = 1
+range_item_cull_mask = 3
+texture = ExtResource("1_ghubt")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

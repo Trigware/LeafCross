@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ulgpxw30vyvb"]
+
+[ext_resource type="Script" uid="uid://do133i057op0k" path="res://Scripts/Globals/RiverManager.gd" id="1_nfb77"]
+
+[node name="River Manager" type="Area2D"]
+script = ExtResource("1_nfb77")

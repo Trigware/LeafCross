@@ -1,0 +1,225 @@
+[gd_scene load_steps=9 format=3 uid="uid://rv76lp5lfepw"]
+
+[ext_resource type="Texture2D" uid="uid://dqed4nfgn4io6" path="res://Textures/Other/TextBox.png" id="1_ighwe"]
+[ext_resource type="Script" uid="uid://c5o3ktqqocccj" path="res://Scripts/Globals/FileSelect.gd" id="1_lkqx5"]
+[ext_resource type="Texture2D" uid="uid://242obx71nl6m" path="res://Textures/Weird Forest/SquirrelMinigameGround.png" id="2_ybivj"]
+[ext_resource type="Texture2D" uid="uid://dg1q7maa26e0y" path="res://Textures/Weird Forest/SquirrelMinigameEnvironment.png" id="3_pur8q"]
+[ext_resource type="FontFile" uid="uid://dtieujefikmhs" path="res://Fonts/Undertale Font.ttf" id="3_tpoxi"]
+[ext_resource type="Texture2D" uid="uid://cgvp57rgmo4jp" path="res://Textures/Weird Forest/SquirrelMinigameTree.png" id="4_d7pdk"]
+[ext_resource type="Texture2D" uid="uid://cisan1lvsodoq" path="res://Textures/Other/Leaf.png" id="4_yu3hq"]
+[ext_resource type="AudioStream" uid="uid://crx5d5bvbgrj0" path="res://Audio/Music/A File (Weird Forest).mp3" id="8_d7pdk"]
+
+[node name="FileSelect" type="Control"]
+modulate = Color(0.7, 0.7, 0.7, 1)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lkqx5")
+
+[node name="Ground" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1154.0
+offset_bottom = 649.0
+texture = ExtResource("2_ybivj")
+
+[node name="Environment" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("3_pur8q")
+
+[node name="Tree" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("4_d7pdk")
+
+[node name="Save Files" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0.784314)
+anchors_preset = 0
+offset_top = 50.0
+offset_right = 40.0
+offset_bottom = 90.0
+
+[node name="File 1" type="TextureRect" parent="Save Files"]
+layout_mode = 0
+offset_right = 1149.0
+offset_bottom = 170.0
+texture = ExtResource("1_ighwe")
+stretch_mode = 5
+
+[node name="playerName" type="Label" parent="Save Files/File 1"]
+layout_mode = 0
+offset_left = 322.0
+offset_top = 52.0
+offset_right = 1332.0
+offset_bottom = 148.0
+scale = Vector2(0.4, 0.4)
+theme_override_fonts/font = ExtResource("3_tpoxi")
+theme_override_font_sizes/font_size = 96
+text = "WWWWWWWWWWWWWWWWWW"
+
+[node name="currentRoom" type="Label" parent="Save Files/File 1"]
+layout_mode = 0
+offset_left = 322.0
+offset_top = 96.0
+offset_right = 1332.0
+offset_bottom = 192.0
+scale = Vector2(0.4, 0.4)
+theme_override_fonts/font = ExtResource("3_tpoxi")
+theme_override_font_sizes/font_size = 96
+
+[node name="PlayTime" type="Label" parent="Save Files/File 1"]
+layout_mode = 0
+offset_left = 711.0
+offset_top = 52.0
+offset_right = 1001.0
+offset_bottom = 148.0
+scale = Vector2(0.4, 0.4)
+theme_override_fonts/font = ExtResource("3_tpoxi")
+theme_override_font_sizes/font_size = 96
+text = "0:00"
+horizontal_alignment = 2
+
+[node name="File 2" type="TextureRect" parent="Save Files"]
+layout_mode = 0
+offset_top = 170.0
+offset_right = 1149.0
+offset_bottom = 340.0
+texture = ExtResource("1_ighwe")
+stretch_mode = 5
+
+[node name="playerName" type="Label" parent="Save Files/File 2"]
+layout_mode = 0
+offset_left = 322.0
+offset_top = 52.0
+offset_right = 1332.0
+offset_bottom = 148.0
+scale = Vector2(0.4, 0.4)
+theme_override_fonts/font = ExtResource("3_tpoxi")
+theme_override_font_sizes/font_size = 96
+text = "[PLAYER NAME]"
+
+[node name="PlayTime" type="Label" parent="Save Files/File 2"]
+layout_mode = 0
+offset_left = 711.0
+offset_top = 52.0
+offset_right = 1001.0
+offset_bottom = 148.0
+scale = Vector2(0.4, 0.4)
+theme_override_fonts/font = ExtResource("3_tpoxi")
+theme_override_font_sizes/font_size = 96
+text = "0:00"
+horizontal_alignment = 2
+
+[node name="currentRoom" type="Label" parent="Save Files/File 2"]
+layout_mode = 0
+offset_left = 322.0
+offset_top = 96.0
+offset_right = 1332.0
+offset_bottom = 192.0
+scale = Vector2(0.4, 0.4)
+theme_override_fonts/font = ExtResource("3_tpoxi")
+theme_override_font_sizes/font_size = 96
+
+[node name="File 3" type="TextureRect" parent="Save Files"]
+layout_mode = 0
+offset_top = 340.0
+offset_right = 1149.0
+offset_bottom = 510.0
+texture = ExtResource("1_ighwe")
+stretch_mode = 5
+
+[node name="playerName" type="Label" parent="Save Files/File 3"]
+layout_mode = 0
+offset_left = 322.0
+offset_top = 52.0
+offset_right = 1332.0
+offset_bottom = 148.0
+scale = Vector2(0.4, 0.4)
+theme_override_fonts/font = ExtResource("3_tpoxi")
+theme_override_font_sizes/font_size = 96
+text = "[PLAYER NAME]"
+
+[node name="PlayTime" type="Label" parent="Save Files/File 3"]
+layout_mode = 0
+offset_left = 711.0
+offset_top = 52.0
+offset_right = 1001.0
+offset_bottom = 148.0
+scale = Vector2(0.4, 0.4)
+theme_override_fonts/font = ExtResource("3_tpoxi")
+theme_override_font_sizes/font_size = 96
+text = "0:00"
+horizontal_alignment = 2
+
+[node name="currentRoom" type="Label" parent="Save Files/File 3"]
+layout_mode = 0
+offset_left = 322.0
+offset_top = 96.0
+offset_right = 1332.0
+offset_bottom = 192.0
+scale = Vector2(0.4, 0.4)
+theme_override_fonts/font = ExtResource("3_tpoxi")
+theme_override_font_sizes/font_size = 96
+
+[node name="Header Label" type="Label" parent="Save Files"]
+layout_mode = 0
+offset_top = -50.0
+offset_right = 1152.0
+offset_bottom = 29.0
+theme_override_fonts/font = ExtResource("3_tpoxi")
+theme_override_font_sizes/font_size = 48
+text = "..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Leaf" type="Sprite2D" parent="Save Files"]
+position = Vector2(180, 120)
+scale = Vector2(3, 3)
+texture = ExtResource("4_yu3hq")
+
+[node name="Language Label" type="Label" parent="Save Files"]
+layout_mode = 0
+offset_left = 277.0
+offset_top = 392.0
+offset_right = 1764.0
+offset_bottom = 837.0
+scale = Vector2(0.4, 0.4)
+theme_override_fonts/font = ExtResource("3_tpoxi")
+theme_override_font_sizes/font_size = 96
+text = "LANGUAGE"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Copy Label" type="Label" parent="Save Files"]
+layout_mode = 0
+offset_left = 277.0
+offset_top = 392.0
+offset_right = 1764.0
+offset_bottom = 837.0
+scale = Vector2(0.4, 0.4)
+theme_override_fonts/font = ExtResource("3_tpoxi")
+theme_override_font_sizes/font_size = 96
+text = "COPY"
+vertical_alignment = 2
+
+[node name="Erase Label" type="Label" parent="Save Files"]
+layout_mode = 0
+offset_left = 778.0
+offset_top = 392.0
+offset_right = 1195.0
+offset_bottom = 837.0
+scale = Vector2(0.4, 0.4)
+theme_override_fonts/font = ExtResource("3_tpoxi")
+theme_override_font_sizes/font_size = 96
+text = "ERASE"
+vertical_alignment = 2
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_d7pdk")
+volume_db = -5.0
+autoplay = true

@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://dmvg61n8chab8"]
+
+[ext_resource type="Texture2D" uid="uid://re7jdc1b2cug" path="res://Spritesheets/Mushrooms.png" id="1_6b7ck"]
+[ext_resource type="Script" uid="uid://0ags3h18nsjl" path="res://Scripts/Overworld/DangerousMushroom.gd" id="1_m8svq"]
+[ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="2_htf63"]
+[ext_resource type="PackedScene" uid="uid://c14x3rqt38ua5" path="res://Scenes/Game Mechanics/Mushrooms/Fire.tscn" id="4_ojp58"]
+[ext_resource type="PackedScene" uid="uid://bum7iub0ya3uv" path="res://Scenes/Game Mechanics/Status Effect/Effect Particle.tscn" id="5_uyyyo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_htf63"]
+radius = 35.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_htf63"]
+radius = 8.0
+height = 22.0
+
+[node name="Dangerous Mushroom" type="Area2D"]
+script = ExtResource("1_m8svq")
+
+[node name="Mushroom" type="Sprite2D" parent="."]
+light_mask = 2
+texture = ExtResource("1_6b7ck")
+hframes = 7
+frame = 6
+
+[node name="Light" type="PointLight2D" parent="."]
+position = Vector2(1, 0)
+color = Color(1, 0, 0, 1)
+energy = 2.5
+texture = ExtResource("2_htf63")
+texture_scale = 0.5
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_htf63")
+debug_color = Color(0.7, 0, 0, 0.419608)
+
+[node name="Static Body" type="StaticBody2D" parent="."]
+
+[node name="Collider" type="CollisionShape2D" parent="Static Body"]
+position = Vector2(0, 1)
+scale = Vector2(1.15, 1.15)
+shape = SubResource("CapsuleShape2D_htf63")
+
+[node name="Fire" parent="." instance=ExtResource("4_ojp58")]
+visible = false
+position = Vector2(10, -15)
+scale = Vector2(0.65, 0.65)
+
+[node name="Sprite" parent="Fire" index="2"]
+burning_effect = true
+
+[node name="Layered Manager" parent="Fire/Sprite" index="1" node_paths=PackedStringArray("treeSprite")]
+treeSprite = NodePath("..")
+
+[node name="Effect Particle" parent="." instance=ExtResource("5_uyyyo")]
+emitting = false
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Fire" to="Fire/Sprite" method="on_body_entering_fire"]
+
+[editable path="Fire"]

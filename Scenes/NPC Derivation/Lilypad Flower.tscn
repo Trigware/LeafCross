@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2w8k8x261hhs"]
+
+[ext_resource type="Script" uid="uid://dil4pp2wi3ha8" path="res://Scripts/Globals/LilypadFlower.gd" id="1_b2scs"]
+[ext_resource type="Texture2D" uid="uid://bb3sfufat5yx3" path="res://Textures/Weird Forest/Lilypad Flower Down.png" id="2_6n57t"]
+[ext_resource type="PackedScene" uid="uid://6hq01nojje0y" path="res://Scenes/NPC Derivation/NPC.tscn" id="2_xjsfn"]
+
+[node name="LilypadFlower" type="Node2D"]
+script = ExtResource("1_b2scs")
+
+[node name="NPC Root" parent="." instance=ExtResource("2_xjsfn")]
+scale = Vector2(2, 2)
+npcID = 12
+set_only_at_start = true
+
+[node name="Sprite" parent="NPC Root" index="0"]
+light_mask = 0
+texture = ExtResource("2_6n57t")
+
+[node name="Light" parent="NPC Root" index="1"]
+visible = true
+color = Color(0.85, 0, 0, 1)
+energy = 2.0
+range_item_cull_mask = 4
+texture_scale = 2.0
+
+[node name="Collider" parent="NPC Root/Static Body" index="0"]
+position = Vector2(0, -12.611)
+
+[node name="Trigger Zone" parent="NPC Root" index="3"]
+position = Vector2(0, -0.5)
+
+[editable path="NPC Root"]

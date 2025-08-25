@@ -1,0 +1,95 @@
+[gd_scene load_steps=6 format=3 uid="uid://rv76lp5lfepw"]
+
+[ext_resource type="Script" uid="uid://c5o3ktqqocccj" path="res://Scripts/Globals/FileSelect.gd" id="1_ju1oc"]
+[ext_resource type="Texture2D" uid="uid://2fe0rc6ils2" path="res://Textures/Weird Forest/File Select Weird Forest.png" id="2_jmbqk"]
+[ext_resource type="PackedScene" uid="uid://c8b7e4tyv4f8x" path="res://Scenes/Non-Overworld/Filebox.tscn" id="3_8r40s"]
+[ext_resource type="FontFile" uid="uid://dtieujefikmhs" path="res://Fonts/Undertale Font.ttf" id="4_kabdb"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5ixxa"]
+load_path = "res://.godot/imported/Leaf.png-d86ec70f178036e59957e8e64285e7e1.ctex"
+
+[node name="FileSelect" type="Control"]
+modulate = Color(0.7, 0.7, 0.7, 1)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ju1oc")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("2_jmbqk")
+
+[node name="Save Files" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0.784314)
+anchors_preset = 0
+offset_top = 50.0
+offset_right = 40.0
+offset_bottom = 90.0
+
+[node name="File 1" parent="Save Files" instance=ExtResource("3_8r40s")]
+
+[node name="File 2" parent="Save Files" instance=ExtResource("3_8r40s")]
+offset_top = 170.0
+offset_bottom = 210.0
+
+[node name="File 3" parent="Save Files" instance=ExtResource("3_8r40s")]
+offset_top = 340.0
+offset_bottom = 380.0
+
+[node name="Header Label" type="Label" parent="Save Files"]
+layout_mode = 0
+offset_top = -50.0
+offset_right = 1152.0
+offset_bottom = 29.0
+theme_override_fonts/font = ExtResource("4_kabdb")
+theme_override_font_sizes/font_size = 48
+text = "..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Leaf" type="Sprite2D" parent="Save Files"]
+position = Vector2(180, 120)
+scale = Vector2(3, 3)
+texture = SubResource("CompressedTexture2D_5ixxa")
+
+[node name="Language Label" type="Label" parent="Save Files"]
+layout_mode = 0
+offset_left = 277.0
+offset_top = 392.0
+offset_right = 1764.0
+offset_bottom = 837.0
+scale = Vector2(0.4, 0.4)
+theme_override_fonts/font = ExtResource("4_kabdb")
+theme_override_font_sizes/font_size = 96
+text = "LANGUAGE"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Copy Label" type="Label" parent="Save Files"]
+layout_mode = 0
+offset_left = 277.0
+offset_top = 392.0
+offset_right = 1764.0
+offset_bottom = 837.0
+scale = Vector2(0.4, 0.4)
+theme_override_fonts/font = ExtResource("4_kabdb")
+theme_override_font_sizes/font_size = 96
+text = "COPY"
+vertical_alignment = 2
+
+[node name="Erase Label" type="Label" parent="Save Files"]
+layout_mode = 0
+offset_left = 778.0
+offset_top = 392.0
+offset_right = 1195.0
+offset_bottom = 837.0
+scale = Vector2(0.4, 0.4)
+theme_override_fonts/font = ExtResource("4_kabdb")
+theme_override_font_sizes/font_size = 96
+text = "ERASE"
+vertical_alignment = 2

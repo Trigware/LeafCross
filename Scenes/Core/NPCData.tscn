@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://1kh47t4hsxjx"]
+
+[ext_resource type="Script" uid="uid://dc2rqqmctff4y" path="res://Scripts/Globals/NPCDataManager.gd" id="1_bbyib"]
+
+[node name="NPCData" type="Node"]
+script = ExtResource("1_bbyib")

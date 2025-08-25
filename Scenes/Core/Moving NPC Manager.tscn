@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckn6s5my4dnxt"]
+
+[ext_resource type="Script" uid="uid://r0x8d7qkluky" path="res://Scripts/Globals/MovingNPCManager.gd" id="1_7hdoe"]
+
+[node name="Moving NPC Manager" type="Node"]
+script = ExtResource("1_7hdoe")

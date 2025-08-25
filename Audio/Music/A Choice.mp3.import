@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ditii7diqwiis"
+path="res://.godot/imported/A Choice.mp3-c88cd8e79505d832e6aa22ebc818eb7f.mp3str"
+
+[deps]
+
+source_file="res://Audio/Music/A Choice.mp3"
+dest_files=["res://.godot/imported/A Choice.mp3-c88cd8e79505d832e6aa22ebc818eb7f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

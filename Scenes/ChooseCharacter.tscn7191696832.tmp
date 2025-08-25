@@ -1,0 +1,100 @@
+[gd_scene load_steps=11 format=3 uid="uid://3f2iijurxqrx"]
+
+[ext_resource type="Script" uid="uid://wsmbkqrd0bad" path="res://Scripts/ChooseCharacter/ChooseCharacter.gd" id="1_ja7pu"]
+[ext_resource type="Texture2D" uid="uid://dw3wpi7xg5q04" path="res://Textures/ChooseCharacter/Leaf.png" id="2_chj88"]
+[ext_resource type="Texture2D" uid="uid://cmok2ri1yglwj" path="res://Textures/ChooseCharacter/Tree.png" id="2_ja7pu"]
+[ext_resource type="Texture2D" uid="uid://00xbplokffb2" path="res://Textures/Character Textures/RabbitekDown.png" id="3_mk1q1"]
+[ext_resource type="Script" uid="uid://bxy378s0g5vj8" path="res://Scripts/ChooseCharacter/MoveLeaf.gd" id="3_tgy8p"]
+[ext_resource type="Texture2D" uid="uid://77son1sv64gj" path="res://Textures/Character Textures/xDaForgeDown.png" id="4_hhi3v"]
+[ext_resource type="AudioStream" uid="uid://b3gs0l3jhtri6" path="res://Audio/Select Character.mp3" id="5_iwlee"]
+[ext_resource type="Texture2D" uid="uid://cfjbnj2i0t2mn" path="res://Textures/Character Textures/GertofinDown.png" id="5_ys8i6"]
+[ext_resource type="Texture2D" uid="uid://0qf64x38fa8c" path="res://Textures/ChooseCharacter/Clouds.png" id="6_ipr1o"]
+[ext_resource type="FontFile" uid="uid://dtieujefikmhs" path="res://Fonts/Undertale Font.ttf" id="10_hhi3v"]
+
+[node name="ChooseCharacter" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ja7pu")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 1)
+
+[node name="EventsTimer" type="Timer" parent="."]
+
+[node name="CharacterCloud" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 504.0
+offset_top = 312.0
+offset_right = 1035.0
+offset_bottom = 488.0
+texture = ExtResource("6_ipr1o")
+
+[node name="Rabbitek" type="TextureRect" parent="CharacterCloud"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = -248.0
+offset_right = 136.0
+texture = ExtResource("3_mk1q1")
+
+[node name="xDaForge" type="TextureRect" parent="CharacterCloud"]
+layout_mode = 0
+offset_left = 164.0
+offset_top = -248.0
+offset_right = 276.0
+texture = ExtResource("4_hhi3v")
+
+[node name="Gertofin" type="TextureRect" parent="CharacterCloud"]
+layout_mode = 0
+offset_left = 352.0
+offset_top = -216.0
+offset_right = 464.0
+offset_bottom = 24.0
+texture = ExtResource("5_ys8i6")
+
+[node name="Name Input" type="LineEdit" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 512.0
+offset_top = 512.0
+offset_right = 1024.0
+offset_bottom = 576.0
+theme_override_fonts/font = ExtResource("10_hhi3v")
+theme_override_font_sizes/font_size = 48
+placeholder_text = "POJMENUJ STROMOVCE"
+alignment = 1
+max_length = 15
+context_menu_enabled = false
+emoji_menu_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+selecting_enabled = false
+flat = true
+
+[node name="Leaf" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 170.0
+offset_top = 136.0
+offset_right = 210.0
+offset_bottom = 176.0
+scale = Vector2(1.6, 1.6)
+texture = ExtResource("2_chj88")
+script = ExtResource("3_tgy8p")
+
+[node name="Tree" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -191.0
+offset_top = 33.0
+offset_right = 265.0
+offset_bottom = 608.0
+texture = ExtResource("2_ja7pu")
+expand_mode = 1
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_iwlee")

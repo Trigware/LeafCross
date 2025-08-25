@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgwga5lvrmnqq"]
+
+[ext_resource type="Script" uid="uid://dxk1e0vj60ye0" path="res://Scripts/Overworld/OverworldBridge.gd" id="1_jlnmv"]
+
+[node name="OverworldBridge" type="Node"]
+script = ExtResource("1_jlnmv")

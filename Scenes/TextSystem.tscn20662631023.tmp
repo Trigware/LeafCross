@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://du0a3gegqn6y2"]
+
+[ext_resource type="Script" uid="uid://b5tin5y0hevrv" path="res://Scripts/TextSystem.gd" id="1_tetb0"]
+
+[node name="TextSystem" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tetb0")
+
+[node name="Text" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TypewritterTimer" type="Timer" parent="."]

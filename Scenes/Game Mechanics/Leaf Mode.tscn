@@ -1,0 +1,156 @@
+[gd_scene load_steps=13 format=3 uid="uid://cx6v3i85mvj6w"]
+
+[ext_resource type="Script" uid="uid://clwe776280qye" path="res://Scripts/Globals/LeafModeManager.gd" id="1_jlh80"]
+[ext_resource type="Texture2D" uid="uid://m4rh5pa1onh0" path="res://Textures/Other/Light Full.png" id="1_ww2gn"]
+[ext_resource type="Texture2D" uid="uid://cnfoamkv265co" path="res://Textures/Other/PlayerUI.png" id="3_hjmre"]
+[ext_resource type="Texture2D" uid="uid://d15r5g8dioc2e" path="res://Textures/Other/Red Health.png" id="5_8qmqm"]
+[ext_resource type="Texture2D" uid="uid://wvl06ttxk4yv" path="res://Textures/Other/Damage Bar.png" id="5_fedjl"]
+[ext_resource type="Texture2D" uid="uid://clghy0nexo2ie" path="res://Textures/Other/Green Health.png" id="6_gw8yt"]
+[ext_resource type="Texture2D" uid="uid://ef4h61uim3u7" path="res://Textures/Other/Red Stamina Circle.png" id="7_qpssd"]
+[ext_resource type="FontFile" uid="uid://dtieujefikmhs" path="res://Fonts/Undertale Font.ttf" id="7_yj4ri"]
+[ext_resource type="Texture2D" uid="uid://m63dede3et6j" path="res://Textures/Other/Green Stamina Circle.png" id="8_dvd2h"]
+[ext_resource type="Texture2D" uid="uid://btj0x8b24i6ah" path="res://Textures/Other/Red Stamina Rect.png" id="9_cm2ky"]
+[ext_resource type="Texture2D" uid="uid://c02768m7mwys5" path="res://Textures/Other/Green Stamina Rect.png" id="10_ju7gs"]
+[ext_resource type="Texture2D" uid="uid://d0fymc1ye236d" path="res://Textures/Other/Leaf.png" id="11_ju7gs"]
+
+[node name="LeafMode" type="Node2D"]
+script = ExtResource("1_jlh80")
+
+[node name="Light" type="PointLight2D" parent="."]
+position = Vector2(39, 85)
+scale = Vector2(10, 10)
+energy = 0.0
+blend_mode = 1
+texture = ExtResource("1_ww2gn")
+texture_scale = 50.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Health" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -425.0
+offset_right = -385.0
+offset_bottom = 40.0
+
+[node name="Player UI" type="TextureRect" parent="CanvasLayer/Health"]
+layout_mode = 0
+offset_right = 30.0
+offset_bottom = 30.0
+scale = Vector2(5, 5)
+texture = ExtResource("3_hjmre")
+stretch_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="Player Head" type="TextureRect" parent="CanvasLayer/Health"]
+layout_mode = 0
+offset_top = -0.999996
+offset_right = 30.0
+offset_bottom = 29.0
+scale = Vector2(5, 5)
+expand_mode = 1
+stretch_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="Red Health Texture" type="TextureRect" parent="CanvasLayer/Health"]
+layout_mode = 0
+offset_left = 151.0
+offset_top = 50.0
+offset_right = 407.0
+offset_bottom = 100.0
+texture = ExtResource("5_8qmqm")
+
+[node name="Damage Bar" type="TextureProgressBar" parent="CanvasLayer/Health"]
+layout_mode = 0
+offset_left = 151.0
+offset_top = 50.0
+offset_right = 407.0
+offset_bottom = 100.0
+step = 0.01
+value = 75.0
+texture_progress = ExtResource("5_fedjl")
+
+[node name="Green Health Bar" type="TextureProgressBar" parent="CanvasLayer/Health"]
+layout_mode = 0
+offset_left = 151.0
+offset_top = 50.0
+offset_right = 407.0
+offset_bottom = 100.0
+step = 0.01
+value = 100.0
+texture_progress = ExtResource("6_gw8yt")
+
+[node name="Player Health" type="Label" parent="CanvasLayer/Health"]
+layout_mode = 0
+offset_left = 151.0
+offset_top = 49.0
+offset_right = 405.0
+offset_bottom = 99.0
+theme_override_fonts/font = ExtResource("7_yj4ri")
+theme_override_font_sizes/font_size = 32
+text = "MAX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Stamina" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -312.0
+offset_top = 290.0
+offset_right = -272.0
+offset_bottom = 330.0
+scale = Vector2(0.225, 0.225)
+
+[node name="Stamina Circle" type="TextureProgressBar" parent="CanvasLayer/Stamina"]
+layout_mode = 0
+offset_left = -400.0
+offset_top = 365.0
+offset_right = 624.0
+offset_bottom = 1389.0
+max_value = 58.0
+step = 0.01
+fill_mode = 4
+radial_initial_angle = 90.0
+radial_fill_degrees = 270.0
+texture_under = ExtResource("7_qpssd")
+texture_progress = ExtResource("8_dvd2h")
+tint_under = Color(0.87, 0.87, 0.87, 1)
+
+[node name="Stamina Rect" type="TextureProgressBar" parent="CanvasLayer/Stamina"]
+layout_mode = 0
+offset_left = 108.0
+offset_top = 364.0
+offset_right = 958.0
+offset_bottom = 560.0
+min_value = 58.0
+step = 0.01
+value = 58.0
+allow_lesser = true
+texture_under = ExtResource("9_cm2ky")
+texture_progress = ExtResource("10_ju7gs")
+tint_under = Color(0.87, 0.87, 0.87, 1)
+
+[node name="Stamina Leaf" type="TextureRect" parent="CanvasLayer/Stamina"]
+layout_mode = 0
+offset_left = -160.0
+offset_top = 604.444
+offset_right = -120.0
+offset_bottom = 644.444
+scale = Vector2(14, 14)
+texture = ExtResource("11_ju7gs")
+
+[node name="Stamina Label" type="Label" parent="CanvasLayer/Stamina"]
+layout_mode = 0
+offset_left = -385.0
+offset_top = 350.0
+offset_right = 300.0
+offset_bottom = 1034.0
+scale = Vector2(1.5, 1.5)
+theme_override_fonts/font = ExtResource("7_yj4ri")
+theme_override_font_sizes/font_size = 192
+text = "0%"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Not Hit Timer" type="Timer" parent="."]
+wait_time = 2.0

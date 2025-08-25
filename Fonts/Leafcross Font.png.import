@@ -1,0 +1,25 @@
+[remap]
+
+importer="font_data_image"
+type="FontFile"
+uid="uid://dil43sbwcg2uc"
+path="res://.godot/imported/Leafcross Font.png-07c569c04516ee6c02c175d4a8cbd0be.fontdata"
+
+[deps]
+
+source_file="res://Fonts/Leafcross Font.png"
+dest_files=["res://.godot/imported/Leafcross Font.png-07c569c04516ee6c02c175d4a8cbd0be.fontdata"]
+
+[params]
+
+character_ranges=PackedStringArray("\'A\'-\'Z\'", "\'a\'-\'z\'", "\'0\'-\'9\'", "\'!\'", "\'.\'", "\'…\'", "\'?\'", "\'-\'", "\',\'", "\'(\'-\')\'", "\'\'\'", "\'\"\'", "\' \'", "\'_\'", "\'/\'", "\'=\'", "\'+\'", "\':\'", "\'á\'", "\'č\'", "\'ď\'", "\'é\'", "\'ě\'", "\'í\'", "\'ň\'", "\'ó\'", "\'ř\'", "\'š\'", "\'ť\'", "\'ú\'", "\'ů\'", "\'ý\'", "\'ž\'", "\'Á\'", "\'Č\'", "\'Ď\'", "\'É\'", "\'Ě\'", "\'Í\'", "\'Ň\'", "\'Ó\'", "\'Ř\'", "\'Š\'", "\'Ť\'", "\'Ú\'", "\'Ů\'", "\'Ý\'", "\'Ž\'")
+kerning_pairs=PackedStringArray()
+columns=108
+rows=1
+image_margin=Rect2i(0, 0, 0, 0)
+character_margin=Rect2i(0, 0, 0, 0)
+ascent=0
+descent=0
+fallbacks=[]
+compress=true
+scaling_mode=2

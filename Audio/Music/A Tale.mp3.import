@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bu7vkdigihtmd"
+path="res://.godot/imported/A Tale.mp3-0cb135c09d681caefb44aec5f2529ac7.mp3str"
+
+[deps]
+
+source_file="res://Audio/Music/A Tale.mp3"
+dest_files=["res://.godot/imported/A Tale.mp3-0cb135c09d681caefb44aec5f2529ac7.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

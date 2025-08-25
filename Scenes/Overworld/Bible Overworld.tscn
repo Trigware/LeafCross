@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cri6mgxke1nwa"]
+
+[ext_resource type="Script" uid="uid://baqkdfbd13mpw" path="res://Scripts/Overworld/OverworldBible.gd" id="1_hqi1p"]
+[ext_resource type="SpriteFrames" uid="uid://cobpronifr18q" path="res://Spriteframes/BibleOverworld.tres" id="2_o0olo"]
+[ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="3_1i2wt"]
+
+[node name="BibleOverworld" type="Node2D"]
+script = ExtResource("1_hqi1p")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+sprite_frames = ExtResource("2_o0olo")
+
+[node name="Light" type="PointLight2D" parent="Sprite"]
+color = Color(1, 0, 0, 1)
+energy = 0.0
+texture = ExtResource("3_1i2wt")

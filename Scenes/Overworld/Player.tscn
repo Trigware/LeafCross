@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=3 uid="uid://dfj7f8jn24p1"]
+
+[ext_resource type="Script" uid="uid://35ebop2fx7cc" path="res://Scripts/Overworld/Player Root.gd" id="1_y5qff"]
+[ext_resource type="Script" uid="uid://bfo312wgsexbh" path="res://Scripts/Overworld/Player.gd" id="2_w8g5s"]
+[ext_resource type="SpriteFrames" uid="uid://b77va3m0sleuv" path="res://Spriteframes/Player/xdaforge.tres" id="3_0xvjv"]
+[ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="5_d72xc"]
+[ext_resource type="Texture2D" uid="uid://dnfug1tug8dq2" path="res://Textures/Other/Notice.png" id="5_y5qff"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y5qff"]
+size = Vector2(10.3333, 3)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5ixxa"]
+load_path = "res://.godot/imported/Leaf.png-d86ec70f178036e59957e8e64285e7e1.ctex"
+
+[node name="Player Root" type="Node2D" groups=["Player"]]
+script = ExtResource("1_y5qff")
+
+[node name="Player Body" type="CharacterBody2D" parent="." groups=["Player"]]
+visibility_layer = 524288
+scale = Vector2(3, 3)
+script = ExtResource("2_w8g5s")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Player Body"]
+light_mask = 2
+sprite_frames = ExtResource("3_0xvjv")
+animation = &"walk_down"
+
+[node name="Player Collider" type="CollisionShape2D" parent="Player Body"]
+position = Vector2(0, 16)
+shape = SubResource("RectangleShape2D_y5qff")
+
+[node name="Camera" type="Camera2D" parent="Player Body"]
+scale = Vector2(0.350877, 0.350877)
+offset = Vector2(0, 35)
+ignore_rotation = false
+enabled = false
+position_smoothing_enabled = true
+position_smoothing_speed = 4.0
+drag_left_margin = 0.05
+drag_top_margin = 0.05
+drag_right_margin = 0.05
+drag_bottom_margin = 0.05
+
+[node name="Light" type="PointLight2D" parent="Player Body"]
+scale = Vector2(0.5, 0.5)
+color = Color(0.5, 1, 0.558333, 1)
+energy = 0.0
+range_item_cull_mask = 5
+texture = ExtResource("5_d72xc")
+
+[node name="Health Particle Point" type="Marker2D" parent="Player Body"]
+position = Vector2(0, -18)
+
+[node name="Leaf" type="Sprite2D" parent="Player Body"]
+modulate = Color(1, 1, 1, 0)
+light_mask = 3
+use_parent_material = true
+position = Vector2(1, 2)
+scale = Vector2(0.3, 0.3)
+texture = SubResource("CompressedTexture2D_5ixxa")
+
+[node name="Notice" type="Sprite2D" parent="Player Body"]
+position = Vector2(0.666667, -24.3333)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("5_y5qff")

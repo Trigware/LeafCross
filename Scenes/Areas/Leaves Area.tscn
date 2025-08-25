@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://4e83j1w3ridu"]
+
+[ext_resource type="Script" uid="uid://dedqe06pq5ok6" path="res://Scripts/Overworld/Leaves Area.gd" id="1_yfa1h"]
+
+[node name="LeavesArea" type="Area2D"]
+script = ExtResource("1_yfa1h")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

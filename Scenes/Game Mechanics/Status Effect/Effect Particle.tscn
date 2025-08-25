@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://bum7iub0ya3uv"]
+
+[ext_resource type="Script" uid="uid://swvmop76ek4r" path="res://Scripts/Overworld/EffectParticle.gd" id="1_x3big"]
+
+[sub_resource type="Curve" id="Curve_00lwa"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.988701, 0.421597), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Effect Particle" type="CPUParticles2D"]
+light_mask = 0
+amount = 5
+lifetime = 0.5
+explosiveness = 0.05
+randomness = 1.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, -200)
+initial_velocity_min = 20.0
+initial_velocity_max = 100.0
+angular_velocity_min = 20.0
+angular_velocity_max = 100.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_00lwa")
+script = ExtResource("1_x3big")

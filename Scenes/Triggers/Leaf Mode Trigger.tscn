@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://djw2th4ecscvn"]
+
+[ext_resource type="Script" uid="uid://bfncaui5ac6uk" path="res://Scripts/Globals/LeafModeTrigger.gd" id="1_ir4ch"]
+
+[node name="Leaf Mode Trigger" type="Area2D"]
+script = ExtResource("1_ir4ch")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
