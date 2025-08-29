@@ -16,6 +16,25 @@ mainmenu_saveinfo_newgame	New Game	Nová hra
 mainmenu_choosefile_goback	Go Back	Jdi zpět
 mainmenu_choosefile_previous_chapter	Prev. Chapter	Předchozí kapitola
 mainmenu_choosefile_next_chapter	Next Chapter	Další kapitola
+mainmenu_fileoption_playgame	Play game	Spusť hru
+mainmenu_fileoption_resetgame	Reset game	Restartuj hru
+mainmenu_fileoption_cancel	Go back	Jdi zpět
+mainmenu_fileoption_resetgame_cautiontext	If you continue, this save will be deleted and you will start from scratch.	Pokud hru resetuješ, tento soubor bude smazán a na ním začneš od začátku.
+mainmenu_fileoption_resetgame_confirmreset	Delete and reset	Smaž a resetuj
+save_file_PLAY_header	Please choose a file.	Vyber si svůj soubor, prosím.
+save_file_COPY_header	Choose a file to copy.	Vyber soubor, který chceš zkopírovat.
+save_file_ERASE_header	Choose a file to delete.	Vyber soubor, který chceš smazat.
+save_file_UNABLETOCOPY_header	There's no space for new files. Delete some first.	Není místo pro nové soubory. Smaž nějaký soubor.
+save_file_not_found	- EMPTY (CAN START NEW GAME) - 	- PRÁZDNÝ (MŮŽEŠ VYTVOŘIT) -
+save_file_choice_PLAY	Start game from this file?	Spustit hru z tohoto souboru?
+save_file_choice_ERASE	Delete this file?	Smazat tento soubor?
+save_file_choice_COPY	Duplicate this file?	Zkopírovat tento soubor?
+save_file_choice_ACTUALLY_ERASE	Are you really sure?	Jseš si opravdu jistý?
+save_file_create	Start a new game?	Chceš hrát na novém souboru?
+save_file_choice	      YES               NO	      ANO               NE
+save_file_copy_label	COPY	KOPIE
+save_file_erase_label	ERASE	SMAZAT
+save_file_back_label	BACK	ZPĚT
 quitting_game	Quitting game	Opouštím hru
 character_max_stat	MAX	MAX
 choose_lang_language	CHOOSE A LANGUAGE	VYBER SI JAZYK
@@ -25,7 +44,7 @@ choose_lang_english	English	English
 room_name_Weird/SpawnRoom	?????	?????
 room_name_Weird/SaveIntroRoom	Weird Forest:\nBeehives	Podivný les:\nÚly
 legend_skip_cutscene	(skip cutscene with ENTER)	(přeskoč cutscénu s klávesou ENTER)
-legend_panel1_whisper	A long time ago, people whispered a strange tale.	Tehdá se vyprávěl příběh, který si lidé dál šeptali.
+legend_panel1_whisper	(no longer canon) A long time ago, people whispered a strange tale.	(toto není canon) Tehdá se vyprávěl příběh, který si lidé dál šeptali.
 legend_panel1_nation_unity	A tale about a nation.{1}\nA tale about their unity.	Byl to příběh národa.{1}\nByl to příběh jednoty.
 legend_panel1_wise_mystical	A tale foretold by the wise.{1}\nA tale which granted mysticism.	Byl to příběh moudrosti.{1}\nByl to příběh mystiky.
 legend_panel1_wmtale	They called it the "Wise Mystical Tale".	Tento příběh nesl název "Wise Mystical Tale".

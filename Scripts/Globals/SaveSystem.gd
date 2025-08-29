@@ -180,3 +180,14 @@ func does_any_save_file_exist():
 		filename = dir.get_next()
 	dir.list_dir_end()
 	return false
+
+func delete_file(save_file):
+	var regular_savefile = SaveData.get_save_file_path(save_file)
+	var auto_savefile = SaveData.get_autosave_file_path(save_file)
+	delete_file_on_disk(regular_savefile)
+	delete_file_on_disk(auto_savefile)
+
+func delete_file_on_disk(file_path):
+	if not FileAccess.file_exists(file_path): return
+	var dir = DirAccess.open("user://")
+	dir.remove(file_path.get_file())

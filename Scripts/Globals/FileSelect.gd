@@ -256,10 +256,7 @@ func cancel_file_selection():
 	load_player_data()
 
 func delete_file():
-	var regular_savefile = SaveData.get_save_file_path(current_selected_file)
-	var auto_savefile = SaveData.get_autosave_file_path(current_selected_file)
-	delete_file_on_disk(regular_savefile)
-	delete_file_on_disk(auto_savefile)
+	SaveData.delete_file(current_selected_file)
 	cancel_file_selection()
 	Audio.play_sound(UID.SFX_FILE_SELECT_DELETE_FILE, 0.2)
 
@@ -271,11 +268,6 @@ func is_space_for_file_copy():
 			file_paste_destination = i
 			return true
 	return false
-
-func delete_file_on_disk(file_path):
-	if not FileAccess.file_exists(file_path): return
-	var dir = DirAccess.open("user://")
-	dir.remove(file_path.get_file())
 
 func copy_file():
 	var regular_save_copy = SaveData.get_save_file_path(current_selected_file)

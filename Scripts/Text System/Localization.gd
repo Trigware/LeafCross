@@ -1,7 +1,7 @@
 extends Node
 
 var game_text : Dictionary = {}
-const localization_key_path = "res://WMTale - Localization.tsv"
+const localization_key_path = "res://Leafcross - Localization.tsv"
 var is_latest_textkey_empty : bool
 var language_column_index = 0
 var language_list := []
@@ -10,13 +10,13 @@ var current_language := "english"
 func get_text(text_key: String, variables = {}) -> String:
 	if not text_exists(text_key) and game_text == {}: load_language(current_language)
 	if not text_exists(text_key):
-		var error_message = "<ERROR>: Attempting to access not-existent text key " + text_key + "!"
+		var error_message = "<ERR0>: " + text_key
 		push_error(error_message)
 		return error_message
 	
 	if variables is Array and variables.size() > 1:
 		push_error("On " + text_key + " attempted to use an Array for storing variables. Array variables are deprecated, use a dictionary instead!")
-		return "<ERROR>: Used deprecated Array method for passing in variables at text_key " + text_key + "!"
+		return "<ERR1>"
 	
 	is_latest_textkey_empty = false
 	var unsubstituted_text = game_text[text_key]
@@ -26,7 +26,8 @@ func get_text(text_key: String, variables = {}) -> String:
 	
 	var localized_text = LocalizationTimeParser.parse(unsubstituted_text, variables)
 	if unsubstituted_text == "": 
-		localized_text = "<ERROR>: Missing translation for a text_key " + text_key + " in the " + current_language + " language!"
+		push_error("Missing translation for text key " + text_key + " in the " + current_language + " language!")
+		localized_text = "<ERR2>: " + text_key + " (" + current_language + ")"
 	return localized_text
 
 func get_key_suffixed(base_key, suffix) -> String:

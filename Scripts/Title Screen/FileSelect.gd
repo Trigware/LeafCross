@@ -39,8 +39,14 @@ func _ready():
 	menu_title.position = Vector2(menu_title_initial_x, file_select_logo_destination.y + menu_title_y_offset)
 	selector.hide()
 
+const no_leaf_selector_degrees = 270
+
 func show_file_select():
 	go_back_label.text = Localization.get_text("mainmenu_choosefile_goback")
+	selector.texture = UID.IMG_LEAF
+	if not SaveData.seen_leaf:
+		selector.texture = UID.IMG_NOLEAF_SELECTOR
+		selector.rotation_degrees = no_leaf_selector_degrees
 	set_menu_title_image()
 	background_transition()
 	await start_file_select_tweens()
@@ -80,21 +86,39 @@ func setup_selector():
 	can_move_selector = true
 
 func _unhandled_input(_event):
-	if not can_move_selector: return
 	var previous_selection = selected_column
 	if Input.is_action_just_pressed("move_left"): move_horizontally(-1)
 	if Input.is_action_just_pressed("move_right"): move_horizontally(1)
 	
-	if previous_selection != selected_column:
-		move_selector()
-		return
+	if previous_selection != selected_column: move_selector()
 	if Input.is_action_just_pressed("continue"): option_selected()
-	if Input.is_action_just_pressed("move_down") and current_label_selection == LabelSelection.Files: go_down_to_options()
-	if Input.is_action_just_pressed("move_up") and current_label_selection != LabelSelection.Files: go_up_to_file_info()
+	if Input.is_action_just_pressed("move_down"): move_down()
+	if Input.is_action_just_pressed("move_up"): move_up()
 
 const selector_change_choice_tween_duration := 0.15
 
+func move_down():
+	if current_reset_option != ResetOption.None:
+		move_selector_inside_reset_options(1)
+		return
+	if file_info_option != FileInfoOption.NotInsideOption:
+		move_selector_inside_save_file_options(1)
+		return
+	if current_label_selection != LabelSelection.Files: return
+	go_down_to_options()
+
+func move_up():
+	if current_reset_option != ResetOption.None:
+		move_selector_inside_reset_options(-1)
+		return
+	if file_info_option != FileInfoOption.NotInsideOption:
+		move_selector_inside_save_file_options(-1)
+		return
+	if current_label_selection == LabelSelection.Files: return
+	go_up_to_file_info()
+
 func move_horizontally(direction):
+	if not can_move_selector: return
 	if current_label_selection != LabelSelection.Files:
 		return
 	var selected_column_copy = selected_column
@@ -115,21 +139,35 @@ func play_change_choice_audio():
 const scene_hide_duration := 2
 
 func option_selected():
+	if can_move_inside_file_option and file_info_option != FileInfoOption.NotInsideOption:
+		confirm_inside_file_info_option()
+	if not can_move_selector: return
 	match current_label_selection:
 		LabelSelection.Files: save_file_selected()
 		LabelSelection.GoBack: go_back_to_title()
 
-func save_file_selected():
+func save_file_selected(always_start = false):
+	var save_file_number = selected_column + 1
+	if SaveData.save_file_exists(save_file_number) and not always_start:
+		display_save_info_options_menu()
+		return
+	can_move_inside_file_option = false
+	if always_start:
+		var file_info_node = get_file_info_node()
+		make_tween(file_info_node.play_game_label, "modulate", Color.WHITE, file_select_tween_duration)
 	Audio.play_sound(UID.SFX_RELIGIOUS_SPAWN)
-	Overlay.change_scene(UID.SCN_LEGEND, scene_hide_duration, 1, 2)
-	SaveData.load_game(selected_column + 1)
-	make_tween(selector, "position:y", destination_file_info_y_pos, scene_hide_duration)
+	start_game(save_file_number)
+	if not always_start: make_tween(selector, "position:y", destination_file_info_y_pos, scene_hide_duration)
 	var file_info = files_info_root.get_child(selected_column)
 	make_tween(file_info, "modulate", Color.LIME_GREEN, scene_hide_duration)
 	can_move_selector = false
 
 const selector_options_y = 625
 const selector_change_selection_type_tween_duration := 0.4
+
+func start_game(save_file_number):
+	Overlay.change_scene(UID.SCN_LEGEND, scene_hide_duration, 1, 2)
+	SaveData.load_game(save_file_number)
 
 func go_down_to_options():
 	change_vertical_selection(LabelSelection.GoBack, 0, Color.GREEN, get_x_pos_from_label_selection(LabelSelection.GoBack), selector_options_y)
@@ -138,6 +176,7 @@ func go_up_to_file_info():
 	change_vertical_selection(LabelSelection.Files, 1, Color.WHITE, get_x_pos_at_save_file(selected_column), selector_y_destination)
 
 func change_vertical_selection(label_selection, final_alpha, final_label_color, x_dest, final_y):
+	if not can_move_selector: return
 	play_change_choice_audio()
 	can_move_selector = false
 	current_label_selection = label_selection
@@ -221,3 +260,135 @@ func go_back_to_title():
 func delete_file_info_nodes():
 	for child in files_info_root.get_children():
 		child.queue_free()
+
+const selector_x_offset = -115
+const selector_save_info_scale = 1.35
+
+enum FileInfoOption {
+	NotInsideOption = -2,
+	PlayGame = -1,
+	ResetGame,
+	Cancel
+}
+
+var file_info_option := FileInfoOption.NotInsideOption
+var can_move_inside_file_option = false
+const selected_option_color := Color.WEB_GREEN
+const no_leaf_selector_rotation_file_info_options = 360
+
+func display_save_info_options_menu():
+	Audio.play_sound(UID.SFX_MENU_CANCEL)
+	change_file_info_node_visibility(true)
+	file_info_option = FileInfoOption.PlayGame
+	can_move_selector = false
+	make_tween(selector, "position:x", selector.position.x + selector_x_offset, file_select_tween_duration)
+	make_tween(selector, "scale", Vector2(selector_save_info_scale, selector_save_info_scale), file_select_tween_duration)
+	var file_info_play_game_label = get_file_info_node().play_game_label
+	make_tween(file_info_play_game_label, "modulate", selected_option_color, file_select_tween_duration)
+	make_tween(selector, "rotation_degrees", no_leaf_selector_rotation_file_info_options, file_select_tween_duration)
+	var selector_y_global_dest = get_file_info_option_y_pos()
+	await make_tween(selector, "global_position:y", selector_y_global_dest, file_select_tween_duration).finished
+	can_move_inside_file_option = true
+
+func change_file_info_node_visibility(shown):
+	var file_info_node = get_file_info_node()
+	file_info_node.change_options_visibility(shown)
+
+const y_option_offset = 50
+
+func get_file_info_option_y_pos():
+	var result = get_file_info_node().global_position.y
+	result += file_info_option * y_option_offset
+	return result
+
+func get_file_info_node():
+	return files_info_root.get_child(selected_column)
+
+func move_selector_inside_save_file_options(direction):
+	if not can_move_inside_file_option: return
+	var option_if_successful = file_info_option + direction
+	if option_if_successful < FileInfoOption.PlayGame or option_if_successful > FileInfoOption.Cancel: return
+	play_change_choice_audio()
+	can_move_inside_file_option = false
+	var file_info_options = get_file_info_node().options_root
+	var previous_selection_label = file_info_options.get_child(file_info_option + 1)
+	var current_selection_label = file_info_options.get_child(option_if_successful + 1)
+	make_tween(previous_selection_label, "modulate", Color.WHITE, selector_change_choice_tween_duration)
+	make_tween(current_selection_label, "modulate", selected_option_color, selector_change_choice_tween_duration)
+	file_info_option = option_if_successful
+	await make_tween(selector, "global_position:y", get_file_info_option_y_pos(), selector_change_choice_tween_duration).finished
+	can_move_inside_file_option = true
+
+func confirm_inside_file_info_option():
+	match current_reset_option:
+		ResetOption.Cancel: cancel_on_file_info_option()
+		ResetOption.ResetAndDelete:
+			reset_and_delete_save_file()
+			return
+	match file_info_option:
+		FileInfoOption.PlayGame: save_file_selected(true)
+		FileInfoOption.ResetGame: reset_and_delete_game()
+		FileInfoOption.Cancel: cancel_on_file_info_option()
+
+const cancel_selector_scale = 2.25
+enum ResetOption {
+	None,
+	Cancel,
+	ResetAndDelete
+}
+var current_reset_option = ResetOption.None
+var can_change_reset_option_selection = false
+
+func cancel_on_file_info_option():
+	can_move_inside_file_option = false
+	file_info_option = FileInfoOption.NotInsideOption
+	Audio.play_sound(UID.SFX_MENU_CANCEL)
+	change_file_info_node_visibility(false)
+	var file_info_node = get_file_info_node()
+	file_info_node.cancel_game_label.modulate = Color.WHITE
+	current_reset_option = ResetOption.None
+	make_tween(file_info_node.main_sprite, "modulate", Color.WHITE, file_select_tween_duration)
+	file_info_node.reset_game_label.modulate = Color.WHITE
+	file_info_node.reset_option_root.hide()
+	if not SaveData.seen_leaf: make_tween(selector, "rotation_degrees", no_leaf_selector_degrees, file_select_tween_duration)
+	var selector_x_destination = get_x_pos_at_save_file(selected_column)
+	make_tween(selector, "position", Vector2(selector_x_destination, selector_y_destination), file_select_tween_duration)
+	await make_tween(selector, "scale", Vector2(cancel_selector_scale, cancel_selector_scale), file_select_tween_duration).finished
+	can_move_selector = true
+
+func reset_and_delete_game():
+	Audio.play_sound(UID.SFX_MENU_CANCEL)
+	var file_info_node = get_file_info_node()
+	file_info_node.change_reset_option_visibility(true)
+	make_tween(file_info_node.main_sprite, "modulate", Color.RED, file_select_tween_duration)
+	make_tween(file_info_node.caution_text_label, "modulate", Color.RED, file_select_tween_duration)
+	current_reset_option = ResetOption.Cancel
+	await make_tween(selector, "global_position:y", get_y_position_from_reset_option(), selector_change_choice_tween_duration).finished
+	can_change_reset_option_selection = true
+
+const reset_option_y_offset = 12
+const reset_option_offset_if_reset_and_delete = 50
+
+func get_y_position_from_reset_option():
+	var y_glob = get_file_info_node().global_position.y + reset_option_y_offset
+	if current_reset_option == ResetOption.ResetAndDelete:
+		y_glob += reset_option_offset_if_reset_and_delete
+	return y_glob
+
+func move_selector_inside_reset_options(direction):
+	if not can_change_reset_option_selection: return
+	var option_if_successful = current_reset_option + direction
+	if option_if_successful < ResetOption.Cancel or option_if_successful > ResetOption.ResetAndDelete: return
+	play_change_choice_audio()
+	current_reset_option = option_if_successful
+	var y_dest = get_y_position_from_reset_option()
+	can_change_reset_option_selection = false
+	await make_tween(selector, "position:y", y_dest, selector_change_choice_tween_duration).finished
+	can_change_reset_option_selection = true
+
+func reset_and_delete_save_file():
+	can_change_reset_option_selection = false
+	var selected_save_file = selected_column + 1
+	SaveData.delete_file(selected_save_file)
+	Audio.play_sound(UID.SFX_FILE_SELECT_DELETE_FILE)
+	start_game(selected_save_file)

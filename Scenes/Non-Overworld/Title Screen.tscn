@@ -314,9 +314,7 @@ texture = ExtResource("26_rfxld")
 [node name="Files" type="Node2D" parent="File Select"]
 
 [node name="Selector" type="Sprite2D" parent="File Select"]
-visible = false
 scale = Vector2(2.25, 2.25)
-texture = ExtResource("23_tco2s")
 
 [node name="Labels" type="Control" parent="File Select"]
 layout_mode = 3
