@@ -106,4 +106,8 @@ func handle_choice_selected():
 	can_change_option = false
 	match current_selected_option:
 		Option.Play: file_select.show_file_select()
+		Option.Settings: open_game_settings()
 		Option.Exit: QuittingNotice.close_game()
+
+func open_game_settings():
+	print("OPEN SETTINGS")

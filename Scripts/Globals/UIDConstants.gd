@@ -69,6 +69,7 @@ const SCN_EXPLOSION := preload("uid://yaji2aem6v4")
 const SCN_MOVINGNPC := preload("uid://cpc5fcj5uokxi")
 const SCN_LANGUAGE_LABEL := preload("uid://liebhejx35kc")
 const SCN_FILE_INFO := preload("uid://crnbdskhtichk")
+const SCN_SETTINGS := preload("uid://dq4kpttypcv1p")
 
 const SCN_LILYPAD_MECHANIC : Dictionary[Overworld.Room, PackedScene] = {
 	Overworld.Room.Weird_LilypadRoom: preload("uid://do8xa234u6nyw")
