@@ -1,0 +1,84 @@
+[gd_scene load_steps=6 format=3 uid="uid://dhpqwrhqq3yr2"]
+
+[ext_resource type="Script" uid="uid://csf2wshrxdo3p" path="res://Scripts/Globals/ChooseLanguage.gd" id="1_xjkk2"]
+[ext_resource type="FontFile" uid="uid://dil43sbwcg2uc" path="res://Fonts/Leafcross Font.png" id="2_1pci2"]
+[ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="3_5phqk"]
+[ext_resource type="Texture2D" uid="uid://cfysxnymr7w2t" path="res://Textures/Other/PreLeafSelector.png" id="4_e04qv"]
+[ext_resource type="Texture2D" uid="uid://ds6vhe1ppfh5q" path="res://Textures/Flags/czech.png" id="5_0thrq"]
+
+[node name="ChooseLanguage" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xjkk2")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.0798, 0.069, 0.15, 1)
+
+[node name="Header" type="Label" parent="."]
+layout_mode = 0
+offset_top = 32.0
+offset_right = 1152.0
+offset_bottom = 616.0
+theme_override_fonts/font = ExtResource("2_1pci2")
+theme_override_font_sizes/font_size = 128
+text = "LANGUAGE"
+horizontal_alignment = 1
+
+[node name="Confirm Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 176.0
+theme_override_fonts/font = ExtResource("2_1pci2")
+theme_override_font_sizes/font_size = 32
+text = "CONFIRM WITH ENTER"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Move Reminder" type="Label" parent="."]
+layout_mode = 0
+offset_top = 450.0
+offset_right = 1152.0
+offset_bottom = 626.0
+theme_override_fonts/font = ExtResource("2_1pci2")
+theme_override_font_sizes/font_size = 48
+text = "CONFIRM WITH ENTER"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Light" type="PointLight2D" parent="."]
+position = Vector2(576, 324)
+scale = Vector2(2.25, 1.26563)
+energy = 3.0
+texture = ExtResource("3_5phqk")
+texture_scale = 2.0
+
+[node name="Language Template" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 448.0
+offset_top = 224.0
+offset_right = 576.0
+offset_bottom = 288.0
+theme_override_fonts/font = ExtResource("2_1pci2")
+theme_override_font_sizes/font_size = 64
+text = "TEST"
+
+[node name="Selector" type="Sprite2D" parent="."]
+light_mask = 0
+position = Vector2(0, 256)
+scale = Vector2(2, 2)
+texture = ExtResource("4_e04qv")
+
+[node name="Flag Template" type="Sprite2D" parent="."]
+visible = false
+light_mask = 0
+position = Vector2(128, 256)
+scale = Vector2(1.6, 1.6)
+texture = ExtResource("5_0thrq")

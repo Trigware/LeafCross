@@ -1,0 +1,122 @@
+[gd_scene load_steps=16 format=3 uid="uid://dqccob3n8f7rq"]
+
+[ext_resource type="Texture2D" uid="uid://pwvglvedvxrr" path="res://Spritesheets/Teleport Tree.png" id="1_81h1b"]
+[ext_resource type="Script" uid="uid://dyok8olxg2uk1" path="res://Scripts/Overworld/TeleportTree.gd" id="1_wwjg1"]
+[ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="2_3k1sg"]
+[ext_resource type="Script" uid="uid://v57kgnejodot" path="res://Scripts/Overworld/LayeredNPC.gd" id="2_x7f47"]
+[ext_resource type="AudioStream" uid="uid://cwmbyeadxhulb" path="res://Audio/SFX/Choose Character/Blowing Wind.mp3" id="3_y7q8a"]
+[ext_resource type="PackedScene" uid="uid://6hq01nojje0y" path="res://Scenes/NPC Derivation/NPC.tscn" id="6_uwlab"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x7f47"]
+atlas = ExtResource("1_81h1b")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uwlab"]
+atlas = ExtResource("1_81h1b")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4wk27"]
+atlas = ExtResource("1_81h1b")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vt0xu"]
+atlas = ExtResource("1_81h1b")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uwlab"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x7f47")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uwlab")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4wk27")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vt0xu")
+}],
+"loop": true,
+"name": &"Tree",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3k1sg"]
+size = Vector2(42, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y7q8a"]
+size = Vector2(37, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wwjg1"]
+size = Vector2(151, 131)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uwlab"]
+size = Vector2(203, 179)
+
+[node name="TeleportTree" type="Node2D"]
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_wwjg1")
+
+[node name="Tree Root" type="Node2D" parent="."]
+script = ExtResource("2_x7f47")
+
+[node name="Tree Sprite" type="AnimatedSprite2D" parent="Tree Root"]
+light_mask = 2
+sprite_frames = SubResource("SpriteFrames_uwlab")
+animation = &"Tree"
+frame_progress = 0.213068
+
+[node name="Light" type="PointLight2D" parent="Tree Root"]
+color = Color(0.650516, 0.0805238, 3.27289e-06, 1)
+energy = 1.2
+range_item_cull_mask = 2
+texture = ExtResource("2_3k1sg")
+
+[node name="Obstruction" type="PointLight2D" parent="Tree Root"]
+energy = 1.5
+blend_mode = 1
+texture = ExtResource("2_3k1sg")
+texture_scale = 0.5
+
+[node name="Static Body" type="StaticBody2D" parent="Tree Root"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tree Root/Static Body"]
+position = Vector2(-41, 62.5)
+shape = SubResource("RectangleShape2D_3k1sg")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Tree Root/Static Body"]
+position = Vector2(29.5, 62.5)
+shape = SubResource("RectangleShape2D_y7q8a")
+
+[node name="Wind" type="AudioStreamPlayer2D" parent="Tree Root"]
+stream = ExtResource("3_y7q8a")
+volume_db = 16.0
+autoplay = true
+max_distance = 1000.0
+
+[node name="Trigger Area" type="Area2D" parent="Tree Root"]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tree Root/Trigger Area"]
+position = Vector2(1.5, -3.5)
+shape = SubResource("RectangleShape2D_wwjg1")
+debug_color = Color(0.7, 0.653333, 0, 0.419608)
+
+[node name="NPC Root" parent="." instance=ExtResource("6_uwlab")]
+npcID = 8
+removeStaticBody = true
+
+[node name="Sprite" parent="NPC Root" index="0"]
+visible = false
+
+[node name="Static Body" parent="NPC Root" index="2"]
+visible = false
+
+[node name="Trigger Zone" parent="NPC Root" index="3"]
+position = Vector2(2.5, -2.5)
+shape = SubResource("RectangleShape2D_uwlab")
+debug_color = Color(0, 0.91, 0.0758333, 0.419608)
+
+[editable path="NPC Root"]

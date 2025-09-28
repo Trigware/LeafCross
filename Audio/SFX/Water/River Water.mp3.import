@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b11o6u8lh7tj3"
+path="res://.godot/imported/River Water.mp3-44566043f1274eecebd8b80bd94fd490.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/Water/River Water.mp3"
+dest_files=["res://.godot/imported/River Water.mp3-44566043f1274eecebd8b80bd94fd490.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

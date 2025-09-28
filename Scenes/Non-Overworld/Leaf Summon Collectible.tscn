@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://d20hsk3o0qhj4"]
+
+[ext_resource type="Texture2D" uid="uid://tnpclkb1vp0f" path="res://Textures/Title Screen/Eye Center.png" id="1_6tlfs"]
+[ext_resource type="Script" uid="uid://b7y85eg8ui4yd" path="res://Scripts/Globals/LeafSummonCollectible.gd" id="1_olm5b"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_olm5b"]
+radius = 16.0
+
+[node name="Leaf Summon Collectible" type="Area2D"]
+script = ExtResource("1_olm5b")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_6tlfs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_olm5b")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

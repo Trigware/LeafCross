@@ -1,0 +1,56 @@
+[gd_scene load_steps=10 format=3 uid="uid://l1iqqd118wj6"]
+
+[ext_resource type="Texture2D" uid="uid://c7su1pa2gydwm" path="res://Spritesheets/Beehive.png" id="1_1j34x"]
+[ext_resource type="PackedScene" uid="uid://dwwrihbghedg3" path="res://Scenes/NPC Derivation/Layered NPC.tscn" id="1_av6ga"]
+[ext_resource type="Script" uid="uid://dw1kxr1vf0iaw" path="res://Scripts/Overworld/Beehive.gd" id="2_4pa6r"]
+[ext_resource type="PackedScene" uid="uid://c01w1divptedy" path="res://Scenes/Areas/Audio Area.tscn" id="4_o1yg2"]
+[ext_resource type="AudioStream" uid="uid://b2js4ontkxpul" path="res://Audio/Music/Blue.mp3" id="5_lma4l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1j34x"]
+size = Vector2(85, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4pa6r"]
+size = Vector2(99.5, 107.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wyurl"]
+size = Vector2(103, 58)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tp1bo"]
+size = Vector2(97, 36)
+
+[node name="Beehive" type="Sprite2D"]
+texture = ExtResource("1_1j34x")
+hframes = 3
+script = ExtResource("2_4pa6r")
+
+[node name="Layered NPC" parent="." instance=ExtResource("1_av6ga")]
+ignoreDirections = true
+override_id_from_parent = true
+set_only_at_start = true
+
+[node name="Layered Manager" parent="Layered NPC" index="0" node_paths=PackedStringArray("treeSprite")]
+treeSprite = NodePath("../..")
+
+[node name="Collider" parent="Layered NPC/Layered Manager/Static Body" index="0"]
+position = Vector2(3.5, 40.5)
+shape = SubResource("RectangleShape2D_1j34x")
+
+[node name="Collider" parent="Layered NPC/Layered Manager/Trigger Area" index="0"]
+position = Vector2(4.75, -17.875)
+shape = SubResource("RectangleShape2D_4pa6r")
+
+[node name="Trigger Zone" parent="Layered NPC" index="1"]
+position = Vector2(3.5, 41)
+shape = SubResource("RectangleShape2D_wyurl")
+
+[node name="Audio Area" parent="." instance=ExtResource("4_o1yg2")]
+position = Vector2(-313, 87)
+audioStream = ExtResource("5_lma4l")
+maxDistance = 500
+volume_multiplier = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Audio Area"]
+position = Vector2(316.5, -112)
+shape = SubResource("RectangleShape2D_tp1bo")
+
+[editable path="Layered NPC"]

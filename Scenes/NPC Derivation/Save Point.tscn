@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://6eldu03w7jx6"]
+
+[ext_resource type="PackedScene" uid="uid://6hq01nojje0y" path="res://Scenes/NPC Derivation/NPC.tscn" id="1_7q475"]
+[ext_resource type="Script" uid="uid://dblieweqfbc5j" path="res://Scripts/Overworld/BibleStand.gd" id="1_lhie1"]
+[ext_resource type="Texture2D" uid="uid://024n1fhlka2l" path="res://Textures/Weird Forest/Book Stand.png" id="2_adnen"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_adnen"]
+size = Vector2(56, 42)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0jenh"]
+size = Vector2(46.6667, 60.6667)
+
+[node name="Save Point" type="Node2D"]
+script = ExtResource("1_lhie1")
+metadata/bible_stand = true
+
+[node name="NPC Root" parent="." instance=ExtResource("1_7q475")]
+position = Vector2(1, 0)
+scale = Vector2(1.5, 1.5)
+npcID = 17
+ignoreDirections = true
+save_menu = true
+override_id_from_parent = true
+set_only_at_start = true
+
+[node name="Sprite" parent="NPC Root" index="0"]
+texture = ExtResource("2_adnen")
+
+[node name="Collider" parent="NPC Root/Static Body" index="0"]
+position = Vector2(3.00669e-06, 18.9165)
+shape = SubResource("RectangleShape2D_adnen")
+
+[node name="Trigger Zone" parent="NPC Root" index="3"]
+position = Vector2(-0.666666, 12.3333)
+shape = SubResource("RectangleShape2D_0jenh")
+
+[node name="Bible Stand Point" type="Marker2D" parent="."]
+position = Vector2(1.5, -7)
+scale = Vector2(1.5, 1.5)
+gizmo_extents = 50.0
+
+[editable path="NPC Root"]

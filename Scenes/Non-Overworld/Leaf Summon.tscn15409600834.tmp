@@ -1,0 +1,96 @@
+[gd_scene load_steps=15 format=3 uid="uid://ckttxybq5tycy"]
+
+[ext_resource type="Script" uid="uid://d3mu7afck8m23" path="res://Scripts/Globals/LeafSummon.gd" id="1_lncfu"]
+[ext_resource type="Texture2D" uid="uid://c6e3jsf786ftr" path="res://Textures/Title Screen/Logo Leaf.png" id="2_6cjg4"]
+[ext_resource type="Texture2D" uid="uid://do3c50wji5tur" path="res://Textures/Other/The Crosserrorium.png" id="3_xne6v"]
+[ext_resource type="Texture2D" uid="uid://d0fymc1ye236d" path="res://Textures/Other/Leaf.png" id="4_xne6v"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rmoac"]
+atlas = ExtResource("2_6cjg4")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wyrkv"]
+atlas = ExtResource("2_6cjg4")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6g55"]
+atlas = ExtResource("2_6cjg4")
+region = Rect2(100, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_brtjy"]
+atlas = ExtResource("2_6cjg4")
+region = Rect2(200, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_etpno"]
+atlas = ExtResource("3_xne6v")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mhh61"]
+atlas = ExtResource("3_xne6v")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7g7p8"]
+atlas = ExtResource("3_xne6v")
+region = Rect2(100, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_st1ha"]
+atlas = ExtResource("3_xne6v")
+region = Rect2(150, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sq7k2"]
+atlas = ExtResource("4_xne6v")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sq7k2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rmoac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wyrkv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6g55")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_brtjy")
+}],
+"loop": false,
+"name": &"default",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_etpno")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mhh61")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7g7p8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_st1ha")
+}],
+"loop": false,
+"name": &"elements",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sq7k2")
+}],
+"loop": true,
+"name": &"small_leaf",
+"speed": 5.0
+}]
+
+[node name="Leaf Summon" type="Node2D"]
+script = ExtResource("1_lncfu")
+
+[node name="Leaf" type="AnimatedSprite2D" parent="."]
+position = Vector2(576, 280)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_sq7k2")
+animation = &"small_leaf"

@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://dwwrihbghedg3"]
+
+[ext_resource type="Script" uid="uid://v57kgnejodot" path="res://Scripts/Overworld/LayeredNPC.gd" id="1_72j6q"]
+[ext_resource type="Script" uid="uid://gio061ico1sg" path="res://Scripts/Text System/BaseNPC.gd" id="3_0suky"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_72j6q"]
+size = Vector2(38, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fxwtr"]
+size = Vector2(95, 137)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0e63j"]
+size = Vector2(70.6667, 58)
+
+[node name="Layered NPC" type="Area2D"]
+script = ExtResource("3_0suky")
+
+[node name="Layered Manager" type="Node2D" parent="."]
+script = ExtResource("1_72j6q")
+
+[node name="Static Body" type="StaticBody2D" parent="Layered Manager"]
+
+[node name="Collider" type="CollisionShape2D" parent="Layered Manager/Static Body"]
+light_mask = 3
+position = Vector2(-20.5, 57.75)
+shape = SubResource("RectangleShape2D_72j6q")
+
+[node name="Trigger Area" type="Area2D" parent="Layered Manager"]
+collision_mask = 3
+
+[node name="Collider" type="CollisionShape2D" parent="Layered Manager/Trigger Area"]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_fxwtr")
+debug_color = Color(0.7, 0.233333, 0, 0.419608)
+
+[node name="Trigger Zone" type="CollisionShape2D" parent="."]
+position = Vector2(-21, 52)
+shape = SubResource("RectangleShape2D_0e63j")
+debug_color = Color(0.431667, 0.7, 0, 0.419608)

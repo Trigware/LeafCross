@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://gvh4v8cvbp3f"]
+
+[ext_resource type="Texture2D" uid="uid://c6e3jsf786ftr" path="res://Textures/Title Screen/Logo Leaf.png" id="1_j31k0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rmoac"]
+atlas = ExtResource("1_j31k0")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wyrkv"]
+atlas = ExtResource("1_j31k0")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6g55"]
+atlas = ExtResource("1_j31k0")
+region = Rect2(100, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_brtjy"]
+atlas = ExtResource("1_j31k0")
+region = Rect2(200, 0, 50, 50)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rmoac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wyrkv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6g55")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_brtjy")
+}],
+"loop": false,
+"name": &"default",
+"speed": 9.0
+}]

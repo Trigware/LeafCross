@@ -1,0 +1,21 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://c7onj6ie7n7k0"]
+
+[ext_resource type="Texture2D" uid="uid://cmid5i5m87vhy" path="res://Spritesheets/SmallTreeSpritesheet.png" id="1_3aedi"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_07ehf"]
+resource_name = "Weird Tree"
+texture = ExtResource("1_3aedi")
+texture_region_size = Vector2i(32, 32)
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/animation_columns = 4
+0:0/animation_mode = 1
+0:0/animation_frame_0/duration = 1.0
+0:0/animation_frame_1/duration = 1.0
+0:0/animation_frame_2/duration = 1.0
+0:0/animation_frame_3/duration = 1.0
+0:0/0 = 0
+
+[resource]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_07ehf")

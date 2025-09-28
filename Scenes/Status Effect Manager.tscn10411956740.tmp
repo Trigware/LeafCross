@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://djpywhuvssuto"]
+
+[ext_resource type="Script" uid="uid://cm8so60e6wxpd" path="res://Scripts/Globals/StatusEffectManager.gd" id="1_6emwv"]
+
+[node name="StatusEffectManager" type="Node"]
+script = ExtResource("1_6emwv")

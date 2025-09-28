@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://e5dea2x5l6oa"]
+
+[ext_resource type="Script" uid="uid://d1bvuxogmfeod" path="res://Scripts/Globals/TitleScreen.gd" id="1_msxbf"]
+[ext_resource type="SpriteFrames" uid="uid://d3tvmwpk08abu" path="res://Spriteframes/LogoLetterL.tres" id="1_ybhv3"]
+[ext_resource type="Texture2D" uid="uid://cn7lgi43c0s07" path="res://Textures/Logo/Logo Letter E.png" id="3_o7768"]
+[ext_resource type="Material" uid="uid://bpdcajf7e6g5u" path="res://Shaders/Shader Materials/Brightness.tres" id="4_0g637"]
+[ext_resource type="Texture2D" uid="uid://c6e3jsf786ftr" path="res://Textures/Logo/Logo Leaf.png" id="4_12be8"]
+[ext_resource type="Texture2D" uid="uid://tdipuwuhkrbb" path="res://Textures/Logo/Logo Crowbar.png" id="6_jfo61"]
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_msxbf")
+
+[node name="Logo" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Tree (Logo L)" type="AnimatedSprite2D" parent="Logo"]
+position = Vector2(144, 218)
+scale = Vector2(3.5, 3.5)
+sprite_frames = ExtResource("1_ybhv3")
+frame = 4
+frame_progress = 1.0
+
+[node name="Mushroom (Logo E)" type="Sprite2D" parent="Logo"]
+position = Vector2(271, 206)
+scale = Vector2(3.5, 3.5)
+texture = ExtResource("3_o7768")
+
+[node name="Leaf (Logo A)" type="Sprite2D" parent="Logo"]
+material = ExtResource("4_0g637")
+position = Vector2(385, 195)
+scale = Vector2(3.5, 3.5)
+texture = ExtResource("4_12be8")
+
+[node name="Crowbar (Logo F)" type="Sprite2D" parent="Logo"]
+position = Vector2(475, 220)
+rotation = -1.5708
+scale = Vector2(3.5, 3.5)
+texture = ExtResource("6_jfo61")

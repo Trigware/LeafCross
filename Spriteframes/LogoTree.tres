@@ -1,0 +1,46 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://d3tvmwpk08abu"]
+
+[ext_resource type="Texture2D" uid="uid://bmkgplmch32a0" path="res://Textures/Title Screen/Logo Tree.png" id="1_sbf48"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1iuon"]
+atlas = ExtResource("1_sbf48")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_coifb"]
+atlas = ExtResource("1_sbf48")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u5u80"]
+atlas = ExtResource("1_sbf48")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rdtbb"]
+atlas = ExtResource("1_sbf48")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1py3"]
+atlas = ExtResource("1_sbf48")
+region = Rect2(256, 0, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1iuon")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_coifb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u5u80")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rdtbb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1py3")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]

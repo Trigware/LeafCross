@@ -1,0 +1,132 @@
+[gd_scene load_steps=6 format=3 uid="uid://crnbdskhtichk"]
+
+[ext_resource type="Texture2D" uid="uid://d3jjtddre28pr" path="res://Textures/Title Screen/SaveFile Textbox.png" id="1_c1etc"]
+[ext_resource type="Script" uid="uid://xx26ajpg6q1p" path="res://Scripts/Title Screen/FileInfo.gd" id="1_qc03f"]
+[ext_resource type="FontFile" uid="uid://dil43sbwcg2uc" path="res://Fonts/Leafcross Font.png" id="2_2qwml"]
+[ext_resource type="Texture2D" uid="uid://curegqeexf75q" path="res://Textures/Title Screen/SaveFile Icons.png" id="3_qc03f"]
+[ext_resource type="Texture2D" uid="uid://bwivc86ry0h4a" path="res://Textures/Title Screen/SaveFile Plus.png" id="4_2qwml"]
+
+[node name="File Info" type="Node2D"]
+script = ExtResource("1_qc03f")
+
+[node name="Main Sprite" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.74902)
+texture = ExtResource("1_c1etc")
+
+[node name="Icons" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-40, 0)
+texture = ExtResource("3_qc03f")
+
+[node name="Player Name" type="Label" parent="Icons"]
+offset_left = 11.0
+offset_top = -29.0
+offset_right = 98.0
+offset_bottom = -10.0
+theme_override_fonts/font = ExtResource("2_2qwml")
+theme_override_font_sizes/font_size = 12
+text = "NAME"
+vertical_alignment = 1
+
+[node name="Current Location" type="Label" parent="Icons"]
+offset_left = 11.0
+offset_top = -9.0
+offset_right = 181.0
+offset_bottom = 14.0
+theme_override_constants/line_spacing = -2
+theme_override_fonts/font = ExtResource("2_2qwml")
+theme_override_font_sizes/font_size = 10
+text = "AREA:
+LOCATION"
+
+[node name="Playtime" type="Label" parent="Icons"]
+offset_left = 11.0
+offset_top = 11.0
+offset_right = 71.0
+offset_bottom = 34.0
+theme_override_fonts/font = ExtResource("2_2qwml")
+text = "PLAYTIME"
+
+[node name="Plus" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -4)
+texture = ExtResource("4_2qwml")
+
+[node name="New Game" type="Label" parent="Plus"]
+offset_left = -52.0
+offset_top = 25.0
+offset_right = 55.0
+offset_bottom = 48.0
+theme_override_colors/font_shadow_color = Color(0.4, 0.4, 0.4, 1)
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("2_2qwml")
+theme_override_font_sizes/font_size = 12
+text = "New Game"
+horizontal_alignment = 1
+
+[node name="Options" type="Node2D" parent="."]
+visible = false
+
+[node name="Play Game" type="Label" parent="Options"]
+offset_left = -29.0
+offset_top = -28.0
+offset_right = 38.0
+offset_bottom = -5.0
+theme_override_fonts/font = ExtResource("2_2qwml")
+theme_override_font_sizes/font_size = 15
+text = "Play game"
+
+[node name="Reset Game" type="Label" parent="Options"]
+offset_left = -29.0
+offset_top = -9.0
+offset_right = 45.0
+offset_bottom = 14.0
+theme_override_fonts/font = ExtResource("2_2qwml")
+theme_override_font_sizes/font_size = 15
+text = "Resetuj hru"
+
+[node name="Cancel" type="Label" parent="Options"]
+offset_left = -29.0
+offset_top = 12.0
+offset_right = 23.0
+offset_bottom = 35.0
+theme_override_fonts/font = ExtResource("2_2qwml")
+theme_override_font_sizes/font_size = 15
+text = "Jdi zpět"
+
+[node name="Reset Option" type="Node2D" parent="."]
+
+[node name="Caution Text" type="Label" parent="Reset Option"]
+offset_left = -52.0
+offset_top = -34.0
+offset_right = 54.0
+offset_bottom = 2.0
+theme_override_colors/font_shadow_color = Color(0.39, 0.39, 0.39, 1)
+theme_override_constants/line_spacing = -3
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("2_2qwml")
+theme_override_font_sizes/font_size = 10
+text = "If you continue, this save will be deleted and you will start from scratch."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Go back" type="Label" parent="Reset Option"]
+offset_left = -29.0
+offset_top = -4.0
+offset_right = 52.0
+offset_bottom = 11.0
+theme_override_fonts/font = ExtResource("2_2qwml")
+theme_override_font_sizes/font_size = 15
+text = "Go back"
+
+[node name="Reset Game" type="Label" parent="Reset Option"]
+offset_left = -29.0
+offset_top = 10.0
+offset_right = 52.0
+offset_bottom = 43.0
+theme_override_constants/line_spacing = -5
+theme_override_fonts/font = ExtResource("2_2qwml")
+theme_override_font_sizes/font_size = 15
+text = "Smaž a resetuj"
+autowrap_mode = 2

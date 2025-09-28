@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://wd6ka06yem3c"]
+
+[ext_resource type="Script" uid="uid://cvw04mqgqf8gt" path="res://Scripts/Globals/ChainManager.gd" id="1_dwm1a"]
+
+[node name="Chain" type="Node2D"]
+script = ExtResource("1_dwm1a")

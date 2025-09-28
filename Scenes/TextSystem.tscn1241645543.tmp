@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://du0a3gegqn6y2"]
+
+[ext_resource type="Script" uid="uid://b5tin5y0hevrv" path="res://Scripts/Text System/TextSystem.gd" id="1_tetb0"]
+[ext_resource type="FontFile" uid="uid://dtieujefikmhs" path="res://Fonts/Undertale Font.ttf" id="2_7t2e0"]
+[ext_resource type="Texture2D" uid="uid://dqed4nfgn4io6" path="res://Textures/Other/TextBox.png" id="3_rbnke"]
+[ext_resource type="Texture2D" uid="uid://cisan1lvsodoq" path="res://Textures/Other/Leaf.png" id="4_o07hf"]
+
+[node name="TextSystem" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tetb0")
+
+[node name="TypewritterTimer" type="Timer" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Textbox" type="TextureRect" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0.901961)
+offset_left = 72.0
+offset_top = 325.0
+offset_right = 296.0
+offset_bottom = 389.0
+scale = Vector2(4.5, 4.5)
+texture = ExtResource("3_rbnke")
+
+[node name="Choicer" type="Control" parent="CanvasLayer/Textbox"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -16.0
+offset_top = -72.2222
+offset_right = 24.0
+offset_bottom = -32.2222
+
+[node name="Leaf" type="TextureRect" parent="CanvasLayer/Textbox/Choicer"]
+offset_left = 128.0
+offset_top = 102.889
+offset_right = 168.0
+offset_bottom = 142.889
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("4_o07hf")
+
+[node name="Text" type="RichTextLabel" parent="CanvasLayer"]
+offset_left = 150.0
+offset_top = 410.0
+offset_right = 1302.0
+offset_bottom = 1058.0
+theme_override_fonts/normal_font = ExtResource("2_7t2e0")
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+scroll_active = false

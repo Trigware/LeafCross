@@ -1,0 +1,12 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://my8rqlfwkpgd"]
+
+[ext_resource type="FontFile" uid="uid://dil43sbwcg2uc" path="res://Fonts/Leafcross Font.png" id="1_1mdgj"]
+
+[resource]
+font = ExtResource("1_1mdgj")
+font_size = 48
+font_color = Color(0.68, 0.68, 0.68, 1)
+outline_size = 10
+outline_color = Color(0.4, 0.4, 0.4, 1)
+shadow_color = Color(0.639216, 0.639216, 0.639216, 0.392157)
+shadow_offset = Vector2(4, 4)

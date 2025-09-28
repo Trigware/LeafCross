@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bxbaxl1ywsjkv"
+path="res://.godot/imported/Religious Spawn.mp3-45602a6459a2110e5208948e0da2c067.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/Choose Character/Religious Spawn.mp3"
+dest_files=["res://.godot/imported/Religious Spawn.mp3-45602a6459a2110e5208948e0da2c067.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

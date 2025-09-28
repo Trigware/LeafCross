@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bw3hxguji1lsa"]
+
+[ext_resource type="Script" uid="uid://bw3u8gunkq10l" path="res://Scripts/Overworld/MovementAgent.gd" id="1_lwgnu"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lwgnu"]
+
+[node name="Movement Agent" type="CharacterBody2D"]
+scale = Vector2(3, 3)
+script = ExtResource("1_lwgnu")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_lwgnu")
+
+[node name="Agent Collider" type="CollisionShape2D" parent="."]
+position = Vector2(0, 16)

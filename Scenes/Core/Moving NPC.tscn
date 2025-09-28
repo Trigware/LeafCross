@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpc5fcj5uokxi"]
+
+[ext_resource type="Script" uid="uid://vh5736q11lkm" path="res://Scripts/Overworld/Moving NPC.gd" id="1_vht0d"]
+
+[node name="Moving NPC" type="CharacterBody2D"]
+z_index = 50
+scale = Vector2(3, 3)
+collision_layer = 2
+script = ExtResource("1_vht0d")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+light_mask = 2
+
+[node name="Collider" type="CollisionShape2D" parent="."]

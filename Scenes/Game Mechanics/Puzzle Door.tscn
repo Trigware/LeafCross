@@ -1,0 +1,64 @@
+[gd_scene load_steps=7 format=3 uid="uid://cewbs81dkuk7b"]
+
+[ext_resource type="Texture2D" uid="uid://bjwo66k38p6mo" path="res://Textures/Weird Forest/Puzzle Door.png" id="1_l7fjr"]
+[ext_resource type="Script" uid="uid://cu5as4cyrnwlh" path="res://Scripts/Overworld/PuzzleDoor.gd" id="1_mj2uj"]
+[ext_resource type="Texture2D" uid="uid://bihjhiiftw55" path="res://Textures/Weird Forest/Cave Enterance.png" id="2_wec40"]
+[ext_resource type="PackedScene" uid="uid://4jtg4hfhy0k0" path="res://Scenes/Triggers/RoomTrigger.tscn" id="4_5dk72"]
+[ext_resource type="PackedScene" uid="uid://c2o7uqpch1pc8" path="res://Scenes/Game Mechanics/Puzzle Screen.tscn" id="5_bxux4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wec40"]
+size = Vector2(70, 162)
+
+[node name="Puzzle Door" type="Node2D"]
+script = ExtResource("1_mj2uj")
+
+[node name="Door" type="Node2D" parent="."]
+position = Vector2(0, 2)
+scale = Vector2(1.2, 1.2)
+
+[node name="Cave Enterance" type="TextureRect" parent="Door"]
+offset_left = -25.0
+offset_top = -80.0
+offset_right = 25.0
+offset_bottom = 55.0
+texture = ExtResource("2_wec40")
+
+[node name="Static Body" type="StaticBody2D" parent="Door"]
+position = Vector2(0, -0.833337)
+scale = Vector2(0.833333, 0.833333)
+
+[node name="Left Door" type="CollisionShape2D" parent="Door/Static Body"]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(-34, -13)
+shape = SubResource("RectangleShape2D_wec40")
+
+[node name="Left Sprite" type="Sprite2D" parent="Door/Static Body/Left Door"]
+position = Vector2(0.199997, 0.4)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("1_l7fjr")
+
+[node name="Right Door" type="CollisionShape2D" parent="Door/Static Body"]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(35, -13)
+shape = SubResource("RectangleShape2D_wec40")
+
+[node name="Right Sprite" type="Sprite2D" parent="Door/Static Body/Right Door"]
+position = Vector2(-0.199997, 0.4)
+rotation = 3.14159
+scale = Vector2(1.2, -1.2)
+texture = ExtResource("1_l7fjr")
+
+[node name="Room Trigger" parent="." instance=ExtResource("4_5dk72")]
+roomDestination = 5
+
+[node name="Trigger Shape" parent="Room Trigger" index="0"]
+visible = false
+position = Vector2(0, 55)
+
+[node name="Obstruction" parent="Room Trigger" index="1"]
+visible = false
+
+[node name="Puzzle Screen" parent="." instance=ExtResource("5_bxux4")]
+position = Vector2(105, -90)
+
+[editable path="Room Trigger"]

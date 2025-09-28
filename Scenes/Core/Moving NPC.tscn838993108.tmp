@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpc5fcj5uokxi"]
+
+[ext_resource type="Script" uid="uid://vh5736q11lkm" path="res://Scripts/Overworld/Moving NPC.gd" id="1_vht0d"]
+
+[node name="Moving NPC" type="CharacterBody2D"]
+script = ExtResource("1_vht0d")

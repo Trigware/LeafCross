@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://nudq6ead0x06"
+path="res://.godot/imported/Weird Forest.mp3-197c129ab541f0cef65648b40115a61e.mp3str"
+
+[deps]
+
+source_file="res://Audio/Music/Weird Forest.mp3"
+dest_files=["res://.godot/imported/Weird Forest.mp3-197c129ab541f0cef65648b40115a61e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

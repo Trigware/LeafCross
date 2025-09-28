@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8vj3cwoy76i1"]
+
+[ext_resource type="Script" uid="uid://cafhvkcucnk6e" path="res://Scripts/Overworld/OverworldManager.gd" id="1_7g7yc"]
+
+[node name="World" type="Node2D"]
+scale = Vector2(1.7, 1.7)
+script = ExtResource("1_7g7yc")

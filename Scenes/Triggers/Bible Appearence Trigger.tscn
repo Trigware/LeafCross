@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkjgemqvemy3q"]
+
+[ext_resource type="Script" uid="uid://bchbpy70yacul" path="res://Scripts/Overworld/BibleAppearenceTrigger.gd" id="1_khkis"]
+
+[node name="Bible Appearence Trigger" type="Area2D"]
+script = ExtResource("1_khkis")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

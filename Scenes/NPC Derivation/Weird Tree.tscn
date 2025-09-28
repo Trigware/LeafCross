@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://5oa134207dka"]
+
+[ext_resource type="PackedScene" uid="uid://dwwrihbghedg3" path="res://Scenes/NPC Derivation/Layered NPC.tscn" id="1_vn02o"]
+[ext_resource type="SpriteFrames" uid="uid://bp0v5kr2ilye2" path="res://Spriteframes/Tree.tres" id="2_vn02o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqnm8"]
+size = Vector2(83, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vn02o"]
+size = Vector2(112, 126.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vk88w"]
+size = Vector2(88, 48)
+
+[node name="Tree" type="Node2D"]
+
+[node name="Layered NPC" parent="." instance=ExtResource("1_vn02o")]
+ignoreDirections = true
+override_id_from_parent = true
+
+[node name="Layered Manager" parent="Layered NPC" index="0" node_paths=PackedStringArray("treeSprite")]
+treeSprite = NodePath("../../Sprite")
+
+[node name="Collider" parent="Layered NPC/Layered Manager/Static Body" index="0"]
+position = Vector2(-5, 55)
+shape = SubResource("RectangleShape2D_dqnm8")
+
+[node name="Collider" parent="Layered NPC/Layered Manager/Trigger Area" index="0"]
+position = Vector2(8, -0.75)
+shape = SubResource("RectangleShape2D_vn02o")
+
+[node name="Trigger Zone" parent="Layered NPC" index="1"]
+position = Vector2(-4, 56)
+shape = SubResource("RectangleShape2D_vk88w")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(16, 0)
+sprite_frames = ExtResource("2_vn02o")
+animation = &"Tree"
+
+[editable path="Layered NPC"]

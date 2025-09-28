@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://btv3voq7lhk30"]
+
+[ext_resource type="Script" uid="uid://jq0v0b415fe3" path="res://Scripts/Overworld/LadderTrigger.gd" id="1_rijb3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rijb3"]
+size = Vector2(27, 12)
+
+[node name="Ladder Climb Trigger" type="Area2D"]
+script = ExtResource("1_rijb3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_rijb3")
+debug_color = Color(0, 0.7, 0.385, 0.419608)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

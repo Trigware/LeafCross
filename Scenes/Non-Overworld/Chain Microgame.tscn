@@ -1,0 +1,75 @@
+[gd_scene load_steps=4 format=3 uid="uid://fxeicq4jfvh8"]
+
+[ext_resource type="PackedScene" uid="uid://beodmxdor4ues" path="res://Scenes/Non-Overworld/Timer.tscn" id="1_cjvtd"]
+[ext_resource type="Texture2D" uid="uid://dh3plywdwhab6" path="res://Spritesheets/Chain.png" id="2_v4rp7"]
+[ext_resource type="Shape2D" uid="uid://cyxcobqode4py" path="res://Colliders/Chain Collider.tres" id="3_wcqfv"]
+
+[node name="Chain Microgame" type="Node2D"]
+
+[node name="Timer" parent="." instance=ExtResource("1_cjvtd")]
+timer_duration = 20.0
+
+[node name="Chain" type="Node2D" parent="."]
+position = Vector2(576, -11)
+rotation = 1.5708
+
+[node name="Chain Anchor" type="StaticBody2D" parent="Chain"]
+
+[node name="Collider" type="CollisionShape2D" parent="Chain/Chain Anchor"]
+shape = ExtResource("3_wcqfv")
+
+[node name="Chain Segment" type="RigidBody2D" parent="Chain"]
+position = Vector2(0, 1)
+gravity_scale = 0.1
+
+[node name="Sprite" type="Sprite2D" parent="Chain/Chain Segment"]
+position = Vector2(0, 22)
+texture = ExtResource("2_v4rp7")
+hframes = 3
+
+[node name="Collider" type="CollisionShape2D" parent="Chain/Chain Segment"]
+position = Vector2(0, 22)
+shape = ExtResource("3_wcqfv")
+
+[node name="Chain Segment2" type="RigidBody2D" parent="Chain"]
+position = Vector2(0, 23)
+
+[node name="Sprite" type="Sprite2D" parent="Chain/Chain Segment2"]
+position = Vector2(0, 22)
+texture = ExtResource("2_v4rp7")
+hframes = 3
+frame = 1
+
+[node name="Collider" type="CollisionShape2D" parent="Chain/Chain Segment2"]
+position = Vector2(0, 22)
+shape = ExtResource("3_wcqfv")
+
+[node name="Chain Segment3" type="RigidBody2D" parent="Chain"]
+position = Vector2(0, 42)
+
+[node name="Sprite" type="Sprite2D" parent="Chain/Chain Segment3"]
+position = Vector2(0, 22)
+texture = ExtResource("2_v4rp7")
+hframes = 3
+frame = 2
+
+[node name="Collider" type="CollisionShape2D" parent="Chain/Chain Segment3"]
+position = Vector2(0, 22)
+shape = ExtResource("3_wcqfv")
+
+[node name="Pin Joint" type="PinJoint2D" parent="Chain"]
+position = Vector2(0, 12)
+node_a = NodePath("../Chain Anchor")
+node_b = NodePath("../Chain Segment")
+
+[node name="Pin Joint2" type="PinJoint2D" parent="Chain"]
+position = Vector2(0, 34)
+node_a = NodePath("../Chain Segment")
+node_b = NodePath("../Chain Segment2")
+
+[node name="Pin Joint3" type="PinJoint2D" parent="Chain"]
+position = Vector2(0, 55)
+node_a = NodePath("../Chain Segment2")
+node_b = NodePath("../Chain Segment3")
+angular_limit_lower = -3.14159
+angular_limit_upper = 3.14159

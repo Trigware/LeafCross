@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cntva0ygm8pfl"
+path="res://.godot/imported/BibleBallAppears.mp3-f6de202a5e86ee049a379957995510a8.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/General Gameplay/BibleBallAppears.mp3"
+dest_files=["res://.godot/imported/BibleBallAppears.mp3-f6de202a5e86ee049a379957995510a8.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dedwkspch7mm8"]
+
+[ext_resource type="Script" uid="uid://cnas0scdp6sto" path="res://Scripts/Overworld/LeverPuzzleBuilder.gd" id="1_4vrjx"]
+
+[node name="Lever Puzzle Builder" type="Node2D"]
+script = ExtResource("1_4vrjx")

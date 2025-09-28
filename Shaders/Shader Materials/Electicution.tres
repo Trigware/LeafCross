@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c5jysktbocad2"]
+
+[ext_resource type="Shader" uid="uid://1impl5ihnc1q" path="res://Shaders/GDSL/Electicution.gdshader" id="1_f6dpa"]
+
+[resource]
+shader = ExtResource("1_f6dpa")

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cdcvjc15gqrbu"
+path="res://.godot/imported/PlayerHeal.mp3-10990bdc01eae06042aaf3d2531850dc.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/General Gameplay/PlayerHeal.mp3"
+dest_files=["res://.godot/imported/PlayerHeal.mp3-10990bdc01eae06042aaf3d2531850dc.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

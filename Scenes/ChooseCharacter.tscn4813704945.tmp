@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://3f2iijurxqrx"]
+
+[ext_resource type="Script" uid="uid://wsmbkqrd0bad" path="res://Scripts/ChooseCharacter.gd" id="1_ja7pu"]
+[ext_resource type="Texture2D" uid="uid://dw3wpi7xg5q04" path="res://Textures/Leaf.png" id="2_chj88"]
+[ext_resource type="Texture2D" uid="uid://cmok2ri1yglwj" path="res://Textures/Tree.png" id="2_ja7pu"]
+[ext_resource type="Script" uid="uid://bxy378s0g5vj8" path="res://Scripts/MoveLeaf.gd" id="3_tgy8p"]
+[ext_resource type="AudioStream" uid="uid://b3gs0l3jhtri6" path="res://Audio/Select Character.mp3" id="5_iwlee"]
+[ext_resource type="Texture2D" uid="uid://0qf64x38fa8c" path="res://Textures/Clouds.png" id="6_ipr1o"]
+
+[node name="ChooseCharacter" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ja7pu")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0.298039, 0, 1)
+
+[node name="EventsTimer" type="Timer" parent="."]
+
+[node name="CharacterCloud" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 504.0
+offset_top = 312.0
+offset_right = 1035.0
+offset_bottom = 488.0
+texture = ExtResource("6_ipr1o")
+
+[node name="Leaf" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 176.0
+offset_top = 162.0
+offset_right = 216.0
+offset_bottom = 202.0
+scale = Vector2(1.59751, 1.59751)
+texture = ExtResource("2_chj88")
+script = ExtResource("3_tgy8p")
+
+[node name="Tree" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -191.0
+offset_top = 33.0
+offset_right = 265.0
+offset_bottom = 608.0
+texture = ExtResource("2_ja7pu")
+expand_mode = 1
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_iwlee")

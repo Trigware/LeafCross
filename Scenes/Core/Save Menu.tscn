@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfnkhmvr2atv5"]
+
+[ext_resource type="Script" uid="uid://r3p08x5fthby" path="res://Scripts/Overworld/SaveMenu.gd" id="1_v40te"]
+[ext_resource type="PackedScene" uid="uid://c8b7e4tyv4f8x" path="res://Scenes/Non-Overworld/Filebox.tscn" id="2_s85uc"]
+[ext_resource type="Texture2D" uid="uid://dqed4nfgn4io6" path="res://Textures/Other/TextBox.png" id="3_ra1m5"]
+[ext_resource type="FontFile" uid="uid://dil43sbwcg2uc" path="res://Fonts/Leafcross Font.png" id="4_s85uc"]
+
+[node name="Save Menu" type="CanvasLayer"]
+script = ExtResource("1_v40te")
+
+[node name="Current File" parent="." instance=ExtResource("2_s85uc")]
+offset_left = 190.0
+offset_top = -1.0
+offset_right = 230.0
+offset_bottom = 39.0
+texture = ExtResource("3_ra1m5")
+
+[node name="Save Confirm" type="Label" parent="."]
+modulate = Color(1, 0.949, 0.49, 1)
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_fonts/font = ExtResource("4_s85uc")
+theme_override_font_sizes/font_size = 48
+text = "GAME WAS SAVED SUCCESSFULLY"
+horizontal_alignment = 2
+vertical_alignment = 2

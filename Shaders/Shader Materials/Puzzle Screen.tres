@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://msp0e730hq6x"]
+
+[ext_resource type="Shader" uid="uid://ccism5vir322d" path="res://Shaders/GDSL/Puzzle Screen.gdshader" id="1_xhvn5"]
+
+[resource]
+shader = ExtResource("1_xhvn5")
+shader_parameter/progress = 8.115

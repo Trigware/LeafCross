@@ -1,0 +1,224 @@
+[gd_scene load_steps=31 format=3 uid="uid://e5dea2x5l6oa"]
+
+[ext_resource type="Texture2D" uid="uid://8d2ga4awq3no" path="res://Textures/Title Screen/Title Screen Background.png" id="1_d44bg"]
+[ext_resource type="Script" uid="uid://d1bvuxogmfeod" path="res://Scripts/Globals/TitleScreenLogo.gd" id="1_msxbf"]
+[ext_resource type="SpriteFrames" uid="uid://d3tvmwpk08abu" path="res://Spriteframes/LogoTree.tres" id="1_ybhv3"]
+[ext_resource type="Script" uid="uid://pt8mq3e76vs" path="res://Scripts/Globals/TitleScreenRoot.gd" id="1_ynv25"]
+[ext_resource type="Texture2D" uid="uid://yfqiiw4kpddg" path="res://Textures/Title Screen/Logo Cross.png" id="2_gusr3"]
+[ext_resource type="Texture2D" uid="uid://c6vfqbu1cpl36" path="res://Textures/Title Screen/Title Screen Stars.png" id="3_cmo0y"]
+[ext_resource type="Texture2D" uid="uid://cflw50ne6g6mw" path="res://Textures/Title Screen/Logo Mushroom.png" id="3_o7768"]
+[ext_resource type="Material" uid="uid://bpdcajf7e6g5u" path="res://Shaders/Shader Materials/Brightness.tres" id="4_0g637"]
+[ext_resource type="SpriteFrames" uid="uid://gvh4v8cvbp3f" path="res://Spriteframes/LogoLeaf.tres" id="5_ic0mi"]
+[ext_resource type="SpriteFrames" uid="uid://cn6csuociylx5" path="res://Spriteframes/LogoCrowbar.tres" id="6_ic0mi"]
+[ext_resource type="Texture2D" uid="uid://co4ix5rn32srr" path="res://Textures/Title Screen/Blue Logo Magnet.png" id="7_ic0mi"]
+[ext_resource type="Texture2D" uid="uid://bpigk27khq43i" path="res://Textures/Title Screen/Red Logo Magnet.png" id="8_p5vng"]
+[ext_resource type="PackedScene" uid="uid://bb58e3bq7qq7j" path="res://Scenes/Non-Overworld/TitleScreenRocks.tscn" id="9_p5vng"]
+[ext_resource type="PackedScene" uid="uid://baylrovxip3b7" path="res://Scenes/Non-Overworld/TitleScreenEye.tscn" id="10_ov7b5"]
+[ext_resource type="SpriteFrames" uid="uid://clyevjfyjwhp8" path="res://Spriteframes/DNATopToDown.tres" id="11_47ypj"]
+[ext_resource type="Texture2D" uid="uid://dkpl5gnqquket" path="res://Textures/Title Screen/Logo DNA Bottom To Top.png" id="12_8qtfc"]
+[ext_resource type="Script" uid="uid://bvil1yunxnbc5" path="res://Scripts/Globals/TitleScreenChooseLang.gd" id="17_8o0t1"]
+[ext_resource type="FontFile" uid="uid://dtieujefikmhs" path="res://Fonts/Undertale Font.ttf" id="17_78oec"]
+[ext_resource type="Texture2D" uid="uid://cfysxnymr7w2t" path="res://Textures/Other/PreLeafSelector.png" id="19_dnlcj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gusr3"]
+atlas = ExtResource("12_8qtfc")
+region = Rect2(0, 0, 40, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d44bg"]
+atlas = ExtResource("12_8qtfc")
+region = Rect2(40, 0, 40, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ynv25"]
+atlas = ExtResource("12_8qtfc")
+region = Rect2(80, 0, 40, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cmo0y"]
+atlas = ExtResource("12_8qtfc")
+region = Rect2(120, 0, 40, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_78oec"]
+atlas = ExtResource("12_8qtfc")
+region = Rect2(160, 0, 40, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8o0t1"]
+atlas = ExtResource("12_8qtfc")
+region = Rect2(200, 0, 40, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dnlcj"]
+atlas = ExtResource("12_8qtfc")
+region = Rect2(240, 0, 40, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1qaho"]
+atlas = ExtResource("12_8qtfc")
+region = Rect2(280, 0, 40, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g44gt"]
+atlas = ExtResource("12_8qtfc")
+region = Rect2(320, 0, 40, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ewvw2"]
+atlas = ExtResource("12_8qtfc")
+region = Rect2(360, 0, 40, 80)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jsne4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gusr3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d44bg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ynv25")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cmo0y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_78oec")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8o0t1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dnlcj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1qaho")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g44gt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ewvw2")
+}],
+"loop": false,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="TitleScreen" type="Node2D"]
+script = ExtResource("1_ynv25")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(576, 480)
+scale = Vector2(4, 4)
+texture = ExtResource("1_d44bg")
+
+[node name="Stars" type="Sprite2D" parent="Background"]
+position = Vector2(0, -60)
+texture = ExtResource("3_cmo0y")
+
+[node name="Logo" type="Node2D" parent="."]
+position = Vector2(-14, 95)
+scale = Vector2(0.785, 0.785)
+script = ExtResource("1_msxbf")
+
+[node name="Cross" type="Sprite2D" parent="Logo"]
+position = Vector2(825, 280)
+scale = Vector2(3.5, 3.5)
+texture = ExtResource("2_gusr3")
+
+[node name="Tree" type="AnimatedSprite2D" parent="Logo"]
+position = Vector2(144, 288)
+scale = Vector2(3.5, 3.5)
+sprite_frames = ExtResource("1_ybhv3")
+frame = 4
+frame_progress = 1.0
+
+[node name="Mushroom" type="Sprite2D" parent="Logo"]
+position = Vector2(271, 276)
+scale = Vector2(3.5, 3.5)
+texture = ExtResource("3_o7768")
+
+[node name="Leaf" type="AnimatedSprite2D" parent="Logo"]
+material = ExtResource("4_0g637")
+position = Vector2(385, 265)
+scale = Vector2(3.5, 3.5)
+sprite_frames = ExtResource("5_ic0mi")
+frame = 3
+frame_progress = 1.0
+
+[node name="Crowbar" type="AnimatedSprite2D" parent="Logo"]
+position = Vector2(480, 285)
+scale = Vector2(3.5, 3.5)
+sprite_frames = ExtResource("6_ic0mi")
+frame = 3
+frame_progress = 1.0
+
+[node name="Blue Magnet" type="Sprite2D" parent="Logo"]
+position = Vector2(655, 220)
+scale = Vector2(3.5, 3.5)
+texture = ExtResource("7_ic0mi")
+
+[node name="Red Magnet" type="Sprite2D" parent="Logo"]
+position = Vector2(655, 328)
+scale = Vector2(3.5, 3.5)
+texture = ExtResource("8_p5vng")
+
+[node name="Rocks" parent="Logo" instance=ExtResource("9_p5vng")]
+position = Vector2(805, 370)
+scale = Vector2(3.5, 3.5)
+
+[node name="Eye" parent="Logo" instance=ExtResource("10_ov7b5")]
+position = Vector2(1055, 270)
+scale = Vector2(3.5, 3.5)
+
+[node name="Blue DNA" type="AnimatedSprite2D" parent="Logo"]
+modulate = Color(0.21, 1, 0.934167, 1)
+position = Vector2(1220, 275)
+scale = Vector2(3.5, 3.5)
+sprite_frames = ExtResource("11_47ypj")
+frame = 9
+frame_progress = 1.0
+
+[node name="Orange DNA" type="AnimatedSprite2D" parent="Logo"]
+modulate = Color(1, 0.668, 0.17, 1)
+position = Vector2(1370, 275)
+scale = Vector2(3.5, 3.5)
+sprite_frames = SubResource("SpriteFrames_jsne4")
+frame = 9
+frame_progress = 1.0
+
+[node name="Camera" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="Choose Language" type="Node2D" parent="."]
+position = Vector2(-1000, 0)
+script = ExtResource("17_8o0t1")
+
+[node name="Text" type="Control" parent="Choose Language"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Prompt" type="Label" parent="Choose Language/Text"]
+layout_mode = 0
+offset_top = 550.0
+offset_right = 1152.0
+offset_bottom = 615.0
+theme_override_fonts/font = ExtResource("17_78oec")
+theme_override_font_sizes/font_size = 48
+text = "CHOOSE A LANGUAGE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Controls" type="Label" parent="Choose Language/Text"]
+modulate = Color(0.8, 0.8, 0.8, 0.6)
+layout_mode = 0
+offset_top = 599.0
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_fonts/font = ExtResource("17_78oec")
+theme_override_font_sizes/font_size = 32
+text = "(press enter to confirm, arrow keys to change language)"
+horizontal_alignment = 1
+
+[node name="Selector" type="Sprite2D" parent="Choose Language"]
+position = Vector2(335, 450)
+scale = Vector2(2, 2)
+texture = ExtResource("19_dnlcj")
+
+[node name="Options Root" type="Node2D" parent="Choose Language"]

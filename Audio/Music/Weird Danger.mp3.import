@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://beso56an3ryqj"
+path="res://.godot/imported/Weird Danger.mp3-a170e5befd0d98279311d4d1b9653418.mp3str"
+
+[deps]
+
+source_file="res://Audio/Music/Weird Danger.mp3"
+dest_files=["res://.godot/imported/Weird Danger.mp3-a170e5befd0d98279311d4d1b9653418.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

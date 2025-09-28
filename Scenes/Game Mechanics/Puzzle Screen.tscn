@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://c2o7uqpch1pc8"]
+
+[ext_resource type="Script" uid="uid://7oxxuo4jf5sd" path="res://Scripts/Overworld/PuzzleScreen.gd" id="1_263fs"]
+[ext_resource type="Texture2D" uid="uid://blexee31lhdr3" path="res://Textures/Weird Forest/Monitor Screen.png" id="2_263fs"]
+[ext_resource type="Material" uid="uid://msp0e730hq6x" path="res://Shaders/Shader Materials/Puzzle Screen.tres" id="2_e51yg"]
+[ext_resource type="Texture2D" uid="uid://lrx3ggdll014" path="res://Textures/Weird Forest/Monitor Frame.png" id="3_e51yg"]
+[ext_resource type="Texture2D" uid="uid://dj6lqcj26b3wp" path="res://Textures/Weird Forest/Puzzle Screen Icons.png" id="5_e51yg"]
+
+[node name="Puzzle Screen" type="Node2D"]
+script = ExtResource("1_263fs")
+
+[node name="Screen" type="Sprite2D" parent="."]
+material = ExtResource("2_e51yg")
+position = Vector2(-96, -96)
+texture = ExtResource("2_263fs")
+centered = false
+
+[node name="Frame" type="Sprite2D" parent="."]
+scale = Vector2(1.01, 1.01)
+texture = ExtResource("3_e51yg")
+centered = false
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(49, 48)
+texture = ExtResource("5_e51yg")
+hframes = 2

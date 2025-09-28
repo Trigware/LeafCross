@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://diiie2j47xlta"
+path="res://.godot/imported/The Self-Proclaimed Queen.mp3-6bacf2d621b44df3ca8fa63f90c19b97.mp3str"
+
+[deps]
+
+source_file="res://Audio/Music/The Self-Proclaimed Queen.mp3"
+dest_files=["res://.godot/imported/The Self-Proclaimed Queen.mp3-6bacf2d621b44df3ca8fa63f90c19b97.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://bnl7cj1erxbia"]
+
+[ext_resource type="Texture2D" uid="uid://cj58fshakq2dl" path="res://Textures/Other/Lever Base.png" id="1_4h0p4"]
+[ext_resource type="Script" uid="uid://dpg5ep5y22pp7" path="res://Scripts/Globals/Lever.gd" id="1_tav6c"]
+[ext_resource type="Texture2D" uid="uid://rcgwd4qc80l" path="res://Textures/Other/Lever Main.png" id="2_1c6s6"]
+[ext_resource type="Texture2D" uid="uid://b16boo1epba6e" path="res://Textures/Other/Lever Color.png" id="3_tav6c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jepqj"]
+radius = 60.0
+
+[node name="Lever" type="Area2D"]
+script = ExtResource("1_tav6c")
+lever_color = Color(0.86, 0, 0, 1)
+
+[node name="Main" type="Sprite2D" parent="."]
+position = Vector2(0, 26)
+texture = ExtResource("2_1c6s6")
+offset = Vector2(0, -24)
+
+[node name="Base" type="Sprite2D" parent="."]
+texture = ExtResource("1_4h0p4")
+
+[node name="Color" type="Sprite2D" parent="."]
+position = Vector2(0, 27)
+texture = ExtResource("3_tav6c")
+offset = Vector2(0, -24)
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-0.5, 2.5)
+shape = SubResource("CircleShape2D_jepqj")
+
+[connection signal="body_entered" from="." to="." method="entering_confirmation_notice_range"]
+[connection signal="body_exited" from="." to="." method="exiting_confirmation_notice_range"]

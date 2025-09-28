@@ -1,0 +1,74 @@
+[gd_resource type="SpriteFrames" load_steps=11 format=3 uid="uid://dtxtm5aypllnv"]
+
+[ext_resource type="Texture2D" uid="uid://chquj6ig4cd1c" path="res://Spritesheets/LeafDisintegrate.png" id="1_kjw4w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ogtql"]
+atlas = ExtResource("1_kjw4w")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l6cb8"]
+atlas = ExtResource("1_kjw4w")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s4mtr"]
+atlas = ExtResource("1_kjw4w")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1uwxi"]
+atlas = ExtResource("1_kjw4w")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qq11c"]
+atlas = ExtResource("1_kjw4w")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_58qh1"]
+atlas = ExtResource("1_kjw4w")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f68ij"]
+atlas = ExtResource("1_kjw4w")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fmwyj"]
+atlas = ExtResource("1_kjw4w")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a7lgr"]
+atlas = ExtResource("1_kjw4w")
+region = Rect2(512, 0, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ogtql")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l6cb8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s4mtr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1uwxi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qq11c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_58qh1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f68ij")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fmwyj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a7lgr")
+}],
+"loop": false,
+"name": &"new_animation",
+"speed": 8.0
+}]

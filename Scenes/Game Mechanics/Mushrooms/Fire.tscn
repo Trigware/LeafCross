@@ -1,0 +1,51 @@
+[gd_scene load_steps=9 format=3 uid="uid://c14x3rqt38ua5"]
+
+[ext_resource type="Script" uid="uid://bnh1wwd6x20ri" path="res://Scripts/Overworld/AudioAreaManager.gd" id="1_l1lep"]
+[ext_resource type="SpriteFrames" uid="uid://dryr1hp5b66n3" path="res://Spriteframes/Campfire.tres" id="1_yhpif"]
+[ext_resource type="Script" uid="uid://cacm2ltni8uid" path="res://Scripts/Overworld/Fire.gd" id="2_nmb7o"]
+[ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="3_v6mr5"]
+[ext_resource type="AudioStream" uid="uid://bpp7qnbmhttta" path="res://Audio/SFX/General Gameplay/Campfire.mp3" id="5_yhpif"]
+[ext_resource type="Script" uid="uid://v57kgnejodot" path="res://Scripts/Overworld/LayeredNPC.gd" id="6_01668"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yhpif"]
+size = Vector2(62.6667, 68)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nmb7o"]
+size = Vector2(95, 114.083)
+
+[node name="Fire Area" type="Area2D"]
+position = Vector2(0, 0.666667)
+script = ExtResource("1_l1lep")
+audioStream = ExtResource("5_yhpif")
+
+[node name="Audio" type="AudioStreamPlayer" parent="."]
+autoplay = true
+
+[node name="Collision Shape" type="CollisionShape2D" parent="."]
+position = Vector2(0.666667, -6)
+shape = SubResource("RectangleShape2D_yhpif")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("1_yhpif")
+script = ExtResource("2_nmb7o")
+light_color = Color(0.8, 0.437333, 0.16, 1)
+
+[node name="Light" type="PointLight2D" parent="Sprite"]
+position = Vector2(2.66667, 4.66666)
+color = Color(0, 0.450667, 0.52, 1)
+range_item_cull_mask = 9
+texture = ExtResource("3_v6mr5")
+texture_scale = 1.25
+
+[node name="Layered Manager" type="Node2D" parent="Sprite"]
+position = Vector2(0, -0.666667)
+script = ExtResource("6_01668")
+
+[node name="Trigger Area" type="Area2D" parent="Sprite/Layered Manager"]
+
+[node name="Collider" type="CollisionShape2D" parent="Sprite/Layered Manager/Trigger Area"]
+position = Vector2(-0.333332, -45.0417)
+shape = SubResource("RectangleShape2D_nmb7o")
+debug_color = Color(0.7, 0.233333, 0, 0.419608)
+
+[connection signal="finished" from="Audio" to="." method="_on_audio_finished"]

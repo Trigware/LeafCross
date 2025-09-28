@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://c01w1divptedy"]
+
+[ext_resource type="Script" uid="uid://bnh1wwd6x20ri" path="res://Scripts/Overworld/AudioAreaManager.gd" id="1_ku1lo"]
+
+[node name="Audio Area" type="Area2D"]
+script = ExtResource("1_ku1lo")
+
+[node name="Audio" type="AudioStreamPlayer" parent="."]
+autoplay = true
+
+[connection signal="finished" from="Audio" to="." method="_on_audio_finished"]

@@ -1,0 +1,86 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cha16hdgd7d58"]
+
+[ext_resource type="Texture2D" uid="uid://clgdssk5g6y17" path="res://Spritesheets/weirdbush.png" id="1_isy7x"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_07ehf"]
+resource_name = "Weird Bush"
+texture = ExtResource("1_isy7x")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8.47268, -16, 16, -16, 16, 16, -8.47268, 16)
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8.47268, -16, 16, -16, 16, 16, -8.47268, 16)
+1:1/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8.47268, -16, 16, -16, 16, 16, -8.47268, 16)
+1:2/0 = 0
+2:2/0 = 0
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -6.37262, 16, -6.37262, 16, 16, -16, 16)
+3:1/0 = 0
+3:2/0 = 0
+4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -6.37262, 16, -6.37262, 16, 16, -16, 16)
+4:1/0 = 0
+4:2/0 = 0
+5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -6.37262, 16, -6.37262, 16, 16, -16, 16)
+5:1/0 = 0
+5:2/0 = 0
+7:0/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:0/0 = 0
+8:1/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+11:1/0 = 0
+10:1/0 = 0
+9:1/0 = 0
+10:2/0 = 0
+11:2/0 = 0
+12:0/0 = 0
+12:1/0 = 0
+12:2/0 = 0
+13:0/0 = 0
+13:1/0 = 0
+13:2/0 = 0
+14:1/0 = 0
+14:2/0 = 0
+15:1/0 = 0
+15:2/0 = 0
+15:0/0 = 0
+15:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -7.32851, -5.41672, -7.96577, 2.23042, -8.60303, 1.91179, -16, 16, -16, 16, 16, -16, 16)
+16:0/0 = 0
+16:1/0 = 0
+16:2/0 = 0
+17:0/0 = 0
+17:1/0 = 0
+18:0/0 = 0
+18:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8.47268, -16, 16, -16, 16, 16, -8.47268, 16)
+19:0/0 = 0
+20:0/0 = 0
+18:2/0 = 0
+19:2/0 = 0
+20:2/0 = 0
+21:0/0 = 0
+22:0/0 = 0
+23:0/0 = 0
+26:0/0 = 0
+26:1/0 = 0
+26:2/0 = 0
+24:0/0 = 0
+24:1/0 = 0
+24:2/0 = 0
+
+[resource]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_07ehf")

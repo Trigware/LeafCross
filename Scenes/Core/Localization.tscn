@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://17st21gb1saa"]
+
+[ext_resource type="Script" uid="uid://c6bhnil7gscsb" path="res://Scripts/Text System/Localization.gd" id="1_1o7ts"]
+
+[node name="Localization" type="Node"]
+script = ExtResource("1_1o7ts")

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cwmbyeadxhulb"
+path="res://.godot/imported/Blowing Wind.mp3-ac753ad8045a6e7ae55a4bfbf2c4e5a5.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/Choose Character/Blowing Wind.mp3"
+dest_files=["res://.godot/imported/Blowing Wind.mp3-ac753ad8045a6e7ae55a4bfbf2c4e5a5.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

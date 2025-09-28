@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6k2d0ebve21b"]
+
+[ext_resource type="FontFile" uid="uid://dil43sbwcg2uc" path="res://Fonts/Leafcross Font.png" id="2_5njgo"]
+[ext_resource type="Script" uid="uid://pfjme5fyu656" path="res://Scripts/Globals/QuittingGame.gd" id="2_l3hng"]
+
+[node name="QuittingNotice" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_l3hng")
+
+[node name="Front Layer" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="Quit Text" type="Label" parent="Front Layer"]
+modulate = Color(1, 1, 1, 0)
+offset_left = 10.0
+offset_right = 334.0
+offset_bottom = 48.0
+theme_override_fonts/font = ExtResource("2_5njgo")
+theme_override_font_sizes/font_size = 48
+text = "Opouštím hru..."
+
+[node name="Black Screen" type="ColorRect" parent="Front Layer"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="FPS Label" type="Label" parent="Front Layer"]
+modulate = Color(1, 1, 0, 1)
+offset_left = 11.0
+offset_top = 600.0
+offset_right = 167.0
+offset_bottom = 648.0
+theme_override_fonts/font = ExtResource("2_5njgo")
+theme_override_font_sizes/font_size = 48
+text = "FPS: 60"
+vertical_alignment = 2

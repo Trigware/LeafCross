@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://bd036hgq6o8r0"]
+
+[ext_resource type="Texture2D" uid="uid://bkfs0q8pvwdhe" path="res://Textures/Other/Logo.png" id="1_gukjj"]
+[ext_resource type="Script" uid="uid://2dp6sn8wto16" path="res://Scripts/Globals/PressAnything.gd" id="1_ru6fv"]
+[ext_resource type="FontFile" uid="uid://dtieujefikmhs" path="res://Fonts/Undertale Font.ttf" id="2_fdbsd"]
+
+[node name="Logo" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ru6fv")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.0980392, 0.176471, 0.117647, 1)
+
+[node name="Logo" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 106.0
+offset_top = 112.0
+offset_right = 1050.0
+offset_bottom = 384.0
+texture = ExtResource("1_gukjj")
+
+[node name="PressButton" type="Label" parent="."]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 400.0
+offset_right = 271.0
+offset_bottom = 423.0
+scale = Vector2(4.8, 4.8)
+theme_override_fonts/font = ExtResource("2_fdbsd")
+text = "- ZMÁČKNI JAKÉKOLIV TLAČÍTKO -"
+
+[node name="Version" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 8.0
+offset_right = 873.0
+offset_bottom = 104.0
+scale = Vector2(0.457117, 0.457117)
+theme_override_fonts/normal_font = ExtResource("2_fdbsd")
+theme_override_font_sizes/normal_font_size = 96
+bbcode_enabled = true
+text = "vAlpha 0.2"
+fit_content = true
+scroll_active = false

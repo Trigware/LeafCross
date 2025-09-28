@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://do8xa234u6nyw"]
+
+[ext_resource type="PackedScene" uid="uid://crfo2noq5b0ks" path="res://Scenes/Game Mechanics/Lilypad Mechanic/Walkable Lilypad.tscn" id="1_4okh4"]
+
+[node name="LilypadRoom Lilypads" type="Node2D"]
+
+[node name="Walkable Lilypad9" parent="." instance=ExtResource("1_4okh4")]
+z_index = 5
+position = Vector2(1133, 61)
+rotation = 1.5708
+scale = Vector2(6, 6)
+
+[node name="Walkable Lilypad6" parent="." instance=ExtResource("1_4okh4")]
+position = Vector2(945, 105)
+rotation = 0.383972
+scale = Vector2(6.5, 6.5)
+
+[node name="Walkable Lilypad3" parent="." instance=ExtResource("1_4okh4")]
+position = Vector2(956, 294)
+rotation = 1.309
+scale = Vector2(5.5, 5.5)
+
+[node name="Walkable Lilypad2" parent="." instance=ExtResource("1_4okh4")]
+position = Vector2(894, 453)
+rotation = 2.35619
+scale = Vector2(5.5, 5.5)
+
+[node name="Walkable Lilypad" parent="." instance=ExtResource("1_4okh4")]
+position = Vector2(767, 560)
+rotation = -2.35619
+scale = Vector2(5, 5)

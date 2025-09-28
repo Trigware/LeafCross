@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://du0a3gegqn6y2"]
+
+[ext_resource type="Script" path="res://Scripts/Text System/TextSystem.gd" id="1_tetb0"]
+[ext_resource type="FontFile" uid="uid://dtieujefikmhs" path="res://Fonts/Undertale Font.ttf" id="2_7t2e0"]
+
+[node name="TextSystem" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tetb0")
+
+[node name="TypewritterTimer" type="Timer" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Text" type="RichTextLabel" parent="CanvasLayer"]
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_fonts/normal_font = ExtResource("2_7t2e0")
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+scroll_active = false

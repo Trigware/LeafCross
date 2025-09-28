@@ -1,0 +1,103 @@
+[gd_scene load_steps=12 format=3 uid="uid://lqehqpo66fqi"]
+
+[ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="1_rnlto"]
+[ext_resource type="Texture2D" uid="uid://df3ep2b47xsrd" path="res://Textures/Weird Forest/Ladder.png" id="1_yiaq8"]
+[ext_resource type="PackedScene" uid="uid://dwwrihbghedg3" path="res://Scenes/NPC Derivation/Layered NPC.tscn" id="2_rnlto"]
+[ext_resource type="Texture2D" uid="uid://bqe0fq1asycsi" path="res://Textures/Weird Forest/Lever Platform.png" id="3_jiycp"]
+[ext_resource type="PackedScene" uid="uid://bnl7cj1erxbia" path="res://Scenes/Game Mechanics/Lever.tscn" id="5_iy6jv"]
+[ext_resource type="PackedScene" uid="uid://btv3voq7lhk30" path="res://Scenes/Triggers/Ladder Climb Trigger.tscn" id="7_8cc27"]
+[ext_resource type="PackedScene" uid="uid://bjacsl26m51i6" path="res://Scenes/Game Mechanics/LadderLaser.tscn" id="7_vnwaw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rnlto"]
+size = Vector2(36, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8cc27"]
+size = Vector2(49.6667, 137)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iy6jv"]
+size = Vector2(12.6667, 116.333)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j0vf1"]
+size = Vector2(50, 5.833)
+
+[node name="Ladder" type="Node2D"]
+scale = Vector2(1.5, 1.5)
+metadata/ladder_index = 0
+metadata/ladder_parent_index = 0
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(0, 40)
+scale = Vector2(0.2, 0.1)
+texture = ExtResource("1_rnlto")
+
+[node name="Ladder Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_yiaq8")
+
+[node name="Lever Platform" type="Sprite2D" parent="."]
+position = Vector2(0, -42)
+texture = ExtResource("3_jiycp")
+
+[node name="Layered NPC" parent="." instance=ExtResource("2_rnlto")]
+deactivate_npc = true
+
+[node name="Layered Manager" parent="Layered NPC" index="0" node_paths=PackedStringArray("treeSprite")]
+treeSprite = NodePath("../..")
+
+[node name="Static Body" parent="Layered NPC/Layered Manager" index="0"]
+visible = false
+collision_layer = 8
+
+[node name="Collider" parent="Layered NPC/Layered Manager/Static Body" index="0"]
+position = Vector2(0, 32)
+shape = SubResource("RectangleShape2D_rnlto")
+
+[node name="Trigger Area" parent="Layered NPC/Layered Manager" index="1"]
+collision_layer = 0
+collision_mask = 11
+
+[node name="Collider" parent="Layered NPC/Layered Manager/Trigger Area" index="0"]
+visible = false
+position = Vector2(0.166666, -32.375)
+shape = SubResource("RectangleShape2D_8cc27")
+
+[node name="Trigger Zone" parent="Layered NPC" index="1"]
+visible = false
+
+[node name="Lever" parent="." instance=ExtResource("5_iy6jv")]
+position = Vector2(0, -59)
+scale = Vector2(0.75, 0.75)
+lever_color = Color(0.7, 0, 0, 1)
+
+[node name="Static Body" type="StaticBody2D" parent="."]
+visible = false
+collision_layer = 16
+
+[node name="Left" type="CollisionShape2D" parent="Static Body"]
+position = Vector2(-18.3333, 5.16667)
+shape = SubResource("RectangleShape2D_iy6jv")
+
+[node name="Left2" type="CollisionShape2D" parent="Static Body"]
+position = Vector2(18, 4.66667)
+shape = SubResource("RectangleShape2D_iy6jv")
+
+[node name="Top" type="CollisionShape2D" parent="Static Body"]
+position = Vector2(0, -50.6667)
+shape = SubResource("RectangleShape2D_j0vf1")
+
+[node name="Bottom" parent="." node_paths=PackedStringArray("layer_trigger_area") instance=ExtResource("7_8cc27")]
+visible = false
+position = Vector2(0, 35.3333)
+layer_trigger_area = NodePath("../Layered NPC/Layered Manager/Trigger Area")
+is_bottom = true
+
+[node name="Top" parent="." node_paths=PackedStringArray("layer_trigger_area") instance=ExtResource("7_8cc27")]
+visible = false
+position = Vector2(0, -38)
+layer_trigger_area = NodePath("../Layered NPC/Layered Manager/Trigger Area")
+is_bottom = null
+
+[node name="Ladder Laser" parent="." instance=ExtResource("7_vnwaw")]
+position = Vector2(0, -15)
+
+[editable path="Layered NPC"]

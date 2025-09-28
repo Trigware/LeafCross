@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dm0myytrgks1d"]
+
+[ext_resource type="PackedScene" uid="uid://6hq01nojje0y" path="res://Scenes/NPC Derivation/NPC.tscn" id="1_gpgkp"]
+[ext_resource type="Texture2D" uid="uid://cirwg587t17v0" path="res://Textures/Weird Forest/Candle.png" id="2_gbuwg"]
+[ext_resource type="PackedScene" uid="uid://c14x3rqt38ua5" path="res://Scenes/Game Mechanics/Mushrooms/Fire.tscn" id="3_gbuwg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t7yon"]
+size = Vector2(82, 79.5)
+
+[node name="Candle" type="Node2D"]
+
+[node name="NPC Root" parent="." instance=ExtResource("1_gpgkp")]
+npcID = 17
+set_only_at_start = true
+
+[node name="Sprite" parent="NPC Root" index="0"]
+texture = ExtResource("2_gbuwg")
+
+[node name="Trigger Zone" parent="NPC Root" index="3"]
+scale = Vector2(1.1, 1.1)
+shape = SubResource("RectangleShape2D_t7yon")
+
+[node name="Fire" parent="." instance=ExtResource("3_gbuwg")]
+position = Vector2(2, -10)
+scale = Vector2(0.2, 0.2)
+audioStream = null
+
+[editable path="NPC Root"]

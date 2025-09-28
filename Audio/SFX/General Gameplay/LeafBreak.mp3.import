@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ji0wtisd2jwh"
+path="res://.godot/imported/LeafBreak.mp3-542d471276bfc41dc0ecf12dceb760cb.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/General Gameplay/LeafBreak.mp3"
+dest_files=["res://.godot/imported/LeafBreak.mp3-542d471276bfc41dc0ecf12dceb760cb.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

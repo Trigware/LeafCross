@@ -1,0 +1,76 @@
+[gd_scene load_steps=8 format=3 uid="uid://60q0gsegnffn"]
+
+[ext_resource type="PackedScene" uid="uid://dwwrihbghedg3" path="res://Scenes/NPC Derivation/Layered NPC.tscn" id="1_oqdfv"]
+[ext_resource type="Texture2D" uid="uid://cdkdhca5qbj0o" path="res://Textures/Weird Forest/Detailed Tree Bottom.png" id="2_srp56"]
+[ext_resource type="Texture2D" uid="uid://b4l4avqpc3i4h" path="res://Textures/Weird Forest/Falling Leaf.png" id="3_q70js"]
+[ext_resource type="Texture2D" uid="uid://bx7rqmypxi7un" path="res://Textures/Weird Forest/Detailed Tree Upper.png" id="3_w6jjy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_srp56"]
+size = Vector2(56, 16)
+
+[sub_resource type="Curve" id="Curve_q70js"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.585227, 222.472), 0.0, 0.0, 0, 0, Vector2(0.988636, 360), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_ei4tj"]
+offsets = PackedFloat32Array(0, 0.6, 0.986667)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="Detailed Tree" type="Node2D"]
+metadata/npc_id = "DetailedTree_SAVEINTROROOM"
+
+[node name="Layered NPC" parent="." instance=ExtResource("1_oqdfv")]
+scale = Vector2(2, 2)
+collision_mask = 3
+ignoreDirections = true
+override_id_from_parent = true
+set_only_at_start = true
+
+[node name="Layered Manager" parent="Layered NPC" index="0" node_paths=PackedStringArray("treeSprite")]
+treeSprite = NodePath("../../Bottom")
+
+[node name="Collider" parent="Layered NPC/Layered Manager/Static Body" index="0"]
+position = Vector2(-10.75, 55.375)
+shape = SubResource("RectangleShape2D_srp56")
+
+[node name="Collider" parent="Layered NPC/Layered Manager/Trigger Area" index="0"]
+position = Vector2(4.25, -6)
+
+[node name="Trigger Zone" parent="Layered NPC" index="1"]
+position = Vector2(-8.16668, 56)
+
+[node name="Bottom" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_srp56")
+
+[node name="Leaves" type="CPUParticles2D" parent="Bottom"]
+position = Vector2(0, -16)
+amount = 4
+texture = ExtResource("3_q70js")
+lifetime = 2.25
+speed_scale = 0.5
+randomness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(30, 10)
+particle_flag_align_y = true
+spread = 90.0
+gravity = Vector2(0, 100)
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+angular_velocity_min = 10.0
+angular_velocity_max = 10.0
+angular_velocity_curve = SubResource("Curve_q70js")
+damping_min = 10.0
+damping_max = 10.0
+angle_min = 20.0
+angle_max = 40.0
+scale_amount_min = 3.0
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_ei4tj")
+anim_speed_max = 10.0
+
+[node name="Upper" type="Sprite2D" parent="Bottom"]
+texture = ExtResource("3_w6jjy")
+
+[editable path="Layered NPC"]

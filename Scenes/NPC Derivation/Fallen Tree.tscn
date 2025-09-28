@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://dui2es0gsdo51"]
+
+[ext_resource type="Texture2D" uid="uid://dxfk2u3m5ihwg" path="res://Textures/Weird Forest/Fallen Tree.png" id="1_vjw5f"]
+[ext_resource type="PackedScene" uid="uid://dwwrihbghedg3" path="res://Scenes/NPC Derivation/Layered NPC.tscn" id="2_immq1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g5vyq"]
+size = Vector2(279, 122)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dpoh3"]
+size = Vector2(75, 54)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_immq1"]
+size = Vector2(443, 141)
+
+[node name="Fallen Tree" type="Node2D"]
+
+[node name="Layered NPC" parent="." instance=ExtResource("2_immq1")]
+npcID = 10
+
+[node name="Layered Manager" parent="Layered NPC" index="0" node_paths=PackedStringArray("treeSprite")]
+treeSprite = NodePath("../../Tree Sprite")
+
+[node name="Collider" parent="Layered NPC/Layered Manager/Static Body" index="0"]
+position = Vector2(47, 59)
+shape = null
+
+[node name="Collider" parent="Layered NPC/Layered Manager/Trigger Area" index="0"]
+position = Vector2(220.5, 60)
+shape = SubResource("RectangleShape2D_g5vyq")
+
+[node name="Collider2" type="CollisionShape2D" parent="Layered NPC/Layered Manager/Trigger Area" index="1"]
+position = Vector2(43.5, 26)
+shape = SubResource("RectangleShape2D_dpoh3")
+debug_color = Color(0.701961, 0.231373, 0, 0.419608)
+
+[node name="Trigger Zone" parent="Layered NPC" index="1"]
+position = Vector2(224.5, 61.5)
+shape = SubResource("RectangleShape2D_immq1")
+
+[node name="Tree Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_vjw5f")
+centered = false
+
+[editable path="Layered NPC"]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bifrn38rp78s8"]
+
+[ext_resource type="Script" uid="uid://2y374xttnvyd" path="res://Scripts/Globals/Dangerous Hedgehog Spawner.gd" id="1_00y7k"]
+
+[node name="Dangerous Hedgehog Spawner" type="Node2D"]
+script = ExtResource("1_00y7k")

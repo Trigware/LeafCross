@@ -1,0 +1,81 @@
+[gd_resource type="SpriteFrames" load_steps=12 format=3 uid="uid://clyevjfyjwhp8"]
+
+[ext_resource type="Texture2D" uid="uid://c4geludcdu8pw" path="res://Textures/Title Screen/Logo DNA Top To Bottom.png" id="1_q0iss"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uwcxw"]
+atlas = ExtResource("1_q0iss")
+region = Rect2(0, 0, 40, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ywydi"]
+atlas = ExtResource("1_q0iss")
+region = Rect2(40, 0, 40, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tiqmy"]
+atlas = ExtResource("1_q0iss")
+region = Rect2(80, 0, 40, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jra04"]
+atlas = ExtResource("1_q0iss")
+region = Rect2(120, 0, 40, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h7ylq"]
+atlas = ExtResource("1_q0iss")
+region = Rect2(160, 0, 40, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xvqnq"]
+atlas = ExtResource("1_q0iss")
+region = Rect2(200, 0, 40, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gslbj"]
+atlas = ExtResource("1_q0iss")
+region = Rect2(240, 0, 40, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3fc4"]
+atlas = ExtResource("1_q0iss")
+region = Rect2(280, 0, 40, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_drdvx"]
+atlas = ExtResource("1_q0iss")
+region = Rect2(320, 0, 40, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_40n0x"]
+atlas = ExtResource("1_q0iss")
+region = Rect2(360, 0, 40, 80)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uwcxw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ywydi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tiqmy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jra04")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h7ylq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xvqnq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gslbj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3fc4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_drdvx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_40n0x")
+}],
+"loop": false,
+"name": &"default",
+"speed": 20.0
+}]

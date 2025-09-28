@@ -1,0 +1,187 @@
+Localization Keys	english	czech
+choicer_agree	YES	ANO
+choicer_decline	NO	NE
+npc_outofinteract	...	...
+basic_choice	{?}	{?}
+item_choice_pickup	Do you want to pick up the {item}?	Chceš si s sebou vzít předmět {item}?
+item_confirm_pickup_KEY	The {item}{count} was added to your key items!	Předmět {item}{count} byl přidán do tvých klíčových předmětů!
+item_decline_GLOWING_MUSHROOM	It pays off to not steal from nature...	Někdy se vyplácí nekrást od přírody...
+itemname_GLOWING_MUSHROOM	glowing mushroom	svítící houba
+mainmenu_version_number	v0.5	v0.5
+mainmenu_developers	Made by TRIGWARE (John K.), xDaForge and other cotributors	Vytvořili TRIGWARE (Jan K.), xDaForge a další přispěvatelé
+mainmenu_option_play	Play	Hraj
+mainmenu_option_settings	Settings	Nastavení
+mainmenu_option_credits	Credits	Titulky
+mainmenu_option_exit	Exit	Close Game
+mainmenu_saveinfo_newgame	New Game	Nová hra
+mainmenu_choosefile_goback	Go Back	Jdi zpět
+quitting_game	Quitting game	Opouštím hru
+mainmenu_fileoption_playgame	Play game	Spusť hru
+mainmenu_fileoption_resetgame	Reset game	Resetuj hru
+mainmenu_fileoption_cancel	Cancel	Jdi zpět
+mainmenu_fileoption_resetgame_cautiontext	Do you truly want to delete this save file and start from the beginning?	Opravdu chceš resetovat tento soubor a začít od začátku?
+mainmenu_fileoption_resetgame_confirmreset	Confirm reset	Začni od začátku
+character_max_stat	MAX	MAX
+choose_lang_language	CHOOSE A LANGUAGE	VYBER SI JAZYK
+choose_lang_controls	(always when confirming press enter, when changing an option use the arrow keys)	(vždy když chceš něco potvrdit stiskni enter, když chceš změnit možnost použij šipky na klávesnici)
+choose_lang_czech	Čeština	Čeština
+choose_lang_english	English	English
+save_file_PLAY_header	Please choose a file.	Vyber si svůj soubor, prosím.
+save_file_COPY_header	Choose a file to copy.	Vyber soubor, který chceš zkopírovat.
+save_file_ERASE_header	Choose a file to delete.	Vyber soubor, který chceš smazat.
+save_file_UNABLETOCOPY_header	There's no space for new files. Delete some first.	Není místo pro nové soubory. Smaž nějaký soubor.
+save_file_not_found	- EMPTY (CAN START NEW GAME) - 	- PRÁZDNÝ (MŮŽEŠ VYTVOŘIT) -
+save_file_choice_PLAY	Start game from this file?	Spustit hru z tohoto souboru?
+save_file_choice_ERASE	Delete this file?	Smazat tento soubor?
+save_file_choice_COPY	Duplicate this file?	Zkopírovat tento soubor?
+save_file_choice_ACTUALLY_ERASE	Are you really sure?	Jseš si opravdu jistý?
+save_file_create	Start a new game?	Chceš hrát na novém souboru?
+save_file_choice	      YES               NO	      ANO               NE
+save_file_copy_label	COPY	KOPIE
+save_file_erase_label	ERASE	SMAZAT
+save_file_back_label	BACK	ZPĚT
+room_name_Weird/SpawnRoom	?????	?????
+room_name_Weird/SaveIntroRoom	Weird Forest - Beehives	Podivný les - Úly
+legend_skip_cutscene	(skip cutscene with ENTER)	(přeskoč cutscénu s klávesou ENTER)
+legend_panel1_whisper	A long time ago, people whispered a strange tale.	Tehdá se vyprávěl příběh, který si lidé dál šeptali.
+legend_panel1_nation_unity	A tale about a nation.{1}\nA tale about their unity.	Byl to příběh národa.{1}\nByl to příběh jednoty.
+legend_panel1_wise_mystical	A tale foretold by the wise.{1}\nA tale which granted mysticism.	Byl to příběh moudrosti.{1}\nByl to příběh mystiky.
+legend_panel1_wmtale	They called it the "Wise Mystical Tale".	Tento příběh nesl název "Wise Mystical Tale".
+legend_panel2_peace	For millenia everyone worshiped the Tree in peace.	Po tisíciletí svět žil pod Stromovcemi v míru.
+legend_panel2_equality	Under it's branches would be everyone equal.	Pod Stromem by si všichni byli rovni.
+legend_panel3_revolt	But if the people revolted...	Ale kdyby se lid proti nim spikl...
+legend_panel4_wilbur	Wilbur Poop would cloud the skies,	Wilbur Poop by zakalil oblaka,
+legend_panel4_yapp	Yapp Dollar would destroy the market	Yapp Dollar by zničil trh
+legend_panel4_smurfcat	and Smurf cat would devastate the land.	a Smurf cat by devastoval krajinu.
+legend_panel4_rotten	Now with only it's rotten roots...	Nyní s hnijícími kořeny...
+legend_panel4_lastdays	would the nation see it's last days.	by národ zažil jeho poslední dny.
+legend_panel5_religion	But thanks to their beliefs...	Ale díky jejich víře...
+legend_panel5_god	would three Treeists appear on the side of god.	se tři Stromovci objevili na straně boha.
+legend_characters_rabbitek	ONE WANTED TO BE A POLITICIAN	JEDEN CHTĚL BÝT POLITIK
+legend_characters_xdaforge	THE OTHER ONE A POLICEMAN	DRUHÝ ZAS POLICISTA
+legend_characters_gertofin	AND THE THIRD JUST WANTED TO BE RICH	A TŘETÍ CHTĚL BÝT PROSTĚ BOHATEJ
+legend_panel6_treefall	Only they can prevent the Tree's fall	Jen oni mohou zabránit Stromovskému pádu
+legend_panel6_balance	and keep their nation from destruction.	a udržet národ v rovnováze.
+legend_panel6_treegrow	Only then can WMT grow again	Jen poté může WMT znovu růst
+legend_panel6_revolution	and the world spared from complete annihilation.	a svět může být zachráněn od krutosti revolucionářů.
+legend_panel7_mayor	Last week Honzraj:\nmayor of Larchgrad	Minulý týden Honzraj: starosta Modřína,
+legend_panel7_punishment	presented a lenient offer for the Smurf cats.	navrhl mírnější trest pro Smurf caty.
+legend_panel7_lost	Offer to improve their releations after the wars...	Ti prohráli války, které začaly kvůli jejich víře.
+legend_panel8_fired	However, he was accused of treason and lost his title.	Poté co tak řekl, byl obviněn z velezrady a ztratil svůj titul.
+choosecharacter_notice_pressenter	(to continue reading, press ENTER)	(pokud chceš číst dál, zmáčkni enter)
+choosecharacter_notice_moveleaf	(move with arrows on your keyboard, then confirm with ENTER)	(pohybuj se pomocí šipek na klávesnici, potvrď s enter)
+choosecharacter_prechoose_gift	Here's my gift.	Zde je můj dar.
+choosecharacter_prechoose_changeworld	With it you can undoubtably change my world.	Díky němu můžeš měnit tento svět.
+choosecharacter_prechoose_nochance	Because you need a body for your leaf,{p} choose it.	Protože bez těla nemáš šanci přežít{p}, nějaké si vyber.
+choosecharacter_choose_name	How should they call you?	Napiš, jak ti budou říkat.
+choosecharacter_name_treeist	NAME THE PROPHET	POJMENUJ STROMOVCE
+choosecharacter_namereaction_canonname	What a coincidence...	Zajímavá náhoda...
+choosecharacter_namereaction_confusing	That could be confusing! (press enter again)	To by bylo matoucí! (stiskni znovu enter)
+choosecharacter_namereaction_programmer	Your the being that built the logic of this world?	Ty píšeš kód, který tvoří tento svět?
+choosecharacter_namereaction_god	You shall not speak of my name! (press enter again)	Mé jméno nosit nebudeš! (stiskni znovu enter)
+choosecharacter_namereaction_novisiblesymbols	What name I don't see anything! (press enter again)	Jméno musí být vidět! (stiskni znovu enter)
+choosecharacter_namereaction_brackets	Prohibited characters detected! (press enter again)	Bez hr. a sl. závorek! (stiskni znovu enter)
+choosecharacter_postchoose_sayname	{name}...	{name}...
+choosecharacter_postchoose_onemorething	There's just one more thing...	Ještě nám zbývá jedna věc...
+choosecharacter_postchoose_givebook	This sacred book is neccessary for my gift.	Tato posvátná kniha je nezbytná k mému daru.
+choosecharacter_finish_goodbad	I don't care if it's used for good or evil...	Jestli jej využiješ k dobru či zlu, je mi jedno.
+choosecharacter_finish_terror	I only want you to banish the Blue terror...	Chci jen, aby ses zbavil Modrého teroru...
+choosecharacter_finish_destroy	...to destroy Smurf Cats once and for all.	...aby jsi zničil Smurf Caty jednou a navždy.
+choosecharacter_finish_lies	In order to stop the spread of their lies.	K tomu aby skončilo šíření jejich lží...
+choosecharacter_finish_prepared	{p}...looks like everything's ready.	{p}...vypadá to, že už máme všechno připravené.
+choosecharacter_finish_goodluck	Good luck!	Hodně štěstí!
+errorhandler_room_title	SOMETHING BROKE	NĚCO SE POKAZILO
+errorhandler_room_description	Room ID {roomID} ({extraInfo})	Room ID {roomID} ({extraInfo})
+errorhandler_extrainfo_savecorrupted	corrupted json savefile	nesprávně zapsaný json
+errorhandler_extrainfo_onload	upon load	při načtení
+SpawnObject_SPAWNROOM__only	Here lies the beginning of a great journey...{p} nothing else to note.	Zde je začátek tvé cesty...{p} není to jinak ničím zajímavé...
+Mushroom_SPAWNROOM__1#1	You curiously look at a mushroom emitting blue light...	Pozoruhodně hledíš na houbu vydávací modré světlo...
+Mushroom_SPAWNROOM__1#2	You feel as if...{p} you have some kind of connection with it...{p} but you don't know why.	Máš pocit, že něco o ní cítíš...{p} že ti je povědomá...{p} ale nevíš proč.
+Mushroom_SPAWNROOM__2#1	You could finally decide...	Mohl by jsi se rozhodnout...
+PurpleTree_SPAWNROOM__1#1	The tree's observing the sorrounding area...	Purpurový strom hledí bezcitně na okolní krajinu...
+PurpleTree_SPAWNROOM__1#2	You felt as if you shouldn't interupt it...	Tvou mysl naplnili moudré myšlenky...
+PurpleTree_SPAWNROOM__outofinteract	The tree doesn't have any time to spare...	Strom nemá čas si s tebou povídat...
+BlockTree_SPAWNROOM__1#1	It blocks you a way to something...{p} {#glow_mushroom}glowing{#/}?	Vypadá to, že tento strom ti blokuje cestu k něčemu co {#glow_mushroom}modře září{#/}...
+BlockTree_SPAWNROOM__1#2	You have a feeling there's a way to get to the other side.	Možná by jsi ho mohl nějak obejít?
+BlockTree_SPAWNROOM__NoLight#1	The tree blocked some path...{p} but there's no point in going back there.	Tenhle strom blokoval nějakou cestu...{p} ale ty už jsi život od ní vzal...
+InteractionPrompt_SPAWNROOM__1#1	(Reminder to press {#tree_green}ENTER or Z{#/} if you see something {#glow_mushroom}interesting{#/}.)	(Nezapoměň, že když uvidíš něco {#glow_mushroom}zajímavého{#/}, můžeš se k tomu přiblížit a zmáčknout {#tree_green}ENTER či Z{#/}.)
+Pedestal_SPAWN_ENTERANCE__1#1	It's some kind of stone object.{p} You look closer and see some text written on it.	Je to nějaký posvátný kamenný objekt.{p} Podíváš se na něj pozorněji a vidíš, že je na něm něco napsáno.
+Pedestal_SPAWN_ENTERANCE__1#2	Do you want to read what is written on there?	Chceš si přečíst co se tam píše?
+Pedestal_SPAWN_ENTERANCE__outofinteract	You see that there's something written there.{p} Read it?	Vidíš, že je tam něco napsáno.{p} Chceš si to přečíst?
+PedestalText_intro	{name}	{name}
+PedestalText__xdaforge#1	"Quiet shield of the Treeist nation,{p} which can stop the destruction of the Holy confederacy...	"Tichý štít Stromovského národa,{p} jenž dokáže zastavit absolutní zničení Svaté konfederace...
+PedestalText__xdaforge#2	Sharp weapon of the nation,{p} which can defeat it's enemy, even if everything seems to be lost.	Ostrá zbraň Stromovského národa,{p} která dokáže porazit nepřítele, i když se zdá, že je vše ztraceno...
+PedestalText__rabbitek#1	"Holy voice of the Treeist nation,{p} which can unite the people against their enemies...	"Svatý hlas Stromovského národa,{p} který dokáže spojit všechen lid proti nepříteli...
+PedestalText__rabbitek#2	The root of the nation,{p} which can return stability even in the worst of times...	Živý kořen Stromovského národa,{p} jenž dokáže vrátit stabilitu národa v nejhorším...
+PedestalText__gertofin#1	"Helpful hand of the Treeist nation,{p} which can finance the most important of operations...	"Pomocná ruka Stromovského národa,{p} která dokáže financovat záchranné operace...
+PedestalText__gertofin#2	A hidden eye of the nation,{p} which controls the nation like a puppetmaster.	Skryté oko Stromovského národa,{p} které se svémi strunami chrání stát...
+PedestalText_end	He gets summoned, once the Blue terror is ignited...{0.3} when another war begins to bubble."	Přijde jen tehdy, když ho moudrý strom vyvolá...{0.75} až vzplane Modrý teror...{0.3} až začne další válka..."
+Leaves_SPAWN_ENTERANCE__only	It's just a regular pile of leaves...	Je to jen nějaká běžná hromada listí...
+TeleportTree_SPAWN_TELEPORT__1#1	There's something you must get first, before knowing this tree's true nature...	Vypadá to, že něco budeš muset získat, než tento strom doopravdy pochopíš...
+TeleportTree_SPAWN_TELEPORT_outofinteract	You don't feel like 'you',{p} when around this tree.	Jsi 'nesvůj' když chodíš okolo tohoto...{p} 'stromu'.
+BlueCampfire_SPAWN_TELEPORT__1#1	This fire is glowing with a strange blue light.{p} Seems like you don't even question it because everything else here is weird.	Tenhle oheň svítí studenou modrou barvou...{p} vzhledem toho jak je divnej zbytek lesa, tohle tě moc nepřekvapuje.
+BlueCampfire_SPAWN_TELEPORT__1#2	Interestingly, the fire is quite big even though nobody is around.	Zajímavé je ale, že ten oheň je stále velký, i když zde ted nikdo není.
+BlueCampfire_SPAWN_TELEPORT__outofinteract	You can't help yourself to not stare at it's blue light.	Tvé oči nechtějí se přestat dívat na to modré světlo.
+BrokenSign_SPAWN_ENTERANCE__1#1	It's some kind of navigational sign...{p} there's an arrow pointing to {#purple}somewhere{#/}...	Je to nějaká navigační cedule... {p}dole je vyzobrazená šipka směřující k něčemu {#purple}podivuhodnému{#/}...
+BrokenSign_SPAWN_ENTERANCE__1#2	There's a feeling that you shouldn't go down there...	Z nějakého důvodu si nemyslíš, že je dobrý nápad tam dolů jít...
+BrokenSign_SPAWN_ENTERANCE__2#1	...but maybe something in you clashes with that feeling...	...tvá zvědavost ale nesouhlasí...
+FallenTree_LILYPADROOM__1#1	A once alive tree...{p} has fallen to it's demise.	Tehdá zdravý strom, {p} spadl do jeho absolutního konce.
+FallenTree_LILYPADROOM__1#2	When they had the opportunity to do so...{p} the {#glow_mushroom}mushrroms{#/} conquered the tree and banished it's legacy forever.	Když měly {#glow_mushroom}houby{#/} možnost... {p}obsadili strom a zničili jej.
+FallenTree_LILYPADROOM__1#3	...but if it would be rescued fast enough...{p} none of this would happen.	...avšak když by byl rychle zachráněn...{p} nic takového by se nestalo.
+FallenTree_LILYPADROOM__2#1	Out of respect... you don't want to interact with the tree no more.	Asi není dobrý nápad nadále interaktovat se zchátralým stromem...
+SmallBranch_LILYPADROOM__1#1	Looks like there is a tree branch that's blocking your way...	Vypadá to, že je tady nějaká větev co tě blokuje cestu...
+SmallBranch_LILYPADROOM__1#2	But there doesn't seem to be anything important there...	Nemyslíš si, ale že by tam bylo něco důležitého...
+LilypadFlower_LILYPADROOM__only	I don't think this is time for reading...	Nemyslím si, že tohle je dobrý čas ke čtení textu...
+StreetLamp_WEIRDFOREST__only	Near this lamp you feel that you can see your leaf shining even more...	Blízko téhle lampy cítíš jako kdyby se tvůj dar blízkal ještě více...
+BigBranch_LILYPADROOM__only	This way is blocked by this tree branch.{p} Looks like you must go by the lilypads.	Tahle cesta je zablokována touto větví... {p}vypadá to že, musíš jít přes lekníny...
+CemetaryGate_GATEROOM__only	It's locked.	Je to zamčené.
+Cutscene_CemetaryGate#1	Warriors of the Blue terror are buried here.	Vojáci Modrého teroru jsou zde pohřbeni.
+Cutscene_CemetaryGate#2	Many failed rebels lie behind this gate.	Neúspěšní rebelové leží za touto branou.
+Cutscene_CemetaryGate#3	If you wish to get in, you must obtain a key.	Pokud si přeješ jít dál, musíš obdržet klíč.
+Cutscene_CemetaryGate#4	It's in possession of a tricky squirrel.	Nyní jej drží jedna zákeřná veverka.
+Cutscene_CemetaryGate#5	Obtain it and return here once again.	Obdrž klíč a znovu se sem vrať.
+GameOver_Option_Continue	Go Back	Vrať se zpět
+GameOver_Option_ResetBattle	Reset Battle	Resetuj bitvu
+GameOver__root	{|Comment}{if first_death}{|FirstDeath}	{|Comment}{if first_death}{|FirstDeath}
+GameOver__Comment	{|R RandomComment}	{|R RandomComment}
+GameOver__RandomComment1	Very interesting.	Velmi podivuhodné.
+GameOver__RandomComment2	The glow of the leaf faded.	Veškerá zář z tvého listu zmizela...
+GameOver__RandomComment3	Your inputs caused termination.	Tvé vstupy vedli k terminaci listu...
+GameOver__RandomComment4	It disintegrated again.	Znovu se to rozpadlo.
+GameOver__RandomComment5	Neutral networks train on failure.	Neuronové sítě trénují na selhání.
+GameOver__RandomComment6	Another severed connection.	Další přerušené spojení.
+GameOver__RandomComment7	All gifts meet their ends.	Všechny dary spatří jejich konce.
+GameOver__FirstDeath#1	Your leaf disintegrated.	Tvůj list se rozpadl.
+GameOver__FirstDeath#2	You severed the connection to this world.	Odpojil jsi tvé spojení k tomuto světu.
+GameOver__FirstDeath#3	{1}Fortunetly, there exists a solution...	{1}Naštěstí jsem našel řešení...
+GameOver__FirstDeath#4	Your book that I gave you is intact,{p} isn't it?	Ta kniha co jsi obdržel nám pomůže.
+GameOver__FirstDeath#5	The place you last prayed to is our anchor.	Vím místo, kde sis naposledy uložil hru.
+GameOver__FirstDeath#6	{1}I can take you back to that point.	{1}Mohu tě vrátit zpět do tohoto bodu.
+GameOver__FirstDeath#7	Only then we may continue once again.	Jen tehdy, můžeme znovu pokračovat.
+Candle_SAVEINTROROOM__only	It looks like the candles are used for some kind of a religionous event.	Nejspíš to jsou nějaké svíčky použité k nějaké náboženské události.
+OverworldSaving_SaveGame	Save Game	Ulož Hru
+OverworldSaving_DontSave	Don't Save	Neukládej
+SavePoint_Beehive__only	Your eyes skim the pages of your book.{p} The scent receptors in your nose provide you with a sweet aroma.	Tvé oči létají přes strany tvé knihy.{p} Pachové receptory v tvém nosu tě přináší sladké aroma.
+SavePoint_end_first_time	When you pray to {#tree_green}the Tree{#/}, your game is saved.{p} Do you want to do so?	Když se modlíš ke {#tree_green}Stromu{#/}, tvá hra je uložena. {p} Chceš tak udělat?
+SavePoint_end	Do you wish to save your game?	Přeješ si uložit hru?
+BeehiveRegular_SAVEINTROROOM__only	The bees in this beehive are living peacefully.	Včely v tomhle úlu žijí mírumilovně.
+BlueBeehive_SAVEINTROROOM__only	The bees in this beehive are playing some {#blue_fire}FIRE{#/} music.	Včely v tomhle úlu si pouští nějakou {#blue_fire}FIRE{#/} hudbu.
+BibleInteractPrompt_SAVEINTROROOM__1#1	Maybe it would be a good idea to interact with the {#holy_yellow}book{#/} first, before going further into the forest.	Myslíš si, že bys nejdříve si měl prohlédnout tu {#holy_yellow}knihu{#/} než půjdeš dál do lesa.
+BibleInteractPrompt_SAVEINTROROOM__outofinteract	...{p} there's a something that won't let you go.	...{p} cítíš se jako tě něco nepovoluje tu knihu přeskočit.
+BibleInteractPrompt_SAVEINTROROOM__Save_Refused	Maybe you should try to {#holy_yellow}pray to the book{#/} before you continue.	Možná by jsi se měl {#holy_yellow}pomodlit k té knize{#/}, než budeš dál pokračovat.
+DetailedTree_SAVEINTROROOM__only	There's something hiding in the tree...{p} unfortunetly you can't tell what.	Něco se skrývá v tomto stromě...{p} ale bohužel nedokážeš zjisit co to je.
+OverworldSaving_GameSavedConfirm	GAME WAS SUCCESSFULLY SAVED!	HRA BYLA ÚSPĚŠNĚ ULOŽENA!
+Cutscene_Nixie_Introductory_TreeSaveDialog	Very interesting.{1} It looks like you used the book!	Velmi zajímavé.{1} Vypadá to, že jsi už využil tu knihu!
+AttackMessage_MISS	0	0
+Cutscene_Character_Dialog_Tester__root	Named colors, escape seq bracket {#purple}\{\}{#/}! Next Silent characters	Named colors, escape seq bracket {#purple}\{\}{#/}!
+Cutscene_Character_Dialog_Tester__root#2	.... ... ,,,, ,,, !!! ?????	.... ... ,,,, ,,, !!! ?????
+Cutscene_Character_Dialog_Tester__root#3	Inline choicer{?"LEFT": left, "RIGHT": right, "UP": up, "DOWN": down}	Inline choicer{?"LEFT": left, "RIGHT": right, "DOWN": down, "UP": up}
+Cutscene_Character_Dialog_Tester__left	You chose left -> Convergence Statement {|AfterChoice}	You chose left -> Convergence Statement {|AfterChoice}
+Cutscene_Character_Dialog_Tester__right	You chose right -> Convergence Statement {|AfterChoice}	You chose right -> Convergence Statement {|AfterChoice}
+Cutscene_Character_Dialog_Tester__down	You chose down -> Convergence Statement {|AfterChoice}	You chose down -> Convergence Statement {|AfterChoice}
+Cutscene_Character_Dialog_Tester__up	You chose up -> Convergence Statement {|AfterChoice}	You chose up -> Convergence Statement {|AfterChoice}
+Cutscene_Character_Dialog_Tester__AfterChoice	Conditional {if has_mushroom}HAS{else}DOESN'T HAVE{endcf} GLOWING MUSHROOM	Conditional {if has_mushroom}HAS{else}DOESN'T HAVE{endcf} GLOWING MUSHROOM
+Cutscene_Character_Dialog_Tester__AfterChoice#2	{$Nixie}{#pink}Nixie{#/} default emotion	{$Nixie}{#pink}Nixie{#/} default emotion
+Cutscene_Character_Dialog_Tester__AfterChoice#3	{/Mysterious}emotion change	{/Mysterious}emotion change
+Cutscene_Character_Dialog_Tester__AfterChoice#4	{$}BACK TO NARRATOR -> last empty	{$}BACK TO NARRATOR -> last empty
+Cutscene_Character_Dialog_Tester__AfterChoice#5	{}	{}
