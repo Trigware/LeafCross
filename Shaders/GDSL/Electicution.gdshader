@@ -1,9 +1,9 @@
 shader_type canvas_item;
 
 const int directions_count = 8;
-const vec4 outline_color = vec4(0.87, 0.79, 0.24, 1);
+uniform vec4 outline_color;
 const float color_offset = 0.15;
-const float flash_speed = 5.5;
+const float flash_speed = 7.0;
 
 const vec2 directions[directions_count] = vec2[directions_count](
 	vec2(-1.0, 0.0),

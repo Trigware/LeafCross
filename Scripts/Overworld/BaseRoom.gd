@@ -6,7 +6,7 @@ extends Node2D
 @export var roomMusicPitchRange := 0.1
 @export var playNoMusic := false
 
-@onready var environment_layer = get_node("Environment")
+@onready var environment_layer = get_node_or_null("Environment")
 
 func _process(_delta):
 	if environment_layer == null: return

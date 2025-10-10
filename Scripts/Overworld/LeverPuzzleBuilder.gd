@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var puzzle_door: Node2D
+@export var puzzle_syntax := ""
 @export var lever_configurations: Dictionary[Enum.LeverColor, bool]
 @export var nested_ladders: Dictionary[Enum.LeverColor, Enum.LeverColor]
 @export var lasers_on_ladders : Dictionary[Enum.LeverColor, LeverPuzzleLasers]
@@ -15,7 +16,9 @@ var laser_list := []
 var ladder_nesting_levels : Dictionary[Enum.LeverColor, int] = {}
 var ground_level_levers : Array[Enum.LeverColor] = []
 
-func _ready(): construct_ladders()
+func _ready():
+	parse_puzzle_syntax()
+	construct_ladders()
 
 const maximum_distance = 150
 const minimum_alpha_modulation = 0.5
@@ -36,8 +39,9 @@ func construct_ladders():
 		lever.lever_pulled.connect(Callable(puzzle_door, "open_door").bind(lever_dict))
 		for laser in laser_list:
 			if laser.laser_color != lever_color: continue
-			lever.lever_pulled.connect(Callable(laser, "handle_pulling_of_lever").bind(lever_dict))
-			laser.handle_pulling_of_lever(lever_dict)
+			laser.lever_dict = lever_dict
+			lever.lever_pulled.connect(Callable(laser, "handle_pulling_of_lever").bind())
+			laser.handle_pulling_of_lever()
 
 func create_ladder(i):
 	var ladder_instance = UID.SCN_LADDER_LEVER_PUZZLE.instantiate()
@@ -66,7 +70,8 @@ func create_ladder(i):
 	add_child(ladder_instance)
 
 func get_ladder_position(color):
-	var y_result = ladder_nesting_levels[color] * -y_ladder_offset -y_ladder_offset / 2
+	if not color in ladder_nesting_levels: push_error("The color '" + Enum.get_lever_color_as_name(color) + "' is not a parent of any lever color!")
+	var y_result = ladder_nesting_levels[color] * -y_ladder_offset -y_ladder_offset / 2.0
 	if color in ground_level_levers:
 		var ground_lever_index = ground_level_levers.find(color)
 		return Vector2(get_ladder_x_pos(ground_lever_index), y_result)
@@ -77,11 +82,14 @@ func get_ladder_x_pos(ladder_x):
 	return get_center_position(lever_configurations.size() - nested_ladders.size(),\
 	max_x.position.x, ladder_spacing, ladder_x, "ladders")
 
+var ladder_parent_trace := []
+
 func set_ladder_nesting_levels():
 	ladder_nesting_levels = {}
 	ground_level_levers = []
 	highest_ladder_nesting_level = 0
 	for color in lever_configurations.keys():
+		ladder_parent_trace = []
 		var lever_nesting_level = get_ladder_nesting_levels(color)
 		ladder_nesting_levels[color] = lever_nesting_level
 		if lever_nesting_level > highest_ladder_nesting_level: highest_ladder_nesting_level = lever_nesting_level
@@ -90,6 +98,10 @@ func set_ladder_nesting_levels():
 func get_ladder_nesting_levels(color):
 	if not color in nested_ladders: return 0
 	var parent = nested_ladders[color]
+	if color in ladder_parent_trace:
+		push_error("Ladder nesting circular dependency error (ladder parent trace: " + str(ladder_parent_trace) + ")")
+		return 0
+	ladder_parent_trace.append(color)
 	return 1 + get_ladder_nesting_levels(parent)
 
 const maximum_laser_y_pos = -22.5
@@ -117,3 +129,55 @@ func get_center_position(elements_count, maximum_pos, element_spacing, element_i
 	var start = (available_width - total_length) / 2.0
 	if start < 0: push_error("Unable to fit " + str(elements_count) + " "  + element_name + " to this space! (start: " + str(start) + ")")
 	return start + element_index * element_spacing - mimimum_pos
+
+var lever_signature = ""
+
+func parse_puzzle_syntax():
+	if puzzle_syntax == "": return
+	lever_configurations = {}
+	nested_ladders = {}
+	lasers_on_ladders = {}
+	for ch in puzzle_syntax:
+		if ch == ';':
+			parse_lever()
+			continue
+		lever_signature += ch
+	parse_lever()
+
+func parse_lever():
+	if lever_signature == "":
+		push_error("Empty lever signature found!")
+		return
+	var initial_lever_state = lever_signature[0]
+	var lever_color = get_color(1)
+	match initial_lever_state:
+		"T": lever_configurations[lever_color] = true
+		"F": lever_configurations[lever_color] = false
+		_: push_error("Unrecognized boolean symbol '" + initial_lever_state + "'!")
+	
+	var lever_puzzle_lasers_resource = LeverPuzzleLasers.new()
+	while termination_symbol != ')':
+		var laser_color = get_color(latest_end_index + 1)
+		if termination_symbol == "": break
+		if laser_color != -1: lever_puzzle_lasers_resource.lasers.append(laser_color)
+	lasers_on_ladders[lever_color] = lever_puzzle_lasers_resource
+	var parent_lever_color = get_color(latest_end_index + 1)
+	if parent_lever_color != -1: nested_ladders[lever_color] = parent_lever_color
+	lever_signature = ""
+
+var latest_end_index: int
+var termination_symbol: String
+
+func get_color(start_index):
+	var lever_color = ""
+	termination_symbol = ''
+	var i = start_index
+	while i < lever_signature.length():
+		var ch = lever_signature[i]
+		if ch in ['(', ')', ',']:
+			termination_symbol = ch
+			break
+		lever_color += ch
+		i += 1
+	latest_end_index = i
+	return Enum.get_lever_color_from_str(lever_color)

@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 var direction := Vector2.ZERO
 var basic_direction := Vector2.ZERO
-var latest_basic_dir := Vector2.ZERO
+var latest_basic_dir_y : float
 var stringAnimation = "Right"
 var is_left_last_horizontal_dir = false
 var speedMultiplier = 1
@@ -77,7 +77,7 @@ func handle_motion_actions():
 		direction.y += 1
 	
 	basic_direction = direction
-	latest_basic_dir = direction
+	if direction.y != 0: latest_basic_dir_y = direction.y
 	if Input.is_action_pressed("move_fast"):
 		speedMultiplier = Player.get_fast_movement_speed()
 		movementMode = MovementMode.RUN
@@ -98,7 +98,8 @@ func take_step(dir, speed):
 	update_animations()
 	for i in range(get_slide_collision_count()): # fixes bug where it would flag a collision if the player was touching a collider but did not move towards it
 		var collision = get_slide_collision(i)
-		if collision != null and collision.get_normal().dot(dir) < wall_detection_threshold: return true
+		var dot_product_result = collision.get_normal().dot(dir)
+		if collision != null and dot_product_result < wall_detection_threshold: return true
 	return false
 
 func update_animations():
@@ -127,7 +128,7 @@ func play_footstep():
 	if Player.in_water: footstep_type = UID.Footstep.Water
 	if Player.in_leaves: footstep_type = UID.Footstep.Leaves
 	if Player.climbing_ladder: footstep_type = UID.Footstep.Ladder
-	Audio.play_sound(UID.SFX_FOOTSTEPS[footstep_type], 0.3, -5)
+	Audio.play_sound(UID.SFX_FOOTSTEPS[footstep_type], 0.3, 0)
 	Player.play_animation(get_animation_name())
 
 func add_to_footstep_targets():

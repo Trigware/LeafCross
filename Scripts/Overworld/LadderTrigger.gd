@@ -4,14 +4,15 @@ extends Area2D
 @export var is_bottom: bool
 
 func _on_body_entered(body):
-	if not body.is_in_group("Player") or Player.node.stringAnimation != "Up": return
+	if not body.is_in_group("Player") or Player.node.latest_basic_dir_y == 1: return
 	handle_ladder_trigger_behaviour(false)
 
 func _on_body_exited(body):
-	if not body.is_in_group("Player") or Player.node.stringAnimation != "Down": return
+	if not body.is_in_group("Player") or Player.node.latest_basic_dir_y == -1: return
 	handle_ladder_trigger_behaviour(true)
 
 func handle_ladder_trigger_behaviour(exiting):
+	Player.climbing_ladder = not exiting
 	if not is_bottom:
 		handle_top_behaviour()
 		return

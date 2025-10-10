@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c7wyhwws4b7h2"
-path="res://.godot/imported/Hedgehog Placeholder.png-085e836361600e16d68c4a9de04c5e94.ctex"
+path="res://.godot/imported/Hedgehogs.png-cfef4da34708058988b1c82ea16040af.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Spritesheets/Hedgehog Placeholder.png"
-dest_files=["res://.godot/imported/Hedgehog Placeholder.png-085e836361600e16d68c4a9de04c5e94.ctex"]
+source_file="res://Spritesheets/Hedgehogs.png"
+dest_files=["res://.godot/imported/Hedgehogs.png-cfef4da34708058988b1c82ea16040af.ctex"]
 
 [params]
 

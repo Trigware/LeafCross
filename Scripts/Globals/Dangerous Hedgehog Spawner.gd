@@ -1,6 +1,5 @@
-extends Node2D
+extends "res://Scripts/Globals/PointOnLine.gd"
 
-@export var walking_path: Line2D
 @export_group("Speed")
 @export var base_speed: float = 0.15
 @export var boosted_speed_enabled := true
@@ -16,66 +15,11 @@ extends Node2D
 @export var group_gaps_lengths: Array[float]
 @export var hedgehog_scale := 1.25
 
-var path_circumference : float
-var latest_added_point : Vector2
-var path_as_points : Array[Vector2] = []
-var point_distance_from_start_list : Array[float]
 var hedgehog_list: Array[Area2D]
 
 func _ready():
-	walking_path.width = 0
-	if walking_path.points.size() < 2:
-		push_error("Walk path requires at least 2 or more points to function!")
-		return
-	normalize_line()
-	get_point_distances_from_start()
+	initialize_line()
 	create_hedgehog_groups()
-	add_leaf_mode_trigger()
-
-func normalize_line():
-	var path_point_count = walking_path.points.size()
-	latest_added_point = walking_path.points[0]
-	path_as_points = [latest_added_point]
-	
-	for i in range(1, path_point_count):
-		var point = walking_path.points[i]
-		normalize_point(point)
-	
-	path_as_points.pop_back()
-	var saved_latest_added_pt = latest_added_point
-	latest_added_point = walking_path.points[0]
-	normalize_point(saved_latest_added_pt)
-
-func normalize_point(point):
-	var point_delta = abs(point - latest_added_point)
-	if point_delta.x > point_delta.y: latest_added_point.x = point.x
-	else: latest_added_point.y = point.y
-	path_as_points.append(latest_added_point)
-
-func get_point_distances_from_start():
-	point_distance_from_start_list = []
-	var start_point = path_as_points[0]
-	var previous_point = start_point
-	path_circumference = 0
-	
-	for i in range(1, path_as_points.size()):
-		var point = path_as_points[i]
-		add_new_line_segment_length(previous_point, point)
-		previous_point = point
-	add_new_line_segment_length(previous_point, start_point)
-
-func add_new_line_segment_length(point1, point2):
-	var closing_length = point1.distance_to(point2)
-	path_circumference += closing_length
-	point_distance_from_start_list.append(path_circumference)
-
-func create_dangerous_hedgehog(progress_at_start):
-	var hedgehog_instance = UID.SCN_DANGEROUS_HEDGEHOG.instantiate()
-	hedgehog_instance.setup_data(path_as_points, point_distance_from_start_list, path_circumference,\
-		base_speed, boosted_speed_transition_duration, normal_speed_duration, boosted_speed_multiplier,\
-		max_boost_speed_duration, progress_at_start, boosted_speed_enabled, hedgehog_scale)
-	add_child(hedgehog_instance)
-	hedgehog_list.append(hedgehog_instance)
 
 var previous_hedgehog_spawn = 0
 var minimum_gap_between_hedgehogs = 0.03 * hedgehog_scale
@@ -101,6 +45,14 @@ func create_hedgehog_groups():
 
 const gap_computation_precision = 50
 const FLOAT_EPSILON = 1E-06
+
+func create_dangerous_hedgehog(progress_at_start):
+	var hedgehog_instance = UID.SCN_DANGEROUS_HEDGEHOG.instantiate()
+	hedgehog_instance.setup_data(path_as_points, point_distance_from_start_list, path_circumference,\
+		base_speed, boosted_speed_transition_duration, normal_speed_duration, boosted_speed_multiplier,\
+		max_boost_speed_duration, progress_at_start, boosted_speed_enabled, hedgehog_scale)
+	add_child(hedgehog_instance)
+	hedgehog_list.append(hedgehog_instance)
 
 func compute_gap_between_hedgehogs():
 	var lowest_gap_length = minimum_gap_between_hedgehogs
@@ -130,39 +82,3 @@ func compute_remaining_empty_space(tested_gap_between_hedgehogs):
 	
 	var remaining_empty_space = 1 - (hedgehog_occupation_space + total_gap_length)
 	return remaining_empty_space
-
-func add_leaf_mode_trigger():
-	var leaf_mode_trigger_instance = UID.SCN_LEAF_MODE_TRIGGER.instantiate()
-	get_bounding_box_of_path_area()
-	add_child(leaf_mode_trigger_instance)
-	
-	var rectangle_size = most_bottom_right_point - most_top_left_point
-	var shape_extents = rectangle_size / 2
-	var center_position = most_top_left_point + shape_extents
-	
-	var rectangle_shape = RectangleShape2D.new()
-	rectangle_shape.size = rectangle_size
-	
-	var collision_shape = CollisionShape2D.new()
-	collision_shape.shape = rectangle_shape
-	collision_shape.position = center_position
-	leaf_mode_trigger_instance.add_child(collision_shape)
-
-var most_top_left_point: Vector2
-var most_bottom_right_point: Vector2
-const shape_boundary_offset = 50
-
-func get_bounding_box_of_path_area():
-	var lowest_x := INF
-	var lowest_y := INF
-	var highest_x := -INF
-	var highest_y := -INF
-	
-	for point in path_as_points:
-		if point.x < lowest_x: lowest_x = point.x
-		if point.y < lowest_y: lowest_y = point.y
-		if point.x > highest_x: highest_x = point.x
-		if point.y > highest_y: highest_y = point.y
-	
-	most_top_left_point = Vector2(lowest_x - shape_boundary_offset, lowest_y - shape_boundary_offset)
-	most_bottom_right_point = Vector2(highest_x + shape_boundary_offset, highest_y + shape_boundary_offset)

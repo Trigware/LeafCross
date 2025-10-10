@@ -20,7 +20,6 @@ script = ExtResource("1_m8svq")
 light_mask = 2
 texture = ExtResource("1_6b7ck")
 hframes = 7
-frame = 6
 
 [node name="Light" type="PointLight2D" parent="."]
 position = Vector2(1, 0)
@@ -30,10 +29,12 @@ texture = ExtResource("2_htf63")
 texture_scale = 0.5
 
 [node name="Collider" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_htf63")
 debug_color = Color(0.7, 0, 0, 0.419608)
 
 [node name="Static Body" type="StaticBody2D" parent="."]
+visible = false
 
 [node name="Collider" type="CollisionShape2D" parent="Static Body"]
 position = Vector2(0, 1)

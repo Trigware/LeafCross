@@ -32,16 +32,18 @@ const max_pink_mushroom_uses = 3
 
 const max_blast_damage = 30
 const max_blast_damage_distance = 45
+const scale_trigger_divident = 55.0
+const scale_light_divident = 120.0
 
 func _ready():
 	LeafMode.game_over_triggered.connect(on_game_over)
 	sprite.frame_coords.x = mushroom_type
 	light.color = get_light_color()
-	light.texture_scale = effect_radius / 120.0
+	light.texture_scale = effect_radius / scale_light_divident
 	fire.show()
 	if mushroom_type in mushrooms_without_staticbody: staticbody.queue_free()
 	else: fire.queue_free()
-	var scale_size = effect_radius / 40.0
+	var scale_size = effect_radius / scale_trigger_divident
 	trigger.scale = Vector2(scale_size, scale_size)
 	if mushroom_type in particle_mushrooms:
 		particles.set_image("Poison")

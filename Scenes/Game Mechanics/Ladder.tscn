@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://lqehqpo66fqi"]
+[gd_scene load_steps=11 format=3 uid="uid://lqehqpo66fqi"]
 
 [ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="1_rnlto"]
 [ext_resource type="Texture2D" uid="uid://df3ep2b47xsrd" path="res://Textures/Weird Forest/Ladder.png" id="1_yiaq8"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://bqe0fq1asycsi" path="res://Textures/Weird Forest/Lever Platform.png" id="3_jiycp"]
 [ext_resource type="PackedScene" uid="uid://bnl7cj1erxbia" path="res://Scenes/Game Mechanics/Lever.tscn" id="5_iy6jv"]
 [ext_resource type="PackedScene" uid="uid://btv3voq7lhk30" path="res://Scenes/Triggers/Ladder Climb Trigger.tscn" id="7_8cc27"]
-[ext_resource type="PackedScene" uid="uid://bjacsl26m51i6" path="res://Scenes/Game Mechanics/LadderLaser.tscn" id="7_vnwaw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rnlto"]
 size = Vector2(36, 10)
@@ -15,7 +14,7 @@ size = Vector2(36, 10)
 size = Vector2(49.6667, 137)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iy6jv"]
-size = Vector2(12.6667, 116.333)
+size = Vector2(13.3333, 116.333)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j0vf1"]
 size = Vector2(50, 5.833)
@@ -70,7 +69,6 @@ scale = Vector2(0.75, 0.75)
 lever_color = Color(0.7, 0, 0, 1)
 
 [node name="Static Body" type="StaticBody2D" parent="."]
-visible = false
 collision_layer = 16
 
 [node name="Left" type="CollisionShape2D" parent="Static Body"]
@@ -78,7 +76,7 @@ position = Vector2(-18.3333, 5.16667)
 shape = SubResource("RectangleShape2D_iy6jv")
 
 [node name="Left2" type="CollisionShape2D" parent="Static Body"]
-position = Vector2(18, 4.66667)
+position = Vector2(18.6667, 4.66667)
 shape = SubResource("RectangleShape2D_iy6jv")
 
 [node name="Top" type="CollisionShape2D" parent="Static Body"]
@@ -95,8 +93,5 @@ is_bottom = true
 visible = false
 position = Vector2(0, -38)
 layer_trigger_area = NodePath("../Layered NPC/Layered Manager/Trigger Area")
-
-[node name="Ladder Laser" parent="." instance=ExtResource("7_vnwaw")]
-position = Vector2(0, -15)
 
 [editable path="Layered NPC"]

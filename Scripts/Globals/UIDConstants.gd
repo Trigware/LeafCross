@@ -82,6 +82,7 @@ const SCN_DANGEROUS_HEDGEHOG := preload("uid://bsmtuyb8rjvvk")
 const SCN_LEAF_MODE_TRIGGER := preload("uid://djw2th4ecscvn")
 const SCN_LADDER_LEVER_PUZZLE := preload("uid://lqehqpo66fqi")
 const SCN_LADDER_LASER := preload("uid://bjacsl26m51i6")
+const SCN_CATERPILLAR_LOG := preload("uid://bpf2rb8kw2dww")
 
 const SCN_LILYPAD_MECHANIC : Dictionary[Overworld.Room, PackedScene] = {
 	Overworld.Room.Weird_LilypadRoom: preload("uid://do8xa234u6nyw")

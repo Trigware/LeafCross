@@ -105,7 +105,8 @@ enum Room
 	Tester_LayeredNPC,
 	Tester_CharacterDialog,
 	Tester_DangerousHedgehog,
-	Tester_LeverPuzzle
+	Tester_LeverPuzzle,
+	Tester_DangerousCaterpillars
 }
 
 func get_room_enum(room: Room) -> String:

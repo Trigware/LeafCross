@@ -1,0 +1,72 @@
+[gd_resource type="SpriteFrames" load_steps=9 format=3 uid="uid://5ew2ggnqkaxq"]
+
+[ext_resource type="Texture2D" uid="uid://c11av05cfgua0" path="res://Spritesheets/CaterpillarHiddenEyes.png" id="1_lgun7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_17pl7"]
+atlas = ExtResource("1_lgun7")
+region = Rect2(0, 0, 20, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0qh0a"]
+atlas = ExtResource("1_lgun7")
+region = Rect2(20, 0, 20, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p0206"]
+atlas = ExtResource("1_lgun7")
+region = Rect2(40, 0, 20, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_87j8h"]
+atlas = ExtResource("1_lgun7")
+region = Rect2(60, 0, 20, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ikgk"]
+atlas = ExtResource("1_lgun7")
+region = Rect2(80, 0, 20, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uei7s"]
+atlas = ExtResource("1_lgun7")
+region = Rect2(100, 0, 20, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7rasx"]
+atlas = ExtResource("1_lgun7")
+region = Rect2(120, 0, 20, 5)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_17pl7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0qh0a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p0206")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_87j8h")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_5ikgk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uei7s")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_7rasx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_87j8h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p0206")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0qh0a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_17pl7")
+}],
+"loop": false,
+"name": &"default",
+"speed": 14.0
+}]

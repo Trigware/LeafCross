@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://cnt0saollycbh"]
+[gd_scene load_steps=16 format=4 uid="uid://cnt0saollycbh"]
 
 [ext_resource type="Script" uid="uid://dj3qdrjjlq6jw" path="res://Scripts/Overworld/BaseRoom.gd" id="1_wh75a"]
 [ext_resource type="TileSet" uid="uid://j4ql01hhxi04" path="res://TileSets/WeirdGround.tres" id="2_jkp0u"]
@@ -43,7 +43,12 @@ size = Vector2(45, 242)
 
 [sub_resource type="Resource" id="Resource_oe3ex"]
 script = ExtResource("10_oe3ex")
-lasers = Array[int]([0, 3, 1])
+lasers = Array[int]([3])
+metadata/_custom_type_script = "uid://beyd1c6w8j3pj"
+
+[sub_resource type="Resource" id="Resource_hd6ar"]
+script = ExtResource("10_oe3ex")
+lasers = Array[int]([0])
 metadata/_custom_type_script = "uid://beyd1c6w8j3pj"
 
 [node name="Lever Puzzle" type="Node2D"]
@@ -76,8 +81,7 @@ tile_set = ExtResource("4_mbe77")
 
 [node name="Room Trigger" parent="." instance=ExtResource("5_fkfs0")]
 position = Vector2(-100, 0)
-roomDestination = 1
-new_position = Vector2(528, 64)
+roomDestination = 11
 
 [node name="Trigger Shape" parent="Room Trigger" index="0"]
 position = Vector2(-59.5, 117)
@@ -99,16 +103,15 @@ roomDestination = 3
 [node name="Lever Puzzle Builder" parent="." node_paths=PackedStringArray("puzzle_door") instance=ExtResource("9_oe3ex")]
 position = Vector2(344, 0)
 puzzle_door = NodePath("../Puzzle Door")
+puzzle_syntax = "TR(Y);FB(R);TY"
 lever_configurations = Dictionary[int, bool]({
-0: false,
+0: true,
 1: false,
-3: false
-})
-nested_ladders = Dictionary[int, int]({
-0: 1
+3: true
 })
 lasers_on_ladders = Dictionary[int, ExtResource("10_oe3ex")]({
-0: SubResource("Resource_oe3ex")
+0: SubResource("Resource_oe3ex"),
+1: SubResource("Resource_hd6ar")
 })
 
 [node name="Max X" type="Marker2D" parent="Lever Puzzle Builder"]

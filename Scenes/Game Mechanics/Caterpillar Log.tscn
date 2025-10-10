@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpf2rb8kw2dww"]
+
+[ext_resource type="Texture2D" uid="uid://beyr1myd3bx6m" path="res://Spritesheets/Caterpillar Log.png" id="1_3uaaa"]
+[ext_resource type="SpriteFrames" uid="uid://5ew2ggnqkaxq" path="res://Spriteframes/CaterpillarHiddenEyes.tres" id="2_3uaaa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r1nnh"]
+size = Vector2(48, 78)
+
+[node name="Caterpillar Log" type="StaticBody2D"]
+scale = Vector2(1.5, 1.5)
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -1)
+shape = SubResource("RectangleShape2D_r1nnh")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+light_mask = 0
+texture = ExtResource("1_3uaaa")
+hframes = 4
+
+[node name="Eyes" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 25.3333)
+sprite_frames = ExtResource("2_3uaaa")
+frame = 10
+frame_progress = 1.0

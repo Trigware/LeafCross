@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://yo3v437wqb0i"]
+[gd_scene load_steps=21 format=4 uid="uid://yo3v437wqb0i"]
 
 [ext_resource type="Script" uid="uid://dj3qdrjjlq6jw" path="res://Scripts/Overworld/BaseRoom.gd" id="1_ygrwp"]
 [ext_resource type="TileSet" uid="uid://j4ql01hhxi04" path="res://TileSets/WeirdGround.tres" id="2_d8qwr"]
@@ -12,10 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://dgy6f0l0lxw8p" path="res://Textures/Weird Forest/Cemetary Gate.png" id="11_cnc6m"]
 [ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="12_201ci"]
 [ext_resource type="PackedScene" uid="uid://cmvsdcoe7bsn" path="res://Scenes/Triggers/Cutscene Trigger.tscn" id="12_d8qwr"]
-[ext_resource type="PackedScene" uid="uid://4e83j1w3ridu" path="res://Scenes/Areas/Leaves Area.tscn" id="13_201ci"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6hebs"]
-size = Vector2(202.81, 227)
+size = Vector2(202.81, 160)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qaufv"]
 radius = 35.0
@@ -37,9 +36,6 @@ size = Vector2(550, 275)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_201ci"]
 size = Vector2(555, 100)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wj3no"]
-size = Vector2(95, 673)
 
 [node name="Cemetary Gate" type="Node2D"]
 script = ExtResource("1_ygrwp")
@@ -75,7 +71,7 @@ new_position = Vector2(0, -736)
 x_player_dependent = true
 
 [node name="Trigger Shape" parent="Lilypad Trigger" index="0"]
-position = Vector2(-224.594, 332.5)
+position = Vector2(-224.594, 333)
 shape = SubResource("RectangleShape2D_6hebs")
 
 [node name="Obstruction" parent="Lilypad Trigger" index="1"]
@@ -168,13 +164,6 @@ position = Vector2(224, -1000)
 
 [node name="Street Lamp2" parent="Street Lamps" instance=ExtResource("9_81e3e")]
 position = Vector2(704, -1000)
-
-[node name="LeavesArea" parent="." instance=ExtResource("13_201ci")]
-position = Vector2(464, -552)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeavesArea"]
-position = Vector2(-0.5, -265.5)
-shape = SubResource("RectangleShape2D_wj3no")
 
 [editable path="Lilypad Trigger"]
 [editable path="Graveyard Trigger"]

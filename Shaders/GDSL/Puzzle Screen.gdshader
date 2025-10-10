@@ -11,9 +11,9 @@ void vertex() {
 }
 
 void fragment() {
-	
+
 	float center_frame_point = 1.0 - half_frame_dist - used_progress / 2.0;
-	
+
 	if (UV.x < center_frame_point - half_frame_dist ||
 		UV.x > center_frame_point + half_frame_dist ||
 		UV.y < center_frame_point - half_frame_dist ||

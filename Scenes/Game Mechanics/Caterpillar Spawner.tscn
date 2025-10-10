@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bndwl3yo3io5c"]
+
+[ext_resource type="Script" uid="uid://djfqhu5qoi217" path="res://Scripts/Overworld/CaterpillarSpawner.gd" id="1_3ibo2"]
+
+[node name="Caterpillar Spawner" type="Node2D"]
+script = ExtResource("1_3ibo2")
+line_closed = false
+leaf_mode_trigger = false
