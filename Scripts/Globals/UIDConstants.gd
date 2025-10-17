@@ -83,6 +83,7 @@ const SCN_LEAF_MODE_TRIGGER := preload("uid://djw2th4ecscvn")
 const SCN_LADDER_LEVER_PUZZLE := preload("uid://lqehqpo66fqi")
 const SCN_LADDER_LASER := preload("uid://bjacsl26m51i6")
 const SCN_CATERPILLAR_LOG := preload("uid://bpf2rb8kw2dww")
+const SCN_CATERPILLAR_COMPONENT := preload("uid://dbkm7rb6hanow")
 
 const SCN_LILYPAD_MECHANIC : Dictionary[Overworld.Room, PackedScene] = {
 	Overworld.Room.Weird_LilypadRoom: preload("uid://do8xa234u6nyw")
@@ -142,6 +143,9 @@ const SPF_MOVING_NPCS : Dictionary[Enum.AgentVariation, SpriteFrames] = {
 	Enum.AgentVariation.ess: preload("uid://ceaxybl7jl2jp"),
 	Enum.AgentVariation.Hedgehog: preload("uid://ccn6oxr6p8s5q")
 }
+
+const SPF_LADDER_LASER := preload("uid://clm6odi53nexe")
+const SPF_NEGATED_LASER := preload("uid://cgo3fevfc7naw")
 
 const CLD_PLAYER := preload("uid://bj0u242dgcot1")
 

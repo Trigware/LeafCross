@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bsmtuyb8rjvvk"]
+
+[ext_resource type="SpriteFrames" uid="uid://ccn6oxr6p8s5q" path="res://Spriteframes/DangerousHedgehog.tres" id="1_rryv7"]
+[ext_resource type="Script" uid="uid://bkkstqmy4dlwp" path="res://Scripts/Globals/DangerousHedgehog.gd" id="1_v4xvg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v4xvg"]
+size = Vector2(20, 25)
+
+[node name="Dangerous Hedgehog" type="Area2D"]
+script = ExtResource("1_v4xvg")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("1_rryv7")
+animation = &"walk_down"
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+scale = Vector2(1.6, 1.6)
+shape = SubResource("RectangleShape2D_v4xvg")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="Sprite" to="." method="_on_hedgehog_animation_finished"]

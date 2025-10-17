@@ -16,4 +16,4 @@ func _ready():
 
 func on_body_entering_fire(body: Node2D) -> void:
 	if not body.is_in_group("Player") or not burning_effect: return
-	Effects.activate(Effects.ID.Burning, 5, true)
+	Effects.activate(Effects.ID.Burning, 6)

@@ -201,6 +201,7 @@ func post_river_fail(marker):
 	Overlay.hide_scene(1)
 	await Overlay.finished
 	
+	Player.animNode.show()
 	Player.node.global_position = marker.global_position
 	var walkable_lilypads_node = Overworld.activeRoom.get_node("Walkable Lilypads")
 	walkable_lilypads_node.queue_free()
@@ -217,7 +218,6 @@ func post_river_fail(marker):
 	LeafMode.restore_all_stamina()
 	
 	Player.node.stringAnimation = "Down"
-	Player.node.update_walk_animation_frame()
 	Player.tween_leaf_alpha(1)
 	await get_tree().create_timer(0.05).timeout
 	Player.is_sinking = false

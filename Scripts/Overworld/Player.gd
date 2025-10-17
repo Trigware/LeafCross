@@ -55,7 +55,7 @@ func _process(delta):
 
 func handle_motion_actions():
 	basic_direction = Vector2.ZERO
-	if not Player.visible or TextSystem.lockAction or CutsceneManager.action_lock or LeafMode.game_over or SaveMenu.menu_openned or Player.inputless_movement:
+	if not Player.visible or TextSystem.lockAction or CutsceneManager.action_lock or LeafMode.game_over or SaveMenu.menu_openned or Player.inputless_movement or Player.sitting_on_caterpillar_component_index >= 0:
 		return MovementMode.STILL
 	direction = Vector2.ZERO
 	
@@ -84,11 +84,13 @@ func handle_motion_actions():
 	
 	previous_position = position
 	latest_speed = speedMultiplier * Player.player_speed
+	if Player.in_water: latest_speed *= shallow_water_multiplier
 	take_step(direction, latest_speed)
 	if direction == Vector2.ZERO or previous_position == position: return MovementMode.STILL
 	return movementMode
 
 const wall_detection_threshold = -0.5
+const shallow_water_multiplier = 0.7
 
 func take_step(dir, speed):
 	direction = dir
@@ -103,7 +105,8 @@ func take_step(dir, speed):
 	return false
 
 func update_animations():
-	Player.update_animation(get_animation_name())
+	var animation_name = get_animation_name()
+	Player.update_animation(animation_name)
 	if velocity == Vector2.ZERO:
 		animationNode.stop()
 		return

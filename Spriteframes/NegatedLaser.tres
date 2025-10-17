@@ -1,0 +1,44 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://cgo3fevfc7naw"]
+
+[ext_resource type="Texture2D" uid="uid://rx7fu3lo7ibk" path="res://Spritesheets/Laser Negated.png" id="1_isrk6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hmly0"]
+atlas = ExtResource("1_isrk6")
+region = Rect2(138, 0, 46, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6xbv0"]
+atlas = ExtResource("1_isrk6")
+region = Rect2(0, 0, 46, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_md3nq"]
+atlas = ExtResource("1_isrk6")
+region = Rect2(46, 0, 46, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_70xlf"]
+atlas = ExtResource("1_isrk6")
+region = Rect2(92, 0, 46, 13)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hmly0")
+}],
+"loop": false,
+"name": &"off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6xbv0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_md3nq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70xlf")
+}],
+"loop": true,
+"name": &"on",
+"speed": 8.0
+}]

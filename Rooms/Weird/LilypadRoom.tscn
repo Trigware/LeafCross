@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://djw2th4ecscvn" path="res://Scenes/Triggers/Leaf Mode Trigger.tscn" id="7_a5g8n"]
 [ext_resource type="PackedScene" uid="uid://c01w1divptedy" path="res://Scenes/Areas/Audio Area.tscn" id="8_kq6n7"]
 [ext_resource type="AudioStream" uid="uid://b11o6u8lh7tj3" path="res://Audio/SFX/Water/River Water.mp3" id="9_nglus"]
-[ext_resource type="PackedScene" uid="uid://ulgpxw30vyvb" path="res://Scenes/Game Mechanics/Lilypad Mechanic/River.tscn" id="10_6c5ab"]
+[ext_resource type="PackedScene" uid="uid://ulgpxw30vyvb" path="res://Scenes/Game Mechanics/Lilypad Mechanic/River Manager.tscn" id="10_6c5ab"]
 [ext_resource type="PackedScene" uid="uid://dui2es0gsdo51" path="res://Scenes/NPC Derivation/Fallen Tree.tscn" id="11_12cyh"]
 [ext_resource type="PackedScene" uid="uid://6hq01nojje0y" path="res://Scenes/NPC Derivation/NPC.tscn" id="12_3i1th"]
 [ext_resource type="Texture2D" uid="uid://d2bfqx05xqdnb" path="res://Textures/Weird Forest/Small Branch.png" id="13_tfsiv"]
@@ -224,9 +224,9 @@ position = Vector2(618, -564)
 position = Vector2(410, -723)
 
 [node name="Dangerous Mushroom" parent="." instance=ExtResource("17_dtm8u")]
-position = Vector2(576, 587)
+position = Vector2(567, 596)
 mushroom_type = 4
-effect_radius = 50.0
+effect_radius = 75.0
 
 [node name="Big Branch" parent="." instance=ExtResource("12_3i1th")]
 position = Vector2(915, 915)
@@ -248,7 +248,7 @@ position = Vector2(-6.49084, 3.70911)
 shape = null
 
 [node name="Used Collider" type="CollisionPolygon2D" parent="Big Branch/Static Body" index="1"]
-polygon = PackedVector2Array(-18.5455, 599.021, -74.1821, 435.821, -72.3276, 341.238, -35.2365, 318.984, -85.3096, 207.71, -70.4731, 129.819, -94.5824, 63.0549, -92.7278, -25.9637, -107.564, -102, -94.5824, -170.619, -66.764, -222.547, -102.001, -272.62, -92.7278, -344.947, -64.9095, -346.802, -42.6548, -413.566, -89.0187, -402.438, -107.564, -448.802, -77.8914, -502.584, -57.4912, -561.93, -7.41821, -600.876, 74.1821, -580.476, 107.564, 550.803)
+polygon = PackedVector2Array(-18.5433, 639.822, -74.1821, 435.821, -72.3276, 341.238, -35.2365, 318.984, -85.3096, 207.71, -70.4731, 129.819, -94.5824, 63.0549, -92.7278, -25.9637, -107.564, -102, -94.5824, -170.619, -66.764, -222.547, -102.001, -272.62, -92.7278, -344.947, -64.9095, -346.802, -42.6548, -413.566, -89.0187, -402.438, -107.564, -448.802, -77.8914, -502.584, -57.4912, -561.93, -7.41821, -600.876, 74.1821, -580.476, 87.1663, 630.548)
 
 [node name="Trigger Zone" parent="Big Branch" index="3"]
 position = Vector2(-0.588226, 1.02939)

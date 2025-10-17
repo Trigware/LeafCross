@@ -26,6 +26,7 @@ func sink_underwater():
 	
 	player_river_damage()
 	await sink_tween(1, 1.5)
+	Player.animNode.hide()
 	LeafMode.post_river_fail(river_fail_point)
 
 func player_river_damage():

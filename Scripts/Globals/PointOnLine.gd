@@ -8,6 +8,7 @@ var path_circumference : float
 var latest_added_point : Vector2
 var path_as_points : Array[Vector2] = []
 var point_distance_from_start_list : Array[float]
+var movement_direction : Vector2
 
 func normalize_line():
 	var path_point_count = walking_path.points.size()
@@ -94,3 +95,41 @@ func initialize_line():
 	normalize_line()
 	get_point_distances_from_start()
 	add_leaf_mode_trigger()
+
+const final_closed_line_point = 0.99999
+
+func get_point_on_line(progress) -> Vector2:
+	progress = normalize_progress(progress)
+	var desired_distance_since_start = get_traveled_distance(progress)
+	var line_segment_start_index = 0
+	
+	for i in range(point_distance_from_start_list.size()):
+		var distance_since_start = point_distance_from_start_list[i]
+		if distance_since_start > desired_distance_since_start:
+			line_segment_start_index = i
+			break
+	var line_segment_end_index = (line_segment_start_index + 1) % path_as_points.size()
+	
+	var start_distance = 0.0
+	if line_segment_start_index > 0: start_distance = point_distance_from_start_list[line_segment_start_index - 1]
+	var end_distance = point_distance_from_start_list[line_segment_start_index]
+
+	var local_t = (desired_distance_since_start - start_distance) / (end_distance - start_distance)
+	
+	var line_segment_start_point = path_as_points[line_segment_start_index]
+	var line_segment_end_point = path_as_points[line_segment_end_index]
+	
+	var resulting_point = lerp(line_segment_start_point, line_segment_end_point, local_t)
+	movement_direction = (line_segment_end_point - line_segment_start_point).normalized()
+	return resulting_point
+
+func get_traveled_distance(progress):
+	progress = normalize_progress(progress)
+	return path_circumference * progress
+
+func normalize_progress(progress):
+	if not line_closed:
+		if progress > 1: return final_closed_line_point
+		if progress < 0: return 0
+	else: return fmod(progress, 1)
+	return progress

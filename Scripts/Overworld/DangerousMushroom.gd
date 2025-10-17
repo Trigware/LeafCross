@@ -80,7 +80,7 @@ func mushroom_damage_behaviour():
 			during_cooldown = false
 		MushroomType.GREEN: Effects.activate(Effects.ID.Poison, 5)
 		MushroomType.BROWN: brown_mushroom_behavior()
-		MushroomType.BLACK: Effects.activate(Effects.ID.Blindness, 15)
+		MushroomType.BLACK: Effects.activate(Effects.ID.Blindness, 7)
 		MushroomType.PINK: pink_mushroom_behavior()
 		MushroomType.YELLOW: yellow_mushroom_behavior()
 

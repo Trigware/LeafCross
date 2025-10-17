@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbkm7rb6hanow"]
+
+[ext_resource type="Script" uid="uid://ba1a0mtbe3yqn" path="res://Scripts/Overworld/CaterpillarComponent.gd" id="1_14ohr"]
+[ext_resource type="Texture2D" uid="uid://bauqfsl4wa7ju" path="res://Spritesheets/Housí Spritesheet.png" id="1_pk8dk"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_14ohr"]
+radius = 13.5
+height = 31.6667
+
+[node name="Caterpillar Component" type="Area2D"]
+scale = Vector2(1.2, 1.2)
+script = ExtResource("1_14ohr")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_pk8dk")
+hframes = 2
+vframes = 4
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0.833333, 5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_14ohr")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -6,7 +6,7 @@
 [ext_resource type="TileSet" uid="uid://btchb3jks74uf" path="res://TileSets/WeirdRiver.tres" id="3_vcy40"]
 [ext_resource type="TileSet" uid="uid://b6j4xcs3tqgoq" path="res://TileSets/WeirdEnvironment.tres" id="4_2u8rd"]
 [ext_resource type="PackedScene" uid="uid://c01w1divptedy" path="res://Scenes/Areas/Audio Area.tscn" id="5_bq8vu"]
-[ext_resource type="PackedScene" uid="uid://ulgpxw30vyvb" path="res://Scenes/Game Mechanics/Lilypad Mechanic/River.tscn" id="6_bq8vu"]
+[ext_resource type="PackedScene" uid="uid://ulgpxw30vyvb" path="res://Scenes/Game Mechanics/Lilypad Mechanic/River Manager.tscn" id="6_bq8vu"]
 [ext_resource type="PackedScene" uid="uid://djw2th4ecscvn" path="res://Scenes/Triggers/Leaf Mode Trigger.tscn" id="9_m4vmw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vcy40"]

@@ -171,7 +171,7 @@ BibleInteractPrompt_SAVEINTROROOM__outofinteract	...{p} there's a something that
 BibleInteractPrompt_SAVEINTROROOM__Save_Refused	Maybe you should try to {#holy_yellow}pray to the book{#/} before you continue.	Možná by jsi se měl {#holy_yellow}pomodlit k té knize{#/}, než budeš dál pokračovat.
 DetailedTree_SAVEINTROROOM__only	There's something hiding in the tree...{p} unfortunetly you can't tell what.	Něco se skrývá v tomto stromě...{p} ale bohužel nedokážeš zjisit co to je.
 OverworldSaving_GameSavedConfirm	GAME WAS SUCCESSFULLY SAVED!	HRA BYLA ÚSPĚŠNĚ ULOŽENA!
-Cutscene_Nixie_Introductory_TreeSaveDialog	Very interesting.{1} It looks like you used the book!	Velmi zajímavé.{1} Vypadá to, že jsi už využil tu knihu!
+Cutscene_Nixie_Introductory_TreeSaveDialog	Very interesting.{1} It looks like you used the book!	Velmi zajímavé.{1} Vypadá to, že jsi ji použil!
 AttackMessage_MISS	0	0
 Cutscene_Character_Dialog_Tester__root	Named colors, escape seq bracket {#purple}\{\}{#/}! Next Silent characters	Named colors, escape seq bracket {#purple}\{\}{#/}!
 Cutscene_Character_Dialog_Tester__root#2	.... ... ,,,, ,,, !!! ?????	.... ... ,,,, ,,, !!! ?????

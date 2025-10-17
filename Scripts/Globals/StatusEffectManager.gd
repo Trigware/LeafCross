@@ -11,19 +11,21 @@ var effect_durations : Dictionary[ID, float] = {}
 var processed_effects : Dictionary[ID, float] = {}
 var sorted_effects : Array[ID] = []
 
+const blidness_color_component := 90
+
 signal order_all_effects
 
 func _ready():
 	order_all_effects.connect(order_effects)
 
-func activate(effect: ID, duration, stackable_time = false):
+func activate(effect: ID, duration):
 	var previous_duration = effect_durations.get(effect, 0)
 	var effect_instance = UID.SCN_STATUS_EFFECT.instantiate()
 	effect_instance.effect = effect
 	var new_duration = previous_duration + duration
 	if previous_duration == 0 and new_duration > 0:
 		add_child(effect_instance)
-	elif not stackable_time: return
+	else: return
 	effect_durations[effect] = new_duration
 	emit_signal("order_all_effects")
 	if not effect in processed_effects:
@@ -95,7 +97,8 @@ func blindness_end():
 func blindness_tween(final): create_tween().tween_property(LeafMode, "light_multiplier", final, 1).set_ease(Tween.EASE_IN_OUT)
 
 func get_effect_colors(effect: ID):
-	var blidness_color = Color("555555")
+	var blidness_component_float = blidness_color_component / 255.0
+	var blidness_color = Color(blidness_component_float, blidness_component_float, blidness_component_float)
 	
 	if effect_ongoing(ID.Blindness): return blidness_color
 	var color = Overworld.base_light_color

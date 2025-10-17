@@ -1,48 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://bjacsl26m51i6"]
+[gd_scene load_steps=4 format=3 uid="uid://bjacsl26m51i6"]
 
 [ext_resource type="Script" uid="uid://cc2liy7ulgadr" path="res://Scripts/Overworld/LadderLaser.gd" id="1_a8sh0"]
-[ext_resource type="Texture2D" uid="uid://bc4laubusa2ox" path="res://Spritesheets/Laser.png" id="1_xmwg6"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_de5hy"]
-atlas = ExtResource("1_xmwg6")
-region = Rect2(138, 0, 46, 13)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_a8sh0"]
-atlas = ExtResource("1_xmwg6")
-region = Rect2(0, 0, 46, 13)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jc2jt"]
-atlas = ExtResource("1_xmwg6")
-region = Rect2(46, 0, 46, 13)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7lakb"]
-atlas = ExtResource("1_xmwg6")
-region = Rect2(92, 0, 46, 13)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_de5hy"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_de5hy")
-}],
-"loop": false,
-"name": &"off",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_a8sh0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jc2jt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7lakb")
-}],
-"loop": true,
-"name": &"on",
-"speed": 8.0
-}]
+[ext_resource type="SpriteFrames" uid="uid://cgo3fevfc7naw" path="res://Spriteframes/NegatedLaser.tres" id="2_a8sh0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a8sh0"]
 size = Vector2(31, 12)
@@ -51,8 +10,8 @@ size = Vector2(31, 12)
 script = ExtResource("1_a8sh0")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_de5hy")
-animation = &"off"
+sprite_frames = ExtResource("2_a8sh0")
+animation = &"on"
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 0)

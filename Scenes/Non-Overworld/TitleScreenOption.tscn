@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://5god02voe5ku" path="res://Textures/Title Screen/Tree Option.png" id="1_ratwj"]
 [ext_resource type="Script" uid="uid://irawggertgrc" path="res://Scripts/Title Screen/SingularOption.gd" id="1_ytdtg"]
-[ext_resource type="FontFile" uid="uid://dtieujefikmhs" path="res://Fonts/Undertale Font.ttf" id="2_ytdtg"]
 [ext_resource type="LabelSettings" uid="uid://my8rqlfwkpgd" path="res://Label Settings/OutlinedText.tres" id="3_xtpa2"]
+[ext_resource type="FontFile" uid="uid://dil43sbwcg2uc" path="res://Fonts/Leafcross Font.png" id="3_ytdtg"]
 
 [node name="Option" type="Node2D"]
 z_index = -1
@@ -18,7 +18,7 @@ offset_top = -6.0
 offset_right = 191.0
 offset_bottom = 46.0
 scale = Vector2(0.275, 0.275)
-theme_override_fonts/font = ExtResource("2_ytdtg")
+theme_override_fonts/font = ExtResource("3_ytdtg")
 text = "Option"
 label_settings = ExtResource("3_xtpa2")
 horizontal_alignment = 1

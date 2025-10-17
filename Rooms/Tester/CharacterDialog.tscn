@@ -38,5 +38,5 @@ shape = SubResource("RectangleShape2D_ufqv2")
 position = Vector2(201, 0)
 scale = Vector2(1, 1)
 agent_type = 3
-agent_variation = 4
+agent_variation = 5
 on_ready_animation = "walk_left"

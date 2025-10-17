@@ -33,6 +33,9 @@ var sinked_times = 0
 var whilst_showing_room = false
 var climbing_ladder := false
 var climbing_ladder_index := -1
+var sitting_on_caterpillar_component_index := -1
+var sitting_on_caterpillar_index := -1
+var disallowed_caterpillars : Array[int] = []
 
 var lilypad_overlaps = 0
 var previous_camera_pos = Vector2.ZERO
@@ -78,9 +81,10 @@ func get_body_pos() -> Vector2:
 func get_newest_dir():
 	return node.basic_direction
 
-func update_animation(anim_name):
+func update_animation(anim_name, frame = null):
 	if can_update_anim(anim_name): return
 	node.animationNode.animation = anim_name
+	if frame is int: node.animationNode.frame = frame
 
 func play_animation(anim_name):
 	if can_update_anim(anim_name): return
@@ -138,7 +142,8 @@ func move_camera_by(x, y, duration := 1.0):
 func get_fast_movement_speed():
 	var staminaPercentage = float(Player.stamina) / Player.maxStamina
 	if not LeafMode.enabled(): staminaPercentage = normal_move_fast_multiplier_default
-	return 1 + fast_movement * staminaPercentage
+	var resulting_speed = 1 + fast_movement * staminaPercentage
+	return resulting_speed
 
 func get_shader_material() -> ShaderMaterial:
 	var shader_mat = animNode.material

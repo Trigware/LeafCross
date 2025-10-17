@@ -1,0 +1,44 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://clm6odi53nexe"]
+
+[ext_resource type="Texture2D" uid="uid://bc4laubusa2ox" path="res://Spritesheets/Laser.png" id="1_elf2e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_de5hy"]
+atlas = ExtResource("1_elf2e")
+region = Rect2(138, 0, 46, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8sh0"]
+atlas = ExtResource("1_elf2e")
+region = Rect2(0, 0, 46, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jc2jt"]
+atlas = ExtResource("1_elf2e")
+region = Rect2(46, 0, 46, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7lakb"]
+atlas = ExtResource("1_elf2e")
+region = Rect2(92, 0, 46, 13)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_de5hy")
+}],
+"loop": false,
+"name": &"off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8sh0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jc2jt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7lakb")
+}],
+"loop": true,
+"name": &"on",
+"speed": 8.0
+}]

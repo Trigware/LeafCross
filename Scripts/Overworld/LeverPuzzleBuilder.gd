@@ -2,6 +2,7 @@ extends Node2D
 
 @export var puzzle_door: Node2D
 @export var puzzle_syntax := ""
+
 @export var lever_configurations: Dictionary[Enum.LeverColor, bool]
 @export var nested_ladders: Dictionary[Enum.LeverColor, Enum.LeverColor]
 @export var lasers_on_ladders : Dictionary[Enum.LeverColor, LeverPuzzleLasers]
@@ -19,6 +20,7 @@ var ground_level_levers : Array[Enum.LeverColor] = []
 func _ready():
 	parse_puzzle_syntax()
 	construct_ladders()
+	print(get_ladder_puzzle_code())
 
 const maximum_distance = 150
 const minimum_alpha_modulation = 0.5
@@ -107,17 +109,18 @@ func get_ladder_nesting_levels(color):
 const maximum_laser_y_pos = -22.5
 const laser_spacing = 15
 
-func add_lasers_to_ladder(ladder, color):
-	if not color in lasers_on_ladders: return
-	var lasers_resource = lasers_on_ladders[color]
+func add_lasers_to_ladder(ladder, lever_color):
+	if not lever_color in lasers_on_ladders: return
+	var lasers_resource = lasers_on_ladders[lever_color]
 	if lasers_resource == null:
-		push_error("Lasers resource is missing for color " + Enum.get_lever_color_as_name(color) + "!")
+		push_error("Lasers resource is missing for color " + Enum.get_lever_color_as_name(lever_color) + "!")
 		return
 	var ladder_lasers = lasers_resource.lasers
 	var laser_index = 0
 	for laser_color in ladder_lasers:
 		var laser_instance = UID.SCN_LADDER_LASER.instantiate()
 		laser_instance.laser_color = laser_color
+		laser_instance.negated_laser = laser_color in lasers_on_ladders[lever_color].negated_lasers
 		laser_instance.position.y = get_center_position(ladder_lasers.size(), maximum_laser_y_pos, laser_spacing, laser_index, "lasers", -maximum_laser_y_pos)
 		laser_list.append(laser_instance)
 		ladder.add_child(laser_instance)
@@ -157,9 +160,11 @@ func parse_lever():
 	
 	var lever_puzzle_lasers_resource = LeverPuzzleLasers.new()
 	while termination_symbol != ')':
-		var laser_color = get_color(latest_end_index + 1)
+		var laser_color = get_color(latest_end_index + 1, true)
 		if termination_symbol == "": break
-		if laser_color != -1: lever_puzzle_lasers_resource.lasers.append(laser_color)
+		if laser_color == -1: continue
+		lever_puzzle_lasers_resource.lasers.append(laser_color)
+		if latest_negated: lever_puzzle_lasers_resource.negated_lasers.append(laser_color)
 	lasers_on_ladders[lever_color] = lever_puzzle_lasers_resource
 	var parent_lever_color = get_color(latest_end_index + 1)
 	if parent_lever_color != -1: nested_ladders[lever_color] = parent_lever_color
@@ -167,8 +172,9 @@ func parse_lever():
 
 var latest_end_index: int
 var termination_symbol: String
+var latest_negated := false
 
-func get_color(start_index):
+func get_color(start_index, allow_negation = false):
 	var lever_color = ""
 	termination_symbol = ''
 	var i = start_index
@@ -180,4 +186,31 @@ func get_color(start_index):
 		lever_color += ch
 		i += 1
 	latest_end_index = i
+	var include_exclamation = lever_color.begins_with("!")
+	if allow_negation: latest_negated = include_exclamation
+	if latest_negated and allow_negation: lever_color = lever_color.substr(1)
 	return Enum.get_lever_color_from_str(lever_color)
+
+func get_ladder_puzzle_code():
+	var puzzle_code = ""
+	for i in range(lever_configurations.size()):
+		var color = lever_configurations.keys()[i]
+		var lever_state = lever_configurations[color]
+		puzzle_code += "T" if lever_state else "F"
+		puzzle_code += Enum.lever_colors_shortened[color]
+		var color_parent = ""
+		if color in nested_ladders: color_parent = Enum.lever_colors_shortened[nested_ladders[color]]
+		var lasers_list_str = ""
+		var lasers_resource = null if not color in lasers_on_ladders else lasers_on_ladders[color]
+		var lasers_list = [] if not color in lasers_on_ladders else lasers_resource.lasers
+		for j in range(lasers_list.size()):
+			var laser_color = lasers_list[j]
+			var laser_str = Enum.lever_colors_shortened[laser_color]
+			if laser_color in lasers_resource.negated_lasers: laser_str = "!" + laser_str
+			lasers_list_str += laser_str
+			if j < lasers_list.size() - 1: lasers_list_str += ","
+		if lasers_list_str != "" or color_parent != "":  lasers_list_str = "(" + lasers_list_str + ")"
+		puzzle_code += lasers_list_str
+		puzzle_code += color_parent
+		if i < lever_configurations.size() - 1: puzzle_code += ";"
+	return puzzle_code

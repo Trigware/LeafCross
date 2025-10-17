@@ -46,7 +46,6 @@ func _ready():
 		queue_free()
 		return
 	sprite.animation_changed.connect(on_animation_changed)
-	name = get_appropriate_name()
 	if agent_type == Enum.AgentType.PlayerAgent or agent_type == Enum.AgentType.FollowerAgent:
 		global_position = Player.get_body_pos()
 	if agent_type != Enum.AgentType.PlayerAgent: setup_moving_npc()
@@ -69,11 +68,6 @@ func setup_moving_npc():
 	if on_ready_animation != "": set_anim(on_ready_animation)
 	
 	if agent_type != Enum.AgentType.CutsceneAgent: set_walk_animation(Player.node.stringAnimation)
-
-func get_appropriate_name():
-	var agent_type_name = MovingNPC.get_agent_type_name(agent_type)
-	if agent_variation == Enum.AgentVariation.NoVariation: return agent_type_name
-	return MovingNPC.get_agent_variation_as_str(agent_variation) + " (" + agent_type_name + ")"
 
 func set_to_default_scale():
 	var default_both_axis_scale = 1

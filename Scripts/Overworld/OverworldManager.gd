@@ -41,6 +41,8 @@ func disable():
 func debug_room_load(room):
 	load_room(room, Vector2.ZERO, false, true)
 
+var latest_current_room := Room.ErrorHandlerer
+
 func load_room(room: Room, newPlayerPosition := Vector2.ZERO, autoload := false, debug_load := false):
 	var strRoom = get_room_enum(room)
 	var roomPath = "res://Rooms/" + strRoom + ".tscn"
@@ -54,6 +56,7 @@ func load_room(room: Room, newPlayerPosition := Vector2.ZERO, autoload := false,
 	if activeRoom != null:
 		activeRoom.queue_free()
 		await activeRoom.tree_exited
+	latest_current_room = currentRoom
 	currentRoom = room
 	
 	setup_loaded_room(roomPath, strRoom, room, newPlayerPosition, autoload)
@@ -79,6 +82,7 @@ func setup_loaded_room(roomPath, strRoom, room: Room, newPlayerPosition, autoloa
 	if autoload: BibleOverworld.attempt_to_load_bible()
 	await check_if_no_rooms_loaded()
 	MovingNPC.create_follower_agents()
+	if show_test_ladder_puzzles and room == Room.Tester_LeverPuzzle and latest_current_room == Room.Tester_LeverPuzzle: modify_puzzle_tester(activeRoom)
 	add_child(activeRoom)
 	time_since_room_load = 0
 	var roomMusic = activeRoom.roomMusic
@@ -120,3 +124,14 @@ func get_room_ingame_name(room):
 
 func trigger_blocked():
 	return time_since_room_load < 0.05
+
+const show_test_ladder_puzzles = true
+var puzzles_solved = 2
+
+var lever_puzzles_playtest := ["TR(Y);FB(R);TY", "FR(B)P;TB(G,P)O;TG(O)Y;TY(P);FP;TO(Y)", "FR(!B);TB(Y);FG(!O,Gr)B;TY;FP(Y,!Gr)Y;FO(R,B)P;FGr(Pi,!R);FW(O,!P,!G)Gr;TPi(P,B)"]
+
+func modify_puzzle_tester(roomNode):
+	var puzzle_builder = roomNode.get_node("Lever Puzzle Builder")
+	puzzle_builder.puzzle_syntax = lever_puzzles_playtest[puzzles_solved]
+	puzzles_solved += 1
+	if puzzles_solved > lever_puzzles_playtest.size(): puzzles_solved = 0

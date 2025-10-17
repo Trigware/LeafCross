@@ -1,9 +1,5 @@
-extends Area2D
+extends "res://Scripts/Globals/PointOnLine.gd"
 
-var path_as_points : Array[Vector2] = []
-var point_distance_from_start_list : Array[float]
-var path_circumference : float
-var movement_direction : Vector2
 var movement_progress = 0
 
 @onready var sprite = $Sprite
@@ -48,38 +44,10 @@ func setup_data(point_path, points_from_start, path_circum, base_speed, boost_sp
 
 func update_position(by):
 	movement_progress += by
-	if movement_progress > 1: movement_progress = movement_progress - 1
 	position = get_point_on_line(movement_progress)
 	sprite.play(MovingNPC.get_direction_as_string(movement_direction))
 	modulate = Color.WHITE.lerp(Color.DEEP_SKY_BLUE, boosted_speed)
 	sprite.speed_scale = 1 + boosted_speed
-
-func get_point_on_line(progress) -> Vector2:
-	if progress < 0 or progress > 1:
-		push_error("The progress parameter must be between the range of 0 to 1!")
-		return Vector2.ZERO
-	var desired_distance_since_start = path_circumference * progress
-	var line_segment_start_index = 0
-	
-	for i in range(point_distance_from_start_list.size()):
-		var distance_since_start = point_distance_from_start_list[i]
-		if distance_since_start > desired_distance_since_start:
-			line_segment_start_index = i
-			break
-	var line_segment_end_index = (line_segment_start_index + 1) % path_as_points.size()
-	
-	var start_distance = 0.0
-	if line_segment_start_index > 0: start_distance = point_distance_from_start_list[line_segment_start_index - 1]
-	var end_distance = point_distance_from_start_list[line_segment_start_index]
-
-	var local_t = (desired_distance_since_start - start_distance) / (end_distance - start_distance)
-	
-	var line_segment_start_point = path_as_points[line_segment_start_index]
-	var line_segment_end_point = path_as_points[line_segment_end_index]
-	
-	var resulting_point = lerp(line_segment_start_point, line_segment_end_point, local_t)
-	movement_direction = (line_segment_end_point - line_segment_start_point).normalized()
-	return resulting_point
 
 func _on_body_entered(body):
 	if not body.is_in_group("Player"): return

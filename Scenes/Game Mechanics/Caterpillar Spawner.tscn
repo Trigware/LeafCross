@@ -6,3 +6,4 @@
 script = ExtResource("1_3ibo2")
 line_closed = false
 leaf_mode_trigger = false
+metadata/is_caterpillar_spawner = true

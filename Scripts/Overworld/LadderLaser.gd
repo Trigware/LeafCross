@@ -4,18 +4,20 @@ extends Area2D
 var laser_color: Enum.LeverColor
 var laser_active := false
 var lever_dict: Dictionary
+var negated_laser := false
 
 func _ready():
-	sprite.play()
 	sprite.modulate = Enum.lever_colors[laser_color]
 
 func handle_pulling_of_lever():
 	var turned_on_laser_v = turned_on_laser()
+	sprite.sprite_frames = UID.SPF_NEGATED_LASER if negated_laser else UID.SPF_LADDER_LASER
 	sprite.play("on" if turned_on_laser_v else "off")
 
 func turned_on_laser():
 	var lever = lever_dict[laser_color]
 	laser_active = lever.lever_on
+	if negated_laser: laser_active = not laser_active
 	return laser_active
 
 const electricution_final_y_destination = 40

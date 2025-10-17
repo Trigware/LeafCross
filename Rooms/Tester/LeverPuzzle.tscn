@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://cnt0saollycbh"]
+[gd_scene load_steps=23 format=4 uid="uid://cnt0saollycbh"]
 
 [ext_resource type="Script" uid="uid://dj3qdrjjlq6jw" path="res://Scripts/Overworld/BaseRoom.gd" id="1_wh75a"]
 [ext_resource type="TileSet" uid="uid://j4ql01hhxi04" path="res://TileSets/WeirdGround.tres" id="2_jkp0u"]
@@ -43,12 +43,56 @@ size = Vector2(45, 242)
 
 [sub_resource type="Resource" id="Resource_oe3ex"]
 script = ExtResource("10_oe3ex")
+lasers = Array[int]([1])
+negated_lasers = Array[int]([1])
+metadata/_custom_type_script = "uid://beyd1c6w8j3pj"
+
+[sub_resource type="Resource" id="Resource_vq30e"]
+script = ExtResource("10_oe3ex")
 lasers = Array[int]([3])
+negated_lasers = Array[int]([])
 metadata/_custom_type_script = "uid://beyd1c6w8j3pj"
 
 [sub_resource type="Resource" id="Resource_hd6ar"]
 script = ExtResource("10_oe3ex")
-lasers = Array[int]([0])
+lasers = Array[int]([5, 6])
+negated_lasers = Array[int]([5])
+metadata/_custom_type_script = "uid://beyd1c6w8j3pj"
+
+[sub_resource type="Resource" id="Resource_khsf8"]
+script = ExtResource("10_oe3ex")
+lasers = Array[int]([])
+negated_lasers = Array[int]([])
+metadata/_custom_type_script = "uid://beyd1c6w8j3pj"
+
+[sub_resource type="Resource" id="Resource_n7pfj"]
+script = ExtResource("10_oe3ex")
+lasers = Array[int]([3, 6])
+negated_lasers = Array[int]([6])
+metadata/_custom_type_script = "uid://beyd1c6w8j3pj"
+
+[sub_resource type="Resource" id="Resource_1h778"]
+script = ExtResource("10_oe3ex")
+lasers = Array[int]([0, 1])
+negated_lasers = Array[int]([])
+metadata/_custom_type_script = "uid://beyd1c6w8j3pj"
+
+[sub_resource type="Resource" id="Resource_0tjup"]
+script = ExtResource("10_oe3ex")
+lasers = Array[int]([8, 0])
+negated_lasers = Array[int]([0])
+metadata/_custom_type_script = "uid://beyd1c6w8j3pj"
+
+[sub_resource type="Resource" id="Resource_sb23g"]
+script = ExtResource("10_oe3ex")
+lasers = Array[int]([5, 4, 2])
+negated_lasers = Array[int]([4, 2])
+metadata/_custom_type_script = "uid://beyd1c6w8j3pj"
+
+[sub_resource type="Resource" id="Resource_r87le"]
+script = ExtResource("10_oe3ex")
+lasers = Array[int]([4, 1])
+negated_lasers = Array[int]([])
 metadata/_custom_type_script = "uid://beyd1c6w8j3pj"
 
 [node name="Lever Puzzle" type="Node2D"]
@@ -98,20 +142,38 @@ tile_set = ExtResource("7_hjnjc")
 
 [node name="Puzzle Door" parent="." instance=ExtResource("9_hq7lu")]
 position = Vector2(74, -69)
-roomDestination = 3
+roomDestination = 10
 
 [node name="Lever Puzzle Builder" parent="." node_paths=PackedStringArray("puzzle_door") instance=ExtResource("9_oe3ex")]
 position = Vector2(344, 0)
 puzzle_door = NodePath("../Puzzle Door")
-puzzle_syntax = "TR(Y);FB(R);TY"
 lever_configurations = Dictionary[int, bool]({
-0: true,
-1: false,
-3: true
+0: false,
+1: true,
+2: false,
+3: true,
+4: false,
+5: false,
+6: false,
+7: false,
+8: true
+})
+nested_ladders = Dictionary[int, int]({
+2: 1,
+4: 3,
+5: 4,
+7: 6
 })
 lasers_on_ladders = Dictionary[int, ExtResource("10_oe3ex")]({
 0: SubResource("Resource_oe3ex"),
-1: SubResource("Resource_hd6ar")
+1: SubResource("Resource_vq30e"),
+2: SubResource("Resource_hd6ar"),
+3: SubResource("Resource_khsf8"),
+4: SubResource("Resource_n7pfj"),
+5: SubResource("Resource_1h778"),
+6: SubResource("Resource_0tjup"),
+7: SubResource("Resource_sb23g"),
+8: SubResource("Resource_r87le")
 })
 
 [node name="Max X" type="Marker2D" parent="Lever Puzzle Builder"]
