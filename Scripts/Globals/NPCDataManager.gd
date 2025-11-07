@@ -24,7 +24,8 @@ enum ID
 	BeehiveRegular_SAVEINTROROOM,
 	BlueBeehive_SAVEINTROROOM,
 	BibleInteractPrompt_SAVEINTROROOM,
-	DetailedTree_SAVEINTROROOM
+	DetailedTree_SAVEINTROROOM,
+	InfoTablet_LEVERPUZZLEROOM
 }
 
 enum Field

@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bnl7cj1erxbia"]
+[gd_scene load_steps=7 format=3 uid="uid://bnl7cj1erxbia"]
 
 [ext_resource type="Texture2D" uid="uid://cj58fshakq2dl" path="res://Textures/Other/Lever Base.png" id="1_4h0p4"]
 [ext_resource type="Script" uid="uid://dpg5ep5y22pp7" path="res://Scripts/Globals/Lever.gd" id="1_tav6c"]
 [ext_resource type="Texture2D" uid="uid://rcgwd4qc80l" path="res://Textures/Other/Lever Main.png" id="2_1c6s6"]
 [ext_resource type="Texture2D" uid="uid://b16boo1epba6e" path="res://Textures/Other/Lever Color.png" id="3_tav6c"]
+[ext_resource type="Texture2D" uid="uid://blsr5nbnovyn3" path="res://Textures/Other/Confirmation Notice.png" id="5_ulh0k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jepqj"]
 radius = 85.0
@@ -25,9 +26,19 @@ position = Vector2(0, 27)
 texture = ExtResource("3_tav6c")
 offset = Vector2(0, -24)
 
+[node name="Notice" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -1)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("5_ulh0k")
+
 [node name="Collider" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-0.5, 2.5)
 shape = SubResource("CircleShape2D_jepqj")
+
+[node name="Notice Point" type="Marker2D" parent="."]
+position = Vector2(0, 21)
 
 [connection signal="body_entered" from="." to="." method="entering_confirmation_notice_range"]
 [connection signal="body_exited" from="." to="." method="exiting_confirmation_notice_range"]

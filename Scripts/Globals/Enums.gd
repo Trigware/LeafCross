@@ -23,6 +23,7 @@ enum Chapter {
 }
 
 enum LeverColor {
+	None = -1,
 	Red,
 	Blue,
 	Green,

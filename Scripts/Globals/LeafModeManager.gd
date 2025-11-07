@@ -18,6 +18,7 @@ const screen_shake_offset = 12
 const screen_shake_duration = 0.15
 const invincibility_duration = 0.35
 const ui_tween_duration = 0.7
+const minimal_stamina_light_matter_point = 0.225
 
 var cannot_start_hp_tween = false
 var invincibility = false
@@ -31,7 +32,7 @@ var game_over = false
 signal game_over_triggered
 
 func _process(_delta):
-	var light_scale = clamp(float(Player.stamina)/Player.maxStamina + 0.65 * light_multiplier, 0.25, 1.5)
+	var light_scale = max(minimal_stamina_light_matter_point, Player.stamina / Player.maxStamina)
 	Player.light.texture_scale = light_scale
 
 func enabled():
@@ -60,8 +61,7 @@ func update_health(updateTo):
 	var labelText = Localization.get_text("character_max_stat")
 	if Player.playerHealth != Player.playerMaxHealth: labelText = str(floori(Player.playerHealth))
 	playerHealth.text = labelText
-	if updateTo <= 0:
-		trigger_game_over()
+	if updateTo <= 0: pass
 
 func change_health(by):
 	update_health(Player.playerHealth + by)
@@ -152,7 +152,7 @@ func modify_hp_with_id(id: HPChangeID):
 	var health_change = 0
 	match id:
 		HPChangeID.SinkUnderwater: health_change = randi_range(-30, -20)
-		HPChangeID.RedMushroom: health_change = randi_range(-16, -9)
+		HPChangeID.RedMushroom: health_change = -1000 #randi_range(-16, -9)
 		HPChangeID.PinkMushroom: health_change = randi_range(12, 18)
 		HPChangeID.Hedgehog: health_change = randi_range(-16, -10)
 	modify_hp_with_label(health_change)

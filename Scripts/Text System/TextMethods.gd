@@ -28,7 +28,7 @@ func fade_text(duration):
 	clear_text()
 
 func print_localization(text_key, variables = {}, preset := PresetSystem.Preset.Fallback):
-	PresetSystem.print_preset(Localization.get_text(text_key, variables), preset)
+	PresetSystem.print_preset(Localization.get_text(text_key, variables), preset, variables)
 
 func print_group(group: Array[String], variables = {}, preset := PresetSystem.Preset.Fallback):
 	for text in group:
@@ -61,6 +61,7 @@ func print_sequence(base_key, variables := {}, preset := PresetSystem.Preset.Fal
 	while true:
 		var sequence_finished = await print_textkey_in_sequence(variables, preset)
 		if sequence_finished: break
+	TextSystem.current_speaking_character = TextSystem.SpeakingCharacter.Narrator
 
 func repair_key():
 	if Localization.text_exists(get_sequence_key()): return
@@ -108,7 +109,6 @@ func handle_suffix_change():
 	if Localization.text_exists(get_indexed_key(sequence_base_key, sequence_current_suffix, "")):
 		next_text_invalid = false
 		first_key_remove_index = true
-	if next_text_invalid: push_error("Attempted to change to change to an invalid suffix '" + sequence_current_suffix + "'!")
 
 func add_suffix_to_key(base_key, suffix := ""):
 	if suffix == "": return base_key
@@ -129,3 +129,28 @@ func handle_random_suffix():
 	biggest_key_variation -= 1
 	var chosen_variation = randi_range(1, biggest_key_variation)
 	sequence_current_suffix += str(chosen_variation)
+
+var centered_labels : Dictionary[String, CanvasLayer] = {}
+const show_centered_label_y = 550
+const hide_centered_label_y = 700
+
+func create_centered_text(localization_text: String):
+	if localization_text in centered_labels: return
+	var text_label_instance = UID.SCN_CENTERED_TEXT.instantiate()
+	add_child(text_label_instance)
+	var centered_text_label = text_label_instance.get_node("Label")
+	centered_text_label.text = Localization.get_text(localization_text)
+	centered_text_label.position.y = hide_centered_label_y
+	var move_y_tween = create_tween().tween_property(centered_text_label, "position:y", show_centered_label_y, 1.0)
+	move_y_tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	centered_labels[localization_text] = text_label_instance
+
+func delete_centered_text(localization_text: String):
+	if not localization_text in centered_labels: return
+	var text_label_instance = centered_labels[localization_text]
+	var centered_text_label = text_label_instance.get_node("Label")
+	var move_y_tween = create_tween().tween_property(centered_text_label, "position:y", hide_centered_label_y, 1.0)
+	move_y_tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	await move_y_tween.finished
+	if is_instance_valid(text_label_instance): text_label_instance.queue_free()
+	centered_labels.erase(localization_text)

@@ -13,7 +13,9 @@ enum Cutscene
 	Legend,
 	CemetaryGate,
 	Nixie_Introductory,
-	Character_Dialog_Tester
+	Character_Dialog_Tester,
+	LeverPuzzle_Tutorial,
+	LeverPuzzle_Exclamation_Tutorial
 }
 
 signal cutscene_completed
@@ -69,7 +71,8 @@ func play_spawnroom_cutscene():
 	Audio.play_music("Weird Forest", 0.1)
 
 func play_cemetarygate_cutscene():
-	await Player.move_camera_to(465, -850)
+	var camera_destination_marker = cutscene_nodes["camera_dest"]
+	await Player.move_camera_with_marker(camera_destination_marker)
 	await wait(1)
 	await print_cutscene_sequence({}, PresetSystem.Preset.OverworldTreeTalk)
 	await Player.return_camera()
@@ -115,3 +118,105 @@ func play_character_dialog_tester_cutscene():
 func print_cutscene_sequence(variables := {}, preset := PresetSystem.Preset.RegularDialog):
 	var base_key = "Cutscene_" + CutsceneManager.latest_cutscene_name
 	await TextMethods.print_sequence(base_key, variables, preset, "root")
+
+func play_leverpuzzle_exclamation_tutorial_cutscene():
+	if Overworld.puzzles_solved != 2:
+		complete_cutscene()
+		return
+	var lever_puzzle = cutscene_nodes["lever_puzzle"]
+	var camera_destination_marker = cutscene_nodes["camera_dest"]
+	await Player.move_camera_with_marker(camera_destination_marker)
+	await wait(1)
+	await TextMethods.print_group(["Cutscene_LeverPuzzle_Tutorial#1", "Cutscene_LeverPuzzle_Tutorial#2"])
+	stop_flipping_lever = false
+	flip_lever_continuously(lever_puzzle, Enum.LeverColor.Red, false)
+	await TextMethods.print_wait_localization("Cutscene_LeverPuzzle_Tutorial#3")
+	stop_flipping_lever = true
+	await lever_puzzle.tween_all_lasers_and_levers(1, 0)
+	Audio.play_sound(UID.SFX_COLLAPSING_LADDERS_PUZZLE, 0, 5)
+	await lever_puzzle.tween_all_ladders_hide_progression(0, 1)
+	await TextMethods.print_wait_localization("Cutscene_LeverPuzzle_Tutorial#4")
+	lever_puzzle.puzzle_syntax = "FR(!B);TB(Y);FG(!O,Gr)B;TY;FP(Y,!Gr)Y;FO(R,B)P;FGr(Pi,!R);FW(O,!P,!G)Gr;TPi(P,B)"
+	lever_puzzle.construct_ladders()
+	lever_puzzle.set_all_lasers_and_ladders_alpha(0)
+	Audio.play_sound(UID.SFX_COLLAPSING_LADDERS_PUZZLE, 0, 5)
+	await lever_puzzle.tween_all_ladders_hide_progression(1, 0)
+	lever_puzzle.tween_all_lasers_and_levers(0, 1)
+	await Player.return_camera()
+	complete_cutscene()
+
+var stop_flipping_lever = false
+
+func flip_lever_continuously(lever_puzzle, lever_color, revert_back, intial_call = true):
+	var lever_to_be_flipped = lever_puzzle.lever_dict[lever_color]
+	if intial_call:
+		stop_flipping_lever = false
+		lever_state_before_toggling = lever_to_be_flipped.lever_on
+	var current_state_matches_at_start = lever_to_be_flipped.lever_on == lever_state_before_toggling
+	if stop_flipping_lever and (current_state_matches_at_start or not revert_back):
+		stop_flipping_lever = false
+		emit_signal("lever_flipping_stopped")
+		return
+	await lever_to_be_flipped.interact_with_lever(true)
+	var wait_duration = 1 if stop_flipping_lever else 2
+	await wait(wait_duration)
+	flip_lever_continuously(lever_puzzle, lever_color, revert_back, false)
+
+signal text_event_completed
+signal lever_flipping_stopped
+
+func complete_text_event():
+	if is_function_called_with_await: emit_signal("text_event_completed")
+
+var is_function_called_with_await := false
+
+func start_text_event(function: Function):
+	var called_function_name = "play_text_event_" + function.function_name.to_lower()
+	if not has_method(called_function_name):
+		push_error("Attempted to call a non-existent text event referred to as " + function.function_name + "!")
+		return
+	is_function_called_with_await = function.awaited_function_call
+	callv(called_function_name, function.arguments)
+	if is_function_called_with_await: await text_event_completed
+
+func play_text_event_wait(wait_time: float):
+	await wait(wait_time)
+	complete_text_event()
+
+func play_text_event_textvisibility(visibility_status: bool):
+	TextSystem.textNode.visible = visibility_status
+	TextSystem.textboxNode.visible = visibility_status
+	if visibility_status and TextSystem.current_speaking_character != TextSystem.SpeakingCharacter.Narrator: TextSystem.show_portrait()
+	else: TextSystem.hide_portrait()
+	complete_text_event()
+
+func play_text_event_move_camera(marker: Marker2D, duration := 1.0):
+	await Player.move_camera_with_marker(marker, duration)
+	complete_text_event()
+
+func play_text_event_return_camera(duration := 1.0):
+	await Player.return_camera(duration)
+	complete_text_event()
+
+func play_text_event_require_input():
+	TextSystem.show_wait_leaf()
+	await TextSystem.dialog_continue_key_pressed
+	complete_text_event()
+
+func play_text_event_auto():
+	TextSystem.emit_signal("want_next_text")
+	complete_text_event()
+
+var lever_color_to_continuously_toggle := Enum.LeverColor.None
+var lever_state_before_toggling := false
+
+func play_text_event_toggle_lever_continuously(lever_puzzle: Node2D):
+	lever_color_to_continuously_toggle = lever_puzzle.get_color_to_pull_randomly()
+	flip_lever_continuously(lever_puzzle, lever_color_to_continuously_toggle, true)
+
+func play_text_event_stop_toggling(): stop_flipping_lever = true
+func play_text_event_toggle_stopped():
+	while true:
+		await get_tree().process_frame
+		if stop_flipping_lever == false: break
+	complete_text_event()

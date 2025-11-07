@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://b1pi5imlp8ijw"]
+[gd_scene load_steps=23 format=4 uid="uid://b1pi5imlp8ijw"]
 
 [ext_resource type="Script" uid="uid://dj3qdrjjlq6jw" path="res://Scripts/Overworld/BaseRoom.gd" id="1_tn4ca"]
 [ext_resource type="PackedScene" uid="uid://6hq01nojje0y" path="res://Scenes/NPC Derivation/NPC.tscn" id="2_5i7oc"]
@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://c01w1divptedy" path="res://Scenes/Areas/Audio Area.tscn" id="10_kausp"]
 [ext_resource type="Texture2D" uid="uid://dobdv3gugmyvu" path="res://Textures/Weird Forest/Teleport Room Sign.png" id="11_kausp"]
 [ext_resource type="AudioStream" uid="uid://b11o6u8lh7tj3" path="res://Audio/SFX/Water/River Water.mp3" id="12_4pd27"]
-[ext_resource type="PackedScene" uid="uid://4e83j1w3ridu" path="res://Scenes/Areas/Leaves Area.tscn" id="13_f0a04"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5i7oc"]
 size = Vector2(55, 82)
@@ -43,12 +42,6 @@ size = Vector2(112, 450)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wonja"]
 size = Vector2(736, 96)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kdhvl"]
-size = Vector2(130, 34)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ogrig"]
-size = Vector2(109, 226)
 
 [node name="SpawnRoom Enterance" type="Node2D"]
 script = ExtResource("1_tn4ca")
@@ -89,6 +82,7 @@ tile_set = ExtResource("3_nax43")
 position = Vector2(-17, -120)
 scale = Vector2(1.25, 1.25)
 npcID = 6
+set_only_at_start = true
 
 [node name="Sprite" parent="Pedestal" index="0"]
 scale = Vector2(1.28125, 1.28125)
@@ -191,19 +185,6 @@ shape = SubResource("RectangleShape2D_f0a04")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="River Area"]
 position = Vector2(520, -192)
 shape = SubResource("RectangleShape2D_wonja")
-
-[node name="LeavesArea" parent="." instance=ExtResource("13_f0a04")]
-position = Vector2(176, 136)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeavesArea"]
-position = Vector2(79, -121)
-shape = SubResource("RectangleShape2D_kdhvl")
-debug_color = Color(0.164706, 0, 0.701961, 0.419608)
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="LeavesArea"]
-position = Vector2(1.5, 296)
-shape = SubResource("RectangleShape2D_ogrig")
-debug_color = Color(0.164706, 0, 0.701961, 0.419608)
 
 [editable path="Pedestal"]
 [editable path="Trigger Spawn"]

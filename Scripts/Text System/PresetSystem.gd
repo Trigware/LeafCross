@@ -108,7 +108,7 @@ func get_preset_property(preset: Preset, property: Property):
 	var preset_data = TextConfigurations[preset]
 	
 	match property:
-		Property.Speed: return preset_data.get(Property.Speed, 1.0/30)
+		Property.Speed: return preset_data.get(Property.Speed, 1.0/25)
 		Property.FontSize: return preset_data.get(Property.FontSize, 48)
 		Property.VectorPosition: return get_text_position(preset, preset_data)
 		Property.PositionX: return preset_data.get(Property.PositionX, 0)
@@ -129,7 +129,7 @@ func get_text_position(preset: Preset, preset_data):
 	if Property.VectorPosition in preset_data: return preset_data.get(Property.VectorPosition)
 	return Vector2(get_preset_property(preset, Property.PositionX), get_preset_property(preset, Property.PositionY))
 
-func print_preset(text, preset := Preset.Fallback):
+func print_preset(text, preset := Preset.Fallback, variables := {}):
 	if preset == Preset.Fallback:
 		preset = fallback
 	
@@ -148,5 +148,6 @@ func print_preset(text, preset := Preset.Fallback):
 		get_preset_property(preset, Property.Outline),
 		get_preset_property(preset, Property.InitialColor),
 		get_preset_property(preset, Property.EndAutomatically),
-		get_preset_property(preset, Property.EndExternally)
+		get_preset_property(preset, Property.EndExternally),
+		variables
 	)

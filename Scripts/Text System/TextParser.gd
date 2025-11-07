@@ -10,6 +10,8 @@ var contains_text_options : bool
 var after_choicer_text_error_pushed : bool
 var suffix_instruction_appeared := SuffixType.None
 var latest_suffix_instruction = ""
+var functions_called_during_text: Array[Function] = []
+var contains_non_wait_function := false
 
 func record_control_text(text: String) -> String:
 	setup_control_text_parsing()
@@ -49,7 +51,6 @@ func get_next_character(index, text):
 	return next_character
 
 func setup_control_text_parsing():
-	TextSystem.character_delays.clear()
 	TextSystem.character_colors.clear()
 	in_brackets = false
 	bracket_content = ""
@@ -59,12 +60,15 @@ func setup_control_text_parsing():
 	after_choicer_text_error_pushed = false
 	suffix_instruction_appeared = SuffixType.None
 	ChoicerSystem.choicer_options = {}
+	functions_called_during_text = []
+	contains_non_wait_function = false
 
 func parse_control_bracket_end():
 	in_brackets = false
 	
 	if bracket_content.is_valid_float():
-		TextSystem.character_delays.set(parsed_ch_index, float(bracket_content))
+		var wait_func = Function.ctor("wait", true, parsed_ch_index, [float(bracket_content)])
+		functions_called_during_text.append(wait_func)
 		return
 	
 	if bracket_content.begins_with("#"):
@@ -79,6 +83,8 @@ func parse_control_bracket_end():
 	if bracket_content.begins_with("|"):
 		parse_suffix_statement()
 		return
+	
+	if parse_function_call("!") or parse_function_call("await "): return
 	
 	var placeholder_variable = "{" + bracket_content + "}"
 	resulting_text += placeholder_variable
@@ -95,6 +101,60 @@ enum SuffixType {
 var analysed_part : String
 var argument_part : String
 
+func parse_function_call(prefix):
+	if not bracket_content.begins_with(prefix): return false
+	var content_with_no_prefix = bracket_content.substr(prefix.length())
+	var opening_parenthesis_index = content_with_no_prefix.find('(')
+	var closing_parethesis_index = content_with_no_prefix.find(')')
+	contains_non_wait_function = true
+	
+	var function_name = content_with_no_prefix.substr(0, opening_parenthesis_index)
+	var arguments_as_str = content_with_no_prefix.substr(opening_parenthesis_index+1, closing_parethesis_index-opening_parenthesis_index-1)
+	if opening_parenthesis_index == -1: arguments_as_str = ""
+	
+	current_func_args_list = []
+	current_parsed_argument_symbol = ""
+	is_current_arg_string = false
+	is_parsed_char_argument = false
+	is_latest_arg_string = false
+	
+	parse_function_arguments(arguments_as_str)
+	var current_function = Function.ctor(function_name, prefix != "!", parsed_ch_index, current_func_args_list)
+	functions_called_during_text.append(current_function)
+	return true
+
+var current_func_args_list := []
+var current_parsed_argument_symbol := ""
+var is_current_arg_string := false
+var is_parsed_char_argument := false
+var is_latest_arg_string := false
+
+func parse_function_arguments(str_arguments):
+	for ch in str_arguments:
+		if ch == ' ' and not is_parsed_char_argument and not is_current_arg_string: continue
+		if ch == ',' and not is_current_arg_string:
+			parse_fn_arg()
+			continue
+		if ch == '"':
+			is_latest_arg_string = true
+			is_current_arg_string = !is_current_arg_string
+			continue
+		current_parsed_argument_symbol += ch
+	parse_fn_arg()
+
+func parse_fn_arg():
+	if current_parsed_argument_symbol == "": return
+	var argument_value
+	if is_latest_arg_string: argument_value = current_parsed_argument_symbol
+	elif current_parsed_argument_symbol in ["true", "false"]: argument_value = current_parsed_argument_symbol == "true"
+	elif current_parsed_argument_symbol.is_valid_float(): argument_value = current_parsed_argument_symbol.to_float()
+	elif current_parsed_argument_symbol in TextSystem.linked_variables: argument_value = TextSystem.linked_variables[current_parsed_argument_symbol]
+	else: push_error("Unable to find a variable of name '" + current_parsed_argument_symbol + "'!")
+	
+	current_func_args_list.append(argument_value)
+	current_parsed_argument_symbol = ""
+	is_latest_arg_string = false
+
 func parse_suffix_statement():
 	suffix_instruction_appeared = SuffixType.Regular
 	argument_part = remove_instruction_char(bracket_content)
@@ -105,8 +165,9 @@ func parse_suffix_statement():
 
 func is_special_suffix(special_character):
 	var is_special = analysed_part == special_character + " "
+	if not is_special: return false
 	if is_special: latest_suffix_instruction = argument_part.substr(analysed_special_suffix_statement_character_count)
-	return is_special
+	return true
 
 func set_character_color(character_color):
 	if character_color == null: return

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://dpyfciejr4r6d"]
+[gd_scene load_steps=18 format=4 uid="uid://dpyfciejr4r6d"]
 
 [ext_resource type="Script" uid="uid://dj3qdrjjlq6jw" path="res://Scripts/Overworld/BaseRoom.gd" id="1_dfqyi"]
 [ext_resource type="TileSet" uid="uid://j4ql01hhxi04" path="res://TileSets/WeirdGround.tres" id="2_ml8k6"]
@@ -7,8 +7,9 @@
 [ext_resource type="TileSet" uid="uid://cha16hdgd7d58" path="res://TileSets/WeirdBushes.tres" id="4_ajfqq"]
 [ext_resource type="TileSet" uid="uid://c7onj6ie7n7k0" path="res://TileSets/WeirdTree.tres" id="4_o0g8f"]
 [ext_resource type="PackedScene" uid="uid://dqccob3n8f7rq" path="res://Scenes/NPC Derivation/Teleport Tree.tscn" id="8_6js3m"]
-[ext_resource type="PackedScene" uid="uid://4e83j1w3ridu" path="res://Scenes/Areas/Leaves Area.tscn" id="8_e40vd"]
+[ext_resource type="PackedScene" uid="uid://dwwrihbghedg3" path="res://Scenes/NPC Derivation/Layered NPC.tscn" id="9_24egn"]
 [ext_resource type="PackedScene" uid="uid://biyswys7vhg4i" path="res://Scenes/NPC Derivation/Campfire.tscn" id="9_e40vd"]
+[ext_resource type="Texture2D" uid="uid://c7irrcjc0bfvk" path="res://Textures/Weird Forest/chair.png" id="10_24egn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6nhpu"]
 size = Vector2(28, 142.5)
@@ -26,19 +27,10 @@ size = Vector2(1062, 20)
 size = Vector2(20, 304)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_24egn"]
-size = Vector2(103, 351)
+size = Vector2(90.6667, 54)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ctuw1"]
-size = Vector2(160, 40)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_28xms"]
-size = Vector2(190, 350)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pyy6k"]
-size = Vector2(96, 194)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gpep3"]
-size = Vector2(709, 65)
+size = Vector2(26.5, 31)
 
 [node name="TeleportRoom" type="Node2D"]
 script = ExtResource("1_dfqyi")
@@ -119,37 +111,64 @@ position = Vector2(-510, 150)
 [node name="Tree Root" parent="TeleportTree" index="0" node_paths=PackedStringArray("treeSprite")]
 treeSprite = NodePath("Tree Sprite")
 
-[node name="LeavesArea" parent="." instance=ExtResource("8_e40vd")]
-position = Vector2(-42, 329)
+[node name="Trigger Area" parent="TeleportTree/Tree Root" index="5"]
+visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeavesArea"]
-position = Vector2(26.5, -284.5)
-shape = SubResource("RectangleShape2D_24egn")
-debug_color = Color(0.164706, 0, 0.701961, 0.419608)
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="LeavesArea"]
-position = Vector2(219, 38)
-shape = SubResource("RectangleShape2D_ctuw1")
-debug_color = Color(0.164706, 0, 0.701961, 0.419608)
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="LeavesArea"]
-position = Vector2(-470, 38)
-shape = SubResource("RectangleShape2D_28xms")
-debug_color = Color(0.164706, 0, 0.701961, 0.419608)
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="LeavesArea"]
-position = Vector2(-327, 118)
-shape = SubResource("RectangleShape2D_pyy6k")
-debug_color = Color(0.164706, 0, 0.701961, 0.419608)
-
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="LeavesArea"]
-position = Vector2(75.5, 182.5)
-shape = SubResource("RectangleShape2D_gpep3")
-debug_color = Color(0.164706, 0, 0.701961, 0.419608)
+[node name="Trigger Zone" parent="TeleportTree/NPC Root" index="3"]
+visible = false
 
 [node name="Campfire" parent="." instance=ExtResource("9_e40vd")]
 position = Vector2(-95, 358)
 
+[node name="Collision Shape" parent="Campfire/Fire" index="1"]
+visible = false
+
+[node name="Trigger Area" parent="Campfire/Fire/Sprite/Layered Manager" index="0"]
+visible = false
+
+[node name="Static Body" parent="Campfire/Layered NPC/Layered Manager" index="0"]
+visible = false
+
+[node name="Trigger Area" parent="Campfire/Layered NPC/Layered Manager" index="1"]
+visible = false
+
+[node name="Trigger Zone" parent="Campfire/Layered NPC" index="1"]
+visible = false
+position = Vector2(0, 13.6667)
+shape = SubResource("RectangleShape2D_24egn")
+
+[node name="Wooden Chair" parent="." instance=ExtResource("9_24egn")]
+position = Vector2(7, 371)
+scale = Vector2(2, 2)
+npcID = 17
+
+[node name="Layered Manager" parent="Wooden Chair" index="0" node_paths=PackedStringArray("treeSprite")]
+treeSprite = NodePath("../Sprite")
+
+[node name="Static Body" parent="Wooden Chair/Layered Manager" index="0"]
+visible = false
+
+[node name="Collider" parent="Wooden Chair/Layered Manager/Static Body" index="0"]
+position = Vector2(-2.25, 7.5)
+
+[node name="Trigger Area" parent="Wooden Chair/Layered Manager" index="1"]
+visible = false
+
+[node name="Collider" parent="Wooden Chair/Layered Manager/Trigger Area" index="0"]
+position = Vector2(1.25, -6.5)
+shape = SubResource("RectangleShape2D_ctuw1")
+
+[node name="Trigger Zone" parent="Wooden Chair" index="1"]
+visible = false
+position = Vector2(-2.75, 7.25)
+
+[node name="Sprite" type="Sprite2D" parent="Wooden Chair"]
+texture = ExtResource("10_24egn")
+
 [editable path="Enterance Trigger"]
 [editable path="TeleportTree"]
 [editable path="TeleportTree/NPC Root"]
+[editable path="Campfire"]
+[editable path="Campfire/Fire"]
+[editable path="Campfire/Layered NPC"]
+[editable path="Wooden Chair"]

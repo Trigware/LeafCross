@@ -26,3 +26,4 @@ scale = Vector2(0.2, 0.2)
 audioStream = null
 
 [editable path="NPC Root"]
+[editable path="Fire"]

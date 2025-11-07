@@ -13,6 +13,7 @@ shader = ExtResource("6_81osm")
 shader_parameter/image_pixel_height = 100.0
 shader_parameter/hide_progression = -0.06
 shader_parameter/moving_speed = 1.0
+shader_parameter/progress_normalizer = 1.0
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5qig2"]
 load_path = "res://.godot/imported/Default.png-89a6a99fad8392002c7e125aa2bbfc08.ctex"

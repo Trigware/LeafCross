@@ -116,27 +116,25 @@ Pedestal_SPAWN_ENTERANCE__aces#5	After the war concluded, the Aces placed new le
 Pedestal_SPAWN_ENTERANCE__aces#6	When that was sorted out, they disappeared and our only proof of them is now our memory and art.{|branch}	
 Pedestal_SPAWN_ENTERANCE__worry	Over the years a series of villinous groups showed up and caused a lot of destruction.	
 Pedestal_SPAWN_ENTERANCE__worry#2	Because of that, Aces showed up to put an end to them.{p} People took notice and found a noteworthy pattern.	
+Pedestal_SPAWN_ENTERANCE__worry#3	They have told us that it "saves the world".{p} We don't truly what to make from this,{p} but due to this we put a lot of bookstands so people could pray everywhere.	
 Pedestal_SPAWN_ENTERANCE__worry#3	Each time a new Treeist Ace returned,{0.15} they were a humanoid creature with roots instead feet.{0.25} No other creature looks like this.	
 Pedestal_SPAWN_ENTERANCE__worry#4	Since Aces appear before a conflict starts,{0.15} our leader "Drevomir" has made a new policy.	
 Pedestal_SPAWN_ENTERANCE__worry#5	According to him,{0.25} if the Treeist Ace didn't reach the other Aces,{p} no war could erupt.	
 Pedestal_SPAWN_ENTERANCE__worry#6	Now all people are required to capture it if they see it,{p} because then it would be contained and imprisonned immediatly.{|branch}	
-Pedestal_SPAWN_ENTERANCE__nations	Our world's balance lies on the religions of these four nations.	
+Pedestal_SPAWN_ENTERANCE__nations	Our world's balance lies on the religions of our four nations.	
 Pedestal_SPAWN_ENTERANCE__nations#2	First there are the {#green}Treeists{#/}.{p} We worship a book that our Ace has once gifted us with.	
-Pedestal_SPAWN_ENTERANCE__nations#3	They've told us that it "saves the world".{p} We weren't told what this meant, but we placed bookstands everywhere for praying regardless.	
-Pedestal_SPAWN_ENTERANCE__nations#4	Second are the {#holy_yellow}Acorni{#/}. We would like to call them our "brothers",{p} but due to the problems there it's painful for us to do so.	
-Pedestal_SPAWN_ENTERANCE__nations#5	The third are the {#red}Hearteners{#/},{p} they're the most civilized and powerful of all.	
-Pedestal_SPAWN_ENTERANCE__nations#6	Their largest settlement that they call "Tangesine" was a key place for the Arc to capture.	
-Pedestal_SPAWN_ENTERANCE__nations#7	The fourth are the {#light_blue}Bells{#/}. They don't join in to the full extend of the wars due to the isolation and distance from other settlements.	
-Pedestal_SPAWN_ENTERANCE__nations#8	Some even speculate that their mysterious nature may connect them to the Aces and gods themselves,{p} although nobody knows for sure.{|branch}	
+Pedestal_SPAWN_ENTERANCE__nations#3	Second are the {#holy_yellow}Acorni{#/}. We would like to call them our "brothers" but due to their problems there it's painful for us to do so.	
+Pedestal_SPAWN_ENTERANCE__nations#4	The third are the {#red}Hearteners{#/},{p} they're the most civilized and powerful of all. Their largest settlement "The Tangesine" was a key place for the "Arc" to capture.	
+Pedestal_SPAWN_ENTERANCE__nations#5	The fourth are the {#blue}Bells{#/}. Due to their isolation, it's speculated that they connect to the Aces themselves.{p} Not much else is known about them.{|branch}	
 Leaves_SPAWN_ENTERANCE__only	It's just a regular pile of leaves...	Je to jen nějaká běžná hromada listí...
-TeleportTree_SPAWN_TELEPORT__1#1	It appears it's not yet possible to do anything of substance with this tree yet.	Vypadá to, že něco budeš muset získat, než tento strom doopravdy pochopíš...
+TeleportTree_SPAWN_TELEPORT__1#1	There's something you must get first, before knowing this tree's true nature...	Vypadá to, že něco budeš muset získat, než tento strom doopravdy pochopíš...
 TeleportTree_SPAWN_TELEPORT_outofinteract	You don't feel like 'you',{p} when around this tree.	Jsi 'nesvůj' když chodíš okolo tohoto...{p} 'stromu'.
 BlueCampfire_SPAWN_TELEPORT__1#1	This fire is glowing with a strange blue light.{p} Seems like you don't even question it because everything else here is weird.	Tenhle oheň svítí studenou modrou barvou...{p} vzhledem toho jak je divnej zbytek lesa, tohle tě moc nepřekvapuje.
 BlueCampfire_SPAWN_TELEPORT__1#2	Interestingly, the fire is quite big even though nobody is around.	Zajímavé je ale, že ten oheň je stále velký, i když zde ted nikdo není.
 BlueCampfire_SPAWN_TELEPORT__outofinteract	You can't help yourself to not stare at it's blue light.	Tvé oči nechtějí se přestat dívat na to modré světlo.
-BrokenSign_SPAWN_ENTERANCE__1#1	It's some kind of navigational sign...{p} there's an arrow pointing to {#purple}somewhere{#/}...{|info}	Je to nějaká navigační cedule... {p}dole je vyzobrazená šipka směřující k něčemu {#purple}podivuhodnému{#/}...
-BrokenSign_SPAWN_ENTERANCE__info	It says that there is a some kind of "teleportation tree", but at this state it may be disfunctional.	Z nějakého důvodu si nemyslíš, že je dobrý nápad tam dolů jít...
-BrokenSign_SPAWN_ENTERANCE__outofinteract	{|info}	{|info}
+BrokenSign_SPAWN_ENTERANCE__1#1	It's some kind of navigational sign...{p} there's an arrow pointing to {#purple}somewhere{#/}...	Je to nějaká navigační cedule... {p}dole je vyzobrazená šipka směřující k něčemu {#purple}podivuhodnému{#/}...
+BrokenSign_SPAWN_ENTERANCE__1#2	There's a feeling that you shouldn't go down there...	Z nějakého důvodu si nemyslíš, že je dobrý nápad tam dolů jít...
+BrokenSign_SPAWN_ENTERANCE__2#1	...but maybe something in you clashes with that feeling...	...tvá zvědavost ale nesouhlasí...
 FallenTree_LILYPADROOM__1#1	A once alive tree...{p} has fallen to it's demise.	Tehdá zdravý strom, {p} spadl do jeho absolutního konce.
 FallenTree_LILYPADROOM__1#2	When they had the opportunity to do so...{p} the {#glow_mushroom}mushrroms{#/} conquered the tree and banished it's legacy forever.	Když měly {#glow_mushroom}houby{#/} možnost... {p}obsadili strom a zničili jej.
 FallenTree_LILYPADROOM__1#3	...but if it would be rescued fast enough...{p} none of this would happen.	...avšak když by byl rychle zachráněn...{p} nic takového by se nestalo.
@@ -197,10 +195,4 @@ Cutscene_LeverPuzzle_Tutorial#2	A normal laser blocks you if the lever is on.{p}
 Cutscene_LeverPuzzle_Tutorial#3	So if that lever is off, it's blocking you.{0.75} If it's on you can go there no problem.	Takže když je spínač vypnutý, laser tě zablokuje cestu.{0.75} Když je spínač zapnutý, tak tam můžeš jít bez problému.
 Cutscene_LeverPuzzle_Tutorial#4	But of course if it would be this easy, it would be a pointless explanation, wouldn't it?	Ale samozřejmně pokud by to bylo tak jednoduché, nemělo by smysl tohle všechno vysvětlovat!
 InfoTablet_LEVERPUZZLEROOM__only	Do you want to hear the explanation for this puzzle or do you want try to find out how it works on your own?{?"Hear explanation": explain, "Try to think about it more": think}	Chceš slyšet vysvětlení pro tuto hádanku nebo chceš ještě zkoušet jí vyřešit bez pomoci?{?"Chci hádanku vysvětlit!": explain, "Chci to vymyslet bez pomoci.": think}
-InfoTablet_LEVERPUZZLEROOM__explain	{!textvisibility(false)}{await move_camera(cam_dest*)}{0.65}{!textvisibility(true)}In this puzzle your objective is to turn all levers on.	{!textvisibility(false)}{await move_camera(cam_dest*)}{0.65}{!textvisibility(true)}V této hádance je tvým cílem zapnout všechny spínače.
-InfoTablet_LEVERPUZZLEROOM__explain#2	A lever is on if it's pointing to the right.	Zapnutý spínač je ten, který směruje doprava.
-InfoTablet_LEVERPUZZLEROOM__explain#3	If you turn on a lever{!toggle_lever_continuously(lever_puzzle*)},{p} a laser of the same color will also turn on and vise versa.	Pokud spínač zapneš{!toggle_lever_continuously(lever_puzzle*)}, tak se zapne laser stejné barvy, a když to vypneš, tak se laser vypne.
-InfoTablet_LEVERPUZZLEROOM__explain#4	Lasers block you from accessing some ladders with levers.	Lasery tě mohou zablokovat cestu k nějakému spínači.
-InfoTablet_LEVERPUZZLEROOM__explain#5	But you can check if a laser will appear by the colored things on the side of a ladder.	Můžeš ale zjistit kde se laser objeví, když spínač zapneš podle barevných věcí na žebřících.
-InfoTablet_LEVERPUZZLEROOM__explain#6	{!stop_toggling}So think about what will pulling a certain lever do, so you could get to the correct outcome!{await require_input}{await toggle_stopped}{!return_camera}{!auto}	{!stop_toggling}Takže přemýšlej co každý spínač udělá, než ho zapneš či vypneš.{await require_input}{await toggle_stopped}{!return_camera}{!auto}
-CatchingOnFire_ExtinguishWithWater	Extinguish the fire by going to the water!	Uhas ten oheň, tím že půjdeš do vody!
+InfoTablet_LEVERPUZZLEROOM__explain	{!tboxvisibility(false)}{await move_camera(cam_dest*)}{!tboxvisibility(true)}EXPLAIN, EXPLAIN!{await return_camera}	{!tboxvisibility(false)}{await move_camera(cam_dest*)}{!tboxvisibility(true)}EXPLAIN, EXPLAIN!{await return_camera}

@@ -81,8 +81,12 @@ func poison_effect(times_processed_since_start):
 	if health_change > 0: return
 	LeafMode.modify_hp_with_label(health_change)
 
+const max_burning_damage = 14
+const burning_damage_multiplier = 3
+
 func burning_effect(times_processed_since_start):
-	var damage = min(5 + times_processed_since_start * 3, 15)
+	TextMethods.create_centered_text("CatchingOnFire_ExtinguishWithWater")
+	var damage = min(times_processed_since_start * burning_damage_multiplier, max_burning_damage)
 	LeafMode.modify_hp_with_label(-damage)
 	await wait(1)
 
@@ -121,6 +125,7 @@ func effect_end(effect: ID):
 	if has_method(end_effect_func): call(end_effect_func)
 	if not effect_ongoing(ID.Blindness):
 		tween_base_light(get_effect_color_with_most_time())
+	if effect == ID.Burning: TextMethods.delete_centered_text("CatchingOnFire_ExtinguishWithWater")
 
 func tween_base_light(final):
 	create_tween().tween_property(Overworld.baseLight, "color", final, 1).\

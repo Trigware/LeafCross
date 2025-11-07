@@ -1,11 +1,46 @@
-[gd_scene load_steps=11 format=3 uid="uid://lqehqpo66fqi"]
+[gd_scene load_steps=15 format=3 uid="uid://lqehqpo66fqi"]
 
+[ext_resource type="Script" uid="uid://d2ljg7fhokghu" path="res://Scripts/Overworld/LadderHideProgression.gd" id="1_8cc27"]
 [ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="1_rnlto"]
 [ext_resource type="Texture2D" uid="uid://df3ep2b47xsrd" path="res://Textures/Weird Forest/Ladder.png" id="1_yiaq8"]
 [ext_resource type="PackedScene" uid="uid://dwwrihbghedg3" path="res://Scenes/NPC Derivation/Layered NPC.tscn" id="2_rnlto"]
 [ext_resource type="Texture2D" uid="uid://bqe0fq1asycsi" path="res://Textures/Weird Forest/Lever Platform.png" id="3_jiycp"]
+[ext_resource type="Material" uid="uid://dqmk2fcx6j66e" path="res://Shaders/Shader Materials/HideSprite.tres" id="3_vnwaw"]
 [ext_resource type="PackedScene" uid="uid://bnl7cj1erxbia" path="res://Scenes/Game Mechanics/Lever.tscn" id="5_iy6jv"]
 [ext_resource type="PackedScene" uid="uid://btv3voq7lhk30" path="res://Scenes/Triggers/Ladder Climb Trigger.tscn" id="7_8cc27"]
+
+[sub_resource type="Shader" id="Shader_8cc27"]
+code = "shader_type canvas_item;
+
+uniform float image_pixel_height = 36.0;
+uniform float hide_progression = 0.0;
+uniform float moving_speed = 1.0;
+uniform float progress_normalizer = 1.0;
+varying float local_y;
+
+void vertex()
+{
+	float used_progress = hide_progression / (1.0 - progress_normalizer + 1.0);
+	float pixel_step = 1.0 / image_pixel_height;
+	float floored_progress = floor(used_progress / pixel_step) * pixel_step;
+	float offset = image_pixel_height * floored_progress;
+	local_y = VERTEX.y + offset;
+	VERTEX.y += offset * moving_speed;
+}
+
+void fragment()
+{
+	if (local_y > image_pixel_height / 2.0) {
+        COLOR.a = 0.0;
+    }
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vnwaw"]
+shader = SubResource("Shader_8cc27")
+shader_parameter/image_pixel_height = 170.0
+shader_parameter/hide_progression = 0.0
+shader_parameter/moving_speed = 1.0
+shader_parameter/progress_normalizer = 0.23
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rnlto"]
 size = Vector2(36, 10)
@@ -21,6 +56,7 @@ size = Vector2(50, 5.833)
 
 [node name="Ladder" type="Node2D"]
 scale = Vector2(1.5, 1.5)
+script = ExtResource("1_8cc27")
 metadata/ladder_index = 0
 metadata/ladder_parent_index = 0
 
@@ -31,9 +67,11 @@ scale = Vector2(0.2, 0.1)
 texture = ExtResource("1_rnlto")
 
 [node name="Ladder Sprite" type="Sprite2D" parent="."]
+material = ExtResource("3_vnwaw")
 texture = ExtResource("1_yiaq8")
 
 [node name="Lever Platform" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_vnwaw")
 position = Vector2(0, -42)
 texture = ExtResource("3_jiycp")
 
@@ -69,6 +107,7 @@ scale = Vector2(0.75, 0.75)
 lever_color = Color(0.7, 0, 0, 1)
 
 [node name="Static Body" type="StaticBody2D" parent="."]
+visible = false
 collision_layer = 16
 
 [node name="Left" type="CollisionShape2D" parent="Static Body"]
@@ -93,5 +132,7 @@ is_bottom = true
 visible = false
 position = Vector2(0, -38)
 layer_trigger_area = NodePath("../Layered NPC/Layered Manager/Trigger Area")
+
+[node name="Lasers" type="Node2D" parent="."]
 
 [editable path="Layered NPC"]

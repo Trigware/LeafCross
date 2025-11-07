@@ -26,7 +26,6 @@ var currentCharacterIndex := 0
 var printedText = ""
 var fontSize = 0
 
-var character_delays := {}
 var character_colors := {}
 
 var delayed = false
@@ -49,6 +48,8 @@ var latest_printed_character : String
 var time_since_textbox_closed : float
 var wait_leaf_position_at_start : Vector2
 var textbox_y_scale_at_ready : float
+var textbox_previously_shown := false
+var linked_variables := {}
 
 const default_pause_duration := 0.5
 const textbox_show_duration := 0.15
@@ -84,13 +85,16 @@ func _process(delta):
 func print_text(text, speed, textSize, textPosition, lineLength,
 				centerAlign, allowTextSkip, talkAudio, pitchRange,
 				textbox, overlappingSounds, outline, initial_color,
-				end_automatically, end_externally):
-	TextParser.latest_suffix_instruction = ""
+				end_automatically, end_externally, linked_vars):
+	linked_variables = linked_vars
+	var regularText = TextParser.record_control_text(text)
+	TextSystem.textNode.show()
 	Player.node.animationNode.stop()
 	lockAction = true
-	if overwriteSkippable:
-		allowTextSkip = false
+	
+	if overwriteSkippable: allowTextSkip = false
 	delayed = false
+	if current_line_choicer: await get_tree().process_frame
 	v_text_finished = false
 	fontSize = textSize
 	textNode.modulate.a = 1
@@ -108,6 +112,7 @@ func print_text(text, speed, textSize, textPosition, lineLength,
 	currentTextAudio = talkAudio
 	currentPitchRange = pitchRange
 	textboxNode.visible = textbox
+	textbox_previously_shown = textbox
 	
 	waitLeaf.modulate.a = 0
 	if time_since_textbox_closed > new_textbox_duration and textbox:
@@ -116,14 +121,13 @@ func print_text(text, speed, textSize, textPosition, lineLength,
 	update_portrait()
 	currentOverlappingSoundsValue = overlappingSounds
 	
-	var regularText = TextParser.record_control_text(text)
 	printedText = split_text_by_lines(regularText, lineLength)
 	textCanBeSkipped = allowTextSkip
 	if centerAlign:
 		align_to_center(regularText)
 	
 	currentCharacterIndex = 0
-	if speed > 0 and regularText != "":
+	if speed > 0 and (regularText != "" or TextParser.functions_called_during_text.size() > 0):
 		typewritterTimer.start(speed)
 		return
 	
@@ -150,9 +154,11 @@ func give_choice_from_print_text(empty_text := false):
 	current_line_choicer = false
 
 func skip_text():
-	if not textCanBeSkipped: return
+	if not textCanBeSkipped or TextParser.contains_non_wait_function: return
 	textNode.text = add_color_to_text(printedText)
 	currentCharacterIndex = printedText.length()
+	await get_tree().process_frame
+	if not textboxNode.visible and textbox_previously_shown: TextMethods.clear_text()
 
 func finish_text(show_leaf = true):
 	v_text_finished = true
@@ -184,12 +190,11 @@ func show_wait_leaf():
 
 func print_next_char():
 	if delayed: return
-	var delay = character_delays.get(currentCharacterIndex, 0)
+	
 	currentColor = character_colors.get(currentCharacterIndex, currentColor)
-	if delay > 0:
-		delayed = true
-		await get_tree().create_timer(delay).timeout
-		delayed = false
+	delayed = true
+	await call_text_event_functions()
+	delayed = false
 	
 	if currentCharacterIndex < printedText.length():
 		latest_printed_character = printedText[currentCharacterIndex]
@@ -197,7 +202,7 @@ func print_next_char():
 		textNode.text += "[color=" + currentColor + "]" + latest_printed_character + "[/color]"
 		currentCharacterIndex += 1
 		return
-		
+	
 	typewritterTimer.stop()
 	textCanBeSkipped = false
 	
@@ -206,6 +211,11 @@ func print_next_char():
 	finish_text(false)
 	if end_latest_text_automatically:
 		emit_signal("want_next_text")
+
+func call_text_event_functions():
+	for fn in TextParser.functions_called_during_text:
+		if fn.text_index == currentCharacterIndex:
+			await CutsceneManager.start_text_event(fn)
 
 func play_char_audio():
 	var talk_audio = get_talk_audio()
@@ -261,16 +271,21 @@ func add_color_to_text(text) -> String:
 		resultText += "[color=" + addFuncCurrentColor + "]" + ch + "[/color]"
 	return resultText
 
+signal dialog_continue_key_pressed
+
 func _unhandled_input(_event: InputEvent):
 	if end_latest_text_externally: return
-	var dialog_continuation_allowed = (Input.is_action_just_pressed("continue") or Input.is_action_pressed("skip_text")) and (v_text_finished or current_line_choicer)
+	var skipping_text = Input.is_action_pressed("skip_text")
+	var continue_with_dialog_keys_pressed = skipping_text or Input.is_action_just_pressed("continue")
+	if continue_with_dialog_keys_pressed: emit_signal("dialog_continue_key_pressed")
+	var dialog_continuation_allowed = (Input.is_action_just_pressed("continue") or skipping_text and TextParser.contains_non_wait_function) and (v_text_finished or current_line_choicer)
 	if dialog_continuation_allowed:
 		var emitted_signal = "want_next_text"
 		if current_line_choicer: emitted_signal = "want_choicer"
 		emit_signal(emitted_signal)
 	if Input.is_action_just_pressed("continue") and ChoicerSystem.in_choicer:
 		ChoicerSystem.on_choice_decided()
-	if Input.is_action_just_pressed("move_fast") or Input.is_action_pressed("skip_text"):
+	if Input.is_action_just_pressed("move_fast") or skipping_text:
 		skip_text()
 	if ChoicerSystem.in_choicer:
 		ChoicerSystem.handle_choicer_inputs()
@@ -295,7 +310,7 @@ func show_textbox():
 	scale_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 func update_portrait():
-	if character_portrait_texture == null:
+	if current_speaking_character == SpeakingCharacter.Narrator:
 		hide_portrait()
 		return
 	character_portrait_node.texture = character_portrait_texture

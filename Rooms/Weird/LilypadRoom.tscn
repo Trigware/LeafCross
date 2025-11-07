@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://cy5hp8xkaofj2"]
+[gd_scene load_steps=32 format=4 uid="uid://cy5hp8xkaofj2"]
 
 [ext_resource type="Script" uid="uid://dj3qdrjjlq6jw" path="res://Scripts/Overworld/BaseRoom.gd" id="1_gebs4"]
 [ext_resource type="TileSet" uid="uid://j4ql01hhxi04" path="res://TileSets/WeirdGround.tres" id="2_m231x"]
@@ -18,6 +18,9 @@
 [ext_resource type="PackedScene" uid="uid://dmvg61n8chab8" path="res://Scenes/Game Mechanics/Mushrooms/Dangerous Mushroom.tscn" id="17_dtm8u"]
 [ext_resource type="PackedScene" uid="uid://cfnd25cgsmifd" path="res://Scenes/NPC Derivation/Street Lamp.tscn" id="18_jkr04"]
 [ext_resource type="Texture2D" uid="uid://f1nfwd20hus3" path="res://Textures/Weird Forest/Big Branch.png" id="19_wabq0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jkr04"]
+size = Vector2(38, 134)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kq6n7"]
 size = Vector2(223, 1346)
@@ -41,7 +44,7 @@ size = Vector2(31.6667, 92.6666)
 size = Vector2(98.1667, 100.333)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nglus"]
-size = Vector2(87.4999, 30)
+size = Vector2(35, 30)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m231x"]
 size = Vector2(760, 24)
@@ -96,10 +99,11 @@ new_position = Vector2(528, 64)
 y_player_dependent = true
 
 [node name="Trigger Shape" parent="Enterance Trigger" index="0"]
-position = Vector2(-147.5, 40)
+position = Vector2(-126, 39)
+shape = SubResource("RectangleShape2D_jkr04")
 
 [node name="Obstruction" parent="Enterance Trigger" index="1"]
-position = Vector2(5.8104, 501.886)
+position = Vector2(-1, 553)
 rotation = 3.14159
 scale = Vector2(1.12221, 6.21305)
 
@@ -183,11 +187,11 @@ shape = SubResource("RectangleShape2D_bpdd7")
 position = Vector2(988, 654)
 
 [node name="LilypadFlower2" parent="Lilypad Interactibles" instance=ExtResource("15_uu001")]
-position = Vector2(754, -34)
+position = Vector2(1110, 241)
 lilypad_flower_dir = 0
 
 [node name="Collider" parent="Lilypad Interactibles/LilypadFlower2/NPC Root/Static Body" index="0"]
-position = Vector2(1.57666, -12.611)
+position = Vector2(3.15283, -12.611)
 shape = SubResource("RectangleShape2D_nglus")
 
 [node name="LilypadFlower4" parent="Lilypad Interactibles" instance=ExtResource("15_uu001")]

@@ -14,6 +14,7 @@ extends Area2D
 @export var override_id_from_parent := false
 @export var set_only_at_start := false
 @export var deactivate_npc := false
+@export var linked_nodes : Dictionary[String, Node]
 
 @onready var triggerZone = $"Trigger Zone"
 
@@ -29,6 +30,7 @@ func _ready():
 	if override_id_from_parent:
 		override_id_from_parent_fn()
 	
+	correct_linked_nodes()
 	if npcID == NPCData.ID.Uninitialized:
 		push_error("NPC ID is not initiliazed!")
 		return
@@ -41,6 +43,14 @@ func _ready():
 		NPCData.set_data(npcID, NPCData.Field.OnlyInteraction, true)
 	
 	get_suffix(1)
+
+func correct_linked_nodes():
+	var corrected_dict : Dictionary[String, Node] = {}
+	for linked_node_name in linked_nodes.keys():
+		var corrected_name = linked_node_name
+		if not linked_node_name.ends_with("*"): corrected_name = linked_node_name + "*"
+		corrected_dict[corrected_name] = linked_nodes[linked_node_name]
+	linked_nodes = corrected_dict
 
 func override_id_from_parent_fn():
 	var parent = get_parent()
@@ -88,8 +98,8 @@ func interact_with_npc():
 	var base_key = textID
 	var suffix = get_suffix(interactionCount)
 	
-	if suffix != null: await TextMethods.print_sequence(base_key, {}, PresetSystem.Preset.Fallback, suffix)
-	else: await TextMethods.print_wait_localization("npc_outofinteract", {}, PresetSystem.Preset.Fallback)
+	if suffix != null: await TextMethods.print_sequence(base_key, linked_nodes, PresetSystem.Preset.Fallback, suffix)
+	else: await TextMethods.print_wait_localization("npc_outofinteract", linked_nodes, PresetSystem.Preset.Fallback)
 	
 	if item != Inventory.Item.NONE:
 		await Inventory.ask_to_get_item(Inventory.Item.GLOWING_MUSHROOM, itemCount, self, npcID, itemColor)
@@ -136,17 +146,6 @@ func is_player_looking_towards_npc() -> bool:
 		_: return playerPos.y < npcPos.y
 
 func after_base_dialog_complete():
-	if npcID in padestalTexts:
-		await ChoicerSystem.give_basic_choice()
-		if ChoicerSystem.is_player_choice("decline"): return
-		await TextMethods.print_wait_localization("PedestalText_intro", [SaveData.playerName])
-		var text_template_part = "PedestalText__" + SaveData.selectedCharacter + "#"
-		await TextMethods.print_group(
-			[text_template_part + "1",
-			text_template_part + "2",
-			"PedestalText_end"]
-		)
-		return
 	if NPCData.is_identifier_save_point(npcID):
 		var final_text_key = "SavePoint_end"
 		if not SaveData.save_choice_seen:

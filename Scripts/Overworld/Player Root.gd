@@ -12,13 +12,13 @@ extends Node
 const playableCharacters = ["rabbitek", "xdaforge", "gertofin"]
 
 const player_speed := 250
-const fast_movement := 0.5
+const fast_movement := 0.625
 const normal_move_fast_multiplier_default := 0.35
 
 var playerMaxHealth = 138
 var playerHealth = playerMaxHealth
-var maxStamina = 100
-var stamina = maxStamina
+var maxStamina := 100.0
+var stamina := maxStamina
 
 var leafTween : Tween
 var time_spend_not_walking := 0.0
@@ -36,6 +36,7 @@ var climbing_ladder_index := -1
 var sitting_on_caterpillar_component_index := -1
 var sitting_on_caterpillar_index := -1
 var disallowed_caterpillars : Array[int] = []
+var show_lever_pull_notice = true
 
 var lilypad_overlaps = 0
 var previous_camera_pos = Vector2.ZERO
@@ -139,9 +140,13 @@ func move_camera_by(x, y, duration := 1.0):
 	var camera_global_pos = camera.global_position / Overworld.scaleConst
 	await move_camera_to(camera_global_pos.x + x, camera_global_pos.y + y, duration)
 
+func move_camera_with_marker(marker, duration := 1.0): await move_camera_to(marker.position.x, marker.position.y, duration)
+
+const leaf_mode_fast_movement = 1.25
+
 func get_fast_movement_speed():
+	if not LeafMode.enabled(): return leaf_mode_fast_movement
 	var staminaPercentage = float(Player.stamina) / Player.maxStamina
-	if not LeafMode.enabled(): staminaPercentage = normal_move_fast_multiplier_default
 	var resulting_speed = 1 + fast_movement * staminaPercentage
 	return resulting_speed
 

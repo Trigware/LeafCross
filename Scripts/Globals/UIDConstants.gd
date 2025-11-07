@@ -35,6 +35,7 @@ const SFX_CROWBAR := preload("uid://mbxu5hjhv3td")
 const SFX_MAGNET := preload("uid://brdb7aweelctt")
 const SFX_ROCKS_FALL := preload("uid://dbadvl1vii5qp")
 const SFX_OPEN_DOOR := SFX_ROCKS_FALL
+const SFX_COLLAPSING_LADDERS_PUZZLE := SFX_ROCKS_FALL
 const SFX_DNA_APPEAR := preload("uid://c1hbcnlwv8svd")
 const SFX_MAIN_MENU_CHOICE_CHANGE := preload("uid://3taqr51tfc0y")
 const SFX_WMTALE_EASTER_EGG := preload("uid://bf74bmvqsdw5c")
@@ -84,6 +85,7 @@ const SCN_LADDER_LEVER_PUZZLE := preload("uid://lqehqpo66fqi")
 const SCN_LADDER_LASER := preload("uid://bjacsl26m51i6")
 const SCN_CATERPILLAR_LOG := preload("uid://bpf2rb8kw2dww")
 const SCN_CATERPILLAR_COMPONENT := preload("uid://dbkm7rb6hanow")
+const SCN_CENTERED_TEXT := preload("uid://cobw84f1tk807")
 
 const SCN_LILYPAD_MECHANIC : Dictionary[Overworld.Room, PackedScene] = {
 	Overworld.Room.Weird_LilypadRoom: preload("uid://do8xa234u6nyw")

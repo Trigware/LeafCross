@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://yo3v437wqb0i"]
+[gd_scene load_steps=19 format=4 uid="uid://yo3v437wqb0i"]
 
 [ext_resource type="Script" uid="uid://dj3qdrjjlq6jw" path="res://Scripts/Overworld/BaseRoom.gd" id="1_ygrwp"]
 [ext_resource type="TileSet" uid="uid://j4ql01hhxi04" path="res://TileSets/WeirdGround.tres" id="2_d8qwr"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://dwwrihbghedg3" path="res://Scenes/NPC Derivation/Layered NPC.tscn" id="10_bfhdi"]
 [ext_resource type="Texture2D" uid="uid://dgy6f0l0lxw8p" path="res://Textures/Weird Forest/Cemetary Gate.png" id="11_cnc6m"]
 [ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="12_201ci"]
-[ext_resource type="PackedScene" uid="uid://cmvsdcoe7bsn" path="res://Scenes/Triggers/Cutscene Trigger.tscn" id="12_d8qwr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6hebs"]
 size = Vector2(202.81, 160)
@@ -24,9 +23,6 @@ radius = 35.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hfatx"]
 size = Vector2(818, 312)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_d8qwr"]
-size = Vector2(495, 31)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ygrwp"]
 size = Vector2(549, 22.5)
@@ -75,9 +71,9 @@ position = Vector2(-224.594, 333)
 shape = SubResource("RectangleShape2D_6hebs")
 
 [node name="Obstruction" parent="Lilypad Trigger" index="1"]
-position = Vector2(-144, 338)
+position = Vector2(-144, 344.484)
 rotation = 3.14159
-scale = Vector2(1, 2)
+scale = Vector2(1, 6.04766)
 
 [node name="Graveyard Trigger" parent="." instance=ExtResource("5_wj3no")]
 position = Vector2(1500, -700)
@@ -114,18 +110,10 @@ shape = SubResource("CircleShape2D_1yyfw")
 [node name="Leaf Mode Trigger" parent="." instance=ExtResource("8_htefj")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Leaf Mode Trigger"]
+visible = false
 position = Vector2(473, -254)
 shape = SubResource("RectangleShape2D_hfatx")
 debug_color = Color(0, 0.6, 0.317647, 0.419608)
-
-[node name="CutsceneTrigger" parent="." instance=ExtResource("12_d8qwr")]
-position = Vector2(450, -400)
-cutscene = 4
-
-[node name="Collider" type="CollisionShape2D" parent="CutsceneTrigger"]
-position = Vector2(12.5, -64.5)
-shape = SubResource("RectangleShape2D_d8qwr")
-debug_color = Color(0.7, 0.0116667, 0, 0.419608)
 
 [node name="Cemetary Gate" parent="." instance=ExtResource("10_bfhdi")]
 position = Vector2(464, -880)

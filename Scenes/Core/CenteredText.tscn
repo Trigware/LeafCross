@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cobw84f1tk807"]
+
+[ext_resource type="LabelSettings" uid="uid://my8rqlfwkpgd" path="res://Label Settings/OutlinedText.tres" id="1_boul0"]
+
+[node name="Centered Text" type="CanvasLayer"]
+layer = 10
+
+[node name="Label" type="Label" parent="."]
+offset_right = 1152.0
+offset_bottom = 48.0
+text = "TEST TEXT"
+label_settings = ExtResource("1_boul0")
+horizontal_alignment = 1
+autowrap_mode = 3

@@ -79,6 +79,10 @@ func setup_loaded_room(roomPath, strRoom, room: Room, newPlayerPosition, autoloa
 	if autoload and SaveData.load_at_room_center: newPlayerPosition = Vector2.ZERO
 	Player.set_pos(newPlayerPosition)
 	Player.reset_camera_smoothing()
+	Player.sitting_on_caterpillar_component_index = -1
+	Player.sitting_on_caterpillar_index = -1
+	Player.disallowed_caterpillars = []
+	
 	if autoload: BibleOverworld.attempt_to_load_bible()
 	await check_if_no_rooms_loaded()
 	MovingNPC.create_follower_agents()
@@ -126,12 +130,11 @@ func trigger_blocked():
 	return time_since_room_load < 0.05
 
 const show_test_ladder_puzzles = true
-var puzzles_solved = 2
+var puzzles_solved = 0
 
-var lever_puzzles_playtest := ["TR(Y);FB(R);TY", "FR(B)P;TB(G,P)O;TG(O)Y;TY(P);FP;TO(Y)", "FR(!B);TB(Y);FG(!O,Gr)B;TY;FP(Y,!Gr)Y;FO(R,B)P;FGr(Pi,!R);FW(O,!P,!G)Gr;TPi(P,B)"]
+var lever_puzzles_playtest := ["TR(Y);FB(R);TY", "FR(B)P;TB(G,P)O;TG(O)Y;TY(P);FP;TO(Y)", "TR(R);FB(!R)"]
 
 func modify_puzzle_tester(roomNode):
 	var puzzle_builder = roomNode.get_node("Lever Puzzle Builder")
+	if puzzles_solved >= lever_puzzles_playtest.size(): puzzles_solved = 0
 	puzzle_builder.puzzle_syntax = lever_puzzles_playtest[puzzles_solved]
-	puzzles_solved += 1
-	if puzzles_solved > lever_puzzles_playtest.size(): puzzles_solved = 0

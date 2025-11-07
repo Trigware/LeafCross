@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="2_ape7c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xs5w8"]
-size = Vector2(34, 30)
+size = Vector2(25.5, 34.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7fgga"]
 size = Vector2(82, 79.5)

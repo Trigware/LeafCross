@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://l1iqqd118wj6" path="res://Scenes/NPC Derivation/Beehive.tscn" id="13_yvb5w"]
 [ext_resource type="PackedScene" uid="uid://6hq01nojje0y" path="res://Scenes/NPC Derivation/NPC.tscn" id="15_jt5hw"]
 [ext_resource type="PackedScene" uid="uid://60q0gsegnffn" path="res://Scenes/NPC Derivation/Detailed Tree.tscn" id="15_rf7te"]
-[ext_resource type="PackedScene" uid="uid://cpc5fcj5uokxi" path="res://Scenes/Core/Moving NPC.tscn" id="16_rf7te"]
+[ext_resource type="PackedScene" uid="uid://cpc5fcj5uokxi" path="res://Scenes/NPC Derivation/Moving NPC.tscn" id="16_rf7te"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_80cl2"]
 size = Vector2(111.5, 208.5)

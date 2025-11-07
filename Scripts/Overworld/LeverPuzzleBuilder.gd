@@ -16,11 +16,10 @@ var lever_dict := {}
 var laser_list := []
 var ladder_nesting_levels : Dictionary[Enum.LeverColor, int] = {}
 var ground_level_levers : Array[Enum.LeverColor] = []
+var levers_indexes_turned_off : Array[int] = []
 
 func _ready():
-	parse_puzzle_syntax()
 	construct_ladders()
-	print(get_ladder_puzzle_code())
 
 const maximum_distance = 150
 const minimum_alpha_modulation = 0.5
@@ -33,17 +32,68 @@ func _process(_delta):
 var highest_ladder_nesting_level = 0
 
 func construct_ladders():
+	parse_puzzle_syntax()
+	set_initial_turned_on_levers()
+	delete_ladders()
 	set_ladder_nesting_levels()
 	for i in range(lever_configurations.size()):
 		create_ladder(i)
 	for lever_color in lever_dict.keys():
 		var lever = lever_dict[lever_color]
+		lever.lever_color_enum = lever_color
 		lever.lever_pulled.connect(Callable(puzzle_door, "open_door").bind(lever_dict))
+		lever.lever_pulled.connect(Callable(self, "on_any_lever_pulled").bind(lever))
 		for laser in laser_list:
 			if laser.laser_color != lever_color: continue
 			laser.lever_dict = lever_dict
 			lever.lever_pulled.connect(Callable(laser, "handle_pulling_of_lever").bind())
 			laser.handle_pulling_of_lever()
+
+func set_initial_turned_on_levers():
+	levers_indexes_turned_off = []
+	for i in range(lever_configurations.size()):
+		var lever_color = lever_configurations.keys()[i]
+		var is_current_color_off = !lever_configurations[lever_color]
+		if is_current_color_off: levers_indexes_turned_off.append(i)
+
+func on_any_lever_pulled(lever_pulled):
+	var index_of_pulled_lever = lever_configurations.keys().find(lever_pulled.lever_color_enum)
+	if lever_pulled.lever_on: levers_indexes_turned_off.erase(index_of_pulled_lever)
+	else: levers_indexes_turned_off.append(index_of_pulled_lever)
+
+const maximum_pull_color_search_time = 1000
+
+func get_color_to_pull_randomly():
+	var random_color_index = pick_random_index()
+	var is_one_left = levers_indexes_turned_off.size() == 1
+	var unwanted_index = -1
+	if is_one_left: unwanted_index = levers_indexes_turned_off[0]
+	var random_color_enum: Enum.LeverColor
+	var i = 0
+	while true:
+		random_color_enum = lever_configurations.keys()[random_color_index]
+		if random_color_index != unwanted_index and does_laser_with_color_exist(random_color_enum): break
+		random_color_index = pick_random_index()
+		i += 1
+		if i >= maximum_pull_color_search_time:
+			push_error("There wasn't found a lever color to be pulled that does not result in victory and that does have an associated laser!")
+			return Enum.LeverColor.None
+	return random_color_enum
+
+func pick_random_index(): return randi_range(0, lever_configurations.size() - 1)
+
+func does_laser_with_color_exist(laser_color):
+	for ladder_lever_color in lasers_on_ladders.keys():
+		var lasers_resource = lasers_on_ladders[ladder_lever_color]
+		if laser_color in lasers_resource.lasers: return true
+	return false
+
+func delete_ladders():
+	lever_dict = {}
+	laser_list = []
+	for node in get_children():
+		if not node.has_meta("ladder_index"): continue
+		node.queue_free()
 
 func create_ladder(i):
 	var ladder_instance = UID.SCN_LADDER_LEVER_PUZZLE.instantiate()
@@ -123,7 +173,7 @@ func add_lasers_to_ladder(ladder, lever_color):
 		laser_instance.negated_laser = laser_color in lasers_on_ladders[lever_color].negated_lasers
 		laser_instance.position.y = get_center_position(ladder_lasers.size(), maximum_laser_y_pos, laser_spacing, laser_index, "lasers", -maximum_laser_y_pos)
 		laser_list.append(laser_instance)
-		ladder.add_child(laser_instance)
+		ladder.get_node("Lasers").add_child(laser_instance)
 		laser_index += 1
 
 func get_center_position(elements_count, maximum_pos, element_spacing, element_index, element_name, mimimum_pos = 0):
@@ -214,3 +264,33 @@ func get_ladder_puzzle_code():
 		puzzle_code += color_parent
 		if i < lever_configurations.size() - 1: puzzle_code += ";"
 	return puzzle_code
+
+const lasers_and_levers_tween_duration = 0.75
+const hide_progression_tween_duration = 1.25
+
+func tween_all_lasers_and_levers(start: float, end: float):
+	for lever in lever_dict.values():
+		var ladder = lever.get_parent()
+		ladder.lasers_and_levers_alpha_tween(start, end, lasers_and_levers_tween_duration)
+	await Helper.wait(lasers_and_levers_tween_duration)
+
+func tween_all_ladders_hide_progression(start: float, end: float):
+	set_all_hide_progression(start)
+	var sorted_nesting_level_keys = ladder_nesting_levels.keys()
+	sorted_nesting_level_keys.sort_custom(func(a, b):
+		return ladder_nesting_levels[a] < ladder_nesting_levels[b]
+	)
+	
+	var previous_nesting_level = 0
+	for lever_num in sorted_nesting_level_keys:
+		var lever = lever_dict[lever_num]
+		var ladder = lever.get_parent()
+		var ladder_nesting_level = ladder_nesting_levels[lever.lever_color_enum]
+		if previous_nesting_level != ladder_nesting_level: await Helper.wait(hide_progression_tween_duration * 3/4)
+		ladder.hide_progression_tween(start, end, hide_progression_tween_duration, ladder_nesting_level)
+		previous_nesting_level = ladder_nesting_level
+	await Helper.wait(lasers_and_levers_tween_duration)
+
+func set_all_lasers_and_ladders_alpha(alpha): for lever in lever_dict.values(): lever.get_parent().set_lever_and_laser_alpha(alpha)
+
+func set_all_hide_progression(progress): for lever in lever_dict.values(): lever.get_parent().update_hide_progression(progress)

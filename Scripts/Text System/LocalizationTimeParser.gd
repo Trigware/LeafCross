@@ -1,6 +1,6 @@
 extends Node
 
-const control_characters := ["#", "?", "|"]
+const control_characters := ["#", "?", "|", '!']
 const control_flow_statements := ["if", "endcf", "else"]
 
 var modified_text : String
@@ -81,17 +81,17 @@ func get_variable(variable_name):
 	if variable_name in inserted_variable_dict:
 		var dict_cache_var_content = inserted_variable_dict[variable_name]
 		return dict_cache_var_content
-		
+	
+	if variable_name.begins_with("await"): return "{" + variable_name + "}"
+	var var_err_placeholder = "{#red}{" + variable_name + "}{#/}"
 	if parsed_variables is Dictionary:
-		if parsed_variables == {}:
-			push_error("Expecting variable '" + variable_name + "' even though no variables were passed!")
-		else:
-			push_error("Wanted variable '" + variable_name + "' doesn't exist in the input dictionary!")
-		return
+		if parsed_variables == {}: push_error("Expecting variable '" + variable_name + "' even though no variables were passed!")
+		else: push_error("Wanted variable '" + variable_name + "' doesn't exist in the input dictionary!")
+		return var_err_placeholder
 	
 	if seen_first_variable:
 		push_error("Unable to get wanted variable '" + variable_name + "' because a singular variable was passed in!")
-		return
+		return var_err_placeholder
 	
 	seen_first_variable = true
 	var variable_contents = parsed_variables
