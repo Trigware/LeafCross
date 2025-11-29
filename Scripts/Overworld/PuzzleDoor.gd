@@ -16,11 +16,12 @@ const opened_door_segment_offset = 25
 const camera_tween_duration = 1.5
 
 func _ready():
-	room_trigger.roomDestination = roomDestination
+	room_trigger.monitoring = false
+	await get_tree().process_frame
 	room_trigger.new_position = new_position
 	room_trigger.x_player_dependent = x_player_dependent
 	room_trigger.y_player_dependent = y_player_dependent
-	room_trigger.monitoring = false
+	room_trigger.roomDestination = roomDestination
 
 func open_door(lever_dict):
 	if door_already_opened or not_all_levers_on(lever_dict) or CutsceneManager.action_lock: return
@@ -46,7 +47,7 @@ func open_door(lever_dict):
 func open_door_segments():
 	Helper.offset_x_tween(left_door, -opened_door_segment_offset, 1)
 	Helper.offset_x_tween(right_door, opened_door_segment_offset, 1)
-	Audio.play_sound(UID.SFX_OPEN_DOOR, 0.2)
+	Audio.play_sound(UID.SFX_OPEN_DOOR, 0.2, 5)
 	await Helper.wait(0.5)
 	await LeafMode.screen_shake_multiple(5, Player.camera, LeafMode.screen_shake_offset * 2)
 	await Helper.wait(0.5)

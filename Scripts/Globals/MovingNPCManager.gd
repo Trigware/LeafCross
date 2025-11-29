@@ -7,6 +7,7 @@ const follower_distance = 15
 signal near_ground
 
 func _process(_delta):
+	if LeafMode.game_over: return
 	update_followers_zindex()
 
 func create_simple_moving_npc(agent_type, agent_variation := Enum.AgentVariation.NoVariation):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cewbs81dkuk7b"]
+[gd_scene load_steps=8 format=3 uid="uid://cewbs81dkuk7b"]
 
 [ext_resource type="Texture2D" uid="uid://bjwo66k38p6mo" path="res://Textures/Weird Forest/Puzzle Door.png" id="1_l7fjr"]
 [ext_resource type="Script" uid="uid://cu5as4cyrnwlh" path="res://Scripts/Overworld/PuzzleDoor.gd" id="1_mj2uj"]
@@ -8,6 +8,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wec40"]
 size = Vector2(70, 162)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bxux4"]
+size = Vector2(30, 275)
 
 [node name="Puzzle Door" type="Node2D"]
 script = ExtResource("1_mj2uj")
@@ -54,6 +57,7 @@ roomDestination = 5
 [node name="Trigger Shape" parent="Room Trigger" index="0"]
 visible = false
 position = Vector2(0, 55)
+shape = SubResource("RectangleShape2D_bxux4")
 
 [node name="Obstruction" parent="Room Trigger" index="1"]
 visible = false

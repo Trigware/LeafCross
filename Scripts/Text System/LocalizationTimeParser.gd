@@ -60,6 +60,7 @@ func parse_segment_setup(variables):
 		inserted_variable_dict = variables
 	parsed_variables = variables
 	used_portrait_statement = false
+	nested_conditions_results = []
 
 func parse_end_bracket_content():
 	if not in_bracket:

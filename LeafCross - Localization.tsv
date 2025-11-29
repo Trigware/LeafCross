@@ -10,9 +10,9 @@ itemname_GLOWING_MUSHROOM	glowing mushroom	svítící houba
 mainmenu_version_number	v0.5	v0.5
 mainmenu_developers	Made by TRIGWARE (John K.), xDaForge and other cotributors	Vytvořili TRIGWARE (Jan K.), xDaForge a další přispěvatelé
 mainmenu_option_play	Play	Hraj
-mainmenu_option_settings	Settings	Nastavení
+mainmenu_option_settings	Settings	Možnosti
 mainmenu_option_credits	Credits	Titulky
-mainmenu_option_exit	Exit	Close Game
+mainmenu_option_exit	Exit	Konec
 mainmenu_saveinfo_newgame	New Game	Nová hra
 mainmenu_choosefile_goback	Go Back	Jdi zpět
 quitting_game	Quitting game	Opouštím hru
@@ -105,29 +105,8 @@ BlockTree_SPAWNROOM__1#1	It blocks you a way to something...{p} {#glow_mushroom}
 BlockTree_SPAWNROOM__1#2	You have a feeling there's a way to get to the other side.	Možná by jsi ho mohl nějak obejít?
 BlockTree_SPAWNROOM__NoLight#1	The tree blocked some path...{p} but there's no point in going back there.	Tenhle strom blokoval nějakou cestu...{p} ale ty už jsi život od ní vzal...
 InteractionPrompt_SPAWNROOM__1#1	(Reminder to press {#tree_green}ENTER or Z{#/} if you see something {#glow_mushroom}interesting{#/}.)	(Nezapoměň, že když uvidíš něco {#glow_mushroom}zajímavého{#/}, můžeš se k tomu přiblížit a zmáčknout {#tree_green}ENTER či Z{#/}.)
-Pedestal_SPAWN_ENTERANCE__only	It's a old stone pedestal with a cross on it.{0.5} On closer inspection, you see something written on it.{|branch}	Je to nějaký posvátný kamenný objekt.{p} Podíváš se na něj pozorněji a vidíš, že je na něm něco napsáno.
-Pedestal_SPAWN_ENTERANCE__branch	Is there something you want to learn about?{?"The Aces": aces, "Treeist's worry": worry, "The Four Nations": nations, "Nothing": "nothing"}	Chceš si přečíst co se tam píše?
-Pedestal_SPAWN_ENTERANCE__nothing	Sure thing.	
-Pedestal_SPAWN_ENTERANCE__aces	In a war fought a little over 15 years ago,{0.15} creatures we call the "Aces" rose up against the "Arc".	
-Pedestal_SPAWN_ENTERANCE__aces#2	The Arc was a group of Acorni extremists,{0.15} which fought mercilessly to "liberate" neighbouring nations for "true unity".	
-Pedestal_SPAWN_ENTERANCE__aces#3	We believe that gods send these Aces to help us in time of need.	
-Pedestal_SPAWN_ENTERANCE__aces#4	They stopped the seemingly endless tyranny and freed our people from the Arc.	
-Pedestal_SPAWN_ENTERANCE__aces#5	After the war concluded, the Aces placed new leaders to power in all nations.	
-Pedestal_SPAWN_ENTERANCE__aces#6	When that was sorted out, they disappeared and our only proof of them is now our memory and art.{|branch}	
-Pedestal_SPAWN_ENTERANCE__worry	Over the years a series of villinous groups showed up and caused a lot of destruction.	
-Pedestal_SPAWN_ENTERANCE__worry#2	Because of that, Aces showed up to put an end to them.{p} People took notice and found a noteworthy pattern.	
-Pedestal_SPAWN_ENTERANCE__worry#3	Each time a new Treeist Ace returned,{0.15} they were a humanoid creature with roots instead feet.{0.25} No other creature looks like this.	
-Pedestal_SPAWN_ENTERANCE__worry#4	Since Aces appear before a conflict starts,{0.15} our leader "Drevomir" has made a new policy.	
-Pedestal_SPAWN_ENTERANCE__worry#5	According to him,{0.25} if the Treeist Ace didn't reach the other Aces,{p} no war could erupt.	
-Pedestal_SPAWN_ENTERANCE__worry#6	Now all people are required to capture it if they see it,{p} because then it would be contained and imprisonned immediatly.{|branch}	
-Pedestal_SPAWN_ENTERANCE__nations	Our world's balance lies on the religions of these four nations.	
-Pedestal_SPAWN_ENTERANCE__nations#2	First there are the {#green}Treeists{#/}.{p} We worship a book that our Ace has once gifted us with.	
-Pedestal_SPAWN_ENTERANCE__nations#3	They've told us that it "saves the world".{p} We weren't told what this meant, but we placed bookstands everywhere for praying regardless.	
-Pedestal_SPAWN_ENTERANCE__nations#4	Second are the {#holy_yellow}Acorni{#/}. We would like to call them our "brothers",{p} but due to the problems there it's painful for us to do so.	
-Pedestal_SPAWN_ENTERANCE__nations#5	The third are the {#red}Hearteners{#/},{p} they're the most civilized and powerful of all.	
-Pedestal_SPAWN_ENTERANCE__nations#6	Their largest settlement that they call "Tangesine" was a key place for the Arc to capture.	
-Pedestal_SPAWN_ENTERANCE__nations#7	The fourth are the {#light_blue}Bells{#/}. They don't join in to the full extend of the wars due to the isolation and distance from other settlements.	
-Pedestal_SPAWN_ENTERANCE__nations#8	Some even speculate that their mysterious nature may connect them to the Aces and gods themselves,{p} although nobody knows for sure.{|branch}	
+Pedestal_SPAWN_ENTERANCE__only	It's a old stone pedestal with a cross on it.{0.5} On closer inspection, you see some old scribbles written on it.	Je to nějaký posvátný kamenný objekt.{p} Podíváš se na něj pozorněji a vidíš, že jsou na něm vyryty nějaké staré písmo.
+Pedestal_SPAWN_ENTERANCE__only#2	You actually seem capable of translating it,{p} but upon further look to it's contents you seem to not want to.	Vypadá to, že jsi schopen to přeložit,{p} ale potom co si trochu přečteš si ti dál číst nechce.
 Leaves_SPAWN_ENTERANCE__only	It's just a regular pile of leaves...	Je to jen nějaká běžná hromada listí...
 TeleportTree_SPAWN_TELEPORT__1#1	It appears it's not yet possible to do anything of substance with this tree yet.	Vypadá to, že něco budeš muset získat, než tento strom doopravdy pochopíš...
 TeleportTree_SPAWN_TELEPORT_outofinteract	You don't feel like 'you',{p} when around this tree.	Jsi 'nesvůj' když chodíš okolo tohoto...{p} 'stromu'.
@@ -166,6 +145,8 @@ GameOver__FirstDeath#5	The place you last prayed to is our anchor.	Vím místo, 
 GameOver__FirstDeath#6	{1}I can take you back to that point.	{1}Mohu tě vrátit zpět do tohoto bodu.
 GameOver__FirstDeath#7	Only then we may continue once again.	Jen tehdy, můžeme znovu pokračovat.
 Candle_SAVEINTROROOM__only	It looks like the candles are used for some kind of a religionous event.	Nejspíš to jsou nějaké svíčky použité k nějaké náboženské události.
+GameOver_PlayerRespawn	Return to book	Vrať se ke knize
+GameOver_GotoTitle	Go to title	Hlavní menu
 OverworldSaving_SaveGame	Save Game	Ulož Hru
 OverworldSaving_DontSave	Don't Save	Neukládej
 SavePoint_Beehive__only	Your eyes skim the pages of your book.{p} The scent receptors in your nose provide you with a sweet aroma.	Tvé oči létají přes strany tvé knihy.{p} Pachové receptory v tvém nosu tě přináší sladké aroma.
@@ -178,7 +159,6 @@ BibleInteractPrompt_SAVEINTROROOM__outofinteract	...{p} there's a something that
 BibleInteractPrompt_SAVEINTROROOM__Save_Refused	Maybe you should try to {#holy_yellow}pray to the book{#/} before you continue.	Možná by jsi se měl {#holy_yellow}pomodlit k té knize{#/}, než budeš dál pokračovat.
 DetailedTree_SAVEINTROROOM__only	There's something hiding in the tree...{p} unfortunetly you can't tell what.	Něco se skrývá v tomto stromě...{p} ale bohužel nedokážeš zjisit co to je.
 OverworldSaving_GameSavedConfirm	GAME WAS SUCCESSFULLY SAVED!	HRA BYLA ÚSPĚŠNĚ ULOŽENA!
-Cutscene_Nixie_Introductory_TreeSaveDialog	Very interesting.{1} It looks like you used the book!	Velmi zajímavé.{1} Vypadá to, že jsi ji použil!
 AttackMessage_MISS	0	0
 Cutscene_Character_Dialog_Tester__root	Named colors, escape seq bracket {#purple}\{\}{#/}! Next Silent characters	Named colors, escape seq bracket {#purple}\{\}{#/}!
 Cutscene_Character_Dialog_Tester__root#2	.... ... ,,,, ,,, !!! ?????	.... ... ,,,, ,,, !!! ?????
@@ -192,15 +172,19 @@ Cutscene_Character_Dialog_Tester__AfterChoice#2	{$Nixie}{#pink}Nixie{#/} default
 Cutscene_Character_Dialog_Tester__AfterChoice#3	{/Mysterious}emotion change	{/Mysterious}emotion change
 Cutscene_Character_Dialog_Tester__AfterChoice#4	{$}BACK TO NARRATOR -> last empty	{$}BACK TO NARRATOR -> last empty
 Cutscene_Character_Dialog_Tester__AfterChoice#5	{}	{}
-Cutscene_LeverPuzzle_Tutorial#1	This puzzle contains a special laser that has an {#red}exclamation mark{#/}!	Toto hádanka obsahuje speciální laser, který je označený {#red}vykřičníkem{#/}!
-Cutscene_LeverPuzzle_Tutorial#2	A normal laser blocks you if the lever is on.{p} This laser does the opposite...	Normální laser tě zablokuje cestu, pokud spínač stejné barvy je zapnutý.{p} Laser s vykřičníkem dělá pravý opak...
-Cutscene_LeverPuzzle_Tutorial#3	So if that lever is off, it's blocking you.{0.75} If it's on you can go there no problem.	Takže když je spínač vypnutý, laser tě zablokuje cestu.{0.75} Když je spínač zapnutý, tak tam můžeš jít bez problému.
-Cutscene_LeverPuzzle_Tutorial#4	But of course if it would be this easy, it would be a pointless explanation, wouldn't it?	Ale samozřejmně pokud by to bylo tak jednoduché, nemělo by smysl tohle všechno vysvětlovat!
+Cutscene_LeverPuzzle_Tutorial#1	{!textvisibility(false)}{await move_camera(cam_dest*)}{0.65}{!textvisibility(true)}This puzzle contains a special laser that has an {#red}exclamation mark{#/}!	{!textvisibility(false)}{await move_camera(cam_dest*)}{0.65}{!textvisibility(true)}Tato hádanka obsahuje speciální laser, který je označený {#red}vykřičníkem{#/}!
+Cutscene_LeverPuzzle_Tutorial#2	A normal laser blocks you if the lever is on.{0.75} This laser does the opposite...	Normální laser tě zablokuje cestu, pokud spínač stejné barvy je zapnutý.{0.75} Laser s vykřičníkem dělá pravý opak...
+Cutscene_LeverPuzzle_Tutorial#3	{!toggle_lever_continuously(lever_puzzle*)}So if that lever is off, a laser with an exclamation point will block you.	{!toggle_lever_continuously(lever_puzzle*)}Takže když je spínač vypnutý, tak tě laser s vykřičníkem zablokuje cestu.
+Cutscene_LeverPuzzle_Tutorial#4	If it's on you can go there no problem.	Když je spínač zapnutý, tak tam můžeš jít bez problému.
+Cutscene_LeverPuzzle_Tutorial#5	{!stop_toggling}But of course if it would be this easy, this would be a pretty pointless explanation, wouldn't it?{await require_input}{await toggle_stopped}{!textvisibility(false)}{await show_full_puzzle(lever_puzzle*)}	{!stop_toggling}Ale samozřejmně pokud by to bylo tak jednoduché, nemělo by smysl tohle všechno vysvětlovat!{await require_input}{await toggle_stopped}{!textvisibility(false)}{await show_full_puzzle(lever_puzzle*)}
 InfoTablet_LEVERPUZZLEROOM__only	Do you want to hear the explanation for this puzzle or do you want try to find out how it works on your own?{?"Hear explanation": explain, "Try to think about it more": think}	Chceš slyšet vysvětlení pro tuto hádanku nebo chceš ještě zkoušet jí vyřešit bez pomoci?{?"Chci hádanku vysvětlit!": explain, "Chci to vymyslet bez pomoci.": think}
 InfoTablet_LEVERPUZZLEROOM__explain	{!textvisibility(false)}{await move_camera(cam_dest*)}{0.65}{!textvisibility(true)}In this puzzle your objective is to turn all levers on.	{!textvisibility(false)}{await move_camera(cam_dest*)}{0.65}{!textvisibility(true)}V této hádance je tvým cílem zapnout všechny spínače.
 InfoTablet_LEVERPUZZLEROOM__explain#2	A lever is on if it's pointing to the right.	Zapnutý spínač je ten, který směruje doprava.
-InfoTablet_LEVERPUZZLEROOM__explain#3	If you turn on a lever{!toggle_lever_continuously(lever_puzzle*)},{p} a laser of the same color will also turn on and vise versa.	Pokud spínač zapneš{!toggle_lever_continuously(lever_puzzle*)}, tak se zapne laser stejné barvy, a když to vypneš, tak se laser vypne.
+InfoTablet_LEVERPUZZLEROOM__explain#3	If you turn on a lever{!toggle_lever_continuously(lever_puzzle*)},{p} a laser of the same color will also turn on and vise versa.	Když spínač zapneš{!toggle_lever_continuously(lever_puzzle*)},{p} tak se zapne laser stejné barvy.{p} Když to vypneš, tak se laser vypne.
 InfoTablet_LEVERPUZZLEROOM__explain#4	Lasers block you from accessing some ladders with levers.	Lasery tě mohou zablokovat cestu k nějakému spínači.
-InfoTablet_LEVERPUZZLEROOM__explain#5	But you can check if a laser will appear by the colored things on the side of a ladder.	Můžeš ale zjistit kde se laser objeví, když spínač zapneš podle barevných věcí na žebřících.
-InfoTablet_LEVERPUZZLEROOM__explain#6	{!stop_toggling}So think about what will pulling a certain lever do, so you could get to the correct outcome!{await require_input}{await toggle_stopped}{!return_camera}{!auto}	{!stop_toggling}Takže přemýšlej co každý spínač udělá, než ho zapneš či vypneš.{await require_input}{await toggle_stopped}{!return_camera}{!auto}
+InfoTablet_LEVERPUZZLEROOM__explain#5	You can only check if laser will appear beforehand by the colored things on the sides of ladders.	Také můžeš předem zjistit kde se laser objeví podle barevných věcí na žebřících.
+InfoTablet_LEVERPUZZLEROOM__explain#6	{!stop_toggling}So think about what will pulling a certain lever do, so you could get to the correct outcome!{await require_input}{await toggle_stopped}{!return_camera}	{!stop_toggling}Takže přemýšlej co každý spínač udělá, než ho zapneš či vypneš.{await require_input}{await toggle_stopped}{!return_camera}
 CatchingOnFire_ExtinguishWithWater	Extinguish the fire by going to the water!	Uhas ten oheň, tím že půjdeš do vody!
+Cutscene_NixieIntroductory_Tester__root	{$Nixie}{#pink}Nixie{#/} dialog test	{$Nixie}{#pink}Nixie{#/} dialog test
+Cutscene_NixieIntroductory_Tester__root#2	{/Confident}nixie (confident)	{/Confident}nixie (sebejistá)
+Cutscene_NixieIntroductory_Tester__root#3	{/Mysterious}nixie (mysterious)	{/Mysterious}nixie (mysteriózní)

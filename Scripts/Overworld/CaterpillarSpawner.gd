@@ -11,6 +11,7 @@ const eyes_position_when_dir_right = 30
 func _ready():
 	get_caterpillar_index()
 	initialize_line()
+	display_caterpillar_footsteps()
 	create_logs()
 	create_caterpillar()
 	caterpillar_step(0)
@@ -139,7 +140,7 @@ func caterpillar_step(delta):
 			Enum.CaterpillarComponent.Tail: caterpillar_component.progress = get_component_progress(caterpillar_components.size()-1)
 		
 		caterpillar_component.position = get_point_on_line(caterpillar_component.progress)
-		if Player.sitting_on_caterpillar_component_index == i and Player.sitting_on_caterpillar_index == caterpillar_index:
+		if Player.sitting_on_caterpillar_component_index == i and Player.sitting_on_caterpillar_index == caterpillar_index and not LeafMode.game_over:
 			Player.body.global_position = caterpillar_component.global_position
 			Player.update_animation("sit", directions.find(movement_direction))
 			if movement_direction in [Vector2.LEFT, Vector2.RIGHT, Vector2.DOWN]: Player.body.global_position.y -= player_y_sit_offset
@@ -173,3 +174,32 @@ func get_caterpillar_index():
 	for node in get_parent().get_children():
 		if node == self: break
 		if node.has_meta("is_caterpillar_spawner"): caterpillar_index += 1
+
+const caterpillar_footstep_size = 8
+const footstep_alpha = 0.25
+
+func display_caterpillar_footsteps():
+	var current_distance_from_start = 0
+	var footstep_position = get_point_on_line(0)
+	while current_distance_from_start < path_circumference:
+		var progress = current_distance_from_start / path_circumference
+		get_point_on_line(progress)
+		footstep_position += movement_direction * caterpillar_footstep_size
+		var footstep_node = UID.SCN_CATERPILLAR_FOOTSTEP.instantiate()
+		footstep_node.position = footstep_position
+		var current_footstep_direction = movement_direction
+		footstep_node.modulate.a = footstep_alpha
+		
+		var used_footstep_direction = Vector3(current_footstep_direction.x, current_footstep_direction.y, 1)
+		if current_footstep_direction.x: used_footstep_direction.z = -1
+		var direction_changed = false
+		var next_footstep_progress = (current_distance_from_start + caterpillar_footstep_size) / path_circumference
+		get_point_on_line(next_footstep_progress)
+		if current_footstep_direction != movement_direction:
+			used_footstep_direction = Vector3(used_footstep_direction.x + movement_direction.x, used_footstep_direction.y + movement_direction.y, used_footstep_direction.z)
+			direction_changed = true
+			
+		footstep_node.direction_changed = direction_changed
+		footstep_node.direction = used_footstep_direction
+		add_child(footstep_node)
+		current_distance_from_start += caterpillar_footstep_size

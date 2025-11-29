@@ -110,4 +110,5 @@ func handle_choice_selected():
 		Option.Exit: QuittingNotice.close_game()
 
 func open_game_settings():
+	can_change_option = true
 	print("OPEN SETTINGS")

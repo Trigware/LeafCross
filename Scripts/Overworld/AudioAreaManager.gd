@@ -13,6 +13,7 @@ var closest_shape = null
 
 func _ready():
 	get_collision_shapes()
+	Overworld.stop_audio.connect(stop_audio)
 	await get_tree().process_frame
 	audioNode.stream = audioStream
 	audioNode.play()

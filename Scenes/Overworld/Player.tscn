@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dfj7f8jn24p1"]
+[gd_scene load_steps=8 format=3 uid="uid://dfj7f8jn24p1"]
 
 [ext_resource type="Script" uid="uid://35ebop2fx7cc" path="res://Scripts/Overworld/Player Root.gd" id="1_y5qff"]
 [ext_resource type="Script" uid="uid://bfo312wgsexbh" path="res://Scripts/Overworld/Player.gd" id="2_w8g5s"]
-[ext_resource type="Material" uid="uid://c5jysktbocad2" path="res://Shaders/Shader Materials/Electicution.tres" id="3_w8g5s"]
 [ext_resource type="SpriteFrames" uid="uid://ceaxybl7jl2jp" path="res://Spriteframes/Player/ess.tres" id="3_y5qff"]
 [ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="5_d72xc"]
 [ext_resource type="Texture2D" uid="uid://dnfug1tug8dq2" path="res://Textures/Other/Notice.png" id="5_y5qff"]
@@ -24,7 +23,6 @@ script = ExtResource("2_w8g5s")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Player Body"]
 light_mask = 2
-material = ExtResource("3_w8g5s")
 sprite_frames = ExtResource("3_y5qff")
 animation = &"walk_down"
 
@@ -54,9 +52,15 @@ texture = ExtResource("5_d72xc")
 [node name="Health Particle Point" type="Marker2D" parent="Player Body"]
 position = Vector2(0, -18)
 
+[node name="GameOver Rect" type="ColorRect" parent="Player Body"]
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
 [node name="Leaf" type="Sprite2D" parent="Player Body"]
 modulate = Color(1, 1, 1, 0)
 light_mask = 3
+z_index = 2
 use_parent_material = true
 position = Vector2(0.666667, 0.333333)
 scale = Vector2(0.225, 0.225)

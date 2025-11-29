@@ -18,7 +18,10 @@ signal order_all_effects
 func _ready():
 	order_all_effects.connect(order_effects)
 
+func has_effect(effect: ID): return effect in processed_effects
+
 func activate(effect: ID, duration):
+	if LeafMode.game_over: return
 	var previous_duration = effect_durations.get(effect, 0)
 	var effect_instance = UID.SCN_STATUS_EFFECT.instantiate()
 	effect_instance.effect = effect
@@ -85,7 +88,8 @@ const max_burning_damage = 14
 const burning_damage_multiplier = 3
 
 func burning_effect(times_processed_since_start):
-	TextMethods.create_centered_text("CatchingOnFire_ExtinguishWithWater")
+	var river_manager = Overworld.activeRoom.get_node_or_null("River Manager")
+	if river_manager != null and river_manager.shallow_water != null: TextMethods.create_centered_text("CatchingOnFire_ExtinguishWithWater")
 	var damage = min(times_processed_since_start * burning_damage_multiplier, max_burning_damage)
 	LeafMode.modify_hp_with_label(-damage)
 	await wait(1)

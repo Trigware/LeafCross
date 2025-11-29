@@ -8,12 +8,15 @@ extends Node
 @onready var hp_particle_point = $"Player Body/Health Particle Point"
 @onready var animNode = $"Player Body/Sprite"
 @onready var notice = $"Player Body/Notice"
+@onready var gameover_rect = $"Player Body/GameOver Rect"
+@onready var player_collider = $"Player Body/Player Collider"
 
 const playableCharacters = ["rabbitek", "xdaforge", "gertofin"]
 
 const player_speed := 250
-const fast_movement := 0.625
+const fast_movement := 0.45
 const normal_move_fast_multiplier_default := 0.35
+var initial_leaf_scale: Vector2
 
 var playerMaxHealth = 138
 var playerHealth = playerMaxHealth
@@ -37,17 +40,22 @@ var sitting_on_caterpillar_component_index := -1
 var sitting_on_caterpillar_index := -1
 var disallowed_caterpillars : Array[int] = []
 var show_lever_pull_notice = true
+var in_title_screen = false
 
 var lilypad_overlaps = 0
 var previous_camera_pos = Vector2.ZERO
 
 var initial_camera_offset : Vector2
+var initial_leaf_position : Vector2
 
 var footsteps : Array[Dictionary] = []
 
 @onready var intended_leaf_pos = leafNode.position
 
 func _ready():
+	initial_leaf_scale = leafNode.scale
+	initial_leaf_position = leafNode.position
+	update_game_over_rect(0)
 	notice.hide()
 	disable()
 	var current_flash_final = 1
@@ -84,17 +92,25 @@ func get_newest_dir():
 
 func update_animation(anim_name, frame = null):
 	if can_update_anim(anim_name): return
+	if not animation_exists(anim_name):
+		push_error("The animation '" + anim_name + "' does not exist!")
+		return
 	node.animationNode.animation = anim_name
 	if frame is int: node.animationNode.frame = frame
+
+func animation_exists(anim_name): return anim_name in node.animationNode.sprite_frames.get_animation_names()
 
 func play_animation(anim_name):
 	if can_update_anim(anim_name): return
 	if SaveData.selectedCharacter == "ess":
 		var new_image_height = 48 if anim_name == "praying" else 36
 		set_uniform("image_pixel_height", new_image_height)
+	if not animation_exists(anim_name): return
 	animNode.play(anim_name)
 
 func can_update_anim(anim_name): return climbing_ladder and anim_name != "climb"
+
+func make_latest_movement_vector() -> Vector2: return Vector2(node.latest_basic_dir_x, node.latest_basic_dir_y)
 
 func set_pos(pos: Vector2):
 	node.global_position = pos
@@ -133,14 +149,13 @@ func move_camera_to(x, y, duration := 1.0):
 	await move_tween.finished
 
 func return_camera(duration := 1.0):
-	var return_pos = previous_camera_pos / Overworld.scaleConst
-	await move_camera_to(return_pos.x, return_pos.y, duration)
+	await Helper.tween(camera, "position", Vector2.ZERO, duration)
 
 func move_camera_by(x, y, duration := 1.0):
 	var camera_global_pos = camera.global_position / Overworld.scaleConst
 	await move_camera_to(camera_global_pos.x + x, camera_global_pos.y + y, duration)
 
-func move_camera_with_marker(marker, duration := 1.0): await move_camera_to(marker.position.x, marker.position.y, duration)
+func move_camera_with_marker(marker: Marker2D, duration := 1.0): await move_camera_to(marker.position.x, marker.position.y, duration)
 
 const leaf_mode_fast_movement = 1.25
 
@@ -174,3 +189,22 @@ func noticed(wait_time := 0.5):
 	notice.show()
 	await wait(wait_time)
 	notice.hide()
+
+func update_game_over_rect(rect_size: float):
+	gameover_rect.offset_left = -rect_size
+	gameover_rect.offset_top = -rect_size
+	gameover_rect.offset_right = rect_size
+	gameover_rect.offset_bottom = rect_size
+
+func tween_game_over_rect(final, speed):
+	var update_tween = create_tween()
+	var overall_change = abs(final - gameover_rect.offset_right)
+	update_tween.tween_method(
+		func(value):
+			update_game_over_rect(value),
+		gameover_rect.offset_right,
+		final,
+		overall_change / speed
+	)
+	update_tween.set_trans(Tween.TRANS_SPRING)
+	await update_tween.finished

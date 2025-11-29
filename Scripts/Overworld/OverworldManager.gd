@@ -3,21 +3,25 @@ extends Node2D
 const scaleConst := 1.7
 
 var activeRoom = null
-var currentRoom := Room.Weird_SpawnRoom
+var currentRoom := Room.Tester_LeverPuzzle
+var current_area := OverworldArea.Weird
 var latestExitRoom := Room.ErrorHandlerer
 var initialPosition := Vector2.ZERO
 var saveFileCorrupted = false
 var triggerLocked = false
 var time_since_room_load : float
 var delayRoomRequest = {}
+var area_changed_in_current_room := false
 
 var party_members := []
 
 @onready var music = $Music
 @onready var baseLight = $"Base Light"
 
-var base_light_color = Color("d9d9d9")
+var base_light_color = Color("ffffff")
 const debug_mode_active := false
+
+signal stop_audio
 
 func _process(delta):
 	time_since_room_load += delta
@@ -70,7 +74,8 @@ func setup_loaded_room(roomPath, strRoom, room: Room, newPlayerPosition, autoloa
 		BibleOverworld.reset()
 	
 	var roomCutscene = activeRoom.cutscene
-	if roomCutscene != CutsceneManager.Cutscene.None and not CutsceneManager.is_cutscene_finished(roomCutscene):
+	var spawn_cutscene_disabled = roomCutscene == CutsceneManager.Cutscene.SpawnRoom and SaveData.selectedCharacter == "ess"
+	if roomCutscene != CutsceneManager.Cutscene.None and not CutsceneManager.is_cutscene_finished(roomCutscene) and not spawn_cutscene_disabled:
 		newPlayerPosition = Vector2(activeRoom.cutscenePosition) * scaleConst
 		CutsceneManager.let_cutscene_play_out(roomCutscene)
 	
@@ -82,6 +87,9 @@ func setup_loaded_room(roomPath, strRoom, room: Room, newPlayerPosition, autoloa
 	Player.sitting_on_caterpillar_component_index = -1
 	Player.sitting_on_caterpillar_index = -1
 	Player.disallowed_caterpillars = []
+	Player.go_outside_water()
+	Player.in_leaves = false
+	area_changed_in_current_room = false
 	
 	if autoload: BibleOverworld.attempt_to_load_bible()
 	await check_if_no_rooms_loaded()
@@ -114,7 +122,14 @@ enum Room
 	Tester_CharacterDialog,
 	Tester_DangerousHedgehog,
 	Tester_LeverPuzzle,
-	Tester_DangerousCaterpillars
+	Tester_DangerousCaterpillars,
+	Bleak_BleaklandsEnterance
+}
+
+enum OverworldArea
+{
+	Weird,
+	Bleak
 }
 
 func get_room_enum(room: Room) -> String:
@@ -122,6 +137,10 @@ func get_room_enum(room: Room) -> String:
 	if roomName == null:
 		return ""
 	return roomName.replace("_", "/")
+
+func get_current_area_name_locale() -> String:
+	var name_internal = OverworldArea.find_key(current_area)
+	return Localization.get_text("area_name_" + name_internal)
 
 func get_room_ingame_name(room):
 	return Localization.get_text("room_name_" + get_room_enum(int(room)))
@@ -138,3 +157,5 @@ func modify_puzzle_tester(roomNode):
 	var puzzle_builder = roomNode.get_node("Lever Puzzle Builder")
 	if puzzles_solved >= lever_puzzles_playtest.size(): puzzles_solved = 0
 	puzzle_builder.puzzle_syntax = lever_puzzles_playtest[puzzles_solved]
+
+func normalize_position(pos_vector: Vector2) -> Vector2: return pos_vector / scaleConst

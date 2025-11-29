@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bdwhbnccnafaw"]
+
+[ext_resource type="Texture2D" uid="uid://c12167w5x2pgv" path="res://Textures/Other/DeathHand.png" id="1_3fvq4"]
+[ext_resource type="Script" uid="uid://fguao7n5ls1" path="res://Scripts/Globals/DeathHand.gd" id="1_f7r41"]
+[ext_resource type="Texture2D" uid="uid://dh208qogoj5cy" path="res://Textures/Other/DeathHandWires.png" id="3_8s47f"]
+
+[node name="Death Hand" type="Node2D"]
+light_mask = 16
+z_index = 50
+scale = Vector2(3.5, 3.5)
+script = ExtResource("1_f7r41")
+
+[node name="Hand" type="Sprite2D" parent="."]
+light_mask = 16
+texture = ExtResource("1_3fvq4")
+centered = false
+
+[node name="Wires" type="Sprite2D" parent="."]
+light_mask = 16
+position = Vector2(95.7143, 32)
+texture = ExtResource("3_8s47f")

@@ -138,7 +138,7 @@ func magnet_animation():
 	var blue_magnet_tween = create_tween().tween_property(blue_magnet, "position:y", blue_magnet.position.y + magnet_y_offset, magnet_tween_duration)
 	blue_magnet_tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
 	await blue_magnet_tween.finished
-	LeafMode.screen_shake_multiple(3, camera, camera_shake_offset)
+	LeafMode.screen_shake_multiple(3, camera, camera_shake_offset, LeafMode.screen_shake_duration)
 	Audio.play_sound(UID.SFX_MAGNET)
 
 func dna_animation():

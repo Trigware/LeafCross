@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="LeafCROSS"
-run/main_scene="uid://bgwga5lvrmnqq"
+run/main_scene="uid://e5dea2x5l6oa"
 config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/image="uid://b5nn32wkdodwr"

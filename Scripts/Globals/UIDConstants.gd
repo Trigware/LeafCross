@@ -31,6 +31,7 @@ const SFX_CAMPFIRE := preload("uid://bpp7qnbmhttta")
 const SFX_NAIL_SWING := preload("uid://bhkg7d1r5ia7u")
 const SFX_SWOOSH := preload("uid://xdjk8e08glhe")
 const SFX_MUSHROOM_FALL := preload("uid://dxckvwhbveeeu")
+const SFX_SHOW_GAME_OVER_OPTIONS = SFX_ROCKS_FALL
 const SFX_CROWBAR := preload("uid://mbxu5hjhv3td")
 const SFX_MAGNET := preload("uid://brdb7aweelctt")
 const SFX_ROCKS_FALL := preload("uid://dbadvl1vii5qp")
@@ -86,6 +87,12 @@ const SCN_LADDER_LASER := preload("uid://bjacsl26m51i6")
 const SCN_CATERPILLAR_LOG := preload("uid://bpf2rb8kw2dww")
 const SCN_CATERPILLAR_COMPONENT := preload("uid://dbkm7rb6hanow")
 const SCN_CENTERED_TEXT := preload("uid://cobw84f1tk807")
+const SCN_DEATH_HAND := preload("uid://bdwhbnccnafaw")
+const SCN_ESS_GHOST := preload("uid://0c2a7cig24ee")
+const SCN_TITLE_SCREEN := preload("uid://e5dea2x5l6oa")
+const SCN_OVERWORLD_BRIDGE := preload("uid://bgwga5lvrmnqq")
+const SCN_AREA_ENTER_NOTICE := preload("uid://jntnmi11u7a6")
+const SCN_CATERPILLAR_FOOTSTEP := preload("uid://3s5312a0a57k")
 
 const SCN_LILYPAD_MECHANIC : Dictionary[Overworld.Room, PackedScene] = {
 	Overworld.Room.Weird_LilypadRoom: preload("uid://do8xa234u6nyw")
@@ -159,3 +166,4 @@ func get_agent_collider_info(agent_variation: Enum.AgentVariation) -> Dictionary
 
 const SHD_HIDE_SPRITE := preload("uid://dqmk2fcx6j66e")
 const SHD_ELECTICUTION := preload("uid://c5jysktbocad2")
+const LOCALIZATION := preload("res://Localization.tres")

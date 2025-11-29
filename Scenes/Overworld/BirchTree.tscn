@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://c45rw4cf60r3w"]
+
+[ext_resource type="Texture2D" uid="uid://bbfnpllfv1rlq" path="res://Textures/Weird Forest/Birch Tree No leaves.png" id="1_xj1le"]
+[ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="2_ygroy"]
+
+[node name="Birch Tree" type="Sprite2D"]
+z_index = 1
+scale = Vector2(1.65, 1.65)
+texture = ExtResource("1_xj1le")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+z_index = -1
+position = Vector2(-3, 49.5)
+scale = Vector2(0.269531, 0.113281)
+texture = ExtResource("2_ygroy")

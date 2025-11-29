@@ -11,10 +11,15 @@ size = Vector2(82, 79.5)
 
 [node name="NPC Root" parent="." instance=ExtResource("1_gpgkp")]
 npcID = 17
+ignoreDirections = true
 set_only_at_start = true
 
 [node name="Sprite" parent="NPC Root" index="0"]
+light_mask = 0
 texture = ExtResource("2_gbuwg")
+
+[node name="Static Body" parent="NPC Root" index="2"]
+visible = false
 
 [node name="Trigger Zone" parent="NPC Root" index="3"]
 scale = Vector2(1.1, 1.1)
@@ -24,6 +29,15 @@ shape = SubResource("RectangleShape2D_t7yon")
 position = Vector2(2, -10)
 scale = Vector2(0.2, 0.2)
 audioStream = null
+
+[node name="Collision Shape" parent="Fire" index="1"]
+visible = false
+
+[node name="Layered Manager" parent="Fire/Sprite" index="1"]
+visible = false
+
+[node name="Effect Trigger" parent="Fire" index="3"]
+visible = false
 
 [editable path="NPC Root"]
 [editable path="Fire"]

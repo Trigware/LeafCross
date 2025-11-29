@@ -8,7 +8,7 @@ func _on_body_entered(body: Node2D):
 	Player.tween_color(Color.LIGHT_GREEN)
 	Player.tween_light_energy(1.5)
 	Player.tween_leaf_alpha(1)
-	LeafMode.tween_ui(150)
+	LeafMode.tween_ui(LeafMode.stamina_ui_show_x)
 	await get_tree().create_timer(0.1).timeout
 	Audio.play_sound(UID.SFX_LEAF_MODE_ENTER, 0.2)
 
@@ -18,6 +18,6 @@ func _on_body_exited(body: Node2D) -> void:
 	Player.tween_value(1)
 	Player.tween_color(Color.WHITE)
 	LeafMode.tween_light(0)
-	LeafMode.tween_ui(-425)
+	LeafMode.tween_ui(LeafMode.stamina_ui_hide_x)
 	Player.tween_light_energy(0)
-	Player.tween_leaf_alpha(0)
+	if not LeafMode.game_over: Player.tween_leaf_alpha(0)

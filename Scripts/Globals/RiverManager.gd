@@ -17,7 +17,7 @@ func _process(_delta):
 	Player.go_outside_water()
 
 func sink_underwater():
-	if Player.is_sinking or Player.on_lilypad: return
+	if Player.is_sinking or Player.on_lilypad or not Player.in_water: return
 	Player.sinked_times += 1
 	Player.is_sinking = true
 	create_tween().tween_property(Player.leafNode, "modulate:a", 0, 0.7).set_ease(Tween.EASE_IN_OUT)

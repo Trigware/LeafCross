@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bg0yhw4gg5d0u"]
+
+[ext_resource type="Shader" uid="uid://c80k5rd4vmg4g" path="res://Shaders/GDSL/DeathHandWires.gdshader" id="1_l53vc"]
+
+[resource]
+shader = ExtResource("1_l53vc")
+shader_parameter/progress = 1.0

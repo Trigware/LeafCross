@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bt1cev0o1dw5d" path="res://Textures/Other/Light Rect.png" id="1_ghubt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fqrvk"]
-size = Vector2(110, 28)
+size = Vector2(30, 275)
 
 [node name="Room Trigger" type="Area2D"]
 script = ExtResource("1_fqrvk")

@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3 uid="uid://dusihqvso8rcn"]
+
+[ext_resource type="Texture2D" uid="uid://cq3f072kaimo8" path="res://Textures/Other/Respawn Option Button.png" id="1_glqou"]
+[ext_resource type="FontFile" uid="uid://dil43sbwcg2uc" path="res://Fonts/Leafcross Font.png" id="3_0i60g"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bl3jl"]
+font = ExtResource("3_0i60g")
+font_size = 48
+outline_size = 10
+outline_color = Color(0.4, 0.4, 0.4, 1)
+shadow_color = Color(0, 0, 0, 0.392157)
+shadow_offset = Vector2(4, 4)
+
+[node name="Respawn Option" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Root" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -32.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 32.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Root"]
+light_mask = 0
+layout_mode = 0
+offset_left = -5.0
+offset_top = 1.0
+offset_right = 70.0
+offset_bottom = 16.0
+texture = ExtResource("1_glqou")
+patch_margin_left = 9
+patch_margin_top = 5
+patch_margin_right = 9
+patch_margin_bottom = 7
+
+[node name="Text" type="Label" parent="Root"]
+light_mask = 0
+layout_mode = 0
+offset_left = -66.0
+offset_top = 2.0
+offset_right = 921.0
+offset_bottom = 56.0
+scale = Vector2(0.2, 0.2)
+theme_override_font_sizes/font_size = 1
+text = "Vrať se ke knize"
+label_settings = SubResource("LabelSettings_bl3jl")
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -22,6 +22,7 @@ var wmt_easter_egg_key_progress = 0
 const wmtale_easter_egg_keyinputs := [KEY_W, KEY_M, KEY_T]
 
 func _ready():
+	Player.in_title_screen = true
 	setup_title_screen()
 	logo.after_flash.connect(after_flash)
 	choose_lang_root.language_selected.connect(main_menu_initialize)

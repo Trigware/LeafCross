@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://bk8o5gajsy1k"]
+[gd_scene load_steps=24 format=4 uid="uid://bk8o5gajsy1k"]
 
 [ext_resource type="Script" uid="uid://cig64ay50648y" path="res://Scripts/Rooms/SaveIntroRoom.gd" id="1_rf7te"]
 [ext_resource type="TileSet" uid="uid://j4ql01hhxi04" path="res://TileSets/WeirdGround.tres" id="2_wolnr"]
@@ -36,6 +36,9 @@ size = Vector2(40, 239)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bqo8m"]
 size = Vector2(20, 249)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rf7te"]
+size = Vector2(256, 23)
 
 [node name="SaveIntroRoom" type="Node2D"]
 script = ExtResource("1_rf7te")
@@ -169,5 +172,19 @@ agent_type = 3
 agent_variation = 5
 on_ready_default_scale = false
 
+[node name="Hedgehog Enterance" parent="." instance=ExtResource("3_p7nka")]
+position = Vector2(1205, 294)
+roomDestination = 10
+
+[node name="Trigger Shape" parent="Hedgehog Enterance" index="0"]
+position = Vector2(26, 111)
+shape = SubResource("RectangleShape2D_rf7te")
+
+[node name="Obstruction" parent="Hedgehog Enterance" index="1"]
+position = Vector2(-192, 87.6906)
+rotation = 1.5708
+scale = Vector2(1.04427, 5.06451)
+
 [editable path="Trigger Enterance"]
 [editable path="Bible Interact Prompt"]
+[editable path="Hedgehog Enterance"]

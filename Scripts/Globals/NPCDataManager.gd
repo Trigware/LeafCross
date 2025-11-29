@@ -25,7 +25,9 @@ enum ID
 	BlueBeehive_SAVEINTROROOM,
 	BibleInteractPrompt_SAVEINTROROOM,
 	DetailedTree_SAVEINTROROOM,
-	InfoTablet_LEVERPUZZLEROOM
+	InfoTablet_LEVERPUZZLEROOM,
+	SavePoint_BleaklandsEnterance,
+	Antihomeless_Bench_BLEAKLANDS_ENTERANCE
 }
 
 enum Field

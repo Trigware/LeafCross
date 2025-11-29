@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://jntnmi11u7a6"]
+
+[ext_resource type="FontFile" uid="uid://dil43sbwcg2uc" path="res://Fonts/Leafcross Font.png" id="1_jy27y"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jy27y"]
+font = ExtResource("1_jy27y")
+font_size = 48
+font_color = Color(0.97, 0.97, 0.97, 1)
+outline_size = 10
+outline_color = Color(0.4, 0.4, 0.4, 1)
+shadow_color = Color(0.639216, 0.639216, 0.639216, 0.392157)
+shadow_offset = Vector2(4, 4)
+
+[node name="Area Enter Notice" type="CanvasLayer"]
+
+[node name="Notice" type="Label" parent="."]
+modulate = Color(0.75, 0.68, 0.6, 1)
+offset_left = 14.0
+offset_top = 551.0
+offset_right = 325.0
+offset_bottom = 599.0
+scale = Vector2(2, 2)
+text = "the BLEAKLANDS"
+label_settings = SubResource("LabelSettings_jy27y")

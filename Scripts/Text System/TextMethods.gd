@@ -27,7 +27,7 @@ func fade_text(duration):
 	await tween.finished
 	clear_text()
 
-func print_localization(text_key, variables = {}, preset := PresetSystem.Preset.Fallback):
+func print_localization(text_key, variables := {}, preset := PresetSystem.Preset.Fallback):
 	PresetSystem.print_preset(Localization.get_text(text_key, variables), preset, variables)
 
 func print_group(group: Array[String], variables = {}, preset := PresetSystem.Preset.Fallback):
@@ -38,7 +38,7 @@ func print_wait(text, preset := PresetSystem.Preset.Fallback):
 	PresetSystem.print_preset(text, preset)
 	await TextSystem.want_next_text
 
-func print_wait_localization(text, variables = {}, preset := PresetSystem.Preset.Fallback):
+func print_wait_localization(text, variables := {}, preset := PresetSystem.Preset.Fallback):
 	print_localization(text, variables, preset)
 	await TextSystem.want_next_text
 
@@ -56,12 +56,18 @@ func print_sequence_setup(base_key, suffix):
 	first_key_remove_index = false
 	repair_key()
 
-func print_sequence(base_key, variables := {}, preset := PresetSystem.Preset.Fallback, suffix := "root"):
+var sequence_variables: Dictionary
+
+func print_sequence(base_key, variables = {}, preset := PresetSystem.Preset.Fallback, suffix := "root"):
 	print_sequence_setup(base_key, suffix)
+	sequence_variables = variables
 	while true:
 		var sequence_finished = await print_textkey_in_sequence(variables, preset)
 		if sequence_finished: break
+	if TextSystem.current_speaking_character != TextSystem.SpeakingCharacter.Narrator: TextSystem.set_portrait_progress(TextSystem.full_hide_portrait_progression)
 	TextSystem.current_speaking_character = TextSystem.SpeakingCharacter.Narrator
+
+func update_variable(variable_name: String, new_value): sequence_variables[variable_name] = new_value
 
 func repair_key():
 	if Localization.text_exists(get_sequence_key()): return

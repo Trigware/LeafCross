@@ -31,8 +31,9 @@ func _on_body_entered(body):
 	var laser_color_v = Enum.lever_colors[laser_color]
 	var color_vector = Vector4(laser_color_v.r, laser_color_v.g, laser_color_v.b, laser_color_v.a)
 	Player.set_uniform("outline_color", color_vector)
+	LeafMode.modify_hp_with_id(LeafMode.HPChangeID.LeverPuzzleElectricution)
+	Audio.play_sound(UID.SFX_ELECTRIC_SHOCK, 0.2, -4)
 	
-	Audio.play_sound(UID.SFX_ELECTRIC_SHOCK, 0.2, -12)
 	CutsceneManager.action_lock = true
 	var y_dir = sign(global_position.y - Player.get_global_pos().y)
 	var distance = (electricution_final_y_destination - position.y * -y_dir) * -y_dir

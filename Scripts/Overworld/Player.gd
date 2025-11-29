@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 var direction := Vector2.ZERO
 var basic_direction := Vector2.ZERO
+var latest_basic_dir_x: float
 var latest_basic_dir_y : float
 var stringAnimation = "Right"
 var is_left_last_horizontal_dir = false
@@ -77,6 +78,7 @@ func handle_motion_actions():
 		direction.y += 1
 	
 	basic_direction = direction
+	if direction.x != 0: latest_basic_dir_x = direction.x
 	if direction.y != 0: latest_basic_dir_y = direction.y
 	if Input.is_action_pressed("move_fast"):
 		speedMultiplier = Player.get_fast_movement_speed()

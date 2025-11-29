@@ -115,7 +115,9 @@ func create_ladder(i):
 	ladder_instance.set_meta("ladder_parent_index", ladder_parent_index)
 	ladder_instance.name = Enum.get_lever_color_as_name(lever_color_enum) + " Ladder"
 	var ladder_nesting_level = ladder_nesting_levels[lever_color_enum]
-	ladder_instance.get_node("Layered NPC/Layered Manager").sprite_zindex += highest_ladder_nesting_level - ladder_nesting_level
+	var used_z_index = ladder_instance.z_index + highest_ladder_nesting_level + ladder_nesting_level
+	ladder_instance.z_index = used_z_index
+	ladder_instance.get_node("Lever").z_index = used_z_index
 	
 	lever_dict[lever_color_enum] = lever
 	add_lasers_to_ladder(ladder_instance, lever_color_enum)

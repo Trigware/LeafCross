@@ -98,7 +98,6 @@ func set_anim(anim_name):
 func set_direction_animation():
 	if final_look_dir == Vector2.ZERO: return
 	controlled_body.stringAnimation = get_string_direction(final_look_dir)
-	controlled_body.update_walk_animation_frame()
 
 func get_string_direction(dir: Vector2):
 	if go_backwards: dir = -dir

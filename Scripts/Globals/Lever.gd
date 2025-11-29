@@ -41,6 +41,7 @@ const lever_pull_tween_duration = 0.4
 
 func interact_with_lever(cutscene_controlled_interaction = false):
 	if CutsceneManager.action_lock and not cutscene_controlled_interaction: return
+	prints(Player.climbing_ladder_index, belongs_to_ladder_index)
 	if Player.climbing_ladder_index != belongs_to_ladder_index and not cutscene_controlled_interaction: return
 	if lever_interaction_disabled: return
 	

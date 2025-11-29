@@ -44,7 +44,7 @@ func ask_to_get_item(
 	var item_name = get_item_name(item)
 	var color_control = "{#" + color.to_html() + "}"
 	var colored_item_text = color_control + item_name + "{#/}"
-	await TextMethods.print_wait_localization("item_choice_pickup", colored_item_text)
+	await TextMethods.print_wait_localization("item_choice_pickup", {"item": colored_item_text})
 	
 	await ChoicerSystem.give_basic_choice()
 	if ChoicerSystem.is_player_choice("decline"):

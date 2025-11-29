@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://0c2a7cig24ee"]
+
+[ext_resource type="Texture2D" uid="uid://diqb1rek2spkx" path="res://Textures/Other/Ess Ghost.png" id="1_k6rwc"]
+[ext_resource type="Script" uid="uid://dlty43u017jnl" path="res://Scripts/Globals/EssGhost.gd" id="1_yr7e3"]
+[ext_resource type="Texture2D" uid="uid://baak5gxkhkwwj" path="res://Textures/Other/GameOver.png" id="2_nt11w"]
+[ext_resource type="Texture2D" uid="uid://d3qn1uepuvpba" path="res://Textures/Other/Ess Tomb.png" id="2_yr7e3"]
+[ext_resource type="Texture2D" uid="uid://cfp8iw8ji3q7m" path="res://Spritesheets/BibleForming.png" id="4_jxx07"]
+[ext_resource type="PackedScene" uid="uid://dusihqvso8rcn" path="res://Scenes/Non-Overworld/Respawn Option.tscn" id="5_axs5d"]
+[ext_resource type="Texture2D" uid="uid://816ne26yw738" path="res://Textures/Other/GameOverSelector.png" id="6_wqcb7"]
+
+[node name="Ess Ghost" type="Node2D"]
+light_mask = 0
+z_index = 50
+scale = Vector2(3.5, 3.5)
+script = ExtResource("1_yr7e3")
+
+[node name="GameOver" type="Sprite2D" parent="."]
+position = Vector2(-10, -40)
+scale = Vector2(0.925, 0.925)
+texture = ExtResource("2_nt11w")
+
+[node name="Ghost" type="Sprite2D" parent="."]
+light_mask = 0
+position = Vector2(-8, -30)
+texture = ExtResource("1_k6rwc")
+
+[node name="Tomb" type="Sprite2D" parent="."]
+light_mask = 0
+position = Vector2(0, 32)
+texture = ExtResource("2_yr7e3")
+
+[node name="Options" type="Node2D" parent="."]
+position = Vector2(0, 150)
+
+[node name="Book" type="Sprite2D" parent="Options"]
+light_mask = 0
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("4_jxx07")
+hframes = 14
+frame = 13
+
+[node name="Respawn" parent="Options" instance=ExtResource("5_axs5d")]
+offset_left = -100.0
+offset_right = -100.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Go to Title" parent="Options" instance=ExtResource("5_axs5d")]
+offset_left = 100.0
+offset_right = 100.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Selector" type="Sprite2D" parent="Options"]
+light_mask = 0
+position = Vector2(-100, -25)
+rotation = 1.5708
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("6_wqcb7")

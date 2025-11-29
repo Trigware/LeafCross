@@ -11,7 +11,7 @@ var after_choicer_text_error_pushed : bool
 var suffix_instruction_appeared := SuffixType.None
 var latest_suffix_instruction = ""
 var functions_called_during_text: Array[Function] = []
-var contains_non_wait_function := false
+var non_wait_functions_waiting_to_be_executed := 0
 
 func record_control_text(text: String) -> String:
 	setup_control_text_parsing()
@@ -61,7 +61,7 @@ func setup_control_text_parsing():
 	suffix_instruction_appeared = SuffixType.None
 	ChoicerSystem.choicer_options = {}
 	functions_called_during_text = []
-	contains_non_wait_function = false
+	non_wait_functions_waiting_to_be_executed = 0
 
 func parse_control_bracket_end():
 	in_brackets = false
@@ -106,7 +106,7 @@ func parse_function_call(prefix):
 	var content_with_no_prefix = bracket_content.substr(prefix.length())
 	var opening_parenthesis_index = content_with_no_prefix.find('(')
 	var closing_parethesis_index = content_with_no_prefix.find(')')
-	contains_non_wait_function = true
+	non_wait_functions_waiting_to_be_executed += 1
 	
 	var function_name = content_with_no_prefix.substr(0, opening_parenthesis_index)
 	var arguments_as_str = content_with_no_prefix.substr(opening_parenthesis_index+1, closing_parethesis_index-opening_parenthesis_index-1)

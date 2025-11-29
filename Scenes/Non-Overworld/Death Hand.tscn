@@ -1,0 +1,70 @@
+[gd_scene load_steps=9 format=3 uid="uid://bdwhbnccnafaw"]
+
+[ext_resource type="Texture2D" uid="uid://c12167w5x2pgv" path="res://Textures/Other/DeathHand.png" id="1_3fvq4"]
+[ext_resource type="Script" uid="uid://fguao7n5ls1" path="res://Scripts/Globals/DeathHand.gd" id="1_f7r41"]
+[ext_resource type="Texture2D" uid="uid://cmlsk4r2dbfea" path="res://Textures/Other/Leaf Particle.png" id="2_225a6"]
+[ext_resource type="Material" uid="uid://bg0yhw4gg5d0u" path="res://Shaders/Shader Materials/DeathHandWires.tres" id="3_6p2jo"]
+[ext_resource type="Texture2D" uid="uid://dh208qogoj5cy" path="res://Textures/Other/DeathHandWires.png" id="3_8s47f"]
+[ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="4_u30nj"]
+
+[sub_resource type="Curve" id="Curve_225a6"]
+_limits = [-500.0, 500.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.976, 3), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_ug3yw"]
+offsets = PackedFloat32Array(0.524752, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[node name="Death Hand" type="Node2D"]
+light_mask = 16
+z_index = 50
+scale = Vector2(3.5, 3.5)
+script = ExtResource("1_f7r41")
+
+[node name="Leaf Particles" type="CPUParticles2D" parent="."]
+position = Vector2(168, 32.2857)
+emitting = false
+texture = ExtResource("2_225a6")
+randomness = 0.5
+emission_shape = 3
+emission_rect_extents = Vector2(8, 1)
+initial_velocity_max = 1.0
+angular_velocity_min = 1.0
+angular_velocity_max = 2.0
+orbit_velocity_min = -0.15
+orbit_velocity_max = 0.15
+orbit_velocity_curve = SubResource("Curve_225a6")
+scale_amount_min = 2.0
+scale_amount_max = 3.5
+color_ramp = SubResource("Gradient_ug3yw")
+anim_speed_max = 1.0
+
+[node name="Hand" type="Sprite2D" parent="."]
+light_mask = 16
+texture = ExtResource("1_3fvq4")
+centered = false
+vframes = 2
+
+[node name="Wires" type="Sprite2D" parent="."]
+light_mask = 16
+material = ExtResource("3_6p2jo")
+position = Vector2(95.7143, 32)
+texture = ExtResource("3_8s47f")
+
+[node name="Light" type="PointLight2D" parent="."]
+position = Vector2(120.286, 20.2857)
+scale = Vector2(2.1317, 0.25)
+color = Color(0.902324, 0.346375, 2.5028e-06, 1)
+energy = 1.5
+range_item_cull_mask = 16
+texture = ExtResource("4_u30nj")
+texture_scale = 0.5
+
+[node name="Light2" type="PointLight2D" parent="."]
+visible = false
+position = Vector2(166.857, 33.7143)
+color = Color(0.819833, 1, 0.53, 1)
+energy = 0.25
+range_item_cull_mask = 16
+texture = ExtResource("4_u30nj")

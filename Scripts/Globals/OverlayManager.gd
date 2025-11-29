@@ -31,8 +31,8 @@ func alpha_tween(alpha, duration = 1.0):
 	overlay_tween(Color(Color.BLACK, alpha), duration)
 	await finished
 
-func overlay_tween(color: Color, duration = 1.0):
-	fadeOverlay.modulate = Color(color, fadeOverlay.modulate.a)
+func overlay_tween(color: Color, duration = 1.0, modify_start_modulate := true):
+	if modify_start_modulate: fadeOverlay.modulate = Color(color, fadeOverlay.modulate.a)
 	while_transition = true
 	kill_tween()
 	activeTween = create_tween()

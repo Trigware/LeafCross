@@ -1,6 +1,6 @@
 [gd_scene load_steps=27 format=4 uid="uid://cnt0saollycbh"]
 
-[ext_resource type="Script" uid="uid://dj3qdrjjlq6jw" path="res://Scripts/Overworld/BaseRoom.gd" id="1_wh75a"]
+[ext_resource type="Script" uid="uid://xsxkcbfl1cxw" path="res://Scripts/Rooms/LeverPuzzleRoom.gd" id="1_1h778"]
 [ext_resource type="TileSet" uid="uid://j4ql01hhxi04" path="res://TileSets/WeirdGround.tres" id="2_jkp0u"]
 [ext_resource type="TileSet" uid="uid://b6j4xcs3tqgoq" path="res://TileSets/WeirdEnvironment.tres" id="3_5kl0a"]
 [ext_resource type="TileSet" uid="uid://cha16hdgd7d58" path="res://TileSets/WeirdBushes.tres" id="4_mbe77"]
@@ -102,7 +102,7 @@ metadata/_custom_type_script = "uid://beyd1c6w8j3pj"
 size = Vector2(46, 193)
 
 [node name="Lever Puzzle" type="Node2D"]
-script = ExtResource("1_wh75a")
+script = ExtResource("1_1h778")
 roomMusic = "Weird Danger"
 roomMusicPitchRange = 0.0
 
@@ -131,7 +131,7 @@ tile_set = ExtResource("4_mbe77")
 
 [node name="Room Trigger" parent="." instance=ExtResource("5_fkfs0")]
 position = Vector2(-100, 0)
-roomDestination = 11
+roomDestination = 10
 
 [node name="Trigger Shape" parent="Room Trigger" index="0"]
 position = Vector2(-59.5, 117)
@@ -190,7 +190,8 @@ gizmo_extents = 50.0
 [node name="CutsceneTrigger" parent="." node_paths=PackedStringArray("cutscene_node_overrides") instance=ExtResource("11_hd6ar")]
 cutscene = 8
 cutscene_node_overrides = {
-"camera_dest": NodePath("Camera Destination")
+"camera_dest": NodePath("Camera Destination"),
+"lever_puzzle": NodePath("../Lever Puzzle Builder")
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CutsceneTrigger"]

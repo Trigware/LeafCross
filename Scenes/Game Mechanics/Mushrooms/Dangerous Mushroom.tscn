@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dmvg61n8chab8"]
+[gd_scene load_steps=9 format=3 uid="uid://dmvg61n8chab8"]
 
 [ext_resource type="Texture2D" uid="uid://re7jdc1b2cug" path="res://Spritesheets/Mushrooms.png" id="1_6b7ck"]
 [ext_resource type="Script" uid="uid://0ags3h18nsjl" path="res://Scripts/Overworld/DangerousMushroom.gd" id="1_m8svq"]
@@ -12,6 +12,9 @@ radius = 35.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_htf63"]
 radius = 8.0
 height = 22.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jd8qx"]
+size = Vector2(13.5, 21)
 
 [node name="Dangerous Mushroom" type="Area2D"]
 script = ExtResource("1_m8svq")
@@ -54,6 +57,10 @@ treeSprite = NodePath("..")
 
 [node name="Effect Particle" parent="." instance=ExtResource("5_uyyyo")]
 emitting = false
+
+[node name="Explosion Collider" type="CollisionShape2D" parent="."]
+position = Vector2(0.25, 0.5)
+shape = SubResource("RectangleShape2D_jd8qx")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="Fire" to="Fire/Sprite" method="on_body_entering_fire"]

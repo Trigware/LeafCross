@@ -30,7 +30,7 @@ func _ready():
 	if override_id_from_parent:
 		override_id_from_parent_fn()
 	
-	correct_linked_nodes()
+	setup_npc_sequence_vars()
 	if npcID == NPCData.ID.Uninitialized:
 		push_error("NPC ID is not initiliazed!")
 		return
@@ -39,18 +39,16 @@ func _ready():
 	textID = NPCData.get_id_name(npcID)
 	var isNPCDeleted = NPCData.get_data(npcID, NPCData.Field.Deleted)
 	if isNPCDeleted: queue_free()
-	if set_only_at_start:
-		NPCData.set_data(npcID, NPCData.Field.OnlyInteraction, true)
-	
+	NPCData.set_data(npcID, NPCData.Field.OnlyInteraction, set_only_at_start)
 	get_suffix(1)
 
-func correct_linked_nodes():
-	var corrected_dict : Dictionary[String, Node] = {}
+var npc_sequence_variables: Dictionary
+
+func setup_npc_sequence_vars():
 	for linked_node_name in linked_nodes.keys():
 		var corrected_name = linked_node_name
 		if not linked_node_name.ends_with("*"): corrected_name = linked_node_name + "*"
-		corrected_dict[corrected_name] = linked_nodes[linked_node_name]
-	linked_nodes = corrected_dict
+		npc_sequence_variables[corrected_name] = linked_nodes[linked_node_name]
 
 func override_id_from_parent_fn():
 	var parent = get_parent()
@@ -93,13 +91,14 @@ func interact_with_npc():
 		NPCData.set_data(npcID, NPCData.Field.Deactivated, true)
 	
 	interactionCount = NPCData.get_incremented_data(npcID, NPCData.Field.InteractionCount)
+	npc_sequence_variables["already_interacted"] = interactionCount > 1
 	TextSystem.canInteract = false
 	
 	var base_key = textID
 	var suffix = get_suffix(interactionCount)
 	
-	if suffix != null: await TextMethods.print_sequence(base_key, linked_nodes, PresetSystem.Preset.Fallback, suffix)
-	else: await TextMethods.print_wait_localization("npc_outofinteract", linked_nodes, PresetSystem.Preset.Fallback)
+	if suffix != null: await TextMethods.print_sequence(base_key, npc_sequence_variables, PresetSystem.Preset.Fallback, suffix)
+	else: await TextMethods.print_wait_localization("npc_outofinteract", npc_sequence_variables, PresetSystem.Preset.Fallback)
 	
 	if item != Inventory.Item.NONE:
 		await Inventory.ask_to_get_item(Inventory.Item.GLOWING_MUSHROOM, itemCount, self, npcID, itemColor)

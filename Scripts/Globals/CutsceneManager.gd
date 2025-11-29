@@ -19,6 +19,18 @@ enum Cutscene
 }
 
 signal cutscene_completed
+signal player_sit
+
+var time_since_player_sat_on_bench: float
+var time_since_waiting_to_sit: float
+var sitting_wait_time: float
+var was_any_movement_or_continue_key_pressed := true
+
+func _process(delta):
+	time_since_player_sat_on_bench += delta
+	time_since_waiting_to_sit += delta
+	if Helper.is_any_movement_or_continue_key_pressed() and not was_any_movement_or_continue_key_pressed: was_any_movement_or_continue_key_pressed = true
+	if time_since_waiting_to_sit >= sitting_wait_time: player_sit.emit()
 
 func wait(duration):
 	await get_tree().create_timer(duration).timeout
@@ -34,12 +46,16 @@ func is_cutscene_finished(cutscene: Cutscene):
 
 func after_cutscene_finished(cutscene: Cutscene):
 	action_lock = false
+	if latest_cutscene_finished_early: return
 	add_finished_cutscene_flag(cutscene)
 	if cutscene == Cutscene.Nixie_Introductory:
 		NPCData.set_data(NPCData.ID.BibleInteractPrompt_SAVEINTROROOM, NPCData.Field.Deactivated, true)
 
-func complete_cutscene():
+var latest_cutscene_finished_early := false
+
+func complete_cutscene(returned_early := false):
 	await get_tree().process_frame
+	latest_cutscene_finished_early = returned_early
 	emit_signal("cutscene_completed")
 
 func let_cutscene_play_out(cutscene: Cutscene, cutscene_nodes_override := {}):
@@ -81,9 +97,9 @@ func play_cemetarygate_cutscene():
 func play_nixie_introductory_cutscene():
 	var nixie = cutscene_nodes["nixie"]
 	nixie_introductory_jump(nixie)
-	await wait(0.25)
-	TextMethods.print_wait_localization("Cutscene_Nixie_Introductory_TreeSaveDialog", {}, PresetSystem.Preset.TreeTextCutoff)
 	await nixie_fall_finished
+	Audio.play_music("The Self-Proclaimed Queen")
+	await TextMethods.print_sequence("Cutscene_NixieIntroductory_Tester")
 	complete_cutscene()
 
 func nixie_introductory_jump(nixie):
@@ -95,6 +111,7 @@ func nixie_introductory_jump(nixie):
 	await wait(0.8)
 	nixie.show()
 	nixie.tween_hide_progression(0, 0.75)
+	Player.update_animation("walk_up")
 	await wait(1)
 	var player_pos = Player.get_body_pos()
 	nixie.jump_to_point(Vector2(player_pos.x, player_pos.y - 10))
@@ -120,29 +137,9 @@ func print_cutscene_sequence(variables := {}, preset := PresetSystem.Preset.Regu
 	await TextMethods.print_sequence(base_key, variables, preset, "root")
 
 func play_leverpuzzle_exclamation_tutorial_cutscene():
-	if Overworld.puzzles_solved != 2:
-		complete_cutscene()
-		return
 	var lever_puzzle = cutscene_nodes["lever_puzzle"]
 	var camera_destination_marker = cutscene_nodes["camera_dest"]
-	await Player.move_camera_with_marker(camera_destination_marker)
-	await wait(1)
-	await TextMethods.print_group(["Cutscene_LeverPuzzle_Tutorial#1", "Cutscene_LeverPuzzle_Tutorial#2"])
-	stop_flipping_lever = false
-	flip_lever_continuously(lever_puzzle, Enum.LeverColor.Red, false)
-	await TextMethods.print_wait_localization("Cutscene_LeverPuzzle_Tutorial#3")
-	stop_flipping_lever = true
-	await lever_puzzle.tween_all_lasers_and_levers(1, 0)
-	Audio.play_sound(UID.SFX_COLLAPSING_LADDERS_PUZZLE, 0, 5)
-	await lever_puzzle.tween_all_ladders_hide_progression(0, 1)
-	await TextMethods.print_wait_localization("Cutscene_LeverPuzzle_Tutorial#4")
-	lever_puzzle.puzzle_syntax = "FR(!B);TB(Y);FG(!O,Gr)B;TY;FP(Y,!Gr)Y;FO(R,B)P;FGr(Pi,!R);FW(O,!P,!G)Gr;TPi(P,B)"
-	lever_puzzle.construct_ladders()
-	lever_puzzle.set_all_lasers_and_ladders_alpha(0)
-	Audio.play_sound(UID.SFX_COLLAPSING_LADDERS_PUZZLE, 0, 5)
-	await lever_puzzle.tween_all_ladders_hide_progression(1, 0)
-	lever_puzzle.tween_all_lasers_and_levers(0, 1)
-	await Player.return_camera()
+	await TextMethods.print_sequence("Cutscene_LeverPuzzle_Tutorial", {"lever_puzzle*": lever_puzzle, "cam_dest*": camera_destination_marker})
 	complete_cutscene()
 
 var stop_flipping_lever = false
@@ -183,6 +180,11 @@ func play_text_event_wait(wait_time: float):
 	await wait(wait_time)
 	complete_text_event()
 
+func play_text_event_auto():
+	TextSystem.text_finished.emit()
+	TextSystem.want_next_text.emit()
+	complete_text_event()
+
 func play_text_event_textvisibility(visibility_status: bool):
 	TextSystem.textNode.visible = visibility_status
 	TextSystem.textboxNode.visible = visibility_status
@@ -201,10 +203,7 @@ func play_text_event_return_camera(duration := 1.0):
 func play_text_event_require_input():
 	TextSystem.show_wait_leaf()
 	await TextSystem.dialog_continue_key_pressed
-	complete_text_event()
-
-func play_text_event_auto():
-	TextSystem.emit_signal("want_next_text")
+	TextSystem.latest_text_called_require_input = true
 	complete_text_event()
 
 var lever_color_to_continuously_toggle := Enum.LeverColor.None
@@ -219,4 +218,58 @@ func play_text_event_toggle_stopped():
 	while true:
 		await get_tree().process_frame
 		if stop_flipping_lever == false: break
+	complete_text_event()
+
+const wait_before_puzzle_start_construction = 0.75
+
+func play_text_event_show_full_puzzle(lever_puzzle: Node2D):
+	await lever_puzzle.tween_all_lasers_and_levers(1, 0)
+	Audio.play_sound(UID.SFX_COLLAPSING_LADDERS_PUZZLE, 0, 5)
+	await lever_puzzle.tween_all_ladders_hide_progression(0, 1)
+	await wait(wait_before_puzzle_start_construction)
+	lever_puzzle.puzzle_syntax = "FR(!B);TB(Y);FG(!O,Gr)B;TY;FP(Y,!Gr)Y;FO(R,B)P;FGr(Pi,!R);FW(O,!P,!G)Gr;TPi(P,B)"
+	lever_puzzle.construct_ladders()
+	lever_puzzle.set_all_lasers_and_ladders_alpha(0)
+	Audio.play_sound(UID.SFX_COLLAPSING_LADDERS_PUZZLE, 0, 5)
+	await lever_puzzle.tween_all_ladders_hide_progression(1, 0)
+	lever_puzzle.tween_all_lasers_and_levers(0, 1)
+	await Player.return_camera()
+	complete_text_event()
+
+const bench_player_dest_x_offset = 50
+const wait_before_player_sits := 0.35
+const player_y_sit_offset := 30
+
+func play_text_event_make_player_sit(bench: Area2D):
+	var player_position = Player.get_global_pos()
+	var player_walk_dir = -1
+	if player_position.x > bench.global_position.x: player_walk_dir = +1
+	var bench_x_position = Overworld.normalize_position(bench.global_position).x
+	var sit_destination = bench_x_position + bench_player_dest_x_offset * player_walk_dir
+	var player_walk_distance = sit_destination - Overworld.normalize_position(player_position).x
+	await MovingNPC.move_player_by(player_walk_distance)
+	Player.update_animation("walk_down")
+	Player.animNode.stop()
+	
+	time_since_waiting_to_sit = 0
+	sitting_wait_time = randf_range(wait_before_player_sits, wait_before_player_sits * 6)
+	await Helper.await_any_movement_or_continue_key_press(false)
+	was_any_movement_or_continue_key_pressed = false
+	await player_sit
+	
+	var attempted_to_set_too_early = was_any_movement_or_continue_key_pressed
+	TextMethods.update_variable("too_early", was_any_movement_or_continue_key_pressed)
+	Player.update_animation("sit", 0)
+	Audio.play_sound(UID.SFX_SIT)
+	var original_position = Player.node.position.y
+	Player.node.position.y -= player_y_sit_offset / Overworld.scaleConst
+	time_since_player_sat_on_bench = 0
+	
+	var bench_interaction_count = NPCData.get_data(NPCData.ID.Antihomeless_Bench_BLEAKLANDS_ENTERANCE, NPCData.Field.InteractionCount)
+	if not (attempted_to_set_too_early and bench_interaction_count > 1):
+		await Helper.await_any_movement_or_continue_key_press()
+	TextMethods.update_variable("time", Helper.convert_time_to_words(time_since_player_sat_on_bench))
+	Audio.play_sound(UID.SFX_SIT)
+	Player.node.position.y = original_position
+	Player.update_animation("walk_down")
 	complete_text_event()

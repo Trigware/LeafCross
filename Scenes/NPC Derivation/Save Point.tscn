@@ -26,11 +26,15 @@ set_only_at_start = true
 [node name="Sprite" parent="NPC Root" index="0"]
 texture = ExtResource("2_adnen")
 
+[node name="Static Body" parent="NPC Root" index="2"]
+visible = false
+
 [node name="Collider" parent="NPC Root/Static Body" index="0"]
 position = Vector2(3.00669e-06, 18.9165)
 shape = SubResource("RectangleShape2D_adnen")
 
 [node name="Trigger Zone" parent="NPC Root" index="3"]
+visible = false
 position = Vector2(-0.666666, 12.3333)
 shape = SubResource("RectangleShape2D_0jenh")
 

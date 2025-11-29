@@ -51,6 +51,7 @@ func _ready():
 	restore_all_stamina()
 
 func update_health(updateTo):
+	if game_over: return
 	var used_update_to = max(0, updateTo)
 	if used_update_to > Player.playerMaxHealth:
 		restore_all_health()
@@ -61,7 +62,7 @@ func update_health(updateTo):
 	var labelText = Localization.get_text("character_max_stat")
 	if Player.playerHealth != Player.playerMaxHealth: labelText = str(floori(Player.playerHealth))
 	playerHealth.text = labelText
-	if updateTo <= 0: pass
+	if updateTo <= 0: trigger_new_game_over()
 
 func change_health(by):
 	update_health(Player.playerHealth + by)
@@ -87,15 +88,11 @@ func update_stamina(update_to):
 	staminaLeaf.modulate.a = leafAlpha
 
 func trigger_game_over():
-	Effects.end_all_effects()
-	SaveData.death_counter += 1
-	SaveData.save_autosave_file()
-	Overlay.set_alpha(0.4)
-	game_over = true
-	Player.end_leaf_flashes()
-	Audio.stop_overworld_music()
-	Overlay.kill_tween()
 	emit_signal("game_over_triggered")
+	initialize_game_over()
+	Overlay.set_alpha(0.4)
+	Overlay.kill_tween()
+	tween_ui(LeafMode.stamina_ui_hide_x)
 	if not enabled():
 		Player.light.energy = 1
 	await get_tree().create_timer(0.75).timeout
@@ -108,7 +105,7 @@ func restore_all_stamina():
 func change_stamina(by):
 	update_stamina(Player.stamina + by)
 
-func modify_hp_with_label(by, sound : AudioStream = null):
+func modify_hp_with_label(by, sound : AudioStream = null, no_sound = false):
 	var positive_change = by > 0
 	by = roundi(by)
 	if not positive_change and invincibility: return
@@ -122,20 +119,20 @@ func modify_hp_with_label(by, sound : AudioStream = null):
 	last_health_change = health_delta
 	if health_delta == 0: return
 	if not positive_change:
-		screen_shake_multiple(3)
+		shake_screen_for_damaging()
 	
-	health_ui_tween(5, ui_tween_duration/2)
+	if Player.playerHealth > 0: health_ui_tween(5, ui_tween_duration/2)
 	damage_tween_func(by)
 	
 	if sound == null:
 		sound = UID.SFX_PLAYER_HIT
 		if positive_change:
 			sound = UID.SFX_PLAYER_HEAL
-	Audio.play_sound(sound, 0.2, 10, true)
+	if not no_sound: Audio.play_sound(sound, 0.2, 10, true)
 	
 	var player_color = Color.RED
 	if positive_change: player_color = Color.GREEN
-	spawn_health_change_info_particle(health_delta, player_color)
+	if Player.playerHealth > 0: spawn_health_change_info_particle(health_delta, player_color)
 	timer.start()
 	invincibility = true
 	var previous_player_modulate = Player.animNode.modulate
@@ -144,18 +141,29 @@ func modify_hp_with_label(by, sound : AudioStream = null):
 	await create_tween().tween_property(Player.animNode, "modulate", previous_player_modulate, invincibility_duration/2).finished
 	invincibility = false
 
-func screen_shake_multiple(count, cam = Player.camera, cam_offset = screen_shake_offset, used_screen_shake_dur = screen_shake_duration):
+func screen_shake_multiple(count, cam = Player.camera, cam_offset = screen_shake_offset, used_screen_shake_dur = screen_shake_duration, power = 1):
 	for i in range(count):
-		await screen_shake(float(count-i)/count, cam, cam_offset, used_screen_shake_dur)
+		await screen_shake(float(count-i)/count*power, cam, cam_offset, used_screen_shake_dur)
+
+func shake_screen_for_damaging():
+	await screen_shake_multiple(3)
+	Player.camera.offset = Player.initial_camera_offset
 
 func modify_hp_with_id(id: HPChangeID):
 	var health_change = 0
+	var no_sound = false
 	match id:
 		HPChangeID.SinkUnderwater: health_change = randi_range(-30, -20)
-		HPChangeID.RedMushroom: health_change = -1000 #randi_range(-16, -9)
+		HPChangeID.RedMushroom: health_change = randi_range(-16, -9)
 		HPChangeID.PinkMushroom: health_change = randi_range(12, 18)
 		HPChangeID.Hedgehog: health_change = randi_range(-16, -10)
-	modify_hp_with_label(health_change)
+		HPChangeID.LeverPuzzleElectricution:
+			health_change = get_damage_without_chance_of_game_over(10, 16)
+			no_sound = true
+	modify_hp_with_label(health_change, null, no_sound)
+
+func get_damage_without_chance_of_game_over(minimum_damage, maximum_damage):
+	return -min(Player.playerHealth-1, randf_range(minimum_damage, maximum_damage))
 
 func screen_shake(power = 1, cam = Player.camera, cam_offset = screen_shake_offset, used_screen_shake_dur = screen_shake_duration):
 	var original_camera_offset = cam.offset
@@ -226,5 +234,79 @@ enum HPChangeID {
 	SinkUnderwater,
 	RedMushroom,
 	PinkMushroom,
-	Hedgehog
+	Hedgehog,
+	LeverPuzzleElectricution
 }
+
+const stamina_ui_hide_x = -425
+const stamina_ui_show_x = 150
+
+func initialize_game_over():
+	Effects.end_all_effects()
+	SaveData.death_counter += 1
+	SaveData.save_autosave_file()
+	Audio.stop_overworld_music()
+	game_over = true
+	Player.end_leaf_flashes()
+	tween_ui(LeafMode.stamina_ui_hide_x)
+	hide_health_ui()
+
+var game_over_overworld_not_shown := false
+
+func trigger_new_game_over():
+	if game_over: return
+	emit_signal("game_over_triggered")
+	Overworld.emit_signal("stop_audio")
+	initialize_game_over()
+	shake_leaf_multiple_times()
+	Overlay.set_alpha(overlay_game_over_alpha)
+	Effects.end_all_effects()
+	await Player.tween_game_over_rect(final_game_over_rect_size, game_over_rect_tween_size)
+	game_over_overworld_not_shown = true
+	await end_death_hand
+	summon_ess_ghost()
+
+var leaf_shake_on_left := false
+
+signal end_death_hand
+
+func shake_leaf(power: float, duration: float):
+	var original_vector = Player.leafNode.position
+	var start_range = 0.0 if leaf_shake_on_left else PI
+	var end_range = PI if leaf_shake_on_left else 2*PI
+	var destination_vector = Helper.get_vec_depending_on_dist_and_rot_of_vec(original_vector, power, randf_range(start_range, end_range))
+	var new_leaf_scale = Player.leafNode.scale + Vector2.ONE * scale_update_constant / leaf_shake_count
+	Helper.tween(Player.leafNode, "scale", new_leaf_scale, duration)
+	Helper.tween(Player.leafNode, "modulate", Color.RED, duration/2)
+	await Helper.tween(Player.leafNode, "position", destination_vector, duration/2, Tween.EaseType.EASE_OUT, Tween.TransitionType.TRANS_SPRING)
+	Audio.play_sound(UID.SFX_PLAYER_HIT, 0.2, 5, true)
+	Helper.tween(Player.leafNode, "modulate", Color.WHITE, duration/2)
+	await Helper.tween(Player.leafNode, "position", original_vector, duration/2, Tween.EaseType.EASE_IN, Tween.TransitionType.TRANS_SPRING)
+
+const shake_power_multiplier := 0.3
+const shake_duration_muliplier := 0.165
+const leaf_shake_count = 8
+const shake_power_exponent = 2.5
+const scale_update_constant = 0.25
+const after_shake_delay := 0.5
+const final_game_over_rect_size = 400
+const game_over_rect_tween_size = 100
+const overlay_game_over_alpha = 0.5
+
+var death_hand_extended_position: Vector2
+
+func shake_leaf_multiple_times():
+	for i in range(leaf_shake_count):
+		var shake_power = shake_power_multiplier * pow(i+1, shake_power_exponent)
+		var shake_duration = shake_duration_muliplier * log(i+1)
+		await shake_leaf(shake_power, shake_duration)
+		leaf_shake_on_left = !leaf_shake_on_left
+	await Helper.wait(after_shake_delay)
+	Audio.play_sound(UID.SFX_LIGHT_SWITCH, 0, 10, true)
+	var death_hand_instance = UID.SCN_DEATH_HAND.instantiate()
+	add_child(death_hand_instance)
+
+func summon_ess_ghost():
+	var ess_ghost_instance = UID.SCN_ESS_GHOST.instantiate()
+	ess_ghost_instance.global_position = death_hand_extended_position
+	add_child(ess_ghost_instance)

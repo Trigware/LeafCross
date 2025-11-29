@@ -46,10 +46,12 @@ var end_latest_text_externally := false
 var current_line_choicer = false
 var latest_printed_character : String
 var time_since_textbox_closed : float
+var time_since_text_started: float
 var wait_leaf_position_at_start : Vector2
 var textbox_y_scale_at_ready : float
 var textbox_previously_shown := false
 var linked_variables := {}
+var latest_text_called_require_input := false
 
 const default_pause_duration := 0.5
 const textbox_show_duration := 0.15
@@ -81,16 +83,20 @@ func _ready():
 
 func _process(delta):
 	time_since_textbox_closed += delta
+	time_since_text_started += delta
 
 func print_text(text, speed, textSize, textPosition, lineLength,
 				centerAlign, allowTextSkip, talkAudio, pitchRange,
 				textbox, overlappingSounds, outline, initial_color,
 				end_automatically, end_externally, linked_vars):
+	time_since_text_started = 0
 	linked_variables = linked_vars
+	init_color = initial_color
 	var regularText = TextParser.record_control_text(text)
 	TextSystem.textNode.show()
 	Player.node.animationNode.stop()
 	lockAction = true
+	latest_text_called_require_input = false
 	
 	if overwriteSkippable: allowTextSkip = false
 	delayed = false
@@ -103,7 +109,6 @@ func print_text(text, speed, textSize, textPosition, lineLength,
 	
 	end_latest_text_automatically = end_automatically
 	end_latest_text_externally = end_externally
-	init_color = initial_color
 	currentColor = TextParser.color_to_hex(initial_color)
 	textNode.scale = Vector2(fontSize, fontSize) / 48
 	textNode.position = textPosition
@@ -128,6 +133,7 @@ func print_text(text, speed, textSize, textPosition, lineLength,
 	
 	currentCharacterIndex = 0
 	if speed > 0 and (regularText != "" or TextParser.functions_called_during_text.size() > 0):
+		print_next_char()
 		typewritterTimer.start(speed)
 		return
 	
@@ -154,7 +160,7 @@ func give_choice_from_print_text(empty_text := false):
 	current_line_choicer = false
 
 func skip_text():
-	if not textCanBeSkipped or TextParser.contains_non_wait_function: return
+	if not textCanBeSkipped or TextParser.non_wait_functions_waiting_to_be_executed > 0: return
 	textNode.text = add_color_to_text(printedText)
 	currentCharacterIndex = printedText.length()
 	await get_tree().process_frame
@@ -164,6 +170,7 @@ func finish_text(show_leaf = true):
 	v_text_finished = true
 	emit_signal("text_finished")
 	if show_leaf: show_wait_leaf()
+	if latest_text_called_require_input: want_next_text.emit()
 
 func on_wanting_new_text():
 	v_text_finished = false
@@ -216,6 +223,7 @@ func call_text_event_functions():
 	for fn in TextParser.functions_called_during_text:
 		if fn.text_index == currentCharacterIndex:
 			await CutsceneManager.start_text_event(fn)
+			TextParser.non_wait_functions_waiting_to_be_executed -= 1
 
 func play_char_audio():
 	var talk_audio = get_talk_audio()
@@ -278,7 +286,8 @@ func _unhandled_input(_event: InputEvent):
 	var skipping_text = Input.is_action_pressed("skip_text")
 	var continue_with_dialog_keys_pressed = skipping_text or Input.is_action_just_pressed("continue")
 	if continue_with_dialog_keys_pressed: emit_signal("dialog_continue_key_pressed")
-	var dialog_continuation_allowed = (Input.is_action_just_pressed("continue") or skipping_text and TextParser.contains_non_wait_function) and (v_text_finished or current_line_choicer)
+
+	var dialog_continuation_allowed = (Input.is_action_just_pressed("continue") or skipping_text and TextParser.non_wait_functions_waiting_to_be_executed == 0) and (v_text_finished or current_line_choicer)
 	if dialog_continuation_allowed:
 		var emitted_signal = "want_next_text"
 		if current_line_choicer: emitted_signal = "want_choicer"

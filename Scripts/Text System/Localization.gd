@@ -47,12 +47,7 @@ func does_suffixed_key_exist(suffixed_key) -> bool:
 
 func load_language(newLanguage):
 	current_language = newLanguage
-	var file = FileAccess.open(localization_key_path, FileAccess.READ)
-	if not file:
-		game_text = {}
-		return
-	var file_contents = file.get_as_text()
-	parse_tsv_file(file_contents)
+	parse_tsv_file(UID.LOCALIZATION.localization_contents)
 
 func parse_tsv_file(file_contents):
 	game_text = {}
@@ -63,7 +58,7 @@ func parse_tsv_file(file_contents):
 		if line == "": continue
 		var columns = line.split("\t")
 		if i == 0:
-			if parse_first_csv_line(columns) != 0: return
+			if parse_first_tsv_line(columns) != 0: return
 			continue
 		var column_count = columns.size()
 		if language_column_index >= column_count or column_count == 0:
@@ -74,12 +69,12 @@ func parse_tsv_file(file_contents):
 		game_text[text_key] = text_contents
 
 func unespace_string(text):
-	text = text.replace("\\n", "\n")
+	text = text.replace("\\\\n", "\n")
 	text = text.replace("\\t", "\t")
 	text = text.replace("\\\\", "\\")
 	return text
 
-func parse_first_csv_line(columns):
+func parse_first_tsv_line(columns):
 	for i in range(columns.size()):
 		var column = columns[i]
 		if i == 0: continue

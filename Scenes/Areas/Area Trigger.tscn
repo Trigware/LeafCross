@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://6xvxnn5s55wu"]
+
+[ext_resource type="Script" uid="uid://b1qaq4oymvexp" path="res://Scripts/Overworld/AreaTrigger.gd" id="1_s42a0"]
+
+[node name="Area Trigger" type="Area2D"]
+script = ExtResource("1_s42a0")

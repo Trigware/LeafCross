@@ -167,9 +167,12 @@ const selector_change_selection_type_tween_duration := 0.4
 
 func start_game(save_file_number):
 	var next_scene = UID.SCN_LEAF_SUMMON
+	next_scene = UID.SCN_OVERWORLD_BRIDGE
 	if root.wmt_easter_egg_active: next_scene = UID.SCN_LEGEND
-	Overlay.change_scene(next_scene, scene_hide_duration, 1, 2)
+	push_warning("Overriding next scene for demo purposes!")
 	SaveData.load_game(save_file_number)
+	Overlay.change_scene(next_scene, scene_hide_duration, 1, 2)
+	Player.in_title_screen = false
 
 func go_down_to_options():
 	change_vertical_selection(LabelSelection.GoBack, 0, Color.GREEN, get_x_pos_from_label_selection(LabelSelection.GoBack), selector_options_y)

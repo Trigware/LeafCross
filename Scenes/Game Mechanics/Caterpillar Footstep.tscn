@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://3s5312a0a57k"]
+
+[ext_resource type="Texture2D" uid="uid://c12tfbtpb8lo" path="res://Textures/Weird Forest/Housí Footstep.png" id="1_2c2qd"]
+[ext_resource type="Script" uid="uid://dbeak21u0e8sw" path="res://Scripts/Overworld/CaterpillarFootstep.gd" id="2_1k5v3"]
+
+[node name="Footstep" type="Sprite2D"]
+z_as_relative = false
+texture = ExtResource("1_2c2qd")
+hframes = 2
+vframes = 2
+script = ExtResource("2_1k5v3")

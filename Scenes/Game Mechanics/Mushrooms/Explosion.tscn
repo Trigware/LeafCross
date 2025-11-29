@@ -1,12 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://yaji2aem6v4"]
+[gd_scene load_steps=2 format=3 uid="uid://yaji2aem6v4"]
 
 [ext_resource type="SpriteFrames" uid="uid://ccu4p3qif4esb" path="res://Spriteframes/ExplosionEffect.tres" id="1_mbc3v"]
-[ext_resource type="Script" uid="uid://ljmxchjokbdh" path="res://Scripts/Overworld/ExplosionEffect.gd" id="2_ix64a"]
 
 [node name="Explosion" type="AnimatedSprite2D"]
 z_index = 80
 scale = Vector2(3, 3)
 sprite_frames = ExtResource("1_mbc3v")
-frame = 8
+frame = 9
 frame_progress = 1.0
-script = ExtResource("2_ix64a")

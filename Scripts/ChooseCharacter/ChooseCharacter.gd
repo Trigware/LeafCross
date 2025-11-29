@@ -180,7 +180,7 @@ func on_player_named():
 	create_tween().tween_property(characterAnimations, "modulate:a", 0, 1)
 	var tween = create_tween().tween_property(leafTexture, "position", finalLeafRescalePosition, 2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	await tween.finished
-	await TextMethods.print_wait_localization("choosecharacter_postchoose_sayname", SaveData.playerName)
+	await TextMethods.print_wait_localization("choosecharacter_postchoose_sayname", {"name": SaveData.playerName})
 	show_bible()
 
 func show_bible():
@@ -206,7 +206,7 @@ func finish_scene():
 	CutsceneManager.add_finished_cutscene_flag(CutsceneManager.Cutscene.ChoosePlayer)
 	music_tween(-80, 3)
 	Overworld.currentRoom = Overworld.Room.Weird_SpawnRoom
-	Overlay.change_scene(UID.SCN_OVERWORLD, 3, 1)
+	Overlay.change_scene(UID.SCN_OVERWORLD_BRIDGE, 3, 1)
 
 func loop_audio():
 	musicNode.play()

@@ -3,14 +3,15 @@ extends Node2D
 @onready var triggerArea = $"Trigger Area"
 @export var treeSprite : Node2D
 
-var sprite_zindex = 40
+const layered_sprite_zindex = 40
 const area_entered_zindex = 30
 const area_exited_zindex = 50
 
 func _ready():
 	triggerArea.body_entered.connect(_on_trigger_area_body_entered)
 	triggerArea.body_exited.connect(_on_trigger_area_body_exited)
-	if treeSprite != null: treeSprite.z_index = sprite_zindex
+	LeafMode.game_over_triggered.connect(on_game_over)
+	if treeSprite != null: treeSprite.z_index = layered_sprite_zindex
 	if treeSprite is AnimatedSprite2D:
 		var anim_name = "Tree"
 		if anim_name in treeSprite.sprite_frames.get_animation_names():
@@ -29,3 +30,6 @@ func _on_trigger_area_body_exited(body: Node2D) -> void:
 	body.layer_npc_areas -= 1
 	if body.layer_npc_areas == 0:
 		body.base_follower_zindex = area_exited_zindex
+
+func on_game_over():
+	Player.body.z_index = area_exited_zindex

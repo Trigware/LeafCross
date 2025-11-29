@@ -1,7 +1,7 @@
 extends Node
 
 #region GameData
-var selectedCharacter = "xdaforge"
+var selectedCharacter = "ess"
 var playerName = ""
 var PlayerInventory := {}
 var PlayTime := 0.0
@@ -79,6 +79,7 @@ func load_game(file):
 	load_at_room_center = loadedDictionary.get("load_at_room_center", load_at_room_center)
 	#endregion
 	Overworld.initialPosition = Vector2(positionDictionary["X"], positionDictionary["Y"]) / Overworld.scaleConst
+	if load_at_room_center: Overworld.initialPosition = Vector2.ZERO
 	loaded_save_file = file
 	load_autosave_file()
 
