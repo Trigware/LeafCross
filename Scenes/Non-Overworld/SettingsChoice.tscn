@@ -1,0 +1,92 @@
+[gd_scene load_steps=12 format=3 uid="uid://b8mnbbtqlvpy3"]
+
+[ext_resource type="Texture2D" uid="uid://h24mfoo5hq47" path="res://Textures/Title Screen/Settings Textbox.png" id="1_5a631"]
+[ext_resource type="Script" uid="uid://cwkoprt1ufvcc" path="res://Scripts/Title Screen/SettingsChoice.gd" id="1_t6fm1"]
+[ext_resource type="FontFile" uid="uid://dil43sbwcg2uc" path="res://Fonts/Leafcross Font.png" id="2_5a631"]
+[ext_resource type="Shader" uid="uid://dkfelc888vsbn" path="res://Shaders/GDSL/SettingsHide.gdshader" id="2_sj456"]
+[ext_resource type="LabelSettings" uid="uid://my8rqlfwkpgd" path="res://Label Settings/OutlinedText.tres" id="3_hiill"]
+[ext_resource type="Texture2D" uid="uid://cm2jb4y2qx4d5" path="res://Textures/Other/SettingsOptionArrow.png" id="4_t6fm1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gd4eb"]
+shader = ExtResource("2_sj456")
+shader_parameter/hide_progression = 1.0
+shader_parameter/hide_from_bottom = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8tfdi"]
+shader = ExtResource("2_sj456")
+shader_parameter/hide_progression = 1.0
+shader_parameter/hide_from_bottom = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t5037"]
+shader = ExtResource("2_sj456")
+shader_parameter/hide_progression = 1.0
+shader_parameter/hide_from_bottom = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t6fm1"]
+shader = ExtResource("2_sj456")
+shader_parameter/hide_progression = 1.0
+shader_parameter/hide_from_bottom = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sj456"]
+shader = ExtResource("2_sj456")
+shader_parameter/hide_progression = 1.0
+shader_parameter/hide_from_bottom = false
+
+[node name="SettingsChoice" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_t6fm1")
+
+[node name="Textbox" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_gd4eb")
+layout_mode = 0
+offset_right = 855.0
+offset_bottom = 100.0
+texture = ExtResource("1_5a631")
+
+[node name="Title" type="Label" parent="."]
+material = SubResource("ShaderMaterial_8tfdi")
+layout_mode = 0
+offset_left = 36.0
+offset_right = 420.0
+offset_bottom = 100.0
+theme_override_fonts/font = ExtResource("2_5a631")
+theme_override_font_sizes/font_size = 48
+text = "Settings Choice"
+vertical_alignment = 1
+
+[node name="Option" type="Label" parent="."]
+material = SubResource("ShaderMaterial_t5037")
+layout_mode = 0
+offset_left = 458.0
+offset_right = 771.0
+offset_bottom = 100.0
+text = "Option"
+label_settings = ExtResource("3_hiill")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ArrowLeft" type="TextureRect" parent="."]
+modulate = Color(0.678431, 0.678431, 0.678431, 1)
+material = SubResource("ShaderMaterial_t6fm1")
+layout_mode = 0
+offset_left = 455.0
+offset_right = 504.0
+offset_bottom = 100.0
+texture = ExtResource("4_t6fm1")
+stretch_mode = 5
+
+[node name="ArrowRight" type="TextureRect" parent="."]
+modulate = Color(0.678431, 0.678431, 0.678431, 1)
+material = SubResource("ShaderMaterial_sj456")
+layout_mode = 0
+offset_left = 723.0
+offset_right = 772.0
+offset_bottom = 100.0
+texture = ExtResource("4_t6fm1")
+stretch_mode = 5
+flip_h = true

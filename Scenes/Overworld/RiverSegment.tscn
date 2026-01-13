@@ -1,0 +1,360 @@
+[gd_scene load_steps=25 format=3 uid="uid://pmvapmh1kaja"]
+
+[ext_resource type="Script" uid="uid://d3hsx1iallmcd" path="res://Scripts/Overworld/RiverSegment.gd" id="1_ytysx"]
+[ext_resource type="Texture2D" uid="uid://dhsti50lvf1vb" path="res://Textures/Weird Forest/Water/WaterSurround01.png" id="3_kygh4"]
+[ext_resource type="Texture2D" uid="uid://38d0cutc4cp2" path="res://Textures/Weird Forest/Water/WaterTile.png" id="3_ytysx"]
+[ext_resource type="Texture2D" uid="uid://cmdypot1niaah" path="res://Textures/Weird Forest/Water/WaterSurround21.png" id="4_1r3kb"]
+[ext_resource type="Texture2D" uid="uid://diat6o72x5m6a" path="res://Textures/Weird Forest/Water/WaterSurround10.png" id="5_gl2cy"]
+[ext_resource type="Texture2D" uid="uid://c5ehahbt6mpil" path="res://Textures/Weird Forest/Water/WaterSurround12.png" id="6_5a006"]
+[ext_resource type="Texture2D" uid="uid://6bl2bawqo81c" path="res://Textures/Weird Forest/Water/WaterSurround00.png" id="7_gy1dv"]
+[ext_resource type="Texture2D" uid="uid://bt2qp3jlyqwl0" path="res://Textures/Weird Forest/Water/WaterSurround20.png" id="8_y63mx"]
+[ext_resource type="Texture2D" uid="uid://dtr23dl6nu2dt" path="res://Textures/Weird Forest/Water/WaterSurround02.png" id="9_yohq7"]
+[ext_resource type="Texture2D" uid="uid://c4hw4567rmpvj" path="res://Textures/Weird Forest/Water/WaterSurround22.png" id="10_h342q"]
+[ext_resource type="PackedScene" uid="uid://c01w1divptedy" path="res://Scenes/Areas/Audio Area.tscn" id="11_kygh4"]
+[ext_resource type="AudioStream" uid="uid://b11o6u8lh7tj3" path="res://Audio/SFX/Water/River Water.mp3" id="12_1r3kb"]
+
+[sub_resource type="Shader" id="Shader_kygh4"]
+code = "shader_type canvas_item;
+
+uniform float vertical_tile_amount = 4.0;
+uniform float aspect_ratio = 1.0;
+uniform float wave_amplitude = 0.1;
+uniform float wave_speed = 1.0;
+uniform float[16] begining_and_end_unvisible;
+uniform vec2[2] begining_and_end_deep_water;
+uniform bool apply_tint = false;
+
+const vec4 deep_water_tint = vec4(0.2, 0.225, 0.25, 0.0);
+const float deep_water_hint = 0.15;
+
+float inverse_lerp(float a, float b, float v) {
+	return (v - a) / (b - a);
+}
+
+void fragment() {
+	vec2 used_tile_amount = vec2(vertical_tile_amount * aspect_ratio, vertical_tile_amount);
+	vec2 tiled_uv = UV * used_tile_amount;
+	vec2 waves_uv_offset = vec2(cos(TIME * wave_speed + tiled_uv.x + tiled_uv.y), sin(TIME * wave_speed + tiled_uv.x + tiled_uv.y)) * wave_amplitude;
+	tiled_uv = fract(UV * used_tile_amount + waves_uv_offset);
+	COLOR = texture(TEXTURE, tiled_uv);
+	
+	vec2 top_left_uv = begining_and_end_deep_water[0], bottom_right = begining_and_end_deep_water[1];
+	float dist_to_left = UV.x - top_left_uv.x, dist_to_right = bottom_right.x - UV.x;
+	float dist_to_top = UV.y - top_left_uv.y, dist_to_bottom = bottom_right.y - UV.y;
+	float closest_dist = min(min(min(dist_to_left, dist_to_right), dist_to_top), dist_to_bottom);
+	float deep_water_intensity = clamp(inverse_lerp(0.0, deep_water_hint, closest_dist), 0.0, 1.0);
+	
+	if (apply_tint) { COLOR = mix(COLOR, COLOR - deep_water_tint, deep_water_intensity); }
+	
+	for (int i = 0; i < 16; i += 2) {
+		float gap_start = begining_and_end_unvisible[i];
+		float gap_end = begining_and_end_unvisible[i + 1];
+		if (aspect_ratio > 1.0) {
+			if (UV.x >= gap_start && UV.x <= gap_end) { COLOR = vec4(0.0, 0.0, 0.0, 0.0); break; }
+		} else {
+			if (UV.y >= gap_start && UV.y <= gap_end) { COLOR = vec4(0.0, 0.0, 0.0, 0.0); break; }
+		}
+	}}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1r3kb"]
+shader = SubResource("Shader_kygh4")
+shader_parameter/vertical_tile_amount = 10.0
+shader_parameter/aspect_ratio = 1.0
+shader_parameter/wave_amplitude = 0.125
+shader_parameter/wave_speed = 1.5
+shader_parameter/begining_and_end_unvisible = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/begining_and_end_deep_water = [0, 0]
+shader_parameter/apply_tint = true
+
+[sub_resource type="Shader" id="Shader_gl2cy"]
+code = "shader_type canvas_item;
+
+uniform float vertical_tile_amount = 4.0;
+uniform float aspect_ratio = 1.0;
+uniform float wave_amplitude = 0.1;
+uniform float wave_speed = 1.0;
+uniform float[16] begining_and_end_unvisible;
+uniform vec2[2] begining_and_end_deep_water;
+uniform bool apply_tint = false;
+
+const vec4 deep_water_tint = vec4(0.2, 0.225, 0.25, 0.0);
+const float deep_water_hint = 0.15;
+
+float inverse_lerp(float a, float b, float v) {
+	return (v - a) / (b - a);
+}
+
+void fragment() {
+	vec2 used_tile_amount = vec2(vertical_tile_amount * aspect_ratio, vertical_tile_amount);
+	vec2 tiled_uv = UV * used_tile_amount;
+	vec2 waves_uv_offset = vec2(cos(TIME * wave_speed + tiled_uv.x + tiled_uv.y), sin(TIME * wave_speed + tiled_uv.x + tiled_uv.y)) * wave_amplitude;
+	tiled_uv = fract(UV * used_tile_amount + waves_uv_offset);
+	COLOR = texture(TEXTURE, tiled_uv);
+	
+	vec2 top_left_uv = begining_and_end_deep_water[0], bottom_right = begining_and_end_deep_water[1];
+	float dist_to_left = UV.x - top_left_uv.x, dist_to_right = bottom_right.x - UV.x;
+	float dist_to_top = UV.y - top_left_uv.y, dist_to_bottom = bottom_right.y - UV.y;
+	float closest_dist = min(min(min(dist_to_left, dist_to_right), dist_to_top), dist_to_bottom);
+	float deep_water_intensity = clamp(inverse_lerp(0.0, deep_water_hint, closest_dist), 0.0, 1.0);
+	
+	if (apply_tint) { COLOR = mix(COLOR, COLOR - deep_water_tint, deep_water_intensity); }
+	
+	for (int i = 0; i < 16; i += 2) {
+		float gap_start = begining_and_end_unvisible[i];
+		float gap_end = begining_and_end_unvisible[i + 1];
+		if (aspect_ratio > 1.0) {
+			if (UV.x >= gap_start && UV.x <= gap_end) { COLOR = vec4(0.0, 0.0, 0.0, 0.0); break; }
+		} else {
+			if (UV.y >= gap_start && UV.y <= gap_end) { COLOR = vec4(0.0, 0.0, 0.0, 0.0); break; }
+		}
+	}}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5a006"]
+shader = SubResource("Shader_gl2cy")
+shader_parameter/vertical_tile_amount = 10.0
+shader_parameter/aspect_ratio = 0.1
+shader_parameter/wave_amplitude = 0.1
+shader_parameter/wave_speed = 1.5
+shader_parameter/begining_and_end_unvisible = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/begining_and_end_deep_water = PackedVector2Array(0.295, 0.235, 0.79, 0.675)
+shader_parameter/apply_tint = false
+
+[sub_resource type="Shader" id="Shader_gy1dv"]
+code = "shader_type canvas_item;
+
+uniform float vertical_tile_amount = 4.0;
+uniform float aspect_ratio = 1.0;
+uniform float wave_amplitude = 0.1;
+uniform float wave_speed = 1.0;
+uniform float[16] begining_and_end_unvisible;
+uniform vec2[2] begining_and_end_deep_water;
+uniform bool apply_tint = false;
+
+const vec4 deep_water_tint = vec4(0.2, 0.225, 0.25, 0.0);
+const float deep_water_hint = 0.15;
+
+float inverse_lerp(float a, float b, float v) {
+	return (v - a) / (b - a);
+}
+
+void fragment() {
+	vec2 used_tile_amount = vec2(vertical_tile_amount * aspect_ratio, vertical_tile_amount);
+	vec2 tiled_uv = UV * used_tile_amount;
+	vec2 waves_uv_offset = vec2(cos(TIME * wave_speed + tiled_uv.x + tiled_uv.y), sin(TIME * wave_speed + tiled_uv.x + tiled_uv.y)) * wave_amplitude;
+	tiled_uv = fract(UV * used_tile_amount + waves_uv_offset);
+	COLOR = texture(TEXTURE, tiled_uv);
+	
+	vec2 top_left_uv = begining_and_end_deep_water[0], bottom_right = begining_and_end_deep_water[1];
+	float dist_to_left = UV.x - top_left_uv.x, dist_to_right = bottom_right.x - UV.x;
+	float dist_to_top = UV.y - top_left_uv.y, dist_to_bottom = bottom_right.y - UV.y;
+	float closest_dist = min(min(min(dist_to_left, dist_to_right), dist_to_top), dist_to_bottom);
+	float deep_water_intensity = clamp(inverse_lerp(0.0, deep_water_hint, closest_dist), 0.0, 1.0);
+	
+	if (apply_tint) { COLOR = mix(COLOR, COLOR - deep_water_tint, deep_water_intensity); }
+	
+	for (int i = 0; i < 16; i += 2) {
+		float gap_start = begining_and_end_unvisible[i];
+		float gap_end = begining_and_end_unvisible[i + 1];
+		if (aspect_ratio > 1.0) {
+			if (UV.x >= gap_start && UV.x <= gap_end) { COLOR = vec4(0.0, 0.0, 0.0, 0.0); break; }
+		} else {
+			if (UV.y >= gap_start && UV.y <= gap_end) { COLOR = vec4(0.0, 0.0, 0.0, 0.0); break; }
+		}
+	}}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y63mx"]
+shader = SubResource("Shader_gy1dv")
+shader_parameter/vertical_tile_amount = 10.0
+shader_parameter/aspect_ratio = 0.1
+shader_parameter/wave_amplitude = 0.1
+shader_parameter/wave_speed = 1.5
+shader_parameter/begining_and_end_unvisible = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/begining_and_end_deep_water = PackedVector2Array(0.295, 0.235, 0.79, 0.675)
+shader_parameter/apply_tint = false
+
+[sub_resource type="Shader" id="Shader_yohq7"]
+code = "shader_type canvas_item;
+
+uniform float vertical_tile_amount = 4.0;
+uniform float aspect_ratio = 1.0;
+uniform float wave_amplitude = 0.1;
+uniform float wave_speed = 1.0;
+uniform float[16] begining_and_end_unvisible;
+uniform vec2[2] begining_and_end_deep_water;
+uniform bool apply_tint = false;
+
+const vec4 deep_water_tint = vec4(0.2, 0.225, 0.25, 0.0);
+const float deep_water_hint = 0.15;
+
+float inverse_lerp(float a, float b, float v) {
+	return (v - a) / (b - a);
+}
+
+void fragment() {
+	vec2 used_tile_amount = vec2(vertical_tile_amount * aspect_ratio, vertical_tile_amount);
+	vec2 tiled_uv = UV * used_tile_amount;
+	vec2 waves_uv_offset = vec2(cos(TIME * wave_speed + tiled_uv.x + tiled_uv.y), sin(TIME * wave_speed + tiled_uv.x + tiled_uv.y)) * wave_amplitude;
+	tiled_uv = fract(UV * used_tile_amount + waves_uv_offset);
+	COLOR = texture(TEXTURE, tiled_uv);
+	
+	vec2 top_left_uv = begining_and_end_deep_water[0], bottom_right = begining_and_end_deep_water[1];
+	float dist_to_left = UV.x - top_left_uv.x, dist_to_right = bottom_right.x - UV.x;
+	float dist_to_top = UV.y - top_left_uv.y, dist_to_bottom = bottom_right.y - UV.y;
+	float closest_dist = min(min(min(dist_to_left, dist_to_right), dist_to_top), dist_to_bottom);
+	float deep_water_intensity = clamp(inverse_lerp(0.0, deep_water_hint, closest_dist), 0.0, 1.0);
+	
+	if (apply_tint) { COLOR = mix(COLOR, COLOR - deep_water_tint, deep_water_intensity); }
+	
+	for (int i = 0; i < 16; i += 2) {
+		float gap_start = begining_and_end_unvisible[i];
+		float gap_end = begining_and_end_unvisible[i + 1];
+		if (aspect_ratio > 1.0) {
+			if (UV.x >= gap_start && UV.x <= gap_end) { COLOR = vec4(0.0, 0.0, 0.0, 0.0); break; }
+		} else {
+			if (UV.y >= gap_start && UV.y <= gap_end) { COLOR = vec4(0.0, 0.0, 0.0, 0.0); break; }
+		}
+	}}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h342q"]
+shader = SubResource("Shader_yohq7")
+shader_parameter/vertical_tile_amount = 4.0
+shader_parameter/aspect_ratio = 10.0
+shader_parameter/wave_amplitude = 0.1
+shader_parameter/wave_speed = 1.5
+shader_parameter/begining_and_end_unvisible = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/begining_and_end_deep_water = PackedVector2Array(0.295, 0.235, 0.79, 0.675)
+shader_parameter/apply_tint = false
+
+[sub_resource type="Shader" id="Shader_gehi7"]
+code = "shader_type canvas_item;
+
+uniform float vertical_tile_amount = 4.0;
+uniform float aspect_ratio = 1.0;
+uniform float wave_amplitude = 0.1;
+uniform float wave_speed = 1.0;
+uniform float[16] begining_and_end_unvisible;
+uniform vec2[2] begining_and_end_deep_water;
+uniform bool apply_tint = false;
+
+const vec4 deep_water_tint = vec4(0.2, 0.225, 0.25, 0.0);
+const float deep_water_hint = 0.15;
+
+float inverse_lerp(float a, float b, float v) {
+	return (v - a) / (b - a);
+}
+
+void fragment() {
+	vec2 used_tile_amount = vec2(vertical_tile_amount * aspect_ratio, vertical_tile_amount);
+	vec2 tiled_uv = UV * used_tile_amount;
+	vec2 waves_uv_offset = vec2(cos(TIME * wave_speed + tiled_uv.x + tiled_uv.y), sin(TIME * wave_speed + tiled_uv.x + tiled_uv.y)) * wave_amplitude;
+	tiled_uv = fract(UV * used_tile_amount + waves_uv_offset);
+	COLOR = texture(TEXTURE, tiled_uv);
+	
+	vec2 top_left_uv = begining_and_end_deep_water[0], bottom_right = begining_and_end_deep_water[1];
+	float dist_to_left = UV.x - top_left_uv.x, dist_to_right = bottom_right.x - UV.x;
+	float dist_to_top = UV.y - top_left_uv.y, dist_to_bottom = bottom_right.y - UV.y;
+	float closest_dist = min(min(min(dist_to_left, dist_to_right), dist_to_top), dist_to_bottom);
+	float deep_water_intensity = clamp(inverse_lerp(0.0, deep_water_hint, closest_dist), 0.0, 1.0);
+	
+	if (apply_tint) { COLOR = mix(COLOR, COLOR - deep_water_tint, deep_water_intensity); }
+	
+	for (int i = 0; i < 16; i += 2) {
+		float gap_start = begining_and_end_unvisible[i];
+		float gap_end = begining_and_end_unvisible[i + 1];
+		if (aspect_ratio > 1.0) {
+			if (UV.x >= gap_start && UV.x <= gap_end) { COLOR = vec4(0.0, 0.0, 0.0, 0.0); break; }
+		} else {
+			if (UV.y >= gap_start && UV.y <= gap_end) { COLOR = vec4(0.0, 0.0, 0.0, 0.0); break; }
+		}
+	}}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ih7i6"]
+shader = SubResource("Shader_gehi7")
+shader_parameter/vertical_tile_amount = 4.0
+shader_parameter/aspect_ratio = 10.0
+shader_parameter/wave_amplitude = 0.1
+shader_parameter/wave_speed = 1.5
+shader_parameter/begining_and_end_unvisible = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/begining_and_end_deep_water = PackedVector2Array(0.295, 0.235, 0.79, 0.675)
+shader_parameter/apply_tint = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ytysx"]
+size = Vector2(248.5, 67.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gl2cy"]
+size = Vector2(248.5, 67.5)
+
+[node name="River Segment" type="Area2D"]
+light_mask = 4
+scale = Vector2(2, 2)
+script = ExtResource("1_ytysx")
+
+[node name="WaterSprite" type="Sprite2D" parent="."]
+light_mask = 64
+material = SubResource("ShaderMaterial_1r3kb")
+scale = Vector2(10, 10)
+texture = ExtResource("3_ytysx")
+offset = Vector2(7.72294, 7.65217)
+
+[node name="Surrounding Tiles" type="Node2D" parent="."]
+position = Vector2(8, 8)
+
+[node name="Left" type="Sprite2D" parent="Surrounding Tiles"]
+material = SubResource("ShaderMaterial_5a006")
+position = Vector2(-16, -8)
+scale = Vector2(1, 10)
+texture = ExtResource("3_kygh4")
+offset = Vector2(0, 8)
+
+[node name="Right" type="Sprite2D" parent="Surrounding Tiles"]
+material = SubResource("ShaderMaterial_y63mx")
+position = Vector2(159.5, -8)
+scale = Vector2(1, 10)
+texture = ExtResource("4_1r3kb")
+offset = Vector2(-0.5, 7.6748)
+
+[node name="Up" type="Sprite2D" parent="Surrounding Tiles"]
+material = SubResource("ShaderMaterial_h342q")
+position = Vector2(-8, -15.5)
+scale = Vector2(10, 1)
+texture = ExtResource("5_gl2cy")
+offset = Vector2(7.72414, 0)
+
+[node name="Down" type="Sprite2D" parent="Surrounding Tiles"]
+material = SubResource("ShaderMaterial_ih7i6")
+position = Vector2(-8, 159.5)
+scale = Vector2(10, 1)
+texture = ExtResource("6_5a006")
+offset = Vector2(8, -0.5)
+
+[node name="LeftUp" type="Sprite2D" parent="Surrounding Tiles"]
+position = Vector2(-16, -16)
+texture = ExtResource("7_gy1dv")
+
+[node name="RightUp" type="Sprite2D" parent="Surrounding Tiles"]
+position = Vector2(159.5, -16)
+texture = ExtResource("8_y63mx")
+
+[node name="LeftBottom" type="Sprite2D" parent="Surrounding Tiles"]
+position = Vector2(-16, 159.5)
+texture = ExtResource("9_yohq7")
+
+[node name="RightBottom" type="Sprite2D" parent="Surrounding Tiles"]
+position = Vector2(159.5, 159.5)
+texture = ExtResource("10_h342q")
+
+[node name="Shallow Water" type="Area2D" parent="."]
+
+[node name="Collider" type="CollisionShape2D" parent="Shallow Water"]
+visible = false
+position = Vector2(80, 80)
+shape = SubResource("RectangleShape2D_ytysx")
+debug_color = Color(0.128333, 0.7, 0, 0.419608)
+
+[node name="Audio Area" parent="." instance=ExtResource("11_kygh4")]
+audioStream = ExtResource("12_1r3kb")
+
+[node name="Collider" type="CollisionShape2D" parent="Audio Area"]
+visible = false
+position = Vector2(80, 80)
+shape = SubResource("RectangleShape2D_gl2cy")

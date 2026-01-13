@@ -43,7 +43,7 @@ offset_top = -2160.0
 offset_right = 471.0
 offset_bottom = -1000.0
 scale = Vector2(2, 2)
-color = Color(0.141176, 0.117647, 0.376471, 1)
+color = Color(0.1617, 0.1364, 0.44, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="Ground" type="TileMapLayer" parent="."]

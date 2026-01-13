@@ -4,7 +4,7 @@
 
 [resource]
 shader = ExtResource("1_i3km0")
-shader_parameter/image_pixel_height = 64.0
-shader_parameter/hide_progression = 0.0
-shader_parameter/moving_speed = 1.0
-shader_parameter/progress_normalizer = 0.915
+shader_parameter/image_pixel_height = 35.0
+shader_parameter/hide_progression = 1.0
+shader_parameter/moving_speed = 0.0
+shader_parameter/progress_normalizer = -1000.0

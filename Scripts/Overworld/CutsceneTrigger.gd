@@ -1,7 +1,7 @@
 extends Area2D
 
 @export var cutscene: CutsceneManager.Cutscene
-@export var cutscene_node_overrides: Dictionary[String, Variant] = {}
+@export var cutscene_node_overrides: Dictionary[String, Node2D] = {}
 
 var deactivated := false
 

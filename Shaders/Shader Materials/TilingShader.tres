@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://b67bt5lbdcj5y"]
+
+[ext_resource type="Shader" uid="uid://dprauioih11gt" path="res://Shaders/GDSL/TilingShader.gdshader" id="1_ik0w3"]
+
+[resource]
+shader = ExtResource("1_ik0w3")
+shader_parameter/vertical_tile_amount = 10.0
+shader_parameter/aspect_ratio = 1.0
+shader_parameter/wave_amplitude = 0.125
+shader_parameter/wave_speed = 1.5
+shader_parameter/begining_and_end_unvisible = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/begining_and_end_deep_water = PackedVector2Array(0.295, 0.235, 0.79, 0.675)
+shader_parameter/apply_tint = true

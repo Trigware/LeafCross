@@ -20,6 +20,7 @@ scale = Vector2(0.158592, 0.158592)
 texture = ExtResource("2_ape7c")
 
 [node name="Static Body" type="StaticBody2D" parent="."]
+visible = false
 scale = Vector2(0.158592, 0.158592)
 
 [node name="Collider" type="CollisionShape2D" parent="Static Body"]
@@ -27,5 +28,6 @@ scale = Vector2(6.30549, 6.30549)
 shape = SubResource("RectangleShape2D_xs5w8")
 
 [node name="Trigger Zone" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("RectangleShape2D_7fgga")
 debug_color = Color(0.913725, 0.729412, 0, 0.419608)

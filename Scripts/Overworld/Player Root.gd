@@ -50,6 +50,8 @@ var initial_leaf_position : Vector2
 
 var footsteps : Array[Dictionary] = []
 
+signal lilypad_exited
+
 @onready var intended_leaf_pos = leafNode.position
 
 func _ready():
@@ -165,21 +167,25 @@ func get_fast_movement_speed():
 	var resulting_speed = 1 + fast_movement * staminaPercentage
 	return resulting_speed
 
-func get_shader_material() -> ShaderMaterial:
+func get_shader_material(already_checked := false) -> ShaderMaterial:
 	var shader_mat = animNode.material
 	if shader_mat is not ShaderMaterial:
-		push_error("Shader Material not found!")
+		if already_checked:
+			push_error("Shader Material not found!")
+			return null
+		await get_tree().process_frame
+		return await get_shader_material(true)
 	return shader_mat
 
 func set_shader_material(mat: ShaderMaterial):
 	animNode.material = mat.duplicate()
 
 func set_uniform(parameter, value):
-	var shader_mat = get_shader_material()
+	var shader_mat = await get_shader_material()
 	shader_mat.set_shader_parameter(parameter, value)
 
 func get_uniform(parameter):
-	var shader_mat = get_shader_material()
+	var shader_mat = await get_shader_material()
 	return shader_mat.get_shader_parameter(parameter)
 
 func wait(time: float):
@@ -208,3 +214,62 @@ func tween_game_over_rect(final, speed):
 	)
 	update_tween.set_trans(Tween.TRANS_SPRING)
 	await update_tween.finished
+
+const shallow_water_sink = 0.225
+const image_pixel_height = 36.0
+
+func on_entering_shallow_water():
+	if in_water or on_lilypad: return
+	Effects.effect_end(Effects.ID.Burning)
+	in_water = true
+	set_uniform("hide_progression", shallow_water_sink)
+	leafNode.position.y += shallow_water_sink * image_pixel_height
+	Audio.play_sound(UID.SFX_SHALLOW_WATER_SPLASH, 0.2, 5)
+
+func start_to_sink(river_fail_point):
+	Player.sinked_times += 1
+	Player.is_sinking = true
+	create_tween().tween_property(Player.leafNode, "modulate:a", 0, 0.7).set_ease(Tween.EASE_IN_OUT)
+	TextSystem.lockAction = true
+	Audio.play_sound(UID.SFX_DEEP_WATER_SPLASH, 0.2, 5)
+	
+	player_river_damage()
+	await sink_tween(1, 1.5)
+	Player.animNode.hide()
+	LeafMode.post_river_fail(river_fail_point)
+
+func player_river_damage():
+	await get_tree().create_timer(1).timeout
+	LeafMode.modify_hp_with_id(LeafMode.HPChangeID.SinkUnderwater)
+
+func sink_tween(final, duration):
+	var sink_tween_v = create_tween()
+	sink_tween_v.tween_method(
+		func(val):
+			Player.set_uniform("hide_progression", val + 0.01),
+		await Player.get_uniform("hide_progression"),
+		final,
+		duration
+	).set_ease(Tween.EASE_IN_OUT)
+	await sink_tween_v.finished
+
+func handle_ladder_trigger_behaviour(exiting, is_bottom, layer_trigger_area, reset_climbing_index, ladder_node):
+	Player.climbing_ladder = not exiting
+	if not is_bottom:
+		handle_top_behaviour()
+		return
+	
+	if reset_climbing_index: Player.climbing_ladder_index = -1
+	else:
+		var ladder_index = ladder_node.get_parent().get_meta("ladder_index")
+		Player.climbing_ladder_index = ladder_node.get_parent().get_meta("ladder_parent_index") if exiting else ladder_index
+	
+	Player.update_animation("walk_down" if exiting else "climb")
+	if not exiting or Player.climbing_ladder_index == -1:
+		Player.body.set_collision_mask_value(4, exiting)
+		Player.body.set_collision_mask_value(5, not exiting)
+	if layer_trigger_area != null: layer_trigger_area.monitoring = exiting
+
+func handle_top_behaviour():
+	Player.climbing_ladder = not Player.climbing_ladder
+	Player.update_animation(Player.node.get_animation_name())

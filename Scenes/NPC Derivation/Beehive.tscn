@@ -24,6 +24,7 @@ hframes = 3
 script = ExtResource("2_4pa6r")
 
 [node name="Layered NPC" parent="." instance=ExtResource("1_av6ga")]
+visible = false
 ignoreDirections = true
 override_id_from_parent = true
 set_only_at_start = true
@@ -44,6 +45,7 @@ position = Vector2(3.5, 41)
 shape = SubResource("RectangleShape2D_wyurl")
 
 [node name="Audio Area" parent="." instance=ExtResource("4_o1yg2")]
+visible = false
 position = Vector2(-313, 87)
 audioStream = ExtResource("5_lma4l")
 maxDistance = 500

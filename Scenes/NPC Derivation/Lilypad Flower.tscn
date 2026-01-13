@@ -18,9 +18,9 @@ texture = ExtResource("2_6n57t")
 
 [node name="Light" parent="NPC Root" index="1"]
 visible = true
-color = Color(0.85, 0, 0, 1)
-energy = 2.0
-range_item_cull_mask = 4
+energy = 0.6
+blend_mode = 1
+range_item_cull_mask = 64
 texture_scale = 2.0
 
 [node name="Collider" parent="NPC Root/Static Body" index="0"]

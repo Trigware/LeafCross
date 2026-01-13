@@ -27,7 +27,10 @@ enum ID
 	DetailedTree_SAVEINTROROOM,
 	InfoTablet_LEVERPUZZLEROOM,
 	SavePoint_BleaklandsEnterance,
-	Antihomeless_Bench_BLEAKLANDS_ENTERANCE
+	Antihomeless_Bench_BLEAKLANDS_ENTERANCE,
+	HedgehogTester_ExitSign,
+	SleepingCaterpillar_TeleportTreeRoom,
+	SleepingHedgehog_TeleportTreeRoom
 }
 
 enum Field

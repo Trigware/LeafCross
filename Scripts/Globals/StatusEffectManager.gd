@@ -89,7 +89,9 @@ const burning_damage_multiplier = 3
 
 func burning_effect(times_processed_since_start):
 	var river_manager = Overworld.activeRoom.get_node_or_null("River Manager")
-	if river_manager != null and river_manager.shallow_water != null: TextMethods.create_centered_text("CatchingOnFire_ExtinguishWithWater")
+	var river_segment = Overworld.activeRoom.get_node_or_null("River Segment")
+	if (river_manager != null and river_manager.shallow_water != null) or river_segment != null:
+		TextMethods.create_centered_text("CatchingOnFire_ExtinguishWithWater")
 	var damage = min(times_processed_since_start * burning_damage_multiplier, max_burning_damage)
 	LeafMode.modify_hp_with_label(-damage)
 	await wait(1)
@@ -111,9 +113,9 @@ func get_effect_colors(effect: ID):
 	if effect_ongoing(ID.Blindness): return blidness_color
 	var color = Overworld.base_light_color
 	match effect:
-		ID.Poison: color = Color.GREEN_YELLOW
+		ID.Poison: color = Color("a7ff9c")
 		ID.Blindness: color = blidness_color
-		ID.Burning: color = Color.DARK_ORANGE
+		ID.Burning: color = Color("f2be83")
 	return color
 
 func effect_start(effect: ID):

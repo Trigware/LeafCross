@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://d20vboo2503yj"]
+
+[ext_resource type="PackedScene" uid="uid://6hq01nojje0y" path="res://Scenes/NPC Derivation/NPC.tscn" id="1_1oyux"]
+[ext_resource type="Texture2D" uid="uid://6nctvjac0q5t" path="res://Textures/Weird Forest/HedgehogSleeping.png" id="2_sstkl"]
+[ext_resource type="PackedScene" uid="uid://brayn5u5r4xq5" path="res://Scenes/Overworld/SleepBubble.tscn" id="3_1oyux"]
+[ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="4_sstkl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_54ool"]
+size = Vector2(38, 34.5)
+
+[node name="Sleeping Hedgehog" type="Node2D"]
+
+[node name="NPC Root" parent="." instance=ExtResource("1_1oyux")]
+scale = Vector2(1.5, 1.5)
+ignoreDirections = true
+
+[node name="Sprite" parent="NPC Root" index="0"]
+light_mask = 0
+texture = ExtResource("2_sstkl")
+
+[node name="Static Body" parent="NPC Root" index="2"]
+visible = true
+
+[node name="Collider" parent="NPC Root/Static Body" index="0"]
+visible = false
+shape = SubResource("RectangleShape2D_54ool")
+
+[node name="Trigger Zone" parent="NPC Root" index="3"]
+scale = Vector2(0.85, 0.85)
+
+[node name="Sleep Bubble" parent="." instance=ExtResource("3_1oyux")]
+position = Vector2(6, -6)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0.500001, 19)
+scale = Vector2(0.361328, 0.119141)
+blend_mode = 1
+texture = ExtResource("4_sstkl")
+
+[editable path="NPC Root"]

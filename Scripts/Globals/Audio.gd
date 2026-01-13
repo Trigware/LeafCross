@@ -6,10 +6,15 @@ var waiting_for_stream = false
 var currentMusic := ""
 
 func play_sound(stream : AudioStream, pitch_shift = 0.0, volume = 0.0, ignore_game_over = false):
-	if LeafMode.game_over and not ignore_game_over: return
+	if LeafMode.game_over and not ignore_game_over: return null
 	var player = play_stream(stream, pitch_shift, volume)
 	await finished
 	return player
+
+const default_pitch_shift = 0.2
+
+func play_sound_shifted(stream: AudioStream, volume := 0.0, ignore_game_over = false):
+	return await play_sound(stream, default_pitch_shift, volume, ignore_game_over)
 
 func play_stream(stream, pitch_shift = 0.0, volume = 0.0):
 	if not stream: return

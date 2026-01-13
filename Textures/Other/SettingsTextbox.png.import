@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dobdv3gugmyvu"
-path="res://.godot/imported/Teleport Room Sign.png-233b4424e4adda2d47f16e1d0ff5ff8d.ctex"
+uid="uid://3f3ku4yee43e"
+path="res://.godot/imported/SettingsTextbox.png-729bc514258588562c82e764ea685275.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Weird Forest/Teleport Room Sign.png"
-dest_files=["res://.godot/imported/Teleport Room Sign.png-233b4424e4adda2d47f16e1d0ff5ff8d.ctex"]
+source_file="res://Textures/Other/SettingsTextbox.png"
+dest_files=["res://.godot/imported/SettingsTextbox.png-729bc514258588562c82e764ea685275.ctex"]
 
 [params]
 

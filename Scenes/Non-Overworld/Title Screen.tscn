@@ -105,16 +105,16 @@ animations = [{
 "speed": 20.0
 }]
 
-[sub_resource type="LabelSettings" id="LabelSettings_x2q84"]
+[sub_resource type="LabelSettings" id="LabelSettings_rfxld"]
 font = ExtResource("18_2p7uu")
-font_size = 32
+font_size = 24
 font_color = Color(0.68, 0.68, 0.68, 1)
 outline_size = 10
 outline_color = Color(0.4, 0.4, 0.4, 1)
 shadow_color = Color(0.639216, 0.639216, 0.639216, 0.392157)
 shadow_offset = Vector2(4, 4)
 
-[sub_resource type="LabelSettings" id="LabelSettings_rfxld"]
+[sub_resource type="LabelSettings" id="LabelSettings_x2q84"]
 font = ExtResource("18_2p7uu")
 font_size = 32
 font_color = Color(0.68, 0.68, 0.68, 1)
@@ -252,36 +252,6 @@ texture = ExtResource("19_dnlcj")
 
 [node name="Options Root" type="Node2D" parent="Choose Language"]
 
-[node name="Extra Info Labels" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_top = 100.0
-offset_right = 40.0
-offset_bottom = 140.0
-
-[node name="Version" type="Label" parent="Extra Info Labels"]
-modulate = Color(1, 1, 1, 0.701961)
-layout_mode = 0
-offset_top = 579.0
-offset_right = 1128.0
-offset_bottom = 648.0
-theme_override_fonts/font = ExtResource("18_2p7uu")
-theme_override_font_sizes/font_size = 48
-text = "v0.5"
-horizontal_alignment = 2
-
-[node name="Developers" type="Label" parent="Extra Info Labels"]
-modulate = Color(1, 1, 1, 0.701961)
-layout_mode = 0
-offset_top = 616.0
-offset_right = 1535.0
-offset_bottom = 673.0
-scale = Vector2(0.75, 0.75)
-theme_override_fonts/font = ExtResource("18_2p7uu")
-theme_override_font_sizes/font_size = 32
-text = "Made by TRIGWARE (John K.), xDaForge and other cotributors"
-horizontal_alignment = 1
-
 [node name="Options Tree" type="Sprite2D" parent="."]
 position = Vector2(-400, 320)
 scale = Vector2(3.75, 3.75)
@@ -302,6 +272,46 @@ visible = false
 position = Vector2(260.267, 64)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("23_tco2s")
+
+[node name="Extra Info Labels" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 100.0
+offset_right = 40.0
+offset_bottom = 140.0
+
+[node name="Version" type="Label" parent="Extra Info Labels"]
+layout_mode = 0
+offset_top = 579.0
+offset_right = 1128.0
+offset_bottom = 648.0
+theme_override_fonts/font = ExtResource("18_2p7uu")
+theme_override_font_sizes/font_size = 48
+text = "v0.5"
+label_settings = ExtResource("26_sxhxw")
+horizontal_alignment = 2
+
+[node name="Version Description" type="Label" parent="Extra Info Labels/Version"]
+layout_mode = 0
+offset_left = 884.0
+offset_top = 37.0
+offset_right = 1128.0
+offset_bottom = 85.0
+text = "version description"
+label_settings = SubResource("LabelSettings_rfxld")
+horizontal_alignment = 2
+
+[node name="Developers" type="Label" parent="Extra Info Labels"]
+modulate = Color(1, 1, 1, 0.701961)
+layout_mode = 0
+offset_top = 616.0
+offset_right = 1419.0
+offset_bottom = 673.0
+scale = Vector2(0.75, 0.75)
+theme_override_fonts/font = ExtResource("18_2p7uu")
+theme_override_font_sizes/font_size = 32
+text = "Made by TRIGWARE (John K.), xDaForge and other cotributors"
+horizontal_alignment = 1
 
 [node name="File Select" type="Node2D" parent="."]
 script = ExtResource("26_x2q84")
@@ -356,6 +366,6 @@ offset_bottom = 723.0
 theme_override_fonts/font = ExtResource("18_2p7uu")
 theme_override_font_sizes/font_size = 48
 text = "Next Chapter"
-label_settings = SubResource("LabelSettings_rfxld")
+label_settings = ExtResource("26_sxhxw")
 horizontal_alignment = 1
 vertical_alignment = 1

@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://d10b8y6as23vm"]
+
+[ext_resource type="Shader" uid="uid://dkfelc888vsbn" path="res://Shaders/GDSL/SettingsHide.gdshader" id="1_wutbo"]
+
+[resource]
+shader = ExtResource("1_wutbo")
+shader_parameter/hide_progression = 1.0
+shader_parameter/hide_from_bottom = false

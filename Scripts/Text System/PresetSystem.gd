@@ -35,6 +35,8 @@ enum Property
 	EndExternally
 }
 
+const default_text_speed = 0.04
+
 @onready var TextConfigurations = {
 	Preset.LegendSmallPanel: {
 		Property.PositionX: 255,
@@ -53,6 +55,7 @@ enum Property
 		Property.OverlapAudio: true
 	},
 	Preset.RegularDialog: {
+		Property.Speed: default_text_speed,
 		Property.TalkAudio: UID.TALK_DEFAULT,
 		Property.PitchRange: 0.15,
 		Property.FontSize: 44,
@@ -108,7 +111,7 @@ func get_preset_property(preset: Preset, property: Property):
 	var preset_data = TextConfigurations[preset]
 	
 	match property:
-		Property.Speed: return preset_data.get(Property.Speed, 1.0/25)
+		Property.Speed: return preset_data.get(Property.Speed, default_text_speed)
 		Property.FontSize: return preset_data.get(Property.FontSize, 48)
 		Property.VectorPosition: return get_text_position(preset, preset_data)
 		Property.PositionX: return preset_data.get(Property.PositionX, 0)

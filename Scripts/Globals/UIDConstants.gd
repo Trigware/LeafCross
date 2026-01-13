@@ -93,6 +93,10 @@ const SCN_TITLE_SCREEN := preload("uid://e5dea2x5l6oa")
 const SCN_OVERWORLD_BRIDGE := preload("uid://bgwga5lvrmnqq")
 const SCN_AREA_ENTER_NOTICE := preload("uid://jntnmi11u7a6")
 const SCN_CATERPILLAR_FOOTSTEP := preload("uid://3s5312a0a57k")
+const SCN_RIVER_SEGMENT := preload("uid://pmvapmh1kaja")
+const SCN_SETTINGS_SLIDER := preload("uid://cfx6loxs01lgs")
+const SCN_SETTINGS_CHOICE := preload("uid://b8mnbbtqlvpy3")
+const SCN_SETTINGS_BUTTON := preload("uid://qlq7t5dw8ppa")
 
 const SCN_LILYPAD_MECHANIC : Dictionary[Overworld.Room, PackedScene] = {
 	Overworld.Room.Weird_LilypadRoom: preload("uid://do8xa234u6nyw")
@@ -166,4 +170,7 @@ func get_agent_collider_info(agent_variation: Enum.AgentVariation) -> Dictionary
 
 const SHD_HIDE_SPRITE := preload("uid://dqmk2fcx6j66e")
 const SHD_ELECTICUTION := preload("uid://c5jysktbocad2")
+const SHD_TILING := preload("uid://b67bt5lbdcj5y")
+const SHD_SETTING_HIDE := preload("uid://d10b8y6as23vm")
+
 const LOCALIZATION := preload("res://Localization.tres")

@@ -130,17 +130,20 @@ func on_footstep():
 
 func play_footstep():
 	var footstep_type = UID.Footstep.Ground
-	if Player.in_water: footstep_type = UID.Footstep.Water
+	var footstep_volume = 0
+	if Player.in_water:
+		footstep_type = UID.Footstep.Water
+		footstep_volume = -8
 	if Player.in_leaves: footstep_type = UID.Footstep.Leaves
 	if Player.climbing_ladder: footstep_type = UID.Footstep.Ladder
-	Audio.play_sound(UID.SFX_FOOTSTEPS[footstep_type], 0.3, 0)
+	Audio.play_sound(UID.SFX_FOOTSTEPS[footstep_type], 0.3, footstep_volume)
 	Player.play_animation(get_animation_name())
 
 func add_to_footstep_targets():
 	var footstep = {
 		"target": global_position,
 		"direction": Player.node.stringAnimation,
-		"hide_progression": Player.get_uniform("hide_progression")
+		"hide_progression": await Player.get_uniform("hide_progression")
 	}
 	Player.footsteps.append(footstep)
 	MovingNPC.update_follower_agents()

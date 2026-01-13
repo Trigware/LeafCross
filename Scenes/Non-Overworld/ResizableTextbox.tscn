@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://capj0hpjfpdxr"]
+
+[ext_resource type="Texture2D" uid="uid://3f3ku4yee43e" path="res://Textures/Other/SettingsTextbox.png" id="1_uv7xd"]
+
+[node name="DescriptionBox" type="NinePatchRect"]
+modulate = Color(1, 1, 1, 0.8)
+offset_right = 160.0
+offset_bottom = 184.0
+scale = Vector2(2, 2)
+texture = ExtResource("1_uv7xd")
+patch_margin_left = 18
+patch_margin_top = 17
+patch_margin_right = 18
+patch_margin_bottom = 17

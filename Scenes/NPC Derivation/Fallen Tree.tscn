@@ -25,15 +25,18 @@ position = Vector2(47, 59)
 shape = null
 
 [node name="Collider" parent="Layered NPC/Layered Manager/Trigger Area" index="0"]
+visible = false
 position = Vector2(220.5, 60)
 shape = SubResource("RectangleShape2D_g5vyq")
 
 [node name="Collider2" type="CollisionShape2D" parent="Layered NPC/Layered Manager/Trigger Area" index="1"]
+visible = false
 position = Vector2(43.5, 26)
 shape = SubResource("RectangleShape2D_dpoh3")
 debug_color = Color(0.701961, 0.231373, 0, 0.419608)
 
 [node name="Trigger Zone" parent="Layered NPC" index="1"]
+visible = false
 position = Vector2(224.5, 61.5)
 shape = SubResource("RectangleShape2D_immq1")
 

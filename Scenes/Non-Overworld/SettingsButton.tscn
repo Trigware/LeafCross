@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://qlq7t5dw8ppa"]
+
+[ext_resource type="Texture2D" uid="uid://h24mfoo5hq47" path="res://Textures/Title Screen/Settings Textbox.png" id="1_kfpof"]
+[ext_resource type="Script" uid="uid://clhkswdvrrppd" path="res://Scripts/Title Screen/SettingsButton.gd" id="1_t5548"]
+[ext_resource type="Shader" uid="uid://dkfelc888vsbn" path="res://Shaders/GDSL/SettingsHide.gdshader" id="2_jpg6t"]
+[ext_resource type="FontFile" uid="uid://dil43sbwcg2uc" path="res://Fonts/Leafcross Font.png" id="2_t5548"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_87kwd"]
+shader = ExtResource("2_jpg6t")
+shader_parameter/hide_progression = 1.0
+shader_parameter/hide_from_bottom = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ivpxf"]
+shader = ExtResource("2_jpg6t")
+shader_parameter/hide_progression = 1.0
+shader_parameter/hide_from_bottom = false
+
+[node name="SettingsButton" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_t5548")
+
+[node name="Textbox" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_87kwd")
+layout_mode = 0
+offset_right = 855.0
+offset_bottom = 100.0
+texture = ExtResource("1_kfpof")
+
+[node name="Title" type="Label" parent="."]
+material = SubResource("ShaderMaterial_ivpxf")
+layout_mode = 0
+offset_left = 36.0
+offset_right = 819.0
+offset_bottom = 100.0
+theme_override_fonts/font = ExtResource("2_t5548")
+theme_override_font_sizes/font_size = 48
+text = "-- Settings Button --"
+horizontal_alignment = 1
+vertical_alignment = 1

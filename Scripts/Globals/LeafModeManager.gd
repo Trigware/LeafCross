@@ -17,8 +17,9 @@ extends Node2D
 const screen_shake_offset = 12
 const screen_shake_duration = 0.15
 const invincibility_duration = 0.35
-const ui_tween_duration = 0.7
-const minimal_stamina_light_matter_point = 0.225
+const ui_tween_duration = 0.72
+const minimal_stamina_light_matter_point = 0.75
+const light_scale_multiplier = 2.45
 
 var cannot_start_hp_tween = false
 var invincibility = false
@@ -32,13 +33,13 @@ var game_over = false
 signal game_over_triggered
 
 func _process(_delta):
-	var light_scale = max(minimal_stamina_light_matter_point, Player.stamina / Player.maxStamina)
+	var light_scale = max(minimal_stamina_light_matter_point, Player.stamina / Player.maxStamina * light_scale_multiplier)
 	Player.light.texture_scale = light_scale
 
 func enabled():
 	return stamina_root.position.x > -300
 
-func tween_light(final):
+func tween_subtract_light(final):
 	var tween = create_tween()
 	tween.tween_property(subtractiveLight, "energy", final, 1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
@@ -158,12 +159,9 @@ func modify_hp_with_id(id: HPChangeID):
 		HPChangeID.PinkMushroom: health_change = randi_range(12, 18)
 		HPChangeID.Hedgehog: health_change = randi_range(-16, -10)
 		HPChangeID.LeverPuzzleElectricution:
-			health_change = get_damage_without_chance_of_game_over(10, 16)
+			health_change = randi_range(-27, -16)
 			no_sound = true
 	modify_hp_with_label(health_change, null, no_sound)
-
-func get_damage_without_chance_of_game_over(minimum_damage, maximum_damage):
-	return -min(Player.playerHealth-1, randf_range(minimum_damage, maximum_damage))
 
 func screen_shake(power = 1, cam = Player.camera, cam_offset = screen_shake_offset, used_screen_shake_dur = screen_shake_duration):
 	var original_camera_offset = cam.offset
@@ -211,14 +209,16 @@ func post_river_fail(marker):
 	
 	Player.animNode.show()
 	Player.node.global_position = marker.global_position
-	var walkable_lilypads_node = Overworld.activeRoom.get_node("Walkable Lilypads")
-	walkable_lilypads_node.queue_free()
-	await get_tree().process_frame
-	var scene = UID.SCN_LILYPAD_MECHANIC[Overworld.currentRoom].instantiate()
-	scene.name = "Walkable Lilypads"
-	MovingNPC.create_follower_agents()
-	Overworld.activeRoom.add_child(scene)
+	var walkable_lilypads_node = Overworld.activeRoom.get_node_or_null("Walkable Lilypads")
+	if walkable_lilypads_node != null: walkable_lilypads_node.queue_free()
 	
+	await get_tree().process_frame
+	if Overworld.currentRoom in UID.SCN_LILYPAD_MECHANIC:
+		var scene = UID.SCN_LILYPAD_MECHANIC[Overworld.currentRoom].instantiate()
+		scene.name = "Walkable Lilypads"
+		Overworld.activeRoom.add_child(scene)
+	
+	MovingNPC.create_follower_agents()
 	Player.go_outside_water(true)
 	Player.reset_camera_smoothing()
 	Overlay.show_scene(1)
@@ -247,6 +247,7 @@ func initialize_game_over():
 	SaveData.save_autosave_file()
 	Audio.stop_overworld_music()
 	game_over = true
+	Player.handle_ladder_trigger_behaviour(true, true, null, true, null)
 	Player.end_leaf_flashes()
 	tween_ui(LeafMode.stamina_ui_hide_x)
 	hide_health_ui()

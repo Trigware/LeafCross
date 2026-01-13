@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://brayn5u5r4xq5"]
+
+[ext_resource type="Texture2D" uid="uid://c2gyw35ghomm3" path="res://Textures/Other/SleepBubble.png" id="1_d4l2m"]
+
+[sub_resource type="Curve" id="Curve_gl2un"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.786517), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_yl3nr"]
+offsets = PackedFloat32Array(0, 0.393701, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="Sleep Bubble" type="CPUParticles2D"]
+light_mask = 0
+amount = 2
+texture = ExtResource("1_d4l2m")
+lifetime = 0.65
+speed_scale = 0.35
+emission_shape = 3
+emission_rect_extents = Vector2(3, 3)
+gravity = Vector2(75, -125)
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_gl2un")
+color_ramp = SubResource("Gradient_yl3nr")

@@ -52,6 +52,7 @@ func initialize_options():
 	respawn_option.get_node(text_node_path).text = Localization.get_text("GameOver_PlayerRespawn")
 	goto_title.get_node(text_node_path).text = Localization.get_text("GameOver_GotoTitle")
 	selector.position.x = get_selector_x_position()
+	Player.leafNode.modulate.a = 0
 
 func get_selector_x_position(): return options_x_offset * int(current_selected_option)
 

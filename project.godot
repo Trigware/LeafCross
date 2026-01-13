@@ -42,6 +42,8 @@ BibleOverworld="*res://Scenes/Overworld/Bible Overworld.tscn"
 SaveMenu="*res://Scenes/Core/Save Menu.tscn"
 UID="*res://Scenes/Core/UID.tscn"
 MovingNPC="*res://Scenes/Core/Moving NPC Manager.tscn"
+ExpressionEval="*res://Scripts/Text System/Expression/ExpressionEvaluator.gd"
+ExpressionAST="*res://Scripts/Text System/Expression/ExpressionAST.gd"
 
 [display]
 

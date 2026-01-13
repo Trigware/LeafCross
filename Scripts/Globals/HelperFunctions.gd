@@ -37,6 +37,12 @@ func tween_uniform(object, uniform_name: String, final, duration := 1.0, ease_pa
 	await tween_v.finished
 	return tween_v
 
+func tween_method(method: Callable, start_value, final, duration := 1.0, ease_param := Tween.EASE_IN_OUT, trans_param := Tween.TRANS_SINE):
+	var tween_v = create_tween().tween_method(method, start_value, final, duration)
+	tween_v.set_ease(ease_param).set_trans(trans_param)
+	await tween_v.finished
+	return tween_v
+
 func tween_multiple(objects: Array, property: String, final, duration := 1.0, ease_param := Tween.EASE_IN_OUT, trans_param := Tween.TRANS_SINE):
 	for obj in objects: tween(obj, property, final, duration, ease_param, trans_param)
 	await wait(duration)
@@ -93,3 +99,14 @@ func convert_time_to_words(time_to_be_converted: float) -> String:
 		if time_to_be_converted < 10: result += " "
 	if time_to_be_converted < 10: result += str(number_of_milliseconds) + "ms"
 	return result
+
+func hide_progress_multiple(objects: Array, value):
+	set_uniform_multiple(objects, "hide_progression", value)
+
+func assign_shader_multiple(objects: Array, shader: ShaderMaterial):
+	for obj in objects:
+		obj.material = shader.duplicate()
+
+func set_uniform_multiple(objects: Array, parameter, value):
+	for obj in objects:
+		obj.material.set_shader_parameter(parameter, value)

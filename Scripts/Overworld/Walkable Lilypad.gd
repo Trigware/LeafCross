@@ -12,18 +12,16 @@ const shake_tween_duration = 0.1
 var sinking = false
 var disabled = true
 
-signal lilypad_exited
-
 func _ready():
 	await get_tree().create_timer(0.1).timeout
 	disabled = false
 
 func _on_body_exited(body: Node2D) -> void:
 	if not body.is_in_group("Player") or disabled: return
-	emit_signal("lilypad_exited")
 	Player.lilypad_overlaps -= 1
 	if Player.lilypad_overlaps >= 1: return
 	Player.on_lilypad = false
+	Player.emit_signal("lilypad_exited")
 
 func _on_body_entered(body: Node2D) -> void:
 	if not body.is_in_group("Player") or disabled: return

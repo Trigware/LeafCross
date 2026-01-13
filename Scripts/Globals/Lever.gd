@@ -26,7 +26,6 @@ func _ready():
 	ready_notice_y = notice.position.y
 	var start_pull_progress = 1 if lever_on else -1
 	progress_lever_pull(start_pull_progress)
-
 func can_interact_with_lever():
 	for body in get_overlapping_bodies():
 		if body.is_in_group("Player"): return true
@@ -41,8 +40,7 @@ const lever_pull_tween_duration = 0.4
 
 func interact_with_lever(cutscene_controlled_interaction = false):
 	if CutsceneManager.action_lock and not cutscene_controlled_interaction: return
-	prints(Player.climbing_ladder_index, belongs_to_ladder_index)
-	if Player.climbing_ladder_index != belongs_to_ladder_index and not cutscene_controlled_interaction: return
+	if Player.climbing_ladder_index != lever_color_enum and not cutscene_controlled_interaction: return
 	if lever_interaction_disabled: return
 	
 	Player.show_lever_pull_notice = false

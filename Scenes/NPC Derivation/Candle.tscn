@@ -18,9 +18,6 @@ set_only_at_start = true
 light_mask = 0
 texture = ExtResource("2_gbuwg")
 
-[node name="Static Body" parent="NPC Root" index="2"]
-visible = false
-
 [node name="Trigger Zone" parent="NPC Root" index="3"]
 scale = Vector2(1.1, 1.1)
 shape = SubResource("RectangleShape2D_t7yon")

@@ -8,6 +8,7 @@ extends Node2D
 @onready var options_tree = $"Options Tree"
 @onready var labels_root = $"Extra Info Labels"
 @onready var version_label = $"Extra Info Labels/Version"
+@onready var version_description_label = $"Extra Info Labels/Version/Version Description"
 @onready var developers_label = $"Extra Info Labels/Developers"
 @onready var selector = $"Options Tree/Selector"
 
@@ -32,6 +33,7 @@ func _ready():
 
 func setup_labels_text():
 	version_label.text = Localization.get_text("mainmenu_version_number")
+	version_description_label.text = Localization.get_text("mainmenu_version_description")
 	developers_label.text = Localization.get_text("mainmenu_developers")
 
 const lowewst_stars_alpha := 0.2
@@ -127,4 +129,14 @@ func _input(event):
 		if wmt_easter_egg_key_progress == wmtale_easter_egg_keyinputs.size():
 			wmt_easter_egg_active = true
 			Audio.play_sound(UID.SFX_WMTALE_EASTER_EGG)
-	else:wmt_easter_egg_key_progress = 0
+	else: wmt_easter_egg_key_progress = 0
+
+const logo_settings_hide_x_position = 1300
+
+func open_game_settings():
+	Helper.tween(options_tree, "position", options_tree.options_tree_hide_position)
+	Helper.tween(labels_root, "position:y", hide_labels_position_y)
+	Helper.tween(logo, "position:x", logo_settings_hide_x_position)
+	Overlay.alpha_tween(0.25)
+	var settings_scene = UID.SCN_SETTINGS.instantiate()
+	add_child(settings_scene)

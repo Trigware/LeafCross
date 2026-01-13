@@ -11,6 +11,7 @@ var after_choicer_text_error_pushed : bool
 var suffix_instruction_appeared := SuffixType.None
 var latest_suffix_instruction = ""
 var functions_called_during_text: Array[Function] = []
+var text_speed_multipliers : Dictionary[int, float] = {}
 var non_wait_functions_waiting_to_be_executed := 0
 
 func record_control_text(text: String) -> String:
@@ -61,6 +62,7 @@ func setup_control_text_parsing():
 	suffix_instruction_appeared = SuffixType.None
 	ChoicerSystem.choicer_options = {}
 	functions_called_during_text = []
+	text_speed_multipliers = {}
 	non_wait_functions_waiting_to_be_executed = 0
 
 func parse_control_bracket_end():
@@ -82,6 +84,10 @@ func parse_control_bracket_end():
 	
 	if bracket_content.begins_with("|"):
 		parse_suffix_statement()
+		return
+	
+	if bracket_content.begins_with("*"):
+		parse_text_speed_multiplier()
 		return
 	
 	if parse_function_call("!") or parse_function_call("await "): return
@@ -172,6 +178,14 @@ func is_special_suffix(special_character):
 func set_character_color(character_color):
 	if character_color == null: return
 	TextSystem.character_colors.set(parsed_ch_index, character_color)
+
+func parse_text_speed_multiplier():
+	var speed_multiplier := bracket_content.substr(1)
+	if not speed_multiplier.is_valid_float():
+		push_error("Text speed multiplier requires a valid float, which '" + speed_multiplier + "' isn't!")
+		return
+	var speed_as_float = float(speed_multiplier)
+	text_speed_multipliers.set(parsed_ch_index, speed_as_float)
 
 func substitute_for_named_color(named_color: String):
 	var color_name = remove_instruction_char(named_color).to_lower()

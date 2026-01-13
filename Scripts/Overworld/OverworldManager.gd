@@ -3,7 +3,7 @@ extends Node2D
 const scaleConst := 1.7
 
 var activeRoom = null
-var currentRoom := Room.Tester_LeverPuzzle
+var currentRoom := Room.Tester_CharacterDialog
 var current_area := OverworldArea.Weird
 var latestExitRoom := Room.ErrorHandlerer
 var initialPosition := Vector2.ZERO
@@ -123,7 +123,8 @@ enum Room
 	Tester_DangerousHedgehog,
 	Tester_LeverPuzzle,
 	Tester_DangerousCaterpillars,
-	Bleak_BleaklandsEnterance
+	Bleak_BleaklandsEnterance,
+	Tester_NewWaterTest
 }
 
 enum OverworldArea

@@ -1,0 +1,345 @@
+[gd_scene load_steps=16 format=4 uid="uid://da3kvh2v6yvsx"]
+
+[ext_resource type="Script" uid="uid://dj3qdrjjlq6jw" path="res://Scripts/Overworld/BaseRoom.gd" id="1_2tybf"]
+[ext_resource type="TileSet" uid="uid://xoe5wsfk5d5q" path="res://TileSets/BackLayer.tres" id="2_ujb5r"]
+[ext_resource type="PackedScene" uid="uid://pmvapmh1kaja" path="res://Scenes/Overworld/RiverSegment.tscn" id="3_jelwq"]
+[ext_resource type="TileSet" uid="uid://b6j4xcs3tqgoq" path="res://TileSets/WeirdEnvironment.tres" id="3_yq3si"]
+
+[sub_resource type="Shader" id="Shader_yq3si"]
+code = "shader_type canvas_item;
+
+uniform float vertical_tile_amount = 4.0;
+uniform float aspect_ratio = 1.0;
+uniform float wave_amplitude = 0.1;
+uniform float wave_speed = 1.0;
+uniform float[16] begining_and_end_unvisible;
+uniform vec2[2] begining_and_end_deep_water;
+uniform bool apply_tint = false;
+
+const vec4 deep_water_tint = vec4(0.2, 0.225, 0.25, 0.0);
+const float deep_water_hint = 0.15;
+
+float inverse_lerp(float a, float b, float v) {
+	return (v - a) / (b - a);
+}
+
+void fragment() {
+	vec2 used_tile_amount = vec2(vertical_tile_amount * aspect_ratio, vertical_tile_amount);
+	vec2 tiled_uv = UV * used_tile_amount;
+	vec2 waves_uv_offset = vec2(cos(TIME * wave_speed + tiled_uv.x + tiled_uv.y), sin(TIME * wave_speed + tiled_uv.x + tiled_uv.y)) * wave_amplitude;
+	tiled_uv = fract(UV * used_tile_amount + waves_uv_offset);
+	COLOR = texture(TEXTURE, tiled_uv);
+	
+	vec2 top_left_uv = begining_and_end_deep_water[0], bottom_right = begining_and_end_deep_water[1];
+	float dist_to_left = UV.x - top_left_uv.x, dist_to_right = bottom_right.x - UV.x;
+	float dist_to_top = UV.y - top_left_uv.y, dist_to_bottom = bottom_right.y - UV.y;
+	float closest_dist = min(min(min(dist_to_left, dist_to_right), dist_to_top), dist_to_bottom);
+	float deep_water_intensity = clamp(inverse_lerp(0.0, deep_water_hint, closest_dist), 0.0, 1.0);
+	
+	if (apply_tint) { COLOR = mix(COLOR, COLOR - deep_water_tint, deep_water_intensity); }
+	
+	for (int i = 0; i < 16; i += 2) {
+		float gap_start = begining_and_end_unvisible[i];
+		float gap_end = begining_and_end_unvisible[i + 1];
+		if (aspect_ratio > 1.0) {
+			if (UV.x >= gap_start && UV.x <= gap_end) { COLOR = vec4(0.0, 0.0, 0.0, 0.0); break; }
+		} else {
+			if (UV.y >= gap_start && UV.y <= gap_end) { COLOR = vec4(0.0, 0.0, 0.0, 0.0); break; }
+		}
+	}}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o435u"]
+shader = SubResource("Shader_yq3si")
+shader_parameter/vertical_tile_amount = 5.28125
+shader_parameter/aspect_ratio = 3.44971
+shader_parameter/wave_amplitude = 0.125
+shader_parameter/wave_speed = 1.5
+shader_parameter/begining_and_end_unvisible = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/begining_and_end_deep_water = [Vector2(0.0328044, 0.126479), Vector2(0.956901, 0.873521)]
+shader_parameter/apply_tint = true
+
+[sub_resource type="Shader" id="Shader_ti6ni"]
+code = "shader_type canvas_item;
+
+uniform float vertical_tile_amount = 4.0;
+uniform float aspect_ratio = 1.0;
+uniform float wave_amplitude = 0.1;
+uniform float wave_speed = 1.0;
+uniform float[16] begining_and_end_unvisible;
+uniform vec2[2] begining_and_end_deep_water;
+uniform bool apply_tint = false;
+
+const vec4 deep_water_tint = vec4(0.2, 0.225, 0.25, 0.0);
+const float deep_water_hint = 0.15;
+
+float inverse_lerp(float a, float b, float v) {
+	return (v - a) / (b - a);
+}
+
+void fragment() {
+	vec2 used_tile_amount = vec2(vertical_tile_amount * aspect_ratio, vertical_tile_amount);
+	vec2 tiled_uv = UV * used_tile_amount;
+	vec2 waves_uv_offset = vec2(cos(TIME * wave_speed + tiled_uv.x + tiled_uv.y), sin(TIME * wave_speed + tiled_uv.x + tiled_uv.y)) * wave_amplitude;
+	tiled_uv = fract(UV * used_tile_amount + waves_uv_offset);
+	COLOR = texture(TEXTURE, tiled_uv);
+	
+	vec2 top_left_uv = begining_and_end_deep_water[0], bottom_right = begining_and_end_deep_water[1];
+	float dist_to_left = UV.x - top_left_uv.x, dist_to_right = bottom_right.x - UV.x;
+	float dist_to_top = UV.y - top_left_uv.y, dist_to_bottom = bottom_right.y - UV.y;
+	float closest_dist = min(min(min(dist_to_left, dist_to_right), dist_to_top), dist_to_bottom);
+	float deep_water_intensity = clamp(inverse_lerp(0.0, deep_water_hint, closest_dist), 0.0, 1.0);
+	
+	if (apply_tint) { COLOR = mix(COLOR, COLOR - deep_water_tint, deep_water_intensity); }
+	
+	for (int i = 0; i < 16; i += 2) {
+		float gap_start = begining_and_end_unvisible[i];
+		float gap_end = begining_and_end_unvisible[i + 1];
+		if (aspect_ratio > 1.0) {
+			if (UV.x >= gap_start && UV.x <= gap_end) { COLOR = vec4(0.0, 0.0, 0.0, 0.0); break; }
+		} else {
+			if (UV.y >= gap_start && UV.y <= gap_end) { COLOR = vec4(0.0, 0.0, 0.0, 0.0); break; }
+		}
+	}}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ojnu6"]
+shader = SubResource("Shader_ti6ni")
+shader_parameter/vertical_tile_amount = 5.28125
+shader_parameter/aspect_ratio = 0.189349
+shader_parameter/wave_amplitude = 0.1
+shader_parameter/wave_speed = 1.5
+shader_parameter/begining_and_end_unvisible = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/begining_and_end_deep_water = PackedVector2Array(0.295, 0.235, 0.79, 0.675)
+shader_parameter/apply_tint = false
+
+[sub_resource type="Shader" id="Shader_qa0pe"]
+code = "shader_type canvas_item;
+
+uniform float vertical_tile_amount = 4.0;
+uniform float aspect_ratio = 1.0;
+uniform float wave_amplitude = 0.1;
+uniform float wave_speed = 1.0;
+uniform float[16] begining_and_end_unvisible;
+uniform vec2[2] begining_and_end_deep_water;
+uniform bool apply_tint = false;
+
+const vec4 deep_water_tint = vec4(0.2, 0.225, 0.25, 0.0);
+const float deep_water_hint = 0.15;
+
+float inverse_lerp(float a, float b, float v) {
+	return (v - a) / (b - a);
+}
+
+void fragment() {
+	vec2 used_tile_amount = vec2(vertical_tile_amount * aspect_ratio, vertical_tile_amount);
+	vec2 tiled_uv = UV * used_tile_amount;
+	vec2 waves_uv_offset = vec2(cos(TIME * wave_speed + tiled_uv.x + tiled_uv.y), sin(TIME * wave_speed + tiled_uv.x + tiled_uv.y)) * wave_amplitude;
+	tiled_uv = fract(UV * used_tile_amount + waves_uv_offset);
+	COLOR = texture(TEXTURE, tiled_uv);
+	
+	vec2 top_left_uv = begining_and_end_deep_water[0], bottom_right = begining_and_end_deep_water[1];
+	float dist_to_left = UV.x - top_left_uv.x, dist_to_right = bottom_right.x - UV.x;
+	float dist_to_top = UV.y - top_left_uv.y, dist_to_bottom = bottom_right.y - UV.y;
+	float closest_dist = min(min(min(dist_to_left, dist_to_right), dist_to_top), dist_to_bottom);
+	float deep_water_intensity = clamp(inverse_lerp(0.0, deep_water_hint, closest_dist), 0.0, 1.0);
+	
+	if (apply_tint) { COLOR = mix(COLOR, COLOR - deep_water_tint, deep_water_intensity); }
+	
+	for (int i = 0; i < 16; i += 2) {
+		float gap_start = begining_and_end_unvisible[i];
+		float gap_end = begining_and_end_unvisible[i + 1];
+		if (aspect_ratio > 1.0) {
+			if (UV.x >= gap_start && UV.x <= gap_end) { COLOR = vec4(0.0, 0.0, 0.0, 0.0); break; }
+		} else {
+			if (UV.y >= gap_start && UV.y <= gap_end) { COLOR = vec4(0.0, 0.0, 0.0, 0.0); break; }
+		}
+	}}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dlmgx"]
+shader = SubResource("Shader_qa0pe")
+shader_parameter/vertical_tile_amount = 5.28125
+shader_parameter/aspect_ratio = 0.189349
+shader_parameter/wave_amplitude = 0.1
+shader_parameter/wave_speed = 1.5
+shader_parameter/begining_and_end_unvisible = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/begining_and_end_deep_water = PackedVector2Array(0.295, 0.235, 0.79, 0.675)
+shader_parameter/apply_tint = false
+
+[sub_resource type="Shader" id="Shader_c7qlu"]
+code = "shader_type canvas_item;
+
+uniform float vertical_tile_amount = 4.0;
+uniform float aspect_ratio = 1.0;
+uniform float wave_amplitude = 0.1;
+uniform float wave_speed = 1.0;
+uniform float[16] begining_and_end_unvisible;
+uniform vec2[2] begining_and_end_deep_water;
+uniform bool apply_tint = false;
+
+const vec4 deep_water_tint = vec4(0.2, 0.225, 0.25, 0.0);
+const float deep_water_hint = 0.15;
+
+float inverse_lerp(float a, float b, float v) {
+	return (v - a) / (b - a);
+}
+
+void fragment() {
+	vec2 used_tile_amount = vec2(vertical_tile_amount * aspect_ratio, vertical_tile_amount);
+	vec2 tiled_uv = UV * used_tile_amount;
+	vec2 waves_uv_offset = vec2(cos(TIME * wave_speed + tiled_uv.x + tiled_uv.y), sin(TIME * wave_speed + tiled_uv.x + tiled_uv.y)) * wave_amplitude;
+	tiled_uv = fract(UV * used_tile_amount + waves_uv_offset);
+	COLOR = texture(TEXTURE, tiled_uv);
+	
+	vec2 top_left_uv = begining_and_end_deep_water[0], bottom_right = begining_and_end_deep_water[1];
+	float dist_to_left = UV.x - top_left_uv.x, dist_to_right = bottom_right.x - UV.x;
+	float dist_to_top = UV.y - top_left_uv.y, dist_to_bottom = bottom_right.y - UV.y;
+	float closest_dist = min(min(min(dist_to_left, dist_to_right), dist_to_top), dist_to_bottom);
+	float deep_water_intensity = clamp(inverse_lerp(0.0, deep_water_hint, closest_dist), 0.0, 1.0);
+	
+	if (apply_tint) { COLOR = mix(COLOR, COLOR - deep_water_tint, deep_water_intensity); }
+	
+	for (int i = 0; i < 16; i += 2) {
+		float gap_start = begining_and_end_unvisible[i];
+		float gap_end = begining_and_end_unvisible[i + 1];
+		if (aspect_ratio > 1.0) {
+			if (UV.x >= gap_start && UV.x <= gap_end) { COLOR = vec4(0.0, 0.0, 0.0, 0.0); break; }
+		} else {
+			if (UV.y >= gap_start && UV.y <= gap_end) { COLOR = vec4(0.0, 0.0, 0.0, 0.0); break; }
+		}
+	}}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n1wae"]
+shader = SubResource("Shader_c7qlu")
+shader_parameter/vertical_tile_amount = 4.0
+shader_parameter/aspect_ratio = 18.2188
+shader_parameter/wave_amplitude = 0.1
+shader_parameter/wave_speed = 1.5
+shader_parameter/begining_and_end_unvisible = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/begining_and_end_deep_water = PackedVector2Array(0.295, 0.235, 0.79, 0.675)
+shader_parameter/apply_tint = false
+
+[sub_resource type="Shader" id="Shader_rlvu3"]
+code = "shader_type canvas_item;
+
+uniform float vertical_tile_amount = 4.0;
+uniform float aspect_ratio = 1.0;
+uniform float wave_amplitude = 0.1;
+uniform float wave_speed = 1.0;
+uniform float[16] begining_and_end_unvisible;
+uniform vec2[2] begining_and_end_deep_water;
+uniform bool apply_tint = false;
+
+const vec4 deep_water_tint = vec4(0.2, 0.225, 0.25, 0.0);
+const float deep_water_hint = 0.15;
+
+float inverse_lerp(float a, float b, float v) {
+	return (v - a) / (b - a);
+}
+
+void fragment() {
+	vec2 used_tile_amount = vec2(vertical_tile_amount * aspect_ratio, vertical_tile_amount);
+	vec2 tiled_uv = UV * used_tile_amount;
+	vec2 waves_uv_offset = vec2(cos(TIME * wave_speed + tiled_uv.x + tiled_uv.y), sin(TIME * wave_speed + tiled_uv.x + tiled_uv.y)) * wave_amplitude;
+	tiled_uv = fract(UV * used_tile_amount + waves_uv_offset);
+	COLOR = texture(TEXTURE, tiled_uv);
+	
+	vec2 top_left_uv = begining_and_end_deep_water[0], bottom_right = begining_and_end_deep_water[1];
+	float dist_to_left = UV.x - top_left_uv.x, dist_to_right = bottom_right.x - UV.x;
+	float dist_to_top = UV.y - top_left_uv.y, dist_to_bottom = bottom_right.y - UV.y;
+	float closest_dist = min(min(min(dist_to_left, dist_to_right), dist_to_top), dist_to_bottom);
+	float deep_water_intensity = clamp(inverse_lerp(0.0, deep_water_hint, closest_dist), 0.0, 1.0);
+	
+	if (apply_tint) { COLOR = mix(COLOR, COLOR - deep_water_tint, deep_water_intensity); }
+	
+	for (int i = 0; i < 16; i += 2) {
+		float gap_start = begining_and_end_unvisible[i];
+		float gap_end = begining_and_end_unvisible[i + 1];
+		if (aspect_ratio > 1.0) {
+			if (UV.x >= gap_start && UV.x <= gap_end) { COLOR = vec4(0.0, 0.0, 0.0, 0.0); break; }
+		} else {
+			if (UV.y >= gap_start && UV.y <= gap_end) { COLOR = vec4(0.0, 0.0, 0.0, 0.0); break; }
+		}
+	}}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1crrr"]
+shader = SubResource("Shader_rlvu3")
+shader_parameter/vertical_tile_amount = 4.0
+shader_parameter/aspect_ratio = 18.2188
+shader_parameter/wave_amplitude = 0.1
+shader_parameter/wave_speed = 1.5
+shader_parameter/begining_and_end_unvisible = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/begining_and_end_deep_water = PackedVector2Array(0.295, 0.235, 0.79, 0.675)
+shader_parameter/apply_tint = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o435u"]
+size = Vector2(215.5, 50.5)
+
+[node name="NewWaterTest" type="Node2D"]
+script = ExtResource("1_2tybf")
+
+[node name="Back Layer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAD8//z/AAABAAAAAAD8//3/AAABAAAAAAD8//7/AAABAAAAAAD8////AAABAAAAAAD8/wAAAAABAAAAAAD8/wEAAAABAAAAAAD8/wIAAAABAAAAAAD8/wMAAAABAAAAAAD9//z/AAABAAAAAAD9//3/AAABAAAAAAD9//7/AAABAAAAAAD9////AAABAAAAAAD9/wAAAAABAAAAAAD9/wEAAAABAAAAAAD9/wIAAAABAAAAAAD9/wMAAAABAAAAAAD+/wEAAAABAAAAAAD+/wIAAAABAAAAAAD+/wMAAAABAAAAAAD//wEAAAABAAAAAAD//wIAAAABAAAAAAD//wMAAAABAAAAAAAAAPz/AAABAAAAAAAAAP3/AAABAAAAAAAAAP7/AAABAAAAAAAAAP//AAABAAAAAAAAAAAAAAABAAAAAAAAAAEAAAABAAAAAAAAAAIAAAABAAAAAAAAAAMAAAABAAAAAAABAPz/AAABAAAAAAABAP3/AAABAAAAAAABAP7/AAABAAAAAAABAP//AAABAAAAAAABAAAAAAABAAAAAAABAAEAAAABAAAAAAABAAIAAAABAAAAAAABAAMAAAABAAAAAAACAPz/AAABAAAAAAACAP3/AAABAAAAAAACAP7/AAABAAAAAAACAP//AAABAAAAAAACAAAAAAABAAAAAAACAAEAAAABAAAAAAACAAIAAAABAAAAAAACAAMAAAABAAAAAAADAPz/AAABAAAAAAADAP3/AAABAAAAAAADAP7/AAABAAAAAAADAP//AAABAAAAAAADAAAAAAABAAAAAAADAAEAAAABAAAAAAADAAIAAAABAAAAAAADAAMAAAABAAAAAAD6//r/AAABAAAAAAD6//v/AAABAAAAAAD6//z/AAABAAAAAAD6//3/AAABAAAAAAD6//7/AAABAAAAAAD6////AAABAAAAAAD6/wAAAAABAAAAAAD6/wEAAAABAAAAAAD6/wIAAAABAAAAAAD6/wMAAAABAAAAAAD6/wQAAAABAAAAAAD6/wUAAAABAAAAAAD7//r/AAABAAAAAAD7//v/AAABAAAAAAD7//z/AAABAAAAAAD7//3/AAABAAAAAAD7//7/AAABAAAAAAD7////AAABAAAAAAD7/wAAAAABAAAAAAD7/wEAAAABAAAAAAD7/wIAAAABAAAAAAD7/wMAAAABAAAAAAD7/wQAAAABAAAAAAD7/wUAAAABAAAAAAD8//r/AAABAAAAAAD8//v/AAABAAAAAAD8/wQAAAABAAAAAAD8/wUAAAABAAAAAAD9//r/AAABAAAAAAD9//v/AAABAAAAAAD9/wQAAAABAAAAAAD9/wUAAAABAAAAAAD+//r/AAABAAAAAAD+//v/AAABAAAAAAD+/wQAAAABAAAAAAD+/wUAAAABAAAAAAD///r/AAABAAAAAAD///v/AAABAAAAAAD//wQAAAABAAAAAAD//wUAAAABAAAAAAAAAPr/AAABAAAAAAAAAPv/AAABAAAAAAAAAAQAAAABAAAAAAAAAAUAAAABAAAAAAABAPr/AAABAAAAAAABAPv/AAABAAAAAAABAAQAAAABAAAAAAABAAUAAAABAAAAAAACAPr/AAABAAAAAAACAPv/AAABAAAAAAACAAQAAAABAAAAAAACAAUAAAABAAAAAAADAPr/AAABAAAAAAADAPv/AAABAAAAAAADAAQAAAABAAAAAAADAAUAAAABAAAAAAAEAPr/AAABAAAAAAAEAPv/AAABAAAAAAAEAPz/AAABAAAAAAAEAP3/AAABAAAAAAAEAP7/AAABAAAAAAAEAP//AAABAAAAAAAEAAAAAAABAAAAAAAEAAEAAAABAAAAAAAEAAIAAAABAAAAAAAEAAMAAAABAAAAAAAEAAQAAAABAAAAAAAEAAUAAAABAAAAAAAFAPr/AAABAAAAAAAFAPv/AAABAAAAAAAFAPz/AAABAAAAAAAFAP3/AAABAAAAAAAFAP7/AAABAAAAAAAFAP//AAABAAAAAAAFAAAAAAABAAAAAAAFAAEAAAABAAAAAAAFAAIAAAABAAAAAAAFAAMAAAABAAAAAAAFAAQAAAABAAAAAAAFAAUAAAABAAAAAAD1//X/AAABAAAAAAD1//b/AAABAAAAAAD1//f/AAABAAAAAAD1//j/AAABAAAAAAD1//n/AAABAAAAAAD1//r/AAABAAAAAAD1//v/AAABAAAAAAD1//z/AAABAAAAAAD1//3/AAABAAAAAAD1//7/AAABAAAAAAD1////AAABAAAAAAD1/wAAAAABAAAAAAD1/wEAAAABAAAAAAD1/wIAAAABAAAAAAD1/wMAAAABAAAAAAD1/wQAAAABAAAAAAD1/wUAAAABAAAAAAD1/wYAAAABAAAAAAD1/wcAAAABAAAAAAD1/wgAAAABAAAAAAD1/wkAAAABAAAAAAD1/woAAAABAAAAAAD2//X/AAABAAAAAAD2//b/AAABAAAAAAD2//f/AAABAAAAAAD2//j/AAABAAAAAAD2//n/AAABAAAAAAD2//r/AAABAAAAAAD2//v/AAABAAAAAAD2//z/AAABAAAAAAD2//3/AAABAAAAAAD2//7/AAABAAAAAAD2////AAABAAAAAAD2/wAAAAABAAAAAAD2/wEAAAABAAAAAAD2/wIAAAABAAAAAAD2/wMAAAABAAAAAAD2/wQAAAABAAAAAAD2/wUAAAABAAAAAAD2/wYAAAABAAAAAAD2/wcAAAABAAAAAAD2/wgAAAABAAAAAAD2/wkAAAABAAAAAAD2/woAAAABAAAAAAD3//X/AAABAAAAAAD3//b/AAABAAAAAAD3//f/AAABAAAAAAD3//j/AAABAAAAAAD3//n/AAABAAAAAAD3//r/AAABAAAAAAD3//v/AAABAAAAAAD3//z/AAABAAAAAAD3//3/AAABAAAAAAD3//7/AAABAAAAAAD3////AAABAAAAAAD3/wAAAAABAAAAAAD3/wEAAAABAAAAAAD3/wIAAAABAAAAAAD3/wMAAAABAAAAAAD3/wQAAAABAAAAAAD3/wUAAAABAAAAAAD3/wYAAAABAAAAAAD3/wcAAAABAAAAAAD3/wgAAAABAAAAAAD3/wkAAAABAAAAAAD3/woAAAABAAAAAAD4//X/AAABAAAAAAD4//b/AAABAAAAAAD4//f/AAABAAAAAAD4//j/AAABAAAAAAD4//n/AAABAAAAAAD4//r/AAABAAAAAAD4//v/AAABAAAAAAD4//z/AAABAAAAAAD4//3/AAABAAAAAAD4//7/AAABAAAAAAD4////AAABAAAAAAD4/wAAAAABAAAAAAD4/wEAAAABAAAAAAD4/wIAAAABAAAAAAD4/wMAAAABAAAAAAD4/wQAAAABAAAAAAD4/wUAAAABAAAAAAD4/wYAAAABAAAAAAD4/wcAAAABAAAAAAD4/wgAAAABAAAAAAD4/wkAAAABAAAAAAD4/woAAAABAAAAAAD5//X/AAABAAAAAAD5//b/AAABAAAAAAD5//f/AAABAAAAAAD5//j/AAABAAAAAAD5//n/AAABAAAAAAD5//r/AAABAAAAAAD5//v/AAABAAAAAAD5//z/AAABAAAAAAD5//3/AAABAAAAAAD5//7/AAABAAAAAAD5////AAABAAAAAAD5/wAAAAABAAAAAAD5/wEAAAABAAAAAAD5/wIAAAABAAAAAAD5/wMAAAABAAAAAAD5/wQAAAABAAAAAAD5/wUAAAABAAAAAAD5/wYAAAABAAAAAAD5/wcAAAABAAAAAAD5/wgAAAABAAAAAAD5/wkAAAABAAAAAAD5/woAAAABAAAAAAD6//X/AAABAAAAAAD6//b/AAABAAAAAAD6//f/AAABAAAAAAD6//j/AAABAAAAAAD6//n/AAABAAAAAAD6/wYAAAABAAAAAAD6/wcAAAABAAAAAAD6/wgAAAABAAAAAAD6/wkAAAABAAAAAAD6/woAAAABAAAAAAD7//X/AAABAAAAAAD7//b/AAABAAAAAAD7//f/AAABAAAAAAD7//j/AAABAAAAAAD7//n/AAABAAAAAAD7/wYAAAABAAAAAAD7/wcAAAABAAAAAAD7/wgAAAABAAAAAAD7/wkAAAABAAAAAAD7/woAAAABAAAAAAD8//X/AAABAAAAAAD8//b/AAABAAAAAAD8//f/AAABAAAAAAD8//j/AAABAAAAAAD8//n/AAABAAAAAAD8/wYAAAABAAAAAAD8/wcAAAABAAAAAAD8/wgAAAABAAAAAAD8/wkAAAABAAAAAAD8/woAAAABAAAAAAD9//X/AAABAAAAAAD9//b/AAABAAAAAAD9//f/AAABAAAAAAD9//j/AAABAAAAAAD9//n/AAABAAAAAAD9/wYAAAABAAAAAAD9/wcAAAABAAAAAAD9/wgAAAABAAAAAAD9/wkAAAABAAAAAAD9/woAAAABAAAAAAD+//X/AAABAAAAAAD+//b/AAABAAAAAAD+//f/AAABAAAAAAD+//j/AAABAAAAAAD+//n/AAABAAAAAAD+/wYAAAABAAAAAAD+/wcAAAABAAAAAAD+/wgAAAABAAAAAAD+/wkAAAABAAAAAAD+/woAAAABAAAAAAD///X/AAABAAAAAAD///b/AAABAAAAAAD///f/AAABAAAAAAD///j/AAABAAAAAAD///n/AAABAAAAAAD//wYAAAABAAAAAAD//wcAAAABAAAAAAD//wgAAAABAAAAAAD//wkAAAABAAAAAAD//woAAAABAAAAAAAAAPX/AAABAAAAAAAAAPb/AAABAAAAAAAAAPf/AAABAAAAAAAAAPj/AAABAAAAAAAAAPn/AAABAAAAAAAAAAYAAAABAAAAAAAAAAcAAAABAAAAAAAAAAgAAAABAAAAAAAAAAkAAAABAAAAAAAAAAoAAAABAAAAAAABAPX/AAABAAAAAAABAPb/AAABAAAAAAABAPf/AAABAAAAAAABAPj/AAABAAAAAAABAPn/AAABAAAAAAABAAYAAAABAAAAAAABAAcAAAABAAAAAAABAAgAAAABAAAAAAABAAkAAAABAAAAAAABAAoAAAABAAAAAAACAPX/AAABAAAAAAACAPb/AAABAAAAAAACAPf/AAABAAAAAAACAPj/AAABAAAAAAACAPn/AAABAAAAAAACAAYAAAABAAAAAAACAAcAAAABAAAAAAACAAgAAAABAAAAAAACAAkAAAABAAAAAAACAAoAAAABAAAAAAADAPX/AAABAAAAAAADAPb/AAABAAAAAAADAPf/AAABAAAAAAADAPj/AAABAAAAAAADAPn/AAABAAAAAAADAAYAAAABAAAAAAADAAcAAAABAAAAAAADAAgAAAABAAAAAAADAAkAAAABAAAAAAADAAoAAAABAAAAAAAEAPX/AAABAAAAAAAEAPb/AAABAAAAAAAEAPf/AAABAAAAAAAEAPj/AAABAAAAAAAEAPn/AAABAAAAAAAEAAYAAAABAAAAAAAEAAcAAAABAAAAAAAEAAgAAAABAAAAAAAEAAkAAAABAAAAAAAEAAoAAAABAAAAAAAFAPX/AAABAAAAAAAFAPb/AAABAAAAAAAFAPf/AAABAAAAAAAFAPj/AAABAAAAAAAFAPn/AAABAAAAAAAFAAYAAAABAAAAAAAFAAcAAAABAAAAAAAFAAgAAAABAAAAAAAFAAkAAAABAAAAAAAFAAoAAAABAAAAAAAGAPX/AAABAAAAAAAGAPb/AAABAAAAAAAGAPf/AAABAAAAAAAGAPj/AAABAAAAAAAGAPn/AAABAAAAAAAGAPr/AAABAAAAAAAGAPv/AAABAAAAAAAGAPz/AAABAAAAAAAGAP3/AAABAAAAAAAGAP7/AAABAAAAAAAGAP//AAABAAAAAAAGAAAAAAABAAAAAAAGAAEAAAABAAAAAAAGAAIAAAABAAAAAAAGAAMAAAABAAAAAAAGAAQAAAABAAAAAAAGAAUAAAABAAAAAAAGAAYAAAABAAAAAAAGAAcAAAABAAAAAAAGAAgAAAABAAAAAAAGAAkAAAABAAAAAAAGAAoAAAABAAAAAAAHAPX/AAABAAAAAAAHAPb/AAABAAAAAAAHAPf/AAABAAAAAAAHAPj/AAABAAAAAAAHAPn/AAABAAAAAAAHAPr/AAABAAAAAAAHAPv/AAABAAAAAAAHAPz/AAABAAAAAAAHAP3/AAABAAAAAAAHAP7/AAABAAAAAAAHAP//AAABAAAAAAAHAAAAAAABAAAAAAAHAAEAAAABAAAAAAAHAAIAAAABAAAAAAAHAAMAAAABAAAAAAAHAAQAAAABAAAAAAAHAAUAAAABAAAAAAAHAAYAAAABAAAAAAAHAAcAAAABAAAAAAAHAAgAAAABAAAAAAAHAAkAAAABAAAAAAAHAAoAAAABAAAAAAAIAPX/AAABAAAAAAAIAPb/AAABAAAAAAAIAPf/AAABAAAAAAAIAPj/AAABAAAAAAAIAPn/AAABAAAAAAAIAPr/AAABAAAAAAAIAPv/AAABAAAAAAAIAPz/AAABAAAAAAAIAP3/AAABAAAAAAAIAP7/AAABAAAAAAAIAP//AAABAAAAAAAIAAAAAAABAAAAAAAIAAEAAAABAAAAAAAIAAIAAAABAAAAAAAIAAMAAAABAAAAAAAIAAQAAAABAAAAAAAIAAUAAAABAAAAAAAIAAYAAAABAAAAAAAIAAcAAAABAAAAAAAIAAgAAAABAAAAAAAIAAkAAAABAAAAAAAIAAoAAAABAAAAAAAJAPX/AAABAAAAAAAJAPb/AAABAAAAAAAJAPf/AAABAAAAAAAJAPj/AAABAAAAAAAJAPn/AAABAAAAAAAJAPr/AAABAAAAAAAJAPv/AAABAAAAAAAJAPz/AAABAAAAAAAJAP3/AAABAAAAAAAJAP7/AAABAAAAAAAJAP//AAABAAAAAAAJAAAAAAABAAAAAAAJAAEAAAABAAAAAAAJAAIAAAABAAAAAAAJAAMAAAABAAAAAAAJAAQAAAABAAAAAAAJAAUAAAABAAAAAAAJAAYAAAABAAAAAAAJAAcAAAABAAAAAAAJAAgAAAABAAAAAAAJAAkAAAABAAAAAAAJAAoAAAABAAAAAAAKAPX/AAABAAAAAAAKAPb/AAABAAAAAAAKAPf/AAABAAAAAAAKAPj/AAABAAAAAAAKAPn/AAABAAAAAAAKAPr/AAABAAAAAAAKAPv/AAABAAAAAAAKAPz/AAABAAAAAAAKAP3/AAABAAAAAAAKAP7/AAABAAAAAAAKAP//AAABAAAAAAAKAAAAAAABAAAAAAAKAAEAAAABAAAAAAAKAAIAAAABAAAAAAAKAAMAAAABAAAAAAAKAAQAAAABAAAAAAAKAAUAAAABAAAAAAAKAAYAAAABAAAAAAAKAAcAAAABAAAAAAAKAAgAAAABAAAAAAAKAAkAAAABAAAAAAAKAAoAAAABAAAAAAD+/wAAAAABAAAAAAD+//7/AAABAAAAAAD+//3/AAABAAAAAAD+//z/AAABAAAAAAD///z/AAABAAAAAAD///3/AAABAAAAAAD///7/AAABAAAAAAD/////AAABAAAAAAD//wAAAAABAAAAAAD+////AAABAAAAAAA=")
+tile_set = ExtResource("2_ujb5r")
+
+[node name="Environment (Leaves)" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAD+//7/AAAAAAUAAAD///7/AAAAAAUAAAAAAP7/AAAAAAUAAAABAP7/AAAAAAUAAAACAP7/AAAAAAUAAAADAP7/AAAAAAUAAAAEAP7/AAAAAAUAAAAFAP7/AAAAAAUAAAAGAP7/AAAAAAUAAAAHAP7/AAAAAAUAAAD9//7/AAAAAAUAAAD8//7/AAAAAAUAAAD6//7/AAAAAAUAAAD7//7/AAAAAAUAAAD6////AAAAAAUAAAD7////AAAAAAUAAAD8////AAAAAAUAAAD9////AAAAAAUAAAD+////AAAAAAUAAAD/////AAAAAAUAAAAAAP//AAAAAAUAAAABAP//AAAAAAUAAAAEAP//AAAAAAUAAAADAP//AAAAAAUAAAACAP//AAAAAAUAAAAHAP//AAAAAAUAAAAGAP//AAAAAAUAAAAFAP//AAAAAAUAAAD3//7/AAAAAAUAAAD3////AAAAAAUAAAD4////AAAAAAUAAAD4//7/AAAAAAUAAAD5//7/AAAAAAUAAAD5////AAAAAAUAAAD3/wAAAAABAAUAAAD4/wAAAAAAAAUAAAD5/wAAAAAAAAUAAAD6/wAAAAAAAAUAAAD7/wAAAAAAAAUAAAD8/wAAAAAAAAUAAAD9/wAAAAAAAAUAAAD+/wAAAAAAAAUAAAD//wAAAAAAAAUAAAAAAAAAAAAAAAUAAAABAAAAAAAAAAUAAAACAAAAAAAAAAUAAAADAAAAAAAAAAUAAAAEAAAAAAAAAAUAAAAFAAAAAAAAAAUAAAAGAAAAAAAAAAUAAAAHAAAAAAACAAUAAAAIAP//AAACAAUAAAD2////AAABAAUAAAD2//7/AAAAAAUAAAAIAP7/AAAAAAUAAAD2//3/AAAAAAUAAAD3//3/AAAAAAUAAAD4//3/AAAAAAUAAAD5//3/AAAAAAUAAAD6//3/AAAAAAUAAAD7//3/AAAAAAUAAAD8//3/AAAAAAUAAAD9//3/AAAAAAUAAAD+//3/AAAAAAUAAAD///3/AAAAAAUAAAAAAP3/AAAAAAUAAAABAP3/AAAAAAUAAAACAP3/AAAAAAUAAAADAP3/AAAAAAUAAAAEAP3/AAAAAAUAAAAFAP3/AAAAAAUAAAAGAP3/AAAAAAUAAAAHAP3/AAAAAAUAAAAIAP3/AAAAAAUAAAA=")
+tile_set = ExtResource("3_yq3si")
+
+[node name="River Segment" parent="." node_paths=PackedStringArray("after_sink_respawn_marker") instance=ExtResource("3_jelwq")]
+after_sink_respawn_marker = NodePath("Respawn Marker")
+
+[node name="WaterSprite" parent="River Segment" index="0"]
+material = SubResource("ShaderMaterial_o435u")
+position = Vector2(-151.5, -126)
+scale = Vector2(18.2188, 5.28125)
+
+[node name="Surrounding Tiles" parent="River Segment" index="1"]
+position = Vector2(-143.5, -118)
+
+[node name="Left" parent="River Segment/Surrounding Tiles" index="0"]
+material = SubResource("ShaderMaterial_ojnu6")
+scale = Vector2(1, 5.28125)
+
+[node name="Right" parent="River Segment/Surrounding Tiles" index="1"]
+material = SubResource("ShaderMaterial_dlmgx")
+position = Vector2(291.001, -8)
+scale = Vector2(1, 5.28125)
+
+[node name="Up" parent="River Segment/Surrounding Tiles" index="2"]
+material = SubResource("ShaderMaterial_n1wae")
+scale = Vector2(18.2188, 1)
+
+[node name="Down" parent="River Segment/Surrounding Tiles" index="3"]
+material = SubResource("ShaderMaterial_1crrr")
+position = Vector2(-8, 84)
+scale = Vector2(18.2188, 1)
+
+[node name="RightUp" parent="River Segment/Surrounding Tiles" index="5"]
+position = Vector2(291.001, -16)
+
+[node name="LeftBottom" parent="River Segment/Surrounding Tiles" index="6"]
+position = Vector2(-16, 84)
+
+[node name="RightBottom" parent="River Segment/Surrounding Tiles" index="7"]
+position = Vector2(291.001, 84)
+
+[node name="Collider" parent="River Segment/Shallow Water" index="0"]
+position = Vector2(-5.7496, -83.75)
+
+[node name="Collider" parent="River Segment/Audio Area" index="1"]
+position = Vector2(-5.7496, -83.75)
+
+[node name="Collider" type="CollisionShape2D" parent="River Segment"]
+visible = false
+position = Vector2(-7.25, -83.75)
+shape = SubResource("RectangleShape2D_o435u")
+debug_color = Color(0.7, 0.338333, 0, 0.419608)
+
+[node name="Respawn Marker" type="Marker2D" parent="River Segment"]
+visible = false
+position = Vector2(81.5, 0.5)
+
+[node name="Environment General" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAD8/wAAAAAAAAYAAAABAP//AAADAAYAAAAEAAAAAAADAAYAAAD3/wAAAAADAAYAAAD5////AAADAAUAAAAHAP//AAADAAUAAAD4////AAABAAQAAAAEAP7/AAABAAQAAAD//wEAAAADAAcAAAADAAEAAAADAAcAAAD2/wAAAAADAAcAAAAIAAAAAAADAAcAAAD3/wEAAAABAAQAAAD8/wEAAAABAAQAAAACAAIAAAADAAQAAAAGAAEAAAACAAQAAAD5/wEAAAADAAQAAAD7/wIAAAAAAAMAAAA=")
+tile_set = ExtResource("3_yq3si")
+
+[editable path="River Segment"]

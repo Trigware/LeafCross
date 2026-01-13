@@ -4,20 +4,20 @@
 
 [resource]
 script = ExtResource("1_q4hmp")
-localization_contents = "y	english	czech
+localization_contents = "Localization Keys	english	czech
 choicer_agree	YES	ANO
 choicer_decline	NO	NE
-npc_outofinteract	...	...
-basic_choice	{?}	{?}
+npc_outofinteract&cpy	...	
+basic_choice&cpy	{?}	
 item_choice_pickup	Do you want to pick up the {item}?	Chceš si s sebou vzít předmět {item}?
 item_confirm_pickup_KEY	The {item}{count} was added to your key items!	Předmět {item}{count} byl přidán do tvých klíčových předmětů!
 item_decline_GLOWING_MUSHROOM	It pays off to not steal from nature...	Někdy se vyplácí nekrást od přírody...
 itemname_GLOWING_MUSHROOM	glowing mushroom	svítící houba
-mainmenu_version_number	v0.5.1	v0.5.1
+mainmenu_version_number	v0.6	v0.6
+mainmenu_version_description	the Bleaklands Update	update Ponuré oblasti
 mainmenu_developers	Made by TRIGWARE (John K.), xDaForge and other cotributors	Vytvořili TRIGWARE (Jan K.), xDaForge a další přispěvatelé
 mainmenu_option_play	Play	Hraj
 mainmenu_option_settings	Settings	Možnosti
-mainmenu_option_credits	Credits	Titulky
 mainmenu_option_exit	Exit	Konec
 mainmenu_saveinfo_newgame	New Game	Nová hra
 mainmenu_choosefile_goback	Go Back	Jdi zpět
@@ -51,6 +51,20 @@ room_name_Weird/SaveIntroRoom	Weird Forest - Beehives	Podivný les - Úly
 room_name_Bleak/BleaklandsEnterance	Bleaklands - Lower Enterance	Ponurá oblast - Dolní vstup
 area_name_Weird	the Weird Forest	Podivný les
 area_name_Bleak	the Bleaklands	Ponurá oblast
+settings_button_audio	Audio	Zvuk
+settings_button_audio_description	Here you can control the volume for music, sound effects and master volume (all audio).	Zde můžeš měnit hlasitost hudby, zvukových efektů a všech zvuků dohromady.
+settings_button_text	Text	Text
+settings_button_text_description	Here are all options releated to displaying in-game dialogue.	Zde jsou všechny možnosti spojené s herním dialogem.
+settings_custom_button_credits	Credits	Titulky
+settings_custom_button_credits_description	In here you can find all the people and their roles which contributed to the development of LeafCROSS.	Zde můžeš najít všechny lidi a jejich role, kteří přispěli k vývoji LeafCROSSu.
+settings_slider_brightness	Brightness	Jas scény
+settings_controls^enter	Enter/Z: Opens a category	Enter/Z: Otevře kategorii
+settings_controls^left_right	Left/Right: Change slider value / option	Levá/Pravá šipka: Změň hodnotu / možnost
+settings_controls^up_down	Up/Down: Select different option	Šipka nahoru/dolů: Vyber jiné nastavení
+settings_controls^exit	X: Go back	X: Jdi zpět
+settings_controls	\\\\n{&enter}\\\\n{&left_right}\\\\n{&up_down}\\\\n{&exit}	{&enter}\\\\n{&left_right}\\\\n{&up_down}\\\\n{&exit}
+settings_slider_brightness_description	Changes the brightness of the overworld scene for better playing experience.	Upraví jas overworld scény pro lepší viditelnost.
+settings_back_notice	- X TO GO BACK -	- STISKNI X POKUD CHCEŠ ZPĚT -
 legend_skip_cutscene	(skip cutscene with ENTER)	(přeskoč cutscénu s klávesou ENTER)
 legend_panel1_whisper	A long time ago, people whispered a strange tale.	Tehdá se vyprávěl příběh, který si lidé dál šeptali.
 legend_panel1_nation_unity	A tale about a nation.{1}\\\\nA tale about their unity.	Byl to příběh národa.{1}\\\\nByl to příběh jednoty.
@@ -120,7 +134,7 @@ Leaves_SPAWN_ENTERANCE__only	It's just a regular pile of leaves...	Je to jen ně
 TeleportTree_SPAWN_TELEPORT__1#1	It appears it's not yet possible to do anything of substance with this tree yet.	Vypadá to, že něco budeš muset získat, než tento strom doopravdy pochopíš...
 TeleportTree_SPAWN_TELEPORT_outofinteract	You don't feel like 'you',{p} when around this tree.	Jsi 'nesvůj' když chodíš okolo tohoto...{p} 'stromu'.
 BlueCampfire_SPAWN_TELEPORT__1#1	This fire is glowing with a strange blue light.{p} Seems like you don't even question it because everything else here is weird.	Tenhle oheň svítí studenou modrou barvou...{p} vzhledem toho jak je divnej zbytek lesa, tohle tě moc nepřekvapuje.
-BlueCampfire_SPAWN_TELEPORT__1#2	Interestingly, the fire is quite big even though nobody is around.	Zajímavé je ale, že ten oheň je stále velký, i když zde ted nikdo není.
+BlueCampfire_SPAWN_TELEPORT__1#2	At least you've got some company here.	Aspoň tady spí tihle dva.
 BlueCampfire_SPAWN_TELEPORT__outofinteract	You can't help yourself to not stare at it's blue light.	Tvé oči nechtějí se přestat dívat na to modré světlo.
 BrokenSign_SPAWN_ENTERANCE__1#1	It's some kind of navigational sign...{p} there's an arrow pointing to {#purple}somewhere{#/}...{|info}	Je to nějaká navigační cedule... {p}dole je vyzobrazená šipka směřující k něčemu {#purple}podivuhodnému{#/}...
 BrokenSign_SPAWN_ENTERANCE__info	It says that there is a some kind of \"teleportation tree\", but at this state it may be disfunctional.	Z nějakého důvodu si nemyslíš, že je dobrý nápad tam dolů jít...
@@ -143,7 +157,7 @@ GameOver__RandomComment1	Very interesting.	Velmi podivuhodné.
 GameOver__RandomComment2	The glow of the leaf faded.	Veškerá zář z tvého listu zmizela...
 GameOver__RandomComment3	Your inputs caused termination.	Tvé vstupy vedli k terminaci listu...
 GameOver__RandomComment4	It disintegrated again.	Znovu se to rozpadlo.
-GameOver__RandomComment5	Neutral networks train on failure.	Neuronové sítě trénují na selhání.
+GameOver__RandomComment5	REDACTED.	REDACTED.
 GameOver__RandomComment6	Another severed connection.	Další přerušené spojení.
 GameOver__RandomComment7	All gifts meet their ends.	Všechny dary spatří jejich konce.
 GameOver__FirstDeath#1	Your leaf disintegrated.	Tvůj list se rozpadl.
@@ -169,9 +183,10 @@ BibleInteractPrompt_SAVEINTROROOM__Save_Refused	Maybe you should try to {#holy_y
 DetailedTree_SAVEINTROROOM__only	There's something hiding in the tree...{p} unfortunetly you can't tell what.	Něco se skrývá v tomto stromě...{p} ale bohužel nedokážeš zjisit co to je.
 OverworldSaving_GameSavedConfirm	GAME WAS SUCCESSFULLY SAVED!	HRA BYLA ÚSPĚŠNĚ ULOŽENA!
 AttackMessage_MISS	0	0
-Cutscene_Character_Dialog_Tester__root	Named colors, escape seq bracket {#purple}{}{#/}! Next Silent characters	Named colors, escape seq bracket {#purple}{}{#/}!
+Cutscene_Character_Dialog_Tester__root&cpy	{.a+b-(c+--(--e+f*g%h))}	
 Cutscene_Character_Dialog_Tester__root#2	.... ... ,,,, ,,, !!! ?????	.... ... ,,,, ,,, !!! ?????
-Cutscene_Character_Dialog_Tester__root#3	Inline choicer{?\"LEFT\": left, \"RIGHT\": right, \"UP\": up, \"DOWN\": down}	Inline choicer{?\"LEFT\": left, \"RIGHT\": right, \"DOWN\": down, \"UP\": up}
+Cutscene_Character_Dialog_Tester__root#3	Named colors, escape seq bracket {#purple}{}{#/}!	
+Cutscene_Character_Dialog_Tester__root#4	Inline choicer{?\"LEFT\": left, \"RIGHT\": right, \"UP\": up, \"DOWN\": down}	Inline choicer{?\"LEFT\": left, \"RIGHT\": right, \"DOWN\": down, \"UP\": up}
 Cutscene_Character_Dialog_Tester__left	You chose left -> Convergence Statement {|AfterChoice}	You chose left -> Convergence Statement {|AfterChoice}
 Cutscene_Character_Dialog_Tester__right	You chose right -> Convergence Statement {|AfterChoice}	You chose right -> Convergence Statement {|AfterChoice}
 Cutscene_Character_Dialog_Tester__down	You chose down -> Convergence Statement {|AfterChoice}	You chose down -> Convergence Statement {|AfterChoice}
@@ -204,5 +219,8 @@ Antihomeless_Bench_BLEAKLANDS_ENTERANCE__outofinteract	{?\"Sit\": sit, \"Do not\
 Antihomeless_Bench_BLEAKLANDS_ENTERANCE__sit#1	{!textvisibility(false)}{await make_player_sit(bench*)}{0.3}{!textvisibility(true)}{!auto}	{!textvisibility(false)}{await make_player_sit(bench*)}{0.3}{!textvisibility(true)}{!auto}
 Antihomeless_Bench_BLEAKLANDS_ENTERANCE__sit#2	{if already_interacted}{|already_interact}{else}{|after_sit}	{if already_interacted}{|already_interact}{else}{|after_sit}
 Antihomeless_Bench_BLEAKLANDS_ENTERANCE__after_sit	Interesting how you {if too_early}tried to do something else before even you sat!{else}managed doing nothing for a total of {#holy_yellow}{time}{#/}.{endcf}{p} Try to sit for as short period of time as possible!	Zajímavé jak jsi {if too_early}už zkoušel dělat něco jiného než sis vůbec sedl!{else}vydržel nic nedělat po dobu {time}.{endcf}{p} Zkus si sednout po tu nejmenší dobu co je to možno!
-Antihomeless_Bench_BLEAKLANDS_ENTERANCE__already_interact	{if too_early}{#red}Too early!{#/}{else}{time}.	{if too_early}{#red}Moc brzo!{#/}{else}{time}."
+Antihomeless_Bench_BLEAKLANDS_ENTERANCE__already_interact	{if too_early}{#red}Too early!{#/}{else}{time}.	{if too_early}{#red}Moc brzo!{#/}{else}{time}.
+HedgehogTester_ExitSign__only	This way!	Tudy!
+SleepingCaterpillar_TeleportTreeRoom__only	Sleeping {#purple}housie{#/} -{p} the best housie!	Spící {#purple}housí{#/} -{p} nejlepší housí!
+SleepingHedgehog_TeleportTreeRoom__only	cute.	cute."
 metadata/_custom_type_script = "uid://v2j1g5ayntr"
