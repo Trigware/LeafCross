@@ -39,11 +39,14 @@ const SFX_OPEN_DOOR := SFX_ROCKS_FALL
 const SFX_COLLAPSING_LADDERS_PUZZLE := SFX_ROCKS_FALL
 const SFX_DNA_APPEAR := preload("uid://c1hbcnlwv8svd")
 const SFX_MAIN_MENU_CHOICE_CHANGE := preload("uid://3taqr51tfc0y")
+const SFX_GO_TO_CATEGORY := SFX_MAIN_MENU_CHOICE_CHANGE
+const SFX_EXIT_CATEGORY := SFX_MENU_CANCEL
 const SFX_WMTALE_EASTER_EGG := preload("uid://bf74bmvqsdw5c")
 const SFX_FLOWING_WATER := preload("uid://doabv2ur18i7c")
 const SFX_HEDGEHOG_FOOTSTEP := preload("uid://cdqumuprnspat")
 const SFX_LEVER_INTERACT := preload("uid://clav3cvt7c2c3")
 const SFX_ELECTRIC_SHOCK := preload("uid://cvo0njoh5li15")
+const SFX_CHANGE_SLIDER_VALUE := TALK_DEFAULT
 
 const MSC_SELF_PROCLAIMED_QUEEN = preload("uid://diiie2j47xlta")
 

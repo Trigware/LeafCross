@@ -74,8 +74,7 @@ func parse_control_bracket_end():
 		return
 	
 	if bracket_content.begins_with("#"):
-		if Color.html_is_valid(bracket_content): set_character_color(bracket_content)
-		else: set_character_color(substitute_for_named_color(bracket_content))
+		handle_colors()
 		return
 	
 	if bracket_content.begins_with("?"):
@@ -106,6 +105,25 @@ enum SuffixType {
 
 var analysed_part : String
 var argument_part : String
+
+func handle_colors():
+	var is_in_colored_expression = false
+	if bracket_content.length() >= 2 and bracket_content[1] == '.':
+		is_in_colored_expression = true
+		bracket_content = "#" + bracket_content.substr(2)
+	
+	var first_occurence_of_space = bracket_content.find(' ')
+	var color_part = bracket_content.substr(0, first_occurence_of_space)
+	
+	if Color.html_is_valid(color_part): set_character_color(color_part)
+	else: set_character_color(substitute_for_named_color(color_part))
+	if first_occurence_of_space == -1: return
+	
+	var colored_text = bracket_content.substr(first_occurence_of_space+1)
+	if is_in_colored_expression: colored_text = str(ExpressionEval.evaluate_expression(colored_text))
+	parsed_ch_index += colored_text.length()
+	resulting_text += colored_text
+	set_character_color(TextSystem.init_color)
 
 func parse_function_call(prefix):
 	if not bracket_content.begins_with(prefix): return false

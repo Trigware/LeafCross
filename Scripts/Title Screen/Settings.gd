@@ -25,32 +25,38 @@ const show_tween_final_selector_x_position = 60
 const selector_show_tween_duration = 0.2
 
 var settings_tree: Array[Setting] = [
-	Setting.category("audio", [
-		Setting.slider("master_volume"),
-		Setting.slider("sfx_volume"),
-		Setting.slider("music_volume")
+	Setting.category(Setting.OptionType.AudioCategory, [
+		Setting.slider(Setting.OptionType.MasterVolume),
+		Setting.slider(Setting.OptionType.SoundEffects),
+		Setting.slider(Setting.OptionType.MusicVolume)
 	]),
-	Setting.category("text", [
-		Setting.option("lang", ["choose_lang_czech", "choose_lang_english"], Setting.CustomBehaviour.TextSpeed),
-		Setting.option("text_speed", ["settings_choice_slow", "settings_choice_regular", "settings_choice_speedrun"]),
+	Setting.category(Setting.OptionType.TextCategory, [
+		Setting.option(Setting.OptionType.Language),
+		Setting.option(Setting.OptionType.TextSpeed, Enum.TextSpeedType),
+		Setting.boolean(Setting.OptionType.SkippingAllowed)
 	]),
-	Setting.custom_button("credits", Setting.CustomBehaviour.Credits),
-	Setting.value_slider("brightness", -25, 25)
+	Setting.slider(Setting.OptionType.Brightness),
+	Setting.button(Setting.OptionType.Keybinds),
+	Setting.button(Setting.OptionType.Credits)
 ]
+
+var used_settings: Array[Setting] = settings_tree
+
+var category_trace: Array[int] = []
 
 func _ready():
 	description_timer.timeout.connect(show_next_decription_char)
-	current_category_settings_count = settings_tree.size()
 	var header_settings_cog_icon_bb_code = "[img=15]res://Textures/Title Screen/Icons/Settings.png[/img]"
-	header.text = header_settings_cog_icon_bb_code + Localization.get_text("mainmenu_option_settings") + header_settings_cog_icon_bb_code
-	controls_text.text = Localization.get_text("settings_controls")
-	back_notice.text = Localization.get_text("settings_back_notice")
+	Localization.link_label_to_key(header, "mainmenu_option_settings", {}, header_settings_cog_icon_bb_code, header_settings_cog_icon_bb_code)
+	Localization.link_label_to_key(controls_text, "settings_controls")
+	Localization.link_label_to_key(back_notice, "settings_back_notice")
 	header.position.y = initial_settings_y_position
 	description_box.position = initial_description_box_position
 	description_box.size = initial_description_box_size
 	selector.position = Vector2(initial_selector_x_position, get_selector_y_position(selector_releative_setting_index))
 	description_text.modulate.a = 0
 	controls_text.modulate.a = 0
+	category_trace = []
 	
 	Helper.tween(header, "position:y", 0, 0.5)
 	dashes_up.visible_ratio = 0
@@ -83,40 +89,26 @@ const selector_y_offset = 80
 const setting_tween_duration := 0.5
 const amount_of_settings_at_once = 5
 var input_discarded = true
+var able_to_play_value_change_sound_effect = true
 var current_settings_as_nodes := []
 
-func display_settings():
-	for i in range(settings_tree.size()):
-		var current_setting: Setting = settings_tree[i]
-		match current_setting.setting_type:
-			Setting.SettingType.TypeSlider: display_settings_slider(i, current_setting)
-			Setting.SettingType.TypeOption: display_settings_option(i, current_setting)
-			Setting.SettingType.TypeButton: display_settings_button(i, current_setting)
-		if i+1 <= amount_of_settings_at_once: await Helper.wait(wait_between_settings)
+func display_settings(display_at_once = false):
+	for i in range(used_settings.size()):
+		var current_setting: Setting = used_settings[i]
+		display_setting_helper(current_setting, i)
+		if i+1 <= amount_of_settings_at_once and not display_at_once: await Helper.wait(wait_between_settings)
 	Helper.tween(selector, "position:x", show_tween_final_selector_x_position, selector_show_tween_duration)
-	input_discarded = false
+	if not display_at_once: input_discarded = false
 
-func display_settings_slider(index, setting_resource: Setting):
-	var setting_slider = display_setting_helper(Setting.SettingType.TypeSlider, index)
-	setting_slider.title.text = Localization.get_text(setting_resource.title_localization_key)
-
-func display_settings_option(index, setting_resource: Setting):
-	var setting_option = display_setting_helper(Setting.SettingType.TypeOption, index)
-
-func display_settings_button(index, setting_resource: Setting):
-	var setting_button = display_setting_helper(Setting.SettingType.TypeButton, index)
-	var title_text = Localization.get_text(setting_resource.title_localization_key)
-	if setting_resource.type_of_custom_behaviour == Setting.CustomBehaviour.None:
-		title_text = "-- " + title_text + " --"
-	setting_button.title.text = title_text
-
-func display_setting_helper(type: Setting.SettingType, index: int):
+func display_setting_helper(setting_resource: Setting, index: int):
 	var scene_to_be_instantiated
-	match type:
+	match setting_resource.setting_type:
 		Setting.SettingType.TypeSlider: scene_to_be_instantiated = UID.SCN_SETTINGS_SLIDER
 		Setting.SettingType.TypeOption: scene_to_be_instantiated = UID.SCN_SETTINGS_CHOICE
 		Setting.SettingType.TypeButton: scene_to_be_instantiated = UID.SCN_SETTINGS_BUTTON
 	var instance = scene_to_be_instantiated.instantiate()
+	instance.setting_resource = setting_resource
+	instance.settings_node = self
 	instance.position = Vector2(initial_setting_pos_x, setting_y_offset * index)
 	options_root.add_child(instance)
 	current_settings_as_nodes.append(instance)
@@ -128,22 +120,40 @@ func display_setting_helper(type: Setting.SettingType, index: int):
 
 var selector_releative_setting_index = 0
 var selector_actual_setting_index = 0
-var current_category_settings_count = 0
 
 func _unhandled_input(_event):
 	if input_discarded: return
 	var vertical_direction = 0
+	var horizontal_direction = 0
 	if Input.is_action_just_pressed("move_down"): vertical_direction += 1
 	if Input.is_action_just_pressed("move_up"): vertical_direction -= 1
+	if Input.is_action_pressed("move_left"): horizontal_direction -= 1
+	if Input.is_action_pressed("move_right"): horizontal_direction += 1
 	if vertical_direction != 0:
 		move_selector_vertically(vertical_direction)
+		return
+	if horizontal_direction != 0:
+		handling_value_changing_action(horizontal_direction)
+		return
+	if Input.is_action_just_pressed("continue"):
+		open_category()
+		return
+	if Input.is_action_just_pressed("go_back"):
+		exit_current_category()
 		return
 
 const settings_selector_tween_duration = 0.15
 
+func handling_value_changing_action(direction: int):
+	var current_settings_node = current_settings_as_nodes[selector_actual_setting_index]
+	var current_setting_resource = used_settings[selector_actual_setting_index]
+	if current_setting_resource.setting_type == Setting.SettingType.TypeButton: return
+	current_settings_node.change_value(direction)
+	if current_setting_resource.option_type == Setting.OptionType.TextSpeed: update_description()
+
 func move_selector_vertically(dir):
 	var actual_index_if_valid = selector_actual_setting_index + dir
-	if actual_index_if_valid < 0 or actual_index_if_valid >= current_category_settings_count: return
+	if actual_index_if_valid < 0 or actual_index_if_valid >= used_settings.size(): return
 	var relative_index_if_valid = selector_releative_setting_index + dir
 	Audio.play_sound_shifted(UID.SFX_MENU_CHANGED_CHOICE)
 	selector_actual_setting_index = actual_index_if_valid
@@ -194,15 +204,72 @@ func shift_position_of_options(dir):
 	input_discarded = false
 
 func update_description():
-	var current_setting_resource = settings_tree[selector_actual_setting_index]
-	description_text.text = Localization.get_text(current_setting_resource.description_localization_key)
-	var is_text_speed = current_setting_resource.type_of_custom_behaviour == Setting.CustomBehaviour.TextSpeed
+	var current_setting_resource = used_settings[selector_actual_setting_index]
+	Localization.link_label_to_key(description_text, current_setting_resource.description_localization_key)
+	description_timer.stop()
+	var is_text_speed = current_setting_resource.option_type == Setting.OptionType.TextSpeed
 	description_text.visible_characters = 0 if is_text_speed else -1
 	if not is_text_speed: return
-	description_timer.start(PresetSystem.default_text_speed)
+	var text_speed = PresetSystem.default_text_speed * TextSystem.speed_multiplier_options[SaveData.setting_text_speed]
+	description_timer.start(text_speed)
 
 func show_next_decription_char():
 	description_text.visible_characters += 1
 	if description_text.visible_characters == description_text.text.length():
 		description_timer.stop()
 		return
+
+func open_category():
+	var selected_setting = used_settings[selector_actual_setting_index]
+	if selected_setting.setting_type != Setting.SettingType.TypeButton: return
+	input_discarded = true
+	Audio.play_sound_shifted(UID.SFX_MAIN_MENU_CHOICE_CHANGE)
+	go_to_inner_category()
+	update_description()
+	end_category_handling()
+
+func end_category_handling():
+	await remove_current_options()
+	await Helper.wait(pause_between_removed_and_shown_options)
+	await display_settings(true)
+	await Helper.wait(pause_between_removed_and_shown_options)
+	Helper.tween(selector, "modulate:a", 1, selector_modulate_tween_duration)
+	selector.position.y = get_selector_y_position(selector_releative_setting_index)
+	input_discarded = false
+
+func go_to_inner_category():
+	category_trace.append(selector_actual_setting_index)
+	used_settings = used_settings[selector_actual_setting_index].category_subsettings
+	selector_actual_setting_index = 0
+	selector_releative_setting_index = 0
+
+const setting_remove_duration = 0.45
+const pause_between_removed_and_shown_options := 0.3
+const selector_modulate_tween_duration := 0.2
+
+func remove_current_options():
+	for setting_node in current_settings_as_nodes:
+		Helper.tween(setting_node, "position:x", initial_setting_pos_x, setting_remove_duration)
+		Helper.tween(setting_node, "modulate:a", 0, setting_remove_duration)
+	Helper.tween(selector, "modulate:a", 0, selector_modulate_tween_duration)
+	await Helper.wait(setting_remove_duration)
+	for setting_node in current_settings_as_nodes:
+		setting_node.queue_free()
+	current_settings_as_nodes = []
+
+func exit_current_category():
+	if category_trace.size() == 0: return
+	Audio.play_sound_shifted(UID.SFX_EXIT_CATEGORY)
+	input_discarded = true
+	used_settings = settings_tree
+	selector_actual_setting_index = 0
+	selector_releative_setting_index = 0
+	category_trace.pop_back()
+	
+	for category_index in category_trace:
+		var subsetting = used_settings[category_index]
+		used_settings = used_settings[category_index].category_subsettings
+	
+	update_description()
+	await end_category_handling()
+	selector.position.y = get_selector_y_position(selector_releative_setting_index)

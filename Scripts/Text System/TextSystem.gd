@@ -52,10 +52,15 @@ var textbox_y_scale_at_ready : float
 var textbox_previously_shown := false
 var linked_variables := {}
 var latest_text_called_require_input := false
-var used_text_speed_type := TextSpeedType.Regular
-var text_speed_multiplier := 1.0
+var text_speed_type := Enum.TextSpeedType.Regular
+var text_speed_multiplier: int
 
-const speed_multiplier_options : Dictionary[TextSpeedType, float] = {TextSpeedType.Slow: 1.4, TextSpeedType.Regular: 1.0, TextSpeedType.Fast: 0.7}
+const speed_multiplier_options : Dictionary[Enum.TextSpeedType, float] = {
+	Enum.TextSpeedType.Slow: 1.4,
+	Enum.TextSpeedType.Regular: 1.0,
+	Enum.TextSpeedType.Fast: 0.7
+}
+
 const default_pause_duration := 0.5
 const textbox_show_duration := 0.15
 const new_textbox_duration := 0.02
@@ -71,12 +76,6 @@ const portrait_show_duration := 0.45
 signal text_finished
 signal want_next_text
 signal want_choicer
-
-enum TextSpeedType {
-	Slow,
-	Regular,
-	Fast
-}
 
 func _ready():
 	typewritterTimer.timeout.connect(print_next_char)
@@ -210,7 +209,7 @@ func print_next_char():
 	
 	currentColor = character_colors.get(currentCharacterIndex, currentColor)
 	if currentCharacterIndex in TextParser.text_speed_multipliers:
-		text_speed_multiplier = 1.0 / TextParser.text_speed_multipliers[currentCharacterIndex]
+		text_speed_multiplier = 1.0 / TextParser.text_speed_multipliers[currentCharacterIndex] * speed_multiplier_options[SaveData.setting_text_speed]
 	
 	delayed = true
 	await call_text_event_functions()
@@ -221,7 +220,7 @@ func print_next_char():
 		play_char_audio()
 		textNode.text += "[color=" + currentColor + "]" + latest_printed_character + "[/color]"
 		currentCharacterIndex += 1
-		var time_between_chars = originalSpeed * text_speed_multiplier
+		var time_between_chars = originalSpeed * text_speed_multiplier * speed_multiplier_options[SaveData.setting_text_speed]
 		typewritterTimer.wait_time = time_between_chars
 		return
 	

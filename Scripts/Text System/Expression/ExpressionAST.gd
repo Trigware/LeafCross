@@ -128,7 +128,7 @@ func evaluate_binary_operator(operator_node: ExpressionNode, operand_list: Array
 		ExpressionToken.Operator.CompareLESS: result_value = first_operand < second_operand
 		ExpressionToken.Operator.CompareGREATER_OR_EQUAL: result_value = first_operand >= second_operand
 		ExpressionToken.Operator.CompareLESSER_OR_EQUAL: result_value = first_operand <= second_operand
-		ExpressionToken.Operator.ArithmeticPLUS: result_value = first_operand + second_operand
+		ExpressionToken.Operator.ArithmeticPLUS: result_value = evaluate_arithmetic_plus([first_operand, second_operand])
 		ExpressionToken.Operator.ArithmeticMINUS: result_value = first_operand - second_operand
 		ExpressionToken.Operator.ArithmeticTIMES: result_value = first_operand * second_operand
 		ExpressionToken.Operator.ArithmeticDIVIDE: result_value = first_operand / second_operand
@@ -136,6 +136,16 @@ func evaluate_binary_operator(operator_node: ExpressionNode, operand_list: Array
 		ExpressionToken.Operator.ArithmeticEXPONENT: result_value = first_operand ** second_operand
 		_: push_error("Encountered a binary operator without functionality!")
 	return result_value
+
+func evaluate_arithmetic_plus(operand_list: Array):
+	var non_string_operands = []
+	var string_operands = []
+	for i in range(operand_list.size()):
+		var operand = operand_list[i]
+		string_operands.append(str(operand))
+		if not operand is String: non_string_operands.append(i)
+	if non_string_operands.size() == 2: return operand_list[0] + operand_list[1]
+	return string_operands[0] + string_operands[1]
 
 func evaluate_unary_operator(operator_node: ExpressionNode, operand):
 	var result_value = null

@@ -7,6 +7,7 @@ var string_contents := ""
 var is_in_string: bool
 var not_equal_op_progress := NotEqualOperatorProgress.None
 var parsing_expression := false
+var current_expr: String
 
 func initialize_expression():
 	token_list = []
@@ -45,6 +46,7 @@ func end_expression():
 	return evaluated_node.runtime_value
 
 func evaluate_expression(expr_as_str: String):
+	current_expr = expr_as_str
 	initialize_expression()
 	for ch in expr_as_str:
 		parse_expression_char(ch)

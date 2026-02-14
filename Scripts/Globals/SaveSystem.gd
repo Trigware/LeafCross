@@ -12,6 +12,12 @@ var death_counter := 0
 var save_choice_seen := false
 var game_saved_times := 0
 var load_at_room_center := false
+var setting_brightness := 25
+var setting_master_volume := 100
+var setting_sound_effects := 100
+var setting_music_volume := 100
+var setting_text_speed := Enum.TextSpeedType.Regular
+var setting_text_skipping_allowed := false
 #endregion
 
 var allow_game_load = false
@@ -32,13 +38,25 @@ func load_global_file():
 	language_chosen = loadedDictionary.get("lang_chosen", language_chosen)
 	watched_intro_cutscene = loadedDictionary.get("watched_intro", watched_intro_cutscene)
 	seen_leaf = loadedDictionary.get("seen_leaf", seen_leaf)
+	setting_brightness = loadedDictionary.get("setting_brightness", setting_brightness)
+	setting_master_volume = loadedDictionary.get("setting_master_volume", setting_master_volume)
+	setting_music_volume = loadedDictionary.get("setting_music_volume", setting_music_volume)
+	setting_sound_effects = loadedDictionary.get("setting_sound_effects", setting_sound_effects)
+	setting_text_speed = loadedDictionary.get("setting_text_speed", setting_text_speed)
+	setting_text_skipping_allowed = loadedDictionary.get("setting_skipping_allowed", setting_text_skipping_allowed)
 
 func save_global_file():
 	var saveData = {
 		"lang": Localization.current_language,
 		"lang_chosen": language_chosen,
 		"watched_intro": watched_intro_cutscene,
-		"seen_leaf": seen_leaf
+		"seen_leaf": seen_leaf,
+		"setting_brightness": setting_brightness,
+		"setting_master_volume": setting_master_volume,
+		"setting_sound_effects": setting_sound_effects,
+		"setting_music_volume": setting_music_volume,
+		"setting_text_speed": setting_text_speed,
+		"setting_skipping_allowed": setting_text_skipping_allowed
 	}
 	write_to_savedata(global_path, saveData)
 

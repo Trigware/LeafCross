@@ -113,7 +113,7 @@ func handle_inputs():
 	var previous_boolean_choice = booleanChoice
 	var pressed_left = Input.is_action_just_pressed("move_left")
 	var pressed_right = Input.is_action_just_pressed("move_right")
-	var pressed_back = Input.is_action_just_pressed("move_fast")
+	var pressed_back = Input.is_action_just_pressed("go_back")
 	if file_selected:
 		if pressed_back:
 			cancel_file_selection()

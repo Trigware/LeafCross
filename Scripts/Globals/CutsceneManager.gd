@@ -129,8 +129,7 @@ signal nixie_jumps
 func play_character_dialog_tester_cutscene():
 	await print_cutscene_sequence({
 		"has_mushroom": Inventory.has_item(Inventory.Item.GLOWING_MUSHROOM),
-		"points": 1,
-		"name": "ess"
+		"value": 5
 	})
 	complete_cutscene()
 

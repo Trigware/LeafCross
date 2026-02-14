@@ -1,7 +1,7 @@
 extends Node
 
 const control_characters := ["#", "?", "|", '!', '*']
-const control_flow_statements := ["if", "endcf", "else"]
+const control_flow_statements := ["if", "endcf", "else", "elif"]
 
 var modified_text : String
 var in_bracket : bool
@@ -14,11 +14,15 @@ var latest_condition : bool
 var latest_statement_else : bool
 var used_portrait_statement : bool
 var latest_text_key: String
-var encountered_colored_text := false
-var macro_trace := []
-var macro_nesting_level := []
+var macros_control_flow_nesting_level : Array[int] = []
+var encountered_color_in_current_text : Array[bool] = []
 
 func parse(original_text : String, variables, parsing_macro := false) -> String:
+	previous_nesting_level = 0
+	if macros_control_flow_nesting_level.size() > 0:
+		previous_nesting_level = macros_control_flow_nesting_level[macros_control_flow_nesting_level.size()-1]
+	encountered_color_in_current_text.append(false)
+	
 	if not parsing_macro: parse_segment_setup(variables)
 	if not original_text.contains("{") and not original_text.contains("}"):
 		return modified_text + original_text
@@ -35,6 +39,11 @@ func parse(original_text : String, variables, parsing_macro := false) -> String:
 			"}": parse_end_bracket_content()
 			_: parse_default_character(ch)
 	
+	var current_nesting_level = nested_conditions_results.size()
+	var nesting_diff = current_nesting_level - previous_nesting_level
+	for i in range(nesting_diff): parse_end_control_flow()
+	var encountered_color = encountered_color_in_current_text.pop_back()
+	if encountered_color: modified_text += "{#/}"
 	if in_bracket: push_error("An openning bracket doesn't have an associated closing one!")
 	return modified_text
 
@@ -63,9 +72,7 @@ func parse_segment_setup(variables):
 	parsed_variables = variables
 	used_portrait_statement = false
 	nested_conditions_results = []
-	macro_trace = []
-	macro_nesting_level = []
-	encountered_colored_text = false
+	macros_control_flow_nesting_level = []
 
 func parse_end_bracket_content():
 	if not in_bracket:
@@ -73,9 +80,9 @@ func parse_end_bracket_content():
 		return
 	in_bracket = false
 	if check_for_control_flow(): return
+	if latest_condition == false: return
 	if check_for_macro(): return
 	if check_for_expression(): return
-	if latest_condition == false: return
 	
 	if check_if_bracket_is_portrait_symbol(): return
 	var bracket_control_type = is_bracket_content_control_segment()
@@ -83,7 +90,8 @@ func parse_end_bracket_content():
 		if bracket_control_type == BracketControlOptions.Placeholder: add_placeholder_text()
 		return
 	
-	if check_for_count_statement(): return
+	if check_for_semicolon_statement(): return
+	if check_for_variable_assignment(): return
 	modified_text += str(get_variable(bracket_content))
 
 const regular_macro = 1
@@ -102,51 +110,40 @@ func check_for_macro() -> bool:
 		push_error("Unknown macro type specilizer! Encountered " + ands_encountered + " ampersands!")
 		return true
 	if ands_encountered == regular_macro: macro_key = latest_text_key + "^" + macro_key
-	
-	macro_trace.append(macro_key)
-	macro_nesting_level.append(nested_conditions_results.size())
-	if latest_text_key in macro_trace:
-		push_error("Found circular dependency in macro expansions! Macro trace: " + str(macro_trace))
-		return true
+	if bracket_content == "&!": macro_key = latest_text_key
 	
 	if not Localization.text_exists(macro_key): push_error("Macro statement attempted to refererence a non-existent key " + macro_key + " in " + latest_text_key)
+	macros_control_flow_nesting_level.append(nested_conditions_results.size())
 	modified_text = Localization.get_text(macro_key, inserted_variable_dict, true)
-	var previous_nesting_level = macro_nesting_level.pop_back()
-	var current_nesting_level = nested_conditions_results.size()
-	macro_trace.pop_back()
-	if encountered_colored_text: modified_text += "{#/}"
-	if current_nesting_level > previous_nesting_level: parse_end_control_flow()
+	macros_control_flow_nesting_level.pop_back()
 	return true
 
-var count_statement_variable := ""
-var count_statement_options := []
-var current_count_statement_option := ""
-var parsing_current_statement := false
-
-func check_for_count_statement() -> bool:
-	count_statement_variable = ""
-	count_statement_options = []
-	var encountered_count_variable = false
-	var current_count_statement_option = ""
-	var parsing_current_statement = false
+func check_for_semicolon_statement() -> bool:
+	var first_semicolon_occurence = bracket_content.find(':')
+	if first_semicolon_occurence == -1: return false
+	var before_semicolon_contents = bracket_content.substr(0, first_semicolon_occurence)
+	var first_space_index = bracket_content.find(' ')
+	var semicolon_keyword = bracket_content.substr(0, first_space_index)
+	var instruction_param = bracket_content.substr(first_space_index+1, first_semicolon_occurence - first_space_index - 1)
+	var param_value = ExpressionEval.evaluate_expression(instruction_param)
+	var instruction_contents = bracket_content.substr(first_semicolon_occurence+1)
+	var split_args = instruction_contents.replace(" ", "").split(',')
 	
-	for ch in bracket_content:
-		if ch == ':' and not encountered_count_variable:
-			encountered_count_variable = true
-			continue
-		if not encountered_count_variable:
-			count_statement_variable += ch
-			continue
-		if ch == ',' and encountered_count_variable:
-			count_statement_options.append(current_count_statement_option)
-			current_count_statement_option = ""
-			parsing_current_statement = false
-			continue
-		if not ch == ' ': parsing_current_statement = true
-		if parsing_current_statement: current_count_statement_option += ch
-	if current_count_statement_option != "": count_statement_options.append(current_count_statement_option)
-	if encountered_count_variable: modified_text += count_statement_options[get_count_statement_index()]
-	return encountered_count_variable
+	if semicolon_keyword in ["count", "enum"] and not param_value is int:
+		push_error("The " + semicolon_keyword + " statement parameter must be only of type int!")
+		return true
+	
+	match semicolon_keyword:
+		"count":
+			var count_statement_result = split_args[get_count_statement_index(split_args, param_value)]
+			modified_text += count_statement_result
+		"enum":
+			if param_value < 0 and param_value >= split_args.size():
+				push_error("The enum parameter value must be in range 0 to " + str(split_args.size()-1) + "!")
+				return true
+			var enum_statement_result = split_args[param_value]
+			modified_text += enum_statement_result
+	return true
 
 const ENG_SINGULAR = 0
 const ENG_PLURAL = 1
@@ -154,10 +151,11 @@ const CZE_SINGULAR = 0
 const CZE_FEW = 1
 const CZE_PLURAL = 2
 
-func get_count_statement_index():
-	var variable_value = get_variable(count_statement_variable)
-	if not is_valid_variable(count_statement_variable): return null
-	var value_abs = abs(variable_value)
+func get_count_statement_index(count_statement_options, expr_result):
+	if not expr_result is int:
+		push_error("The count statement expression must evaluate to type int.")
+		return null
+	var value_abs = abs(expr_result)
 	var has_decimal = not is_equal_approx(value_abs, floor(value_abs))
 	match Localization.current_language:
 		Localization.ENG:
@@ -174,6 +172,22 @@ func get_count_statement_index():
 			if value_abs >= 2 and value_abs <= 4: return CZE_FEW
 			return CZE_PLURAL
 	return null
+
+func check_for_variable_assignment():
+	var first_occurrence_of_equals = bracket_content.find('=')
+	if first_occurrence_of_equals == -1: return false
+	var assignment_expression_str = bracket_content.substr(first_occurrence_of_equals+1)
+	var assignment_expr = ExpressionEval.evaluate_expression(assignment_expression_str)
+	var variable_name_including_spaces = bracket_content.substr(0, first_occurrence_of_equals)
+	var first_non_spaceindex = -1
+	for i in range(variable_name_including_spaces.length() - 1, -1, -1):
+		var ch = variable_name_including_spaces[i]
+		if ch != ' ':
+			first_non_spaceindex = i
+			break
+	var variable_name = bracket_content.substr(0, first_non_spaceindex+1)
+	inserted_variable_dict.set(variable_name, assignment_expr)
+	return true
 
 func is_valid_variable(variable_name): return variable_name in inserted_variable_dict
 
@@ -214,7 +228,7 @@ func is_bracket_content_control_segment() -> BracketControlOptions:
 	
 	var control_symbol = bracket_content[0]
 	var is_control_segment = control_symbol in control_characters
-	if control_symbol == "#": encountered_colored_text = true
+	if control_symbol == '#': encountered_color_in_current_text[encountered_color_in_current_text.size()-1] = true
 	
 	if is_control_segment: return BracketControlOptions.Placeholder
 	return BracketControlOptions.Variable
@@ -230,16 +244,17 @@ var previous_nesting_level := 0
 
 func parse_control_flow(statement: String):
 	var remainder = TextParser.remove_instruction_char(bracket_content, statement.length() + 1)
-	previous_nesting_level = 0
-	if macro_nesting_level.size() > 0: previous_nesting_level = macro_nesting_level[macro_nesting_level.size()-1]
 	
 	match statement:
 		"if": parse_conditional(remainder)
 		"endcf": parse_end_control_flow()
 		"else": parse_else_statement()
-	latest_statement_else = statement == "else"
+		"elif":
+			parse_else_statement()
+			parse_conditional(remainder)
 
 func parse_conditional(remainder):
+	latest_statement_else = false
 	var condition = ExpressionEval.evaluate_expression(remainder)
 	if not condition is bool:
 		push_error("Expected to encounter a condition which evaluates to type boolean!")
@@ -253,6 +268,7 @@ func parse_end_control_flow():
 		push_error("END CONTROL FLOW instruction doesn't have anything to close!")
 		return
 	nested_conditions_results.pop_back()
+	latest_statement_else = false
 	
 	var size_after_pop = nested_conditions_results.size()
 	if size_after_pop == 0:
@@ -263,16 +279,11 @@ func parse_end_control_flow():
 
 func parse_else_statement():
 	var depth = nested_conditions_results.size()
+	if latest_statement_else:
+		for i in range(depth-1): parse_end_control_flow()
+		depth = nested_conditions_results.size()
 	
-	var error_message = ""
-	if depth == previous_nesting_level:
-		if latest_statement_else: error_message = "More than 1 ELSE in a row is not allowed due to causing unexpected behaviour!"
-		else: error_message = "ELSE instruction needs to have an associated IF instruction!"
-	elif latest_statement_else: error_message = "More than 1 ELSE in a row is not allowed."
-	if error_message != "":
-		push_error(error_message)
-		return
-	
+	latest_statement_else = true
 	for checked_depth in range(depth-1):
 		var checked_depth_result = nested_conditions_results[checked_depth]
 		if checked_depth_result == false: return

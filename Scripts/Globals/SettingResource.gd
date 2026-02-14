@@ -8,49 +8,59 @@ enum SettingType {
 	TypeButton
 }
 
-enum CustomBehaviour {
-	None,
+enum OptionType {
+	Unknown,
+	AudioCategory,
+	MasterVolume,
+	SoundEffects,
+	MusicVolume,
+	TextCategory,
+	Language,
+	TextSpeed,
+	SkippingAllowed,
+	Brightness,
 	Credits,
-	TextSpeed
+	Keybinds
 }
 
-@export var save_data_key: String
-@export var setting_type := SettingType.Unknown
-@export var title_localization_key: String
-@export var description_localization_key: String
-@export var available_options_as_keys: Array[String]
-@export var display_percentage: bool
-@export var minimum_value: int
-@export var maximum_value: int
-@export var category_subsettings: Array[Setting]
-@export var type_of_custom_behaviour: CustomBehaviour
+var option_type: OptionType
+var setting_type := SettingType.Unknown
+var title_localization_key: String
+var description_localization_key: String
+var options_localization_key: String
+var options: Array
+var category_subsettings: Array[Setting]
+var is_category := false
+var is_boolean := false
 
-static func ctor(data_key: String, type: SettingType, title_key: String, options: Array[String] = [],
-				 show_percentage := false, min_value := 0, max_value := 0, subsetings: Array[Setting] = [], custom_behaviour := CustomBehaviour.None) -> Setting:
+static func ctor(option_type: OptionType, setting_type: SettingType, options_enum: Dictionary = {}, subsettings: Array[Setting] = []) -> Setting:
 	var result = Setting.new()
-	result.save_data_key = data_key
-	result.setting_type = type
+	result.option_type = option_type
+	var data_key = OptionType.find_key(option_type).to_snake_case()
+	var title_key = "settings_" + data_key
+	result.setting_type = setting_type
 	result.title_localization_key = title_key
-	result.available_options_as_keys = options
-	result.display_percentage = show_percentage
-	result.minimum_value = min_value
-	result.maximum_value = max_value
-	result.category_subsettings = subsetings
-	result.type_of_custom_behaviour = custom_behaviour
+	result.options = options_enum.keys()
+	result.category_subsettings = subsettings
 	result.description_localization_key = title_key + "_description"
+	result.options_localization_key = title_key + "_options"
 	return result
 
-static func slider(data_key: String) -> Setting:
-	return Setting.ctor(data_key, SettingType.TypeSlider, "settings_slider_" + data_key, [], true, 0, 100)
+static func slider(option_type: OptionType) -> Setting:
+	return ctor(option_type, SettingType.TypeSlider)
 
-static func value_slider(data_key: String, min_value: int, max_value: int) -> Setting:
-	return Setting.ctor(data_key, SettingType.TypeSlider, "settings_slider_" + data_key, [], false, min_value, max_value)
+static func option(option_type: OptionType, options_enum: Dictionary = {}) -> Setting:
+	return ctor(option_type, SettingType.TypeOption, options_enum)
 
-static func option(data_key: String, options_as_keys: Array[String], custom_behaviour := CustomBehaviour.None) -> Setting:
-	return Setting.ctor(data_key, SettingType.TypeOption, "settings_option_" + data_key, options_as_keys, false, 0, 0, [], custom_behaviour)
+static func category(option_type: OptionType, subsettings: Array[Setting]) -> Setting:
+	return ctor(option_type, SettingType.TypeButton, {}, subsettings)
 
-static func category(button_identifier: String, subsettings: Array[Setting]) -> Setting:
-	return Setting.ctor("", SettingType.TypeButton, "settings_button_" + button_identifier, [], false, 0, 0, subsettings)
+static func button(option_type: OptionType) -> Setting:
+	var setting = ctor(option_type, SettingType.TypeButton)
+	setting.is_category = true
+	return setting
 
-static func custom_button(button_identifier: String, behaviour: CustomBehaviour) -> Setting:
-	return Setting.ctor("", SettingType.TypeButton, "settings_custom_button_" + button_identifier, [], false, 0, 0, [], behaviour)
+static func boolean(option_type: OptionType) -> Setting:
+	var setting = option(option_type, {"on": 0, "off": 1})
+	setting.is_boolean = true
+	return setting

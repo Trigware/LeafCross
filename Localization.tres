@@ -51,24 +51,39 @@ room_name_Weird/SaveIntroRoom	Weird Forest - Beehives	Podivný les - Úly
 room_name_Bleak/BleaklandsEnterance	Bleaklands - Lower Enterance	Ponurá oblast - Dolní vstup
 area_name_Weird	the Weird Forest	Podivný les
 area_name_Bleak	the Bleaklands	Ponurá oblast
-settings_button_audio	Audio	Zvuk
-settings_button_audio_description	Here you can control the volume for music, sound effects and master volume (all audio).	Zde můžeš měnit hlasitost hudby, zvukových efektů a všech zvuků dohromady.
-settings_button_text	Text	Text
-settings_button_text_description	Here are all options releated to displaying in-game dialogue.	Zde jsou všechny možnosti spojené s herním dialogem.
-settings_custom_button_credits	Credits	Titulky
-settings_custom_button_credits_description	In here you can find all the people and their roles which contributed to the development of LeafCROSS.	Zde můžeš najít všechny lidi a jejich role, kteří přispěli k vývoji LeafCROSSu.
-settings_slider_brightness	Brightness	Jas scény
-settings_controls^enter	Enter/Z: Opens a category	Enter/Z: Otevře kategorii
-settings_controls^left_right	Left/Right: Change slider value / option	Levá/Pravá šipka: Změň hodnotu / možnost
-settings_controls^up_down	Up/Down: Select different option	Šipka nahoru/dolů: Vyber jiné nastavení
-settings_controls^exit	X: Go back	X: Jdi zpět
-settings_controls	\\\\n{&enter}\\\\n{&left_right}\\\\n{&up_down}\\\\n{&exit}	{&enter}\\\\n{&left_right}\\\\n{&up_down}\\\\n{&exit}
-settings_slider_brightness_description	Changes the brightness of the overworld scene for better playing experience.	Upraví jas overworld scény pro lepší viditelnost.
+settings_audio_category	Audio	Zvuk
+settings_audio_category_description	Here you can control the volume for music, sound effects and master volume (all audio).	Zde můžeš měnit hlasitost hudby, zvukových efektů a všech zvuků dohromady.
+settings_master_volume	Master Volume	Hlasitost všeho
+settings_master_volume_description	This changes the volume of all audio (including both sound effects and music) in the game.	Změní hlasitost veškerého audia co hra přehrává (to obsahuje zvukové efekty i hudbu)
+settings_sound_effects	Sound Effects	Zvukové efekty
+settings_sound_effects_description	The volume of all sound effects (dialog of the characters, footsteps, etc.) can be tweaked here.	Hlasitost všech zvukových efektů (dialog postav, zvuky kroků, atd.) může být tady upravena.
+settings_music_volume	Music Volume	Hlasitost hudby
+settings_music_volume_description	Here you can change how loud or quiet the music is.	Zde je možno určit jak hlasitá nebo tichá hudba bude.
+settings_text_category	Text	Text
+settings_text_category_description	Here are all options releated to displaying in-game dialogue.	Zde jsou všechny možnosti spojené s herním dialogem.
+settings_credits	Credits	Titulky
+settings_not_yet_impl	[color=red](not yet implemented)[/color]	[color=red](zatím není implementováno)[/color]
+settings_credits_description	In here you can find all the people and their roles which contributed to the development of LeafCROSS. {&&settings_not_yet_impl}	Zde můžeš najít všechny lidi a jejich role, kteří přispěli k vývoji LeafCROSSu. {&&settings_not_yet_impl}
+settings_keybinds	Keybinds	Změnit ovládání
+settings_keybinds_description	If you don't like what some action does, you can remap it - so you can play in your preferred style! {&&settings_not_yet_impl}	Pokud tě vadí jak se něco ovládá, můžeš to tady změnit, abys mohl(a) hrát v tvém preferovaném stylu! {&&settings_not_yet_impl}
+settings_brightness	Brightness	Jas scény
+settings_brightness_description	Changes the brightness of the overworld scene for better playing experience.	Upraví jas overworld scény pro lepší viditelnost.
+settings_language	Language	Jazyk
+settings_language_description	Here you can select a different language. Currently only english and czech are supported.	Zde si můžeš změnit jazyk. Momentálně se podporuje pouze angličtina a čeština.
+settings_text_speed	Text Speed	Rychlost textu
+settings_text_speed_description	This is the speed of in-game text when you stay with this option.	Toto bude rychlost herního textu, pokud si vyberete tuto možnost.
+settings_text_speed_options	{enum option: Slow, Regular, Fast}	{enum option: Pomalá, Normální, Rychlá}
+settings_skipping_allowed	Allow skips	Přeskočení textu
+settings_skipping_allowed_description	When you have this option on, you can pressed CTRL to fast-forward text. This is recommended for speedruns.	Když je to zapnuté, můžeš stisknout CTRL, aby jsi přeskočil text. Toto je doporučené pro speedrunery.
+settings_controls^enter	[color=cyan]Enter/Z[/color]: Opens a category	[color=cyan]Enter/Z[/color]: Otevře kategorii
+settings_controls^left_right	[color=#42f569]Left/Right[/color]: Changes slider value or option	[color=#42f569]Levá/Pravá šipka[/color]: Mění hodnotu slideru nebo možnost
+settings_controls^up_down	[color=#f5b642]Up/Down[/color]: Select different option	[color=#f5b642]Šipka nahoru/dolů[/color]: Vyber jiné nastavení
+settings_controls&cpy	{&enter}\\n{&left_right}\\n{&up_down}	
 settings_back_notice	- X TO GO BACK -	- STISKNI X POKUD CHCEŠ ZPĚT -
 legend_skip_cutscene	(skip cutscene with ENTER)	(přeskoč cutscénu s klávesou ENTER)
 legend_panel1_whisper	A long time ago, people whispered a strange tale.	Tehdá se vyprávěl příběh, který si lidé dál šeptali.
-legend_panel1_nation_unity	A tale about a nation.{1}\\\\nA tale about their unity.	Byl to příběh národa.{1}\\\\nByl to příběh jednoty.
-legend_panel1_wise_mystical	A tale foretold by the wise.{1}\\\\nA tale which granted mysticism.	Byl to příběh moudrosti.{1}\\\\nByl to příběh mystiky.
+legend_panel1_nation_unity	A tale about a nation.{1}\\nA tale about their unity.	Byl to příběh národa.{1}\\nByl to příběh jednoty.
+legend_panel1_wise_mystical	A tale foretold by the wise.{1}\\nA tale which granted mysticism.	Byl to příběh moudrosti.{1}\\nByl to příběh mystiky.
 legend_panel1_wmtale	They called it the \"Wise Mystical Tale\".	Tento příběh nesl název \"Wise Mystical Tale\".
 legend_panel2_peace	For millenia everyone worshiped the Tree in peace.	Po tisíciletí svět žil pod Stromovcemi v míru.
 legend_panel2_equality	Under it's branches would be everyone equal.	Pod Stromem by si všichni byli rovni.
@@ -87,7 +102,7 @@ legend_panel6_treefall	Only they can prevent the Tree's fall	Jen oni mohou zabr�
 legend_panel6_balance	and keep their nation from destruction.	a udržet národ v rovnováze.
 legend_panel6_treegrow	Only then can WMT grow again	Jen poté může WMT znovu růst
 legend_panel6_revolution	and the world spared from complete annihilation.	a svět může být zachráněn od krutosti revolucionářů.
-legend_panel7_mayor	Last week Honzraj:\\\\nmayor of Larchgrad	Minulý týden Honzraj: starosta Modřína,
+legend_panel7_mayor	Last week Honzraj:\\nmayor of Larchgrad	Minulý týden Honzraj: starosta Modřína,
 legend_panel7_punishment	presented a lenient offer for the Smurf cats.	navrhl mírnější trest pro Smurf caty.
 legend_panel7_lost	Offer to improve their releations after the wars...	Ti prohráli války, které začaly kvůli jejich víře.
 legend_panel8_fired	However, he was accused of treason and lost his title.	Poté co tak řekl, byl obviněn z velezrady a ztratil svůj titul.
@@ -183,10 +198,11 @@ BibleInteractPrompt_SAVEINTROROOM__Save_Refused	Maybe you should try to {#holy_y
 DetailedTree_SAVEINTROROOM__only	There's something hiding in the tree...{p} unfortunetly you can't tell what.	Něco se skrývá v tomto stromě...{p} ale bohužel nedokážeš zjisit co to je.
 OverworldSaving_GameSavedConfirm	GAME WAS SUCCESSFULLY SAVED!	HRA BYLA ÚSPĚŠNĚ ULOŽENA!
 AttackMessage_MISS	0	0
-Cutscene_Character_Dialog_Tester__root&cpy	{.a+b-(c+--(--e+f*g%h))}	
-Cutscene_Character_Dialog_Tester__root#2	.... ... ,,,, ,,, !!! ?????	.... ... ,,,, ,,, !!! ?????
-Cutscene_Character_Dialog_Tester__root#3	Named colors, escape seq bracket {#purple}{}{#/}!	
-Cutscene_Character_Dialog_Tester__root#4	Inline choicer{?\"LEFT\": left, \"RIGHT\": right, \"UP\": up, \"DOWN\": down}	Inline choicer{?\"LEFT\": left, \"RIGHT\": right, \"DOWN\": down, \"UP\": up}
+Cutscene_Character_Dialog_Tester__root&cpy	Test out text speeds!	
+Cutscene_Character_Dialog_Tester__fib&cpy	In the fibonacci sequence F{n} is: {&eval}{n = n + 1}{|fib}	
+Cutscene_Character_Dialog_Tester__fib^eval&cpy	{result = fib_m2+fib_m1}{result}{fib_m2 = fib_m1}{fib_m1 = result}	
+Cutscene_Character_Dialog_Tester__root#2	Named colors, escape seq bracket {#purple}\\{\\}{#/}!	
+Cutscene_Character_Dialog_Tester__root#3	Inline choicer{?\"LEFT\": left, \"RIGHT\": right, \"UP\": up, \"DOWN\": down}	Inline choicer{?\"LEFT\": left, \"RIGHT\": right, \"DOWN\": down, \"UP\": up}
 Cutscene_Character_Dialog_Tester__left	You chose left -> Convergence Statement {|AfterChoice}	You chose left -> Convergence Statement {|AfterChoice}
 Cutscene_Character_Dialog_Tester__right	You chose right -> Convergence Statement {|AfterChoice}	You chose right -> Convergence Statement {|AfterChoice}
 Cutscene_Character_Dialog_Tester__down	You chose down -> Convergence Statement {|AfterChoice}	You chose down -> Convergence Statement {|AfterChoice}

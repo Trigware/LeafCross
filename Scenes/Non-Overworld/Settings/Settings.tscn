@@ -1,12 +1,12 @@
 [gd_scene load_steps=7 format=3 uid="uid://dq4kpttypcv1p"]
 
-[ext_resource type="Script" uid="uid://cxhx5g6on7ndf" path="res://Scripts/Title Screen/Settings.gd" id="1_ai43a"]
-[ext_resource type="FontFile" uid="uid://dil43sbwcg2uc" path="res://Fonts/Leafcross Font.png" id="1_mdx2u"]
-[ext_resource type="PackedScene" uid="uid://capj0hpjfpdxr" path="res://Scenes/Non-Overworld/ResizableTextbox.tscn" id="3_ai43a"]
-[ext_resource type="Texture2D" uid="uid://c3dcj5kqsmijm" path="res://Textures/Other/SettingsSelector.png" id="4_f7sl6"]
+[ext_resource type="Script" uid="uid://cxhx5g6on7ndf" path="res://Scripts/Title Screen/Settings.gd" id="1_ylyjl"]
+[ext_resource type="FontFile" uid="uid://dil43sbwcg2uc" path="res://Fonts/Leafcross Font.png" id="2_qr2yf"]
+[ext_resource type="PackedScene" uid="uid://capj0hpjfpdxr" path="res://Scenes/Non-Overworld/ResizableTextbox.tscn" id="3_4vo5b"]
+[ext_resource type="Texture2D" uid="uid://c3dcj5kqsmijm" path="res://Textures/Other/SettingsSelector.png" id="4_0qv7p"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ai43a"]
-font = ExtResource("1_mdx2u")
+font = ExtResource("2_qr2yf")
 font_size = 72
 font_color = Color(0.8, 0.8, 0.8, 1)
 outline_size = 10
@@ -15,7 +15,7 @@ shadow_color = Color(0.639216, 0.639216, 0.639216, 0.392157)
 shadow_offset = Vector2(4, 4)
 
 [sub_resource type="LabelSettings" id="LabelSettings_f7sl6"]
-font = ExtResource("1_mdx2u")
+font = ExtResource("2_qr2yf")
 font_size = 72
 font_color = Color(0.85, 0.85, 0.85, 1)
 outline_size = 10
@@ -26,7 +26,7 @@ shadow_offset = Vector2(4, 4)
 [node name="Settings" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_ai43a")
+script = ExtResource("1_ylyjl")
 
 [node name="Header" type="RichTextLabel" parent="."]
 layout_mode = 0
@@ -37,7 +37,7 @@ scale = Vector2(8, 8)
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0.36, 0.36, 0.36, 1)
 theme_override_constants/shadow_offset_y = 0
-theme_override_fonts/normal_font = ExtResource("1_mdx2u")
+theme_override_fonts/normal_font = ExtResource("2_qr2yf")
 theme_override_font_sizes/bold_italics_font_size = 1
 bbcode_enabled = true
 text = "[img=15]res://Textures/Title Screen/Icons/Settings.png[/img]SETTINGS[img=15]res://Textures/Title Screen/Icons/Settings.png[/img]"
@@ -74,7 +74,7 @@ text = "-------------------------"
 label_settings = SubResource("LabelSettings_f7sl6")
 horizontal_alignment = 1
 
-[node name="DescriptionBox" parent="." instance=ExtResource("3_ai43a")]
+[node name="DescriptionBox" parent="." instance=ExtResource("3_4vo5b")]
 modulate = Color(1, 1, 1, 1)
 layout_mode = 0
 offset_left = 785.0
@@ -82,33 +82,32 @@ offset_top = 155.0
 offset_right = 945.0
 offset_bottom = 349.0
 
-[node name="DescriptionText" type="Label" parent="."]
+[node name="DescriptionText" type="RichTextLabel" parent="."]
 layout_mode = 0
 offset_left = 810.0
 offset_top = 169.0
 offset_right = 1086.0
 offset_bottom = 521.0
-theme_override_constants/line_spacing = -1
-theme_override_fonts/font = ExtResource("1_mdx2u")
-theme_override_font_sizes/font_size = 28
+theme_override_fonts/normal_font = ExtResource("2_qr2yf")
+theme_override_font_sizes/normal_font_size = 28
+bbcode_enabled = true
 text = "Description Text"
-autowrap_mode = 3
 visible_characters_behavior = 1
 
-[node name="ControlsText" type="Label" parent="."]
+[node name="ControlsText" type="RichTextLabel" parent="."]
 layout_mode = 0
 offset_left = 805.0
-offset_top = 394.0
+offset_top = 367.0
 offset_right = 1086.0
-offset_bottom = 523.0
-theme_override_constants/line_spacing = -1
-theme_override_fonts/font = ExtResource("1_mdx2u")
-theme_override_font_sizes/font_size = 22
+offset_bottom = 530.0
+theme_override_fonts/normal_font = ExtResource("2_qr2yf")
+theme_override_font_sizes/normal_font_size = 22
+bbcode_enabled = true
 text = "l1
 l2
 l3
 l4"
-autowrap_mode = 3
+vertical_alignment = 1
 visible_characters_behavior = 1
 
 [node name="Options" type="Control" parent="."]
@@ -126,6 +125,6 @@ offset_top = 150.0
 offset_right = 100.0
 offset_bottom = 190.0
 scale = Vector2(1.5, 1.5)
-texture = ExtResource("4_f7sl6")
+texture = ExtResource("4_0qv7p")
 
 [node name="Description Timer" type="Timer" parent="."]

@@ -87,3 +87,9 @@ func get_shortened_lever_colors():
 			color_substr += color_str[i]
 			if not color_substr in lever_colors_shortened: break
 		lever_colors_shortened.append(color_substr)
+
+enum TextSpeedType {
+	Slow,
+	Regular,
+	Fast
+}

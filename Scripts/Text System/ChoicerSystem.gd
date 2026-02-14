@@ -115,12 +115,10 @@ func is_player_choice(wanted_choice):
 		return null
 	return last_choicer_suffix == wanted_choice
 
-var accumilated_string : String
-var in_string : bool
 var choicer_options : Dictionary[Vector2, Dictionary]
-var choice_direction_index : int
-var current_parser_mode : ChoicerParserMode
-var choicer_parser_previous_char : String
+var in_choicer_expression: bool
+var accumiliated_string: String
+var current_choice_index: int
 
 enum ChoicerParserMode {
 	Option,
@@ -131,22 +129,43 @@ func parse_control_option():
 	if TextParser.contains_text_options:
 		push_error("Chained choicers after not allowed!")
 		return
+	
+	choicer_options = {}
 	TextParser.contains_text_options = true
-	accumilated_string = ""
-	in_string = false
-	current_parser_mode = ChoicerParserMode.Option
-	choice_direction_index = 0
-	choicer_parser_previous_char = ""
+	in_choicer_expression = false
+	TextParser.bracket_content = TextParser.bracket_content.substr(1)
+	accumiliated_string = ""
+	current_choice_index = 0
+	
+	if TextParser.bracket_content.length() >= 1 and TextParser.bracket_content[0] == '.':
+		in_choicer_expression = true
+		TextParser.bracket_content = TextParser.bracket_content.substr(1)
+	
 	for ch in TextParser.bracket_content:
-		match ch:
-			"\"": handle_apostrophe_choice_character()
-			_: handle_default_choice_character(ch)
-		choicer_parser_previous_char = ch
-	if current_parser_mode == ChoicerParserMode.SequenceSuffix:
-		update_choicer_options()
-	check_if_suffix_exists()
-	if choicer_options == {}:
-		handle_basic_option_shorthand()
+		handle_choicer_character(ch)
+	end_current_choice()
+	
+	if choicer_options == {}: handle_basic_option_shorthand()
+
+func handle_choicer_character(ch):
+	match ch:
+		':':
+			if accumiliated_string.length() > 0 and accumiliated_string[0] == ' ': accumiliated_string = accumiliated_string.substr(1)
+			update_choicer_options(ChoicerParserMode.SequenceSuffix, accumiliated_string)
+			accumiliated_string = ""
+		',':
+			end_current_choice()
+		_: accumiliated_string += ch
+
+func end_current_choice():
+	if accumiliated_string == "": return
+	var displayed_choice = accumiliated_string
+	if in_choicer_expression: displayed_choice = str(ExpressionEval.evaluate_expression(accumiliated_string))
+	elif accumiliated_string.length() > 0 and accumiliated_string[0] == " ": displayed_choice = accumiliated_string.substr(1)
+	
+	update_choicer_options(ChoicerParserMode.Option, displayed_choice)
+	current_choice_index += 1
+	accumiliated_string = ""
 
 func handle_basic_option_shorthand():
 	choicer_options = {
@@ -160,61 +179,11 @@ func handle_basic_option_shorthand():
 		}
 	}
 
-func handle_apostrophe_choice_character():
-	if choicer_parser_previous_char == "\\":
-		accumilated_string = accumilated_string.substr(0, accumilated_string.length()-1)
-		handle_default_choice_character("\"")
-		return
-	
-	var saved_in_string = in_string
-	in_string = true
-	if not saved_in_string: return
-	
-	update_choicer_options()
-	in_string = false
-	current_parser_mode = ChoicerParserMode.Option
-
-func update_choicer_options():
-	var existing_dict = {
-		ChoicerParserMode.Option: "",
-		ChoicerParserMode.SequenceSuffix: ""
-	}
-	
-	var choice_direction = get_choice_direction()
-	if choice_direction in choicer_options:
-		existing_dict = choicer_options[choice_direction]
-	existing_dict[current_parser_mode] = accumilated_string
-	choicer_options[choice_direction] = existing_dict
-	accumilated_string = ""
-
-func handle_default_choice_character(ch):
-	if not in_string:
-		match ch:
-			",": handle_comma_choice_character()
-			":": current_parser_mode = ChoicerParserMode.SequenceSuffix
-		if not (current_parser_mode == ChoicerParserMode.SequenceSuffix and not ch in [" ", ":"]): return
-	accumilated_string += ch
-
-func handle_comma_choice_character():
-	if current_parser_mode == ChoicerParserMode.SequenceSuffix:
-		update_choicer_options()
-	accumilated_string = ""
-	check_if_suffix_exists()
-	choice_direction_index += 1
-	current_parser_mode = ChoicerParserMode.Option
-	if choice_direction_index == choice_directions.size():
-		push_error("Exceeded max option count when parsing a choicer! " + "{" + TextParser.bracket_content + "}")
-
-func check_if_suffix_exists():
-	var choice_direction = get_choice_direction()
-	if not choice_direction in choicer_options:
-		return
-	var suffix_exists = choicer_options[choice_direction][ChoicerParserMode.SequenceSuffix]
-	if suffix_exists: return
-	push_error("Attempted to parse a choice without a suffix! " + "{" + TextParser.bracket_content + "}")
-
-func get_choice_direction():
-	return choice_directions[choice_direction_index]
+func update_choicer_options(parser_mode: ChoicerParserMode, value: String):
+	var current_dir = choice_directions[current_choice_index]
+	var current_options = choicer_options.get(current_dir, {})
+	current_options.set(parser_mode, value)
+	choicer_options.set(current_dir, current_options)
 
 func give_basic_choice():
 	await TextMethods.print_wait_localization("basic_choice")
